@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NODU Termék-roadmap: Bridge → Build</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+  <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+  <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+  <style>
+    :root {
+      --bg: #FAFAFA; --card: #FFFFFF; --topbar: #17171A; --accent: #F04E23;
+      --border: #E4E4E7; --text: #18181B; --muted: #71717A;
+      --amber-bg: #FFFBEB; --amber-border: #F59E0B;
+      --green-bg: #F0FDF4; --green-border: #22C55E;
+      --blue-bg: #EFF6FF; --blue-border: #3B82F6;
+      --orange-bg: #FFF3F0; --orange-lt: #FEE8E2;
+      --green: #16A34A; --blue: #2563EB; --purple: #7C3AED; --purple-bg: #F5F3FF;
+      --amber: #D97706;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 17px; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+
+    /* TOPBAR */
+    .topbar { background: var(--topbar); height: 56px; display: flex; align-items: center; padding: 0 32px; gap: 32px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #2A2A2D; }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; }
+    .logo-text { font-size: 14px; font-weight: 600; color: #fff; }
+    .topbar-nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .topbar-nav a { font-size: 13px; font-weight: 500; color: #A1A1AA; text-decoration: none; padding: 6px 14px; border-radius: 6px; border: 1px solid transparent; transition: color 0.15s, border-color 0.15s; white-space: nowrap; text-align: left; }
+    .topbar-nav a:hover { color: #fff; border-color: #3A3A3D; }
+    .nav-divider { width: 1px; height: 20px; background: #2A2A2D; }
+
+    /* HERO */
+    .hero { background: var(--bg); padding: 40px 0 48px; border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+    .hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .hero h1 { font-size: 2.1rem; font-weight: 800; color: var(--text); line-height: 1.25; letter-spacing: -0.03em; margin-bottom: 20px; max-width: 760px; text-align: left; }
+    .hero-subtitle { font-size: 1rem; color: var(--muted); line-height: 1.65; max-width: none; margin-bottom: 28px; text-align: justify; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px; }
+
+    /* MAIN */
+    .main { max-width: 880px; margin: 0 auto; padding: 56px 32px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .section h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border); text-align: left; }
+    .section p { margin-bottom: 16px; }
+
+    /* CALLOUTS */
+    .callout { border-left: 3px solid var(--amber-border); background: var(--amber-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
+    .callout p { font-size: 0.93rem; color: #78350F; margin: 0; }
+    .callout-green { border-left: 3px solid var(--green-border); background: var(--green-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-green .callout-label { color: #14532D; }
+    .callout-green p { color: #166534; font-size: 0.93rem; margin: 0; }
+
+    /* TIMELINE */
+    .timeline-viz { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px 12px; margin-bottom: 28px; }
+    .timeline-viz svg { display: block; width: 100%; height: auto; }
+    .timeline-viz-caption { font-size: 0.78rem; color: var(--muted); text-align: left; margin-top: 8px; }
+
+    /* PHASE CARDS */
+    .phase-list { display: flex; flex-direction: column; gap: 20px; margin-top: 8px; }
+    .phase-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0; padding: 26px 28px; }
+    .phase-card.phase-2 { border-left-color: var(--blue); }
+    .phase-card.phase-3 { border-left-color: var(--green); }
+    .phase-card.phase-4 { border-left-color: var(--purple); }
+    .phase-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 6px; }
+    .phase-name { font-size: 1.1rem; font-weight: 700; color: var(--text); text-align: left; }
+    .phase-dates { font-size: 0.82rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .phase-deliverable { display: inline-block; font-size: 0.78rem; font-weight: 700; font-family: 'Inter', monospace; color: var(--accent); background: var(--orange-bg); border-radius: 4px; padding: 2px 8px; margin-bottom: 16px; }
+    .phase-card.phase-2 .phase-deliverable { color: var(--blue); background: var(--blue-bg); }
+    .phase-card.phase-3 .phase-deliverable { color: var(--green); background: var(--green-bg); }
+    .phase-card.phase-4 .phase-deliverable { color: var(--purple); background: var(--purple-bg); }
+    .phase-block-label { font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 14px 0 8px; }
+    .phase-block-label:first-of-type { margin-top: 0; }
+    .phase-features { list-style: none; }
+    .phase-features li { font-size: 0.91rem; color: #3F3F46; line-height: 1.6; padding: 3px 0 3px 16px; position: relative; text-align: left; }
+    .phase-features li::before { content: "-"; position: absolute; left: 0; color: var(--muted); }
+    .phase-gtm { font-size: 0.89rem; color: var(--muted); font-style: italic; line-height: 1.6; }
+
+    /* COMPARISON TABLE */
+    .cmp-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; margin-top: 8px; }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .cmp-table th { background: #F4F4F5; text-align: left; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 10px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .cmp-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; color: #3F3F46; line-height: 1.55; hyphens: none; }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .cmp-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+    /* ELEMENT STATUS */
+    .elem-status { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 24px; }
+    .elem-chip { font-size: 0.82rem; font-weight: 600; border-radius: 6px; padding: 5px 12px; border: 1px solid var(--border); background: var(--card); color: var(--muted); text-align: left; }
+    .elem-chip.done { background: var(--green-bg); border-color: var(--green-border); color: #166534; }
+    .elem-chip.wip { background: var(--amber-bg); border-color: var(--amber-border); color: #92400E; }
+    .elem-chip span { display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; }
+
+    /* ENGINEERING CARDS */
+    .eng-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .eng-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .eng-card-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 8px; text-align: left; }
+    .eng-card p { font-size: 0.87rem; color: #52525B; line-height: 1.6; margin: 0; }
+
+    /* FOOTER */
+    .footer { background: var(--topbar); border-top: 1px solid #2A2A2D; padding: 36px 32px; }
+    .footer-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 13px; font-weight: 500; color: #A1A1AA; text-decoration: none; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-meta { font-size: 12px; color: #52525B; line-height: 1.6; text-align: right; }
+    .footer-meta a { color: #71717A; text-decoration: none; }
+    .footer-meta a:hover { color: #A1A1AA; }
+
+    @media (max-width: 640px) {
+      .hero-inner { padding: 0 20px; }
+      .hero h1 { font-size: 1.55rem; }
+      .main { padding: 40px 20px 64px; }
+      .topbar { padding: 0 20px; }
+      .footer-meta { text-align: left; }
+      .eng-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 960px) {
+      .eng-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="nodu-bridge-dashboard.html" class="topbar-logo">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">NODU Bridge</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-label">Belső / befektetői anyag</div>
+      <h1>Termék-roadmap: Bridge → Build</h1>
+      <p class="hero-subtitle">A NODU Bridge önálló al-termékként indul, de a tágabb célja a teljes <code>nodu</code> platform (Building Information Graph, ERP, gyártás, beszerzés) felé vezető út megnyitása. Ez a négy fázis a `nodu.bridge` kapcsolati rétegtől a `nodu.build` teljes CAD-authoring platformig ível, a Phase 4 explicit célja az érték-inflexiós pont egy tervezett €25M-os befektetési körhöz. A licenc- és árazási modell dokumentumai jelenleg kizárólag a Bridge-re vonatkoznak, lásd a Licencmodell dokumentumot.</p>
+      <div class="hero-meta">
+        <span>2026-07-03 · frissítve 2026-07-06</span>
+        <span>Kapott termékfejlesztési roadmap alapján</span>
+        <span>Státusz: nem megerősített munkaanyag</span>
+        <span>Belső dokumentum</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- STÁTUSZ -->
+    <section class="section" style="margin-bottom: 48px;">
+      <div class="callout" style="margin: 0 0 20px;">
+        <div class="callout-label">Státusz (2026-07-06): a fázisterv nem megerősített</div>
+        <p>A forrásdokumentum két rétegből áll: egy fejlesztői állapotlistából és egy abból AI-eszközzel generált fázistervből, a kettő több ponton ellentmond egymásnak (részletes összevetés lentebb). A döntés szerint egyik réteg sem végleges: a dokumentum munkaanyag, a fázisterv dátumai és tartalma a fejlesztési vezetővel véglegesítendők. Egy 12 pontos tisztázó kérdéssor kiment (2026-07-06); a válaszok megérkezéséig a stratégiai és árazási dokumentumok nem igazodnak ehhez a roadmaphez, és az alábbi fázisleírás sem tekintendő vállalt ütemtervnek.</p>
+      </div>
+      <div class="callout" style="margin: 0;">
+        <div class="callout-label">Nyitott kérdés: a sync tartalma és időzítése ütközik az árazási modellel</div>
+        <p>A "Delta-only syncing" kizárólag az AI-fázistervben szerepel (Phase 3, 2026 nov – 2027 jan); a fejlesztői állapotlista sehol nem említi. A fejlesztői lista ráadásul a konnektort elemtípusonként építi (lásd lentebb), vagyis a szept. 15-i GA szinkron-képessége legjobb esetben is részleges elemkörre terjed ki. A <a href="nodu-bridge-license-calculator.html" style="color:#92400E;">Licencmodell</a> dokumentum ugyanakkor az élő, inkrementális szinkront a Professional tier launch-kori fő funkciójaként hirdeti. A fejlesztési vezető válaszáig a launch-kommunikációban az élő inkrementális szinkron nem ígérhető azonnal elérhető funkcióként.</p>
+      </div>
+    </section>
+
+    <!-- FEJLESZTŐI STÁTUSZ -->
+    <section class="section">
+      <div class="section-label">Fejlesztési valóság</div>
+      <h2>A fejlesztői állapotlista, és ahol ellentmond a fázistervnek</h2>
+      <p>A forrásdokumentum eleji fejlesztői lista a Revit→Archicad konnektort elemtípusonként építi. A v1-es körben a falak készen vannak, a kivágásokon dolgozik a csapat, ezt követik a födémek és a nyílászárók. Az oszlopok, gerendák és függönyfalak a v2-be, az MEP a v3-ba sorolt. Utóbbi a dokumentumban is kérdőjellel.</p>
+      <div class="elem-status">
+        <div class="elem-chip done"><span>v1 · kész</span>Falak</div>
+        <div class="elem-chip wip"><span>v1 · folyamatban</span>Kivágások</div>
+        <div class="elem-chip"><span>v1 · hátravan</span>Födémek</div>
+        <div class="elem-chip"><span>v1 · hátravan</span>Nyílászárók</div>
+        <div class="elem-chip"><span>v2</span>Oszlopok, gerendák, függönyfalak</div>
+        <div class="elem-chip"><span>v3 · kérdőjeles</span>MEP</div>
+      </div>
+      <p>Munkahipotézis (2026-07-06, a fejlesztési vezetővel megerősítendő): a v1 konnektor egyirányú, Revit→Archicad. Ez a licencmodell fizető-fél logikájával összefér (az Archicad-oldali, koordinációt vivő iroda a fogadó fél), de a kétirányú "Archicad↔Revit élő szinkron" launch-kommunikációt nem támasztja alá.</p>
+      <p>A fejlesztői lista és az AI-fázisterv közötti fő eltérések:</p>
+      <div class="cmp-wrap">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Terület</th>
+              <th>Fejlesztői lista</th>
+              <th>AI-fázisterv</th>
+              <th>Következmény</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fizetési rendszer</td>
+              <td>v2-es tétel</td>
+              <td>GA (szept. 15.) = "első bevétel"</td>
+              <td>GA-kor nincs számlázási képesség: a launch-kori ingyenes időszak nem döntés, hanem technikai kényszer; fizetés legkorábban a v2 megérkezésekor.</td>
+            </tr>
+            <tr>
+              <td>Felhő-hosting</td>
+              <td>Digital Ocean + devops-mérnök felvétele a v2-ben</td>
+              <td>Managed Kubernetes "az első naptól"</td>
+              <td>Nyitott kérdés, min fut a backend a GA-nál.</td>
+            </tr>
+            <tr>
+              <td>Delta-only szinkron</td>
+              <td>Nem szerepel</td>
+              <td>Phase 3 tétel</td>
+              <td>A tétel fejlesztői megerősítése hiányzik: a licencmodell fő funkció-ígéretének alapja bizonytalan.</td>
+            </tr>
+            <tr>
+              <td>State engine, task management</td>
+              <td>v3</td>
+              <td>Phase 2</td>
+              <td rowspan="2">A fázistartalmak a két réteg között elcsúsznak: a fázisterv funkció-hozzárendelése nem megbízható.</td>
+            </tr>
+            <tr>
+              <td>Verziókövetés, előzmények</td>
+              <td>v2</td>
+              <td>Phase 3</td>
+            </tr>
+            <tr>
+              <td>SSO / on-premise</td>
+              <td>Sehol nem szerepel (v1–v4)</td>
+              <td>Nem nevesíti</td>
+              <td>A 2027 eleji Enterprise-tier megnyitás fejlesztési feltétele (governance-képességek) nincs alátámasztva.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FÁZISOK -->
+    <section class="section">
+      <div class="section-label">Termékfejlesztés</div>
+      <h2>A négy fázis</h2>
+
+      <p style="font-size:0.91rem; color:var(--muted);">Az alábbi négy fázis a forrásdokumentum AI-generált összefoglalójából származik. A dátumokról nem tisztázott, hogy vállalt határidők vagy generált célértékek, a fázistartalmak pedig a fenti pontokon eltérnek a fejlesztői listától: a fázisterv a fejlesztési vezető válaszaiig irányjelzésként, nem ütemtervként olvasandó.</p>
+
+      <div class="timeline-viz">
+        <svg viewBox="0 0 700 148" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Négy fázis idővonala 2026 júliustól 2027 júniusig">
+          <!-- GA jelölő -->
+          <line x1="168" y1="28" x2="168" y2="92" stroke="#F04E23" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="168" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#F04E23">GA · 2026-09-15</text>
+          <!-- €25M jelölő -->
+          <text x="680" y="18" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED">€25M inflexiós pont</text>
+          <!-- Fázis-sávok -->
+          <rect x="40" y="54" width="128" height="26" rx="4" fill="#F04E23"/>
+          <rect x="172" y="54" width="97" height="26" rx="4" fill="#3B82F6"/>
+          <rect x="273" y="54" width="140" height="26" rx="4" fill="#16A34A"/>
+          <rect x="417" y="54" width="263" height="26" rx="4" fill="#7C3AED"/>
+          <text x="104" y="71" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Phase 1</text>
+          <text x="220" y="71" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Phase 2</text>
+          <text x="343" y="71" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Phase 3</text>
+          <text x="548" y="71" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Phase 4</text>
+          <!-- Deliverable-ek -->
+          <text x="104" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">bridge v1</text>
+          <text x="220" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">bridge v2</text>
+          <text x="343" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">bridge v3 + build</text>
+          <text x="548" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">nodu.build CAD</text>
+          <!-- Dátum-tengely -->
+          <line x1="40" y1="118" x2="680" y2="118" stroke="#E4E4E7" stroke-width="1"/>
+          <text x="40" y="138" text-anchor="start" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">ma</text>
+          <text x="168" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">09-15</text>
+          <text x="271" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">11-10</text>
+          <text x="415" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">2027-01-31</text>
+          <text x="680" y="138" text-anchor="end" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">2027-06-30</text>
+        </svg>
+        <div class="timeline-viz-caption">A sávok hossza a naptári időtartammal arányos. A dátumok a nem megerősített AI-fázistervből származnak. A delta-only szinkron a Phase 3 sávban érkezik: a GA-hoz viszonyított távolsága a fenti nyitott kérdés tárgya.</div>
+      </div>
+
+      <div class="phase-list">
+
+        <!-- Phase 1 -->
+        <div class="phase-card phase-1">
+          <div class="phase-head">
+            <span class="phase-name">Phase 1: The Connectivity Layer</span>
+            <span class="phase-dates">Most – 2026-09-15</span>
+          </div>
+          <div class="phase-deliverable">nodu.bridge v1</div>
+          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">A fókusz kizárólag az alapinfrastruktúra megteremtése és a fő értékajánlat (zökkenőmentes adatcsere) bizonyítása.</p>
+          <div class="phase-block-label">Funkciók</div>
+          <ul class="phase-features">
+            <li>Headless model server</li>
+            <li>HUB regisztráció</li>
+            <li>User onboarding / jogosultságkezelés</li>
+            <li>Core Revit schema converter</li>
+          </ul>
+          <div class="phase-block-label">Infrastruktúra</div>
+          <ul class="phase-features">
+            <li>Managed Kubernetes DigitalOcean-on / Scaleway-en, skálázható felhő-hosting az első naptól. A fejlesztői lista ennek ellentmond (DO-hosting és devops-felvétel v2-es tétel), lásd a fenti összevetést</li>
+          </ul>
+          <div class="phase-block-label">GTM</div>
+          <p class="phase-gtm">PR és marketing blitz demó videókkal és influencer-partnerségekkel. Zárt béta 3-4 elkötelezett céggel, 80%-os feature-completeness mellett.</p>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="phase-card phase-2">
+          <div class="phase-head">
+            <span class="phase-name">Phase 2: The Interactive Platform</span>
+            <span class="phase-dates">2026-09-16 – 2026-11-10</span>
+          </div>
+          <div class="phase-deliverable">nodu.bridge v2</div>
+          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">Átmenet egy headless eszközből egy interaktív munkaterületté.</p>
+          <div class="phase-block-label">Funkciók</div>
+          <ul class="phase-features">
+            <li>Web-alapú model viewer</li>
+            <li>Issue tracking, task management</li>
+          </ul>
+          <div class="phase-block-label">Engine</div>
+          <ul class="phase-features">
+            <li>State Engine bevezetése: objektum-szintű állapotátmenetek, automatizált triggerek/eventek felhasználó-definiált n8n akciókon keresztül</li>
+            <li>PowerBI-konnektorok</li>
+          </ul>
+          <div class="phase-block-label">GTM</div>
+          <p class="phase-gtm">Gyártói partnerek bevonása, az ügyfélkör horizontális bővítése diszciplínák mentén.</p>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase-card phase-3">
+          <div class="phase-head">
+            <span class="phase-name">Phase 3: The Intelligence Expansion</span>
+            <span class="phase-dates">2026-11-11 – 2027-01-31</span>
+          </div>
+          <div class="phase-deliverable">nodu.bridge v3 + kezdeti nodu.build komponensek</div>
+          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">Adatterhelés optimalizálása és az AI mint alap felhasználói felület bevezetése.</p>
+          <div class="phase-block-label">Funkciók</div>
+          <ul class="phase-features">
+            <li>Delta-only szinkronizáció (csak a változott adat)</li>
+            <li>Teljes előzménykezelés</li>
+            <li>Dokumentumkezelés (képek, PDF-ek, rekordok)</li>
+          </ul>
+          <div class="phase-block-label">AI-integráció</div>
+          <ul class="phase-features">
+            <li>Asszisztens AI PowerBI / dashboard-építéshez</li>
+            <li>Természetes nyelvű lekérdezések</li>
+            <li>Mobilapp adminisztrációhoz és adat-visszakereséshez</li>
+          </ul>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="phase-card phase-4">
+          <div class="phase-head">
+            <span class="phase-name">Phase 4: The CAD Revolution</span>
+            <span class="phase-dates">2027-02 – 2027-06-30</span>
+          </div>
+          <div class="phase-deliverable">nodu.build CAD platform</div>
+          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">A tömeges érték-inflexiós pont a tervezett €25M-os befektetéshez: a NODU hídból elsődleges authoring-környezetté válik.</p>
+          <div class="phase-block-label">Funkciók</div>
+          <ul class="phase-features">
+            <li>Teljes Visual Scripting Environment (VSE) kiadás</li>
+          </ul>
+          <div class="phase-block-label">Generatív AI</div>
+          <ul class="phase-features">
+            <li><code>nodu.ParametricFamily</code>-eszközök automatikus generálása a model serverben minden olyan parametrikus modellhez, amely megkerüli a VSE-t, natívan szinkronizálva Archicaddel és Revittel is</li>
+          </ul>
+          <div class="phase-block-label">Fejlett eszközök</div>
+          <ul class="phase-features">
+            <li>Épületszerkezet / homlokzat-generátorok (burkolat, függönyfal, nyílászárók)</li>
+            <li>AI rendering</li>
+            <li>Natív költségbecslés</li>
+          </ul>
+          <div class="phase-block-label">Ökoszisztéma</div>
+          <ul class="phase-features">
+            <li>A platform megnyitása harmadik féltől származó fejlesztők és CAD-pluginek felé</li>
+          </ul>
+          <p style="font-size:0.88rem; color:#71717A; margin-top:14px; padding-top:12px; border-top:1px solid var(--border, #E4E4E7);">Pontosítás (2026-07-06): a VSE-alapú tartalom-készítés többformátumú képességként tervezett: a <code>nodu.ParametricFamily</code> kimenete nem Revit-kötött, ugyanaz a parametrikus definíció további CAD- és gyártói formátumokra is előállítható. Ezzel párhuzamos, átfedő kezdeményezés a NODU Creator (Content Engine): knowledge-graph-alapú termékadat-motor a gyártói szegmensre, lehetséges önálló termékként, saját blueprint-tel (2026-06-11, v2.0) és saját ütemtervvel. A vezetőség az irányt támogatja; a két kezdeményezés közös generálási magjának határvonala és a részletes kidolgozás későbbre ütemezett.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MÉRNÖKI REALITÁS -->
+    <section class="section">
+      <div class="section-label">Végrehajtási alap</div>
+      <h2>Mérnöki realitás &amp; infrastruktúra</h2>
+      <div class="eng-grid">
+        <div class="eng-card">
+          <div class="eng-card-title">Technikai adósság</div>
+          <p>Közel nulla. Az architektúra teljes egészében saját fejlesztésű, nem támaszkodik meglévő technológiai gyorstapaszokra, ezért a mérnöki kapacitás túlnyomó része feature-fejlesztésre és skálázásra fordítható, nem legacy-kód refaktorálására.</p>
+        </div>
+        <div class="eng-card">
+          <div class="eng-card-title">Infrastruktúra-stratégia</div>
+          <p>A Managed Kubernetes DigitalOcean-on / Scaleway-en biztosítja, hogy a platform elbírja a Revit schema converter és a jövőbeli generatív AI-funkciók compute-igényes terhelését, anélkül hogy korán belezárna a nagy hyperscalerek magasabb költségszintjébe.</p>
+        </div>
+        <div class="eng-card">
+          <div class="eng-card-title">Kiadási protokoll</div>
+          <p>Belső tesztelés 80%-os completeness-ig, mielőtt a zárt béta elindul a 3-4 célcéggel: ez biztosítja, hogy a szept. 15-i GA-launch stabil és azonnali fizetés-kiváltásra optimalizált legyen.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 24px;">
+        <div class="callout-label">Forrás-megjegyzés (2026-07-06)</div>
+        <p>A fenti három állítás a forrásdokumentum AI-generált összefoglalójából származik, fejlesztői megerősítés nélkül. A "azonnali fizetés-kiváltás" a fejlesztői listával ütközik (fizetési rendszer csak a v2-ben), az infrastruktúra-állítás szintén (DO-hosting v2-es tétel), a "közel nulla technikai adósság" pedig nem validált önértékelés. Mindhárom a kiküldött tisztázó kérdéssor tárgya.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <nav class="footer-nav">
+        <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+        <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+        <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+        <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+        <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+        <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+      </nav>
+      <div class="footer-meta">
+        NODU Bridge · Belső stratégiai dokumentum · 2026-07-03 · frissítve 2026-07-06<br />
+        <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

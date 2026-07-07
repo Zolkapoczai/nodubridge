@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NODU Bridge Piaci igényelemzés</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --topbar: #17171A;
+      --accent: #F04E23;
+      --border: #E4E4E7;
+      --text: #18181B;
+      --muted: #71717A;
+      --amber-bg: #FFFBEB;
+      --amber-border: #F59E0B;
+      --blue-bg: #EFF6FF;
+      --blue-border: #3B82F6;
+      --green-bg: #F0FDF4;
+      --green-border: #22C55E;
+    }
+
+    html { font-size: 17px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      margin: 0;
+      padding: 0;
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--topbar);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 32px;
+      border-bottom: 1px solid #2A2A2D;
+    }
+
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .topbar-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .topbar-title {
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .topbar-subtitle {
+      color: #A1A1AA;
+      font-size: 0.76rem;
+      white-space: nowrap;
+    }
+
+    .topbar-nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-nav a {
+      color: #A1A1AA;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    .topbar-nav a:hover {
+      color: #fff;
+      border-color: #3A3A3D;
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: #2A2A2D;
+      font-size: 0;
+      display: inline-block;
+    }
+
+    .topbar-meta {
+      color: #52525B;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--bg);
+      padding: 2.5rem 0 3rem;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      color: var(--text);
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 1.2rem;
+      text-align: left;
+    }
+
+    .hero-meta {
+      color: #71717A;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+
+    /* MAIN */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* INTRO */
+    .intro-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 3.5rem;
+      font-size: 0.95rem;
+      color: #1E3A5F;
+    }
+
+    .intro-box strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--blue-border);
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    .section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    .section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      text-align: left;
+    }
+
+    .section p {
+      margin: 0 0 1.1rem;
+      color: var(--text);
+    }
+
+    /* TABLES */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.92rem;
+    }
+
+    .region-table {
+      table-layout: fixed;
+    }
+    .region-table col.col-region { width: 15%; }
+    .region-table col.col-share { width: 19%; }
+    .region-table col.col-trend { width: 15%; }
+    .region-table col.col-note { width: 32%; }
+
+    .geo-table {
+      table-layout: fixed;
+    }
+    .geo-table col.col-geo-region { width: 30%; }
+    .geo-table col.col-geo-num { width: 16%; }
+    .geo-table col.col-geo-prio { width: 22%; }
+    .geo-table td:first-child { white-space: nowrap; }
+    .geo-table .td-prio { white-space: nowrap; }
+
+    .filter-table {
+      table-layout: fixed;
+    }
+    .filter-table col.col-filter-step { width: 32%; }
+    .filter-table col.col-filter-ratio { width: 12%; }
+    .filter-table col.col-filter-count { width: 20%; }
+    .filter-table col.col-filter-note { width: 36%; }
+    .filter-table td:nth-child(2),
+    .filter-table td:nth-child(3) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    th {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: #F4F4F5;
+      border-bottom: 1px solid var(--border);
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    th:first-child { border-top-left-radius: 9px; }
+    th:last-child { border-top-right-radius: 9px; }
+
+    td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.65;
+      font-variant-numeric: tabular-nums;
+      word-break: break-word;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #FBFBFC;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+    tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+
+    tr:hover td {
+      background: #F3F4F6;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .td-strong {
+      font-weight: 700;
+    }
+
+    .td-muted {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    .td-num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* CALLOUTS */
+    .callout-amber {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.92rem;
+    }
+
+    .callout-amber > strong:first-of-type {
+      display: block;
+      color: #92400E;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .callout-amber strong {
+      color: #92400E;
+    }
+
+    .callout-green {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.92rem;
+    }
+
+    .callout-green > strong:first-of-type {
+      display: block;
+      color: #14532D;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .callout-green strong {
+      color: #14532D;
+    }
+
+    /* METRIC CARDS */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    .metric-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      text-align: left;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      text-align: left;
+    }
+
+    .metric-card.accent .metric-value {
+      color: var(--accent);
+    }
+
+    /* TAM/SAM/SOM */
+    .funnel-viz { margin: 8px 0 24px; }
+    .funnel-viz svg { display: block; width: 100%; height: auto; }
+    .funnel-viz-caption { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 8px; }
+
+    .chart-viz { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px 14px; margin: 24px 0; }
+    .chart-viz svg { display: block; width: 100%; height: auto; }
+    .chart-viz-title { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 14px; text-align: left; }
+    .chart-viz-caption { font-size: 0.78rem; color: var(--muted); text-align: left; margin-top: 10px; }
+
+    .funnel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    .funnel-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .funnel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .funnel-card.tam::before { background: #94A3B8; }
+    .funnel-card.sam::before { background: #F59E0B; }
+    .funnel-card.som::before { background: var(--accent); }
+
+    .funnel-tier {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    .funnel-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    .funnel-card.tam .funnel-value { color: #475569; }
+    .funnel-card.sam .funnel-value { color: #92400E; }
+    .funnel-card.som .funnel-value { color: var(--accent); }
+
+    .funnel-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    /* OPEN QUESTIONS */
+    .oq-list {
+      list-style: none;
+      margin: 1rem 0;
+      padding: 0;
+    }
+
+    .oq-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .oq-list li:last-child {
+      border-bottom: none;
+    }
+
+    .oq-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: #FEF0EB;
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      text-align: left;
+    }
+
+    .oq-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* COST BREAKDOWN */
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      gap: 1rem;
+    }
+
+    .cost-row:last-child {
+      border-bottom: none;
+    }
+
+    .cost-row.total {
+      font-weight: 700;
+      font-size: 1rem;
+      border-top: 2px solid var(--border);
+      padding-top: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .cost-label { color: var(--text); text-align: left; }
+    .cost-value { color: var(--text); white-space: nowrap; text-align: right; }
+    .cost-value.accent { color: var(--accent); }
+
+    .cost-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .cost-box-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+
+    /* ROI HIGHLIGHT */
+    .roi-highlight {
+      background: #17171A;
+      color: #fff;
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+    }
+
+    .roi-highlight h3 {
+      color: var(--accent);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+      text-align: left;
+    }
+
+    .roi-highlight p {
+      color: #D4D4D8;
+      font-size: 0.95rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .roi-highlight .roi-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: left;
+    }
+
+    .roi-highlight .roi-sub {
+      font-size: 0.82rem;
+      color: #71717A;
+      text-align: left;
+    }
+
+    /* SOURCE NOTE */
+    .source-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+      text-align: left;
+    }
+
+    @media (max-width: 640px) {
+      .funnel-grid { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 1.5rem; }
+      .main { padding: 2rem 1.25rem 4rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+  <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+  <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="nodu-bridge-dashboard.html" class="topbar-logo">
+    <div class="topbar-icon">N</div>
+    <div>
+      <div class="topbar-title">NODU Bridge</div>
+      <div class="topbar-subtitle">Piaci igényelemzés</div>
+    </div>
+  </a>
+  <div class="topbar-nav">
+    <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-meta">v1.4 · 2026-07-04</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">Belső stratégiai dokumentum</span>
+    <h1>Piaci igényelemzés az Archicad–Revit kollaborációs rés mérete és értéke</h1>
+    <div class="hero-meta">Fókusz: folyamatos, projektszintű együttműködés nem egyszeri migráció · Európa + USA</div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <strong>Módszertan és korlátok</strong>
+    Ez a dokumentum nyilvánosan elérhető iparági adatokból, piaci intelligencia adatbázisokból (Enlyft, 6sense), szakmai szervezetek felméréseiből (ACE 2024, AIA 2024) és Autodesk listaáraiból konstruált becslésláncot tartalmaz. A Graphisoft nem hozza nyilvánosságra az aktív licencek számát; Archicad-specifikus felhasználói adatok nem ellenőrizhetők külső forrásból. A becsléslánc minden lépésénél feltüntetjük a bizonytalanság szintjét. A számok irányt mutatnak, nem pénzügyi előrejelzések.
+    Egy másik, kifejezetten a bevételkalkulátor konverziós és régiós feltételezéseihez készült, kattintható forrásokkal ellátott bizonyíték-napló elérhető a <a href="nodu-bridge-piackutatas.html" style="color:var(--blue-border);">Piackutatás</a> dokumentumban.
+  </div>
+
+  <!-- BEACHHEAD SECTION BIM koordinátor -->
+  <section class="section">
+    <div class="section-label">00 Célfelhasználó</div>
+    <h2>A valódi célfelhasználó: a BIM koordinátor</h2>
+
+    <p>Nem a teljes iroda a célfelhasználó. Egy 10–15 fős Archicad-es irodában jellemzően 0–1, ritkábban 2 BIM koordinátor az, aki ténylegesen kezeli az adatcserét: a szerep kisebb irodáknál gyakran hibrid (egy tervező viszi mellékfeladatként). Ő szervezi az IFC-exportot, ő tartja a kapcsolatot a Revit-es partnerrel, és ő érti a konverzió fájdalmát.</p>
+
+    <p>Az átlagos tervező a saját szoftverében dolgozik, és nem foglalkozik adatátvitellel. Ez a különbség alapvetően meghatározza, hogyan kell gondolkodni a NODU Bridge piacáról.</p>
+
+    <p>Három következménye van ennek:</p>
+
+    <p><strong>Kit kell elérni.</strong> Nem az irodavezetőt kell meggyőzni elsőként, hanem a BIM koordinátort. Ő a szakmai közösségekben aktív: Graphisoft-fórumokon, AEC LinkedIn-csoportokban, BIM koordinátori Slack-csatornákon. Ha ő megtapasztalja az értéket, ő mutatja meg a principálnak. Fontos szereposztás: a koordinátor a champion (ő választja ki és validálja az eszközt), de 10–50 fős irodánál a szerződést tipikusan a principál/ügyvezető írja alá: az önkiszolgáló tölcsérnek a koordinátort kell megfognia, az árazásnak/ROI-érvnek a principálhoz kell szólnia.</p>
+
+    <p><strong>Hogyan kell árazni.</strong> Irodánként nem 10–15 fizetős licencről van szó, hanem 1–2 Koordinátorról, akik létrehozzák és karbantartják a mapping- és szinkronsablonokat, és csak az ő seatjük fizetős. Az iroda többi tagja ingyenes User seatet kap (a Koordinátor-számhoz kötött keretben), így az élő szinkron a teljes irodát eléri, miközben a fizetendő összeg a szakértői munkát követi, nem a létszámot. Ez kedvező a belépési küszöb szempontjából.</p>
+
+    <p><strong>Mi az értékesítési út.</strong> A BIM koordinátor a beachhead. Ő vezeti be az eszközt, ő dokumentálja az időmegtakarítást, és ő viszi az irodát a Professional-ról a Studio tierre. Hosszú távon (a platform-fázis megnyílásával) ugyanez az út vezet tovább az Enterprise tier és a NODU platform-ökoszisztéma felé.</p>
+
+   <h3>Egy lehetséges második profil: jövőbeli irány</h3>
+   <p>Az induláskor a célfelhasználó egységesen a BIM koordinátor: az adatcserét végző szakember. A platform későbbi, VSE-alapú parametrikus tartalom-készítési képessége egyszer megnyithat egy második profilt: a parametrikus tartalom-alkotót, aki nem meglévő Archicad modellt konvertál, hanem új parametrikus tartalmat hoz létre, amely a 2026-07-06-i pontosítás szerint többformátumú kimenetre készül: Revit Family mellett további CAD- és gyártói formátumokra is. Ez a profil nem része az indulási termékkörnek, és az alábbi piaci számítások nem kalkulálnak vele. Szándékosan nyitva hagyott, későbbi kérdés.</p>
+  </section>
+
+  <div class="callout-amber">
+     <strong>A gyártói szegmens mint önálló piac: kidolgozott blueprint, jövőbeli irány</strong>
+     A gyártói szegmensre 2026-06-11 óta önálló, döntés-előkészítő anyag létezik: a <strong>NODU Creator (Content Engine) blueprint v2.0</strong>. Ennek lényege, hogy a gyártói tartalom-előállítás nem „Revit Family generátor", hanem knowledge-graph-alapú termékadat-motor, amelyből a Revit Family csak egy a sok export közül (IFC, Archicad, SketchUp, COBie, carbon/DPP, cost); a védhető eszköz a termék-tudásgráf, nem a formátum-szám. A blueprint saját piacszámokkal dolgozik (niche-TAM ~0,3–2 Mrd USD; EU SAM ~1 500–3 500 számla; 3 éves SOM 20–50 fizető ügyfél, ~€400–600k ARR), saját árazással (Starter/Growth/Enterprise, €3–50k/év) és sales-vezérelt, pilot-alapú GTM-mel, vagyis termékvonal-szintű B2B-üzlet, alapvetően eltérő logikával, mint a Bridge iroda-szintű, önkiszolgáló modellje. A vezetőség az irányt támogatja, a részletes kidolgozás későbbre ütemezett; elképzelhető önálló termékként is, miközben a generálási mag a Bridge-platformon is jelen lenne. A fenti Bridge-piacméret-becslések ezt a szegmenst változatlanul nem tartalmazzák.
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 01 -->
+  <section class="section">
+    <div class="section-label">01 A piac szerkezete</div>
+    <h2>Két szoftvervilág, amelyek ugyanazon az építési projekten találkoznak</h2>
+
+    <p>A NODU Bridge releváns piaca nem az Archicad-felhasználók összessége, és nem is a Revit-felhasználóké. A releváns piac ott keletkezik, ahol egy Archicad-es építész iroda és egy Revit-es mérnöki partner (szerkezet, MEP, generálkivitelező) ugyanazon a projekten dolgozik heteken vagy hónapokon át, párhuzamosan.</p>
+
+    <p>Ez a helyzet Európában strukturális, nem kivételes. A multidiszciplináris AEC-projektek természetéből adódik, hogy az építész és a mérnöki szakterületek más-más szoftverkörnyezetből dolgoznak. Az európai piacon az Archicad és a Revit egyaránt jelen van, de az infrastruktúra, a mérnöki dokumentáció és a kivitelezés egyre inkább Revit-centrikus. Az eredmény: az Archicad-es iroda állandó adatcsere-kényszert él meg, amelyet ma kizárólag IFC-exporttal oldhat meg, összes dokumentált hátrányával együtt.</p>
+
+    <h3>Szoftver-penetráció regionálisan</h3>
+
+    <div class="table-wrap">
+      <table class="region-table">
+        <colgroup>
+          <col class="col-region">
+          <col class="col-share">
+          <col class="col-share">
+          <col class="col-trend">
+          <col class="col-note">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Régió</th>
+            <th>Revit részesedés (BIM)</th>
+            <th>Archicad részesedés (BIM)</th>
+            <th>Archicad trend</th>
+            <th>Megjegyzés</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Európa (átlag)</td>
+            <td>~45%</td>
+            <td>~33%</td>
+            <td>Stabil</td>
+            <td>USP Research felmérés, 2024</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Németország</td>
+            <td>~30–35%</td>
+            <td>~27–30%</td>
+            <td>Stabil</td>
+            <td>Nemetschek csoport is jelen; háromirányú verseny</td>
+          </tr>
+          <tr>
+            <td class="td-strong">UK</td>
+            <td>~27% (2020) → ~49% (2026 proj.)</td>
+            <td>~15–20%</td>
+            <td>Csökken</td>
+            <td>Erős kormányzati BIM-mandátum hajtja Revit felé</td>
+          </tr>
+          <tr>
+            <td class="td-strong">DACH (AT, CH)</td>
+            <td>~35–40%</td>
+            <td>~30–35%</td>
+            <td>Stabil</td>
+            <td>Graphisoft erős hagyományos jelenléte</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Kelet-Közép-Európa</td>
+            <td>~40–50%</td>
+            <td>~25–35%</td>
+            <td>Stabil–enyhe csökk.</td>
+            <td>Archicad erős magyar, cseh, lengyel piacon</td>
+          </tr>
+          <tr>
+            <td class="td-strong">USA</td>
+            <td>~63.5%</td>
+            <td>~7–10%</td>
+            <td>Gyenge</td>
+            <td>Revit de facto standard; AIA 2024 felmérés</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Ausztrália</td>
+            <td>~40–45%</td>
+            <td>~25–30%</td>
+            <td>Stabil</td>
+            <td>Archicad erős jelenlét, design-fókuszú piac</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note">Források: USP Research European BIM Survey, AIA 2024 Firm Survey, bimheroes.com Revit migration analysis, Graphisoft Community adatok.</p>
+
+    <p>Az adatokból kiolvasható alaphelyzet: Európában az Archicad-es irodák döntő többsége Revit-es partnerekkel dolgozik nemcsak alkalmanként, hanem rendszeresen. Az USA-ban az Archicad-es irodák szinte minden projekten Revit-es környezetbe ütköznek, hiszen az ökoszisztémájuk 63,5%-a Revitre épül.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 02 -->
+  <section class="section">
+    <div class="section-label">02 Felhasználóbázis-becslés</div>
+    <h2>Hány iroda él meg aktívan Archicad–Revit kollaborációs súrlódást?</h2>
+
+    <p>A célpiac méretét nem lehet közvetlenül mérni: nincs nyilvánosan elérhető adat arról, hogy hány Archicad-es iroda dolgozik rendszeresen Revit-es partnerekkel. A becslés szűrési láncon keresztül közelíthető meg. Minden szűrőnél megadjuk a bizonytalanság szintjét.</p>
+
+    <h3>Európa</h3>
+
+    <div class="table-wrap">
+      <table class="filter-table">
+        <colgroup>
+          <col class="col-filter-step">
+          <col class="col-filter-ratio">
+          <col class="col-filter-count">
+          <col class="col-filter-note">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Szűrési lépés</th>
+            <th>Arány</th>
+            <th>Becsült szám</th>
+            <th>Bizonytalanság</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Regisztrált építészek Európában</td>
+            <td>–</td>
+            <td class="td-strong">580 000 fő</td>
+            <td class="td-muted">Alacsony: ACE 2024 Sector Study</td>
+          </tr>
+          <tr>
+            <td>Archicad BIM-felhasználók (~33%)</td>
+            <td>33%</td>
+            <td class="td-strong">~191 000 fő</td>
+            <td class="td-muted">Közepes felmérési adatból</td>
+          </tr>
+          <tr>
+            <td>Aktív építész irodák száma (tipikusan 1–20 fős)</td>
+            <td>–</td>
+            <td class="td-strong">60 000–100 000 iroda</td>
+            <td class="td-muted">Közepes becslés az átl. irodaméretből</td>
+          </tr>
+          <tr>
+            <td>Archicad-es irodák (~33%)</td>
+            <td>33%</td>
+            <td class="td-strong">20 000–33 000 iroda</td>
+            <td class="td-muted">Közepes</td>
+          </tr>
+          <tr>
+            <td>5+ főre tervező, multidiszciplináris projekteket kezelő irodák</td>
+            <td>~35–40%</td>
+            <td class="td-strong">7 000–13 000 iroda</td>
+            <td class="td-muted">Közepes–magas</td>
+          </tr>
+          <tr>
+            <td>Rendszeresen Revit-es partnerekkel dolgozó irodák</td>
+            <td>~55–65%</td>
+            <td class="td-strong">4 000–8 500 iroda</td>
+            <td class="td-muted">Magas: nincs direkt adat</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Parametrikus workflow-érettség, tool-vásárlási hajlandóság</td>
+            <td>~20–30%</td>
+            <td class="td-strong">800–2 500 iroda</td>
+            <td class="td-muted">Magas: korai befogadói szűrő</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>USA</h3>
+
+    <p>Az USA az Archicad szempontjából másodlagos, de stratégiailag érdekes piac. Az AIA 2024 felmérés szerint több mint 19 000 építész iroda működik az USA-ban, és ezek 75%-ának 10 főnél kevesebb alkalmazottja van. A Revit dominanciája (~63,5%) miatt az Archicad-es irodák különösen intenzív kollaborációs súrlódást tapasztalnak, hiszen partnereik szinte mindegyike Revit-en dolgozik.</p>
+
+    <div class="table-wrap">
+      <table class="filter-table">
+        <colgroup>
+          <col class="col-filter-step">
+          <col class="col-filter-ratio">
+          <col class="col-filter-count">
+          <col class="col-filter-note">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Szűrési lépés</th>
+            <th>Arány</th>
+            <th>Becsült szám</th>
+            <th>Bizonytalanság</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Regisztrált építész irodák az USA-ban</td>
+            <td>–</td>
+            <td class="td-strong">&gt;19 000 iroda</td>
+            <td class="td-muted">Alacsony: AIA 2024</td>
+          </tr>
+          <tr>
+            <td>Archicad-et használó irodák (~7–10%)</td>
+            <td>7–10%</td>
+            <td class="td-strong">1 330–1 900 iroda</td>
+            <td class="td-muted">Közepes (piaci becslés)</td>
+          </tr>
+          <tr>
+            <td>5+ fős, multidiszciplináris projekteket kezelő irodák</td>
+            <td>35–45%</td>
+            <td class="td-strong">465–855 iroda</td>
+            <td class="td-muted">Közepes</td>
+          </tr>
+          <tr>
+            <td>Rendszeresen Revit-es partnerekkel dolgozó irodák</td>
+            <td>~75–85%</td>
+            <td class="td-strong">350–725 iroda</td>
+            <td class="td-muted">Alacsony: Revit dominancia miatt szinte biztos</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Parametrikus workflow-érettség, tool-vásárlási hajlandóság</td>
+            <td>~25–35%</td>
+            <td class="td-strong">90–255 iroda</td>
+            <td class="td-muted">Magas (belső becslés)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Globális összesítés</h3>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Archicad-es irodák globálisan</div>
+        <div class="metric-value">25 000–45 000</div>
+        <div class="metric-sub">Európa + USA + Ausztrália + egyéb</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Aktív Revit-kollaborációs igény</div>
+        <div class="metric-value">5 000–10 000</div>
+        <div class="metric-sub">Szűrt: méret, projekt-komplexitás, partner-struktúra</div>
+      </div>
+      <div class="metric-card accent">
+        <div class="metric-label">Konzervatív SAM-mag (tervezési alap)</div>
+        <div class="metric-value">900–2 800</div>
+        <div class="metric-sub">Parametrikus érettség + vásárlási hajlandóság szűrővel; a bevétel-tervezés erre a számra épül</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Enlyft detektált cégek (alulbecsült)</div>
+        <div class="metric-value">7 227</div>
+        <div class="metric-sub">Digitálisan felismerhető nagyvállalatok; KKV-k nincsenek benne</div>
+      </div>
+    </div>
+
+    <div class="callout-amber">
+      <strong>A legkritikusabb bizonytalanság és hogyan kezeljük</strong>
+      A szűrési lánc leggyengébb láncszeme az „aktívan Revit-es partnerrel dolgozó" szűrő. Nincs iparági felmérés arról, hogy az európai Archicad-es irodák hány százaléka tapasztal heti rendszerességű Revit-kollaborációs súrlódást azokkal szemben, ahol a csere 3–6 havonta egyszeri IFC-átadással megoldható. Ez a különbség akár 3–4-szeres tényezőként befolyásolja a valós SAM-ot. A 05. szekció ezért erre a tengelyre építi a SAM szerkezetét: az állomány fájdalom-intenzitás szerinti A/B/C rétegzése ezt a bizonytalanságot explicit, design partnerrel validálható rétegarányokká alakítja.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 03 -->
+  <section class="section">
+    <div class="section-label">03 Ár-pozicionálási kontextus</div>
+    <h2>Mihez méri az iroda a Bridge árát</h2>
+
+    <p>Fontos tisztázás: a NODU Bridge <strong>nem váltja ki</strong> sem az Archicadot, sem a Revitet: mindkét fél a saját szerzői eszközében dolgozik tovább, a Bridge a kettő közötti adatáramlást oldja meg. Az iroda teljes Autodesk- vagy Graphisoft-költése ezért nem viszonyítási alap: az a Bridge-dzsel együtt is változatlanul megmarad. A Bridge árát a vásárló két dologhoz méri: (1) mennyit költ ma hasonló <em>kategóriájú</em> eszközökre (interop, modell-QA, koordináció), és (2) mennyi munkaórát takarít meg vele: ez utóbbi a valódi érték-horgony, amelyet a 04. szekció számszerűsít.</p>
+
+    <h3>Szerzői szoftverek listaárai kontextusként (2025–2026)</h3>
+    <p>Az alábbi árak nem a Bridge alternatívái, hanem a vásárló költségvetési környezetét mutatják: ekkora tételek mellett kell elférnie egy interop-eszköznek.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Termék</th>
+            <th>Éves ár / fő (USD)</th>
+            <th>Éves ár / fő (EUR, ~0.92)</th>
+            <th>Megjegyzés</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Revit standalone</td>
+            <td>$3 005</td>
+            <td>~€2 764</td>
+            <td>Csak Revit; évi ~3% áremelés 2024–2026 között</td>
+          </tr>
+          <tr>
+            <td class="td-strong">AEC Collection</td>
+            <td>$3 115–$3 200</td>
+            <td>~€2 866–€2 944</td>
+            <td>Revit + Civil3D + Navisworks + további eszközök</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Archicad (Studio / Collaborate)</td>
+            <td>$2 414–$2 840</td>
+            <td>~€2 220–€2 615</td>
+            <td>2024–2025-ben a perpetual licenc kivezetve, csak előfizetés</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Revit Flex (eseti use)</td>
+            <td>$30 / nap</td>
+            <td>~€27 / nap</td>
+            <td>Alkalmi Revit-hozzáférés token-alapon; a kereslete jelzi, hogy létezik a „Revit csak interopra" minta</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note">Forrás: gyártói listaárak, 2025–2026. Vállalati tárgyalással 15–35% kedvezmény elérhető. Európai árak helyi adókkal + viszonteladói felárral magasabbak lehetnek.</p>
+
+    <h3>Egy szűk kivétel: a defenzív Revit-seat</h3>
+    <p>Egyetlen esetben vált ki a Bridge tényleges szoftverköltséget: ha egy Archicad-alapú iroda ma <em>kizárólag az adatcsere és a beérkező modellek ellenőrzése miatt</em> tart fenn 2–3 Revit-licencet, vagy Flex-tokeneket vásárol erre a célra. Ez a defenzív költés $6 000–$9 600/év szoftverkiadást jelent úgy, hogy a parametrikus adatmegőrzés problémáját nem oldja meg. Ez az érv azonban <strong>feltételes mellékérv, nem általános horgony</strong>: csak azokra az irodákra érvényes, amelyek ma ténylegesen így dolgoznak: hogy ez a célszegmens mekkora hányada, arra nincs adatunk, az első ügyfélinterjúkból derül ki. Az Autodesk Flex termék létezése és kereslete közvetett bizonyíték arra, hogy a minta létezik.</p>
+
+    <div class="callout-green">
+      <strong>A valódi érték-horgony: a megspórolt munkaóra</strong>
+      A Bridge nem szoftvert vált ki, hanem munkaidőt: az IFC-alapú csere export-import-javítás ciklusait és az újramodellezést. Ennek számszerűsítése (€7 800–17 300/projekt/év, saját, iparági idő- és béradatokból levezetett becslés) a 04. szekcióban található; a bevételi és ROI-érvelésnek erre kell épülnie, nem szoftverhelyettesítésre. Az árszint-elhelyezéshez (mennyibe kerülnek a hasonló kategóriájú eszközök) a lenti tábla ad kontextust.
+    </div>
+
+    <h3>A komparábilis eszközkategória: interop, modell-QA, koordináció</h3>
+    <p>A Bridge árának valódi viszonyítási kategóriája nem a szerzői szoftver, hanem az az eszközréteg, amelyet az irodák ma az adatcsere és a modellminőség kezelésére vásárolnak. A €199/Koordinátor/hó Professional pozíció ebben a kategóriában a commodity BCF/issue-eszközök felett, a prémium modell-ellenőrző eszközök sávjában helyezkedik el - miközben olyan képességet ad (élő, parametrikus-megőrző szinkron), amelyet ma egyik kategóriatag sem kínál.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Eszköz</th>
+            <th>Kategória</th>
+            <th>Éves ár</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">BIMcollab (CDE Enterprise)</td>
+            <td class="td-muted">BCF issue-koordináció</td>
+            <td>~€300–470 / fő (25–39 €/fő/hó)</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Speckle Team (teljes workspace, nem per fő)</td>
+            <td class="td-muted">Open BIM adatcsere</td>
+            <td>~$1 188 (99 USD/hó)</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Solibri (Advanced–Premium tier)</td>
+            <td class="td-muted">BIM minőségbiztosítás / IFC</td>
+            <td>~€2 109–2 772</td>
+          </tr>
+          <tr>
+            <td class="td-strong">NODU Bridge Professional</td>
+            <td class="td-muted">Élő Archicad↔Revit szinkron</td>
+            <td>€1 788 (149 €/Koordinátor/hó) · éves díjjal €1 490</td>
+          </tr>
+          <tr>
+            <td class="td-strong">NODU Bridge Studio</td>
+            <td class="td-muted">Iroda-licenc: 2 Koordinátor, közös sablonkönyvtár, API</td>
+            <td>€5 988 (499 €/iroda/hó) · éves díjjal €4 990</td>
+          </tr>
+          <tr>
+            <td class="td-strong">NODU Bridge Enterprise (jövőbeli tier, induláskor egyedi ajánlat)</td>
+            <td class="td-muted">On-premise / SSO / platform-hozzáférés (a platform-fázissal nyílik meg)</td>
+            <td>Egyedi; a tier megnyílásakor min. €30 000 (2 500 €/hó floor)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note">Forrás: gyártói listaárak, 2025–2026; részletes forrásjegyzék a <a href="nodu-bridge-piackutatas.html">Piackutatás</a> dokumentumban. Megjegyzés: a Solibri 2026-ban a korábbi „Office/Site" terméknevekről tier-struktúrára (Starter/Essential/Advanced/Premium/Security+) állt át: a fenti sor a mai Advanced-Premium tiernek felel meg. Közvetlen, élő Archicad↔Revit szinkronra publikus árazású versenytárs nincs: a Bridge egy új kategóriát képvisel, a fenti sáv csak a költségvetési elhelyezést segíti.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 04 -->
+  <section class="section">
+    <div class="section-label">04 Az interop-fájdalom rejtett ára</div>
+    <h2>Az IFC-alapú csere valódi idő- és munkaköltségei</h2>
+
+    <p>Az IFC-alapú adatcsere nem „ingyenes": az iroda ezt munkaórában fizeti meg. Az alábbi kalkuláció konzervatív becslés. A valóság rosszabb lehet, ha az importált IFC-fájl javítása is szükséges Revitben, vagy ha a geometriai degradáció később jelentkező hibákat okoz a tervdokumentációban.</p>
+
+    <p>A fájdalom nemcsak fórum-beszámolókból, hanem nemzeti szintű, módszertanilag dokumentált kutatásból is alátámasztható: a <a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867</a> tanulmány évi 15,8 milliárd USD interoperabilitási veszteséget dokumentál az USA építőiparában. Ez a szám nem az Archicad–Revit esetre specifikus, de megerősíti, hogy az alábbi irodaszintű kalkuláció nagyságrendje reális.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tevékenység</th>
+            <th>Dokumentált idő</th>
+            <th>Forrás</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IFC export Archicadből (komplex modell)</td>
+            <td>3–4 óra (gyakran egyik napról a másikra átnyúlva)</td>
+            <td class="td-muted">Autodesk Community, Graphisoft Community fórumok</td>
+          </tr>
+          <tr>
+            <td>IFC import és ellenőrzés Revitben</td>
+            <td>4–6 óra</td>
+            <td class="td-muted">Dokumentált felhasználói tapasztalat</td>
+          </tr>
+          <tr>
+            <td>Hiányzó geometria és triangulált felületek javítása</td>
+            <td>1–3 óra / importálás</td>
+            <td class="td-muted">Graphisoft IFC hibaelhárítási útmutató</td>
+          </tr>
+          <tr>
+            <td>Elveszett parametrikus kapcsolatok újraépítése Revitben</td>
+            <td>Projektfüggő: 0-tól több napig</td>
+            <td class="td-muted">Csak komplex modelleknél releváns</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Éves munkaidő-veszteség példakalkuláció</h3>
+
+    <div class="cost-box">
+      <div class="cost-box-title">Egy aktív projekt, heti 1 IFC csere, 6 hónapos aktív tervezési fázis</div>
+      <div class="cost-row"><span class="cost-label">Cserék száma</span><span class="cost-value">~24 alkalom / év</span></div>
+      <div class="cost-row"><span class="cost-label">Idő / csere (export + import + ellenőrzés)</span><span class="cost-value">~5–8 óra</span></div>
+      <div class="cost-row"><span class="cost-label">Éves időráfordítás (konzervatív)</span><span class="cost-value">~120–192 óra</span></div>
+      <div class="cost-row"><span class="cost-label">Becsült óraköltség (senior BIM koordinátor)</span><span class="cost-value">€65–90 / óra</span></div>
+      <div class="cost-row total"><span class="cost-label">Éves rejtett IFC-teher (1 projekt)</span><span class="cost-value accent">€7 800–€17 280</span></div>
+    </div>
+
+    <div class="chart-viz">
+      <div class="chart-viz-title">IFC-teher vs. Bridge-licenc éves összevetés</div>
+      <svg viewBox="0 0 700 208" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IFC-teher és licencárak összehasonlítása">
+        <!-- Bridge Professional -->
+        <text x="170" y="30" text-anchor="end" font-family="Inter, sans-serif" font-size="12.5" fill="#3F3F46">Bridge Professional / év</text>
+        <rect x="180" y="16" width="24" height="22" rx="3" fill="#F04E23"/>
+        <text x="212" y="32" font-family="Inter, sans-serif" font-size="12.5" font-weight="600" fill="#18181B">€1 788</text>
+        <!-- Bridge Studio -->
+        <text x="170" y="80" text-anchor="end" font-family="Inter, sans-serif" font-size="12.5" fill="#3F3F46">Bridge Studio / iroda / év</text>
+        <rect x="180" y="66" width="66" height="22" rx="3" fill="#F04E23"/>
+        <rect x="246" y="66" width="13" height="22" rx="3" fill="#FEC5B3"/>
+        <text x="267" y="82" font-family="Inter, sans-serif" font-size="12.5" font-weight="600" fill="#18181B">€4 990–5 988</text>
+        <!-- IFC-teher / projekt -->
+        <text x="170" y="130" text-anchor="end" font-family="Inter, sans-serif" font-size="12.5" fill="#3F3F46">IFC-teher / projekt / év</text>
+        <rect x="180" y="116" width="103" height="22" rx="3" fill="#D97706"/>
+        <rect x="283" y="116" width="124" height="22" rx="3" fill="#FDE68A"/>
+        <text x="415" y="132" font-family="Inter, sans-serif" font-size="12.5" font-weight="600" fill="#92400E">€7 800–17 280</text>
+        <!-- IFC-teher / iroda -->
+        <text x="170" y="174" text-anchor="end" font-family="Inter, sans-serif" font-size="12.5" fill="#3F3F46">IFC-teher / iroda / év</text>
+        <text x="170" y="189" text-anchor="end" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">(3 aktív projekt)</text>
+        <rect x="180" y="166" width="197" height="22" rx="3" fill="#B45309"/>
+        <rect x="377" y="166" width="263" height="22" rx="3" fill="#FDE68A"/>
+        <text x="470" y="182" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" fill="#FFFFFF">€15 000–35 000</text>
+      </svg>
+      <div class="chart-viz-caption">A sávok arányosak (€0–35 000 skála); a világosabb szakasz a becslési sáv felső részét jelöli. Az IFC-teher konzervatív becsléssel is a Studio-licenc többszöröse: a Bridge ára a megspórolt munkaidő töredéke.</div>
+    </div>
+
+    <div class="roi-highlight">
+      <h3>ROI-kalkuláció összefoglalója</h3>
+      <p>Egy 10 fős Archicad-es iroda, amely 2–3 aktív multidiszciplináris projektet kezel egyidejűleg, évente becsülhetően <strong style="color:#fff">€15 000–€35 000</strong> értékű munkaidőt fordít IFC-alapú adatcserére és utómunkára, a rejtett hibajavítási és tervdokumentációs eltérésekből eredő további költségek nélkül. Ez az a rejtett ár, amellyel a NODU Bridge Studio tier (€499/hó = €5 988/év) közvetlenül versenyez: a licencdíj a konzervatívan becsült teher 17–40%-a, a megtakarítás már az alsó sávban is többszörösen fedezi az árat.</p>
+      <div style="margin-top:1rem; display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem;">
+        <div>
+          <div class="roi-number">€7 800+</div>
+          <div class="roi-sub">Éves IFC-teher / projekt (konzervatív)</div>
+        </div>
+        <div>
+          <div class="roi-number">€30 000+</div>
+          <div class="roi-sub">Éves IFC-teher / iroda (3 aktív projekt)</div>
+        </div>
+        <div>
+          <div class="roi-number">&lt;1 év</div>
+          <div class="roi-sub">Becsült megtérülési idő (Studio tier)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-amber">
+      <strong>Figyelmeztetés a kalkulációhoz</strong>
+      Az IFC-teher számítása a legkonzervatívabb forgatókönyvet veszi alapul: tapasztalt BIM koordinátor, aki ismeri a folyamatot. Valóságban a tanulási görbe, az ad hoc hibák és a később jelentkező tervdokumentációs eltérések ennél jóval magasabb tényleges költséget eredményeznek. Másrészről kisebb, egyszerűbb projekteken, ahol az IFC-csere havi egyszeri esemény, ez a szám drasztikusan csökken. A fenti becslés komplex, 12+ hónapos projektekre vonatkozik.
+    </div>
+
+    <div class="callout-green">
+      <strong>A Platform mint jövőbeli végpont</strong>
+      A fenti ROI tisztán a Bridge önálló értékén (a megspórolt IFC-munkaidőn) alapul; platform-értéket nem tartalmaz. Hosszú távon a Bridge a NODU platform belépési kapuja: a Build-fázisok koordinációs, verziókezelési és adatszinkronizációs funkciói a majdani Enterprise tier részeként ezen felül további értéket adnak. Ez a számításokban tudatosan nem szerepel: minden platform-érték felfelé mutató tartalék.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 05 -->
+  <section class="section">
+    <div class="section-label">05 Piaci méret (TAM / SAM / SOM)</div>
+    <h2>A piac mérete három horizonton</h2>
+
+    <p>A TAM/SAM/SOM keretrendszert itt a szokásosnál óvatosabban kell értelmezni. Az input adatok bizonytalanok, és a piaci érettség (vagyis hogy mennyi iroda hajlandó fizetni dedikált interop-eszközért) empirikusan nem mért. Az alábbi számok a rendelkezésre álló adatokból konstruált becslések, nem független piaci elemzők validált előrejelzései.</p>
+
+    <p>A becsült bevétel/iroda tudatosan emelkedik TAM→SAM→SOM felé (€3 500 → €4 500 → €5 000): minden szűkítési lépés nemcsak a darabszámot csökkenti, hanem egyre jobb illeszkedésű irodákra szűr (aktívabb fájdalom, meglévő vásárlási hajlandóság, végül ténylegesen megnyert ügyfél), ami magasabb átlagos ügyfélértéket valószínűsít. A lenti fájdalom-intenzitás rétegzés ezt a progressziót levezethetővé teszi: a rétegek természetes tier-besorolása (A→Studio €5 988/év, B→Professional €1 788/év) adja az átlagérték szerkezeti alapját, a konkrét súlyozás azonban továbbra is belső feltevés, nem mért adat.</p>
+
+    <div class="funnel-viz">
+      <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TAM SAM SOM tölcsér fájdalom-intenzitás rétegzéssel">
+        <!-- TAM -->
+        <polygon points="20,10 560,10 480,78 100,78" fill="#E2E8F0"/>
+        <text x="290" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="14.5" font-weight="700" fill="#475569">TAM · 12 000–20 000 iroda</text>
+        <text x="290" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#64748B">€42M–€70M/év bevételi potenciál</text>
+        <!-- Rétegzett fizetőképes piac (A + B/2) -->
+        <polygon points="100,88 480,88 410,156 170,156" fill="#FEF3C7"/>
+        <text x="290" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#92400E">Fizetőképes fájdalmú piac · 1 600–4 700 iroda</text>
+        <text x="290" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#A16207">A réteg + B réteg fele · intenzitás-alapú, belső becslés</text>
+        <!-- SAM konzervatív mag -->
+        <polygon points="170,166 410,166 355,234 225,234" fill="#FDE68A"/>
+        <text x="290" y="192" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#92400E">SAM-mag · 900–2 800 iroda</text>
+        <text x="290" y="214" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#A16207">tervezési alap · ~55–60% realizmus-diszkonttal</text>
+        <!-- SOM -->
+        <polygon points="225,244 355,244 315,312 265,312" fill="#F04E23"/>
+        <text x="290" y="272" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">SOM · 90–400 iroda</text>
+        <text x="290" y="293" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#FFE4DC">€200K (2027) → €500K (2028) → ~€800–1.2M (2029)</text>
+        <!-- C réteg: nem SAM, külön sáv -->
+        <rect x="578" y="88" width="118" height="146" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="637" y="112" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" fill="#166534">C réteg</text>
+        <text x="637" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#166534">1 500–5 000 iroda</text>
+        <text x="637" y="154" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">eseti IFC-csere</text>
+        <text x="637" y="172" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">nem SAM:</text>
+        <text x="637" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">Community-bázis,</text>
+        <text x="637" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">hosszú távú</text>
+        <text x="637" y="226" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">konverziós tartály</text>
+      </svg>
+      <div class="funnel-viz-caption">A sávszélességek illusztratívak (logaritmikus arányúak); a valódi szűkülés ennél meredekebb: a SOM a TAM ~2%-a. A C réteg (szaggatott keret) nem része a tölcsérnek: az eseti cserével dolgozó irodák az ingyenes Community tier célközönsége.</div>
+    </div>
+
+    <div class="funnel-grid">
+      <div class="funnel-card tam">
+        <div class="funnel-tier">TAM Teljes elérhető piac</div>
+        <div class="funnel-value">12 000–20 000 iroda</div>
+        <div class="funnel-desc">Minden Archicad-es iroda globálisan, amelynek rendszeres Revit-es projektpartnere van. Bevételi potenciál: <strong>€42M–€70M/év</strong> (avg. €3 500/iroda/év). Belső becslés, független forrás nem támasztja alá közvetlenül.</div>
+      </div>
+      <div class="funnel-card sam">
+        <div class="funnel-tier">SAM Kiszolgálható piac</div>
+        <div class="funnel-value">900–2 800 iroda</div>
+        <div class="funnel-desc">Konzervatív mag, fájdalom-intenzitás alapon rétegezve (lásd a lenti rétegzési táblát): a folyamatos együttműködésű A réteg és a szakaszos B réteg fele adja a fizetőképes fájdalmú piacot (~1 600–4 700 iroda), amelyből a tervezési alap a validálatlan konverziós realizmus miatt ~55–60%-os diszkonttal képződik. A tágabb, „aktív mixed-tool átfedés" definícióval mért sáv (~1 400–3 600 iroda, lenti regionális tábla) független módszertanként ugyanebbe a nagyságrendbe fut. Bevételi potenciál a konzervatív magra: <strong>€4M–€12,6M/év</strong> (avg. €4 500/iroda/év).</div>
+      </div>
+      <div class="funnel-card som">
+        <div class="funnel-tier">SOM 3 éves realisztikus célpiac</div>
+        <div class="funnel-value">90–400 iroda</div>
+        <div class="funnel-desc">A konzervatív SAM-mag ~10–15%-a. Bevételi mérföldközök: <strong>€200K (2027) → €500K (2028) → ~€800–1.2M (2029)</strong> (avg. €5 000/iroda/év).</div>
+      </div>
+    </div>
+
+    <h3>Fájdalom-intenzitás szerinti rétegzés: a SAM szerkezete</h3>
+    <p>A rétegzés alapja az <strong>egyidejű közös aktív projektek száma</strong>: ugyanaz a mérhető változó, amelyen a licencmodell kapacitás-tengelye is vált (2/5/15 aktív projekt). Így a piaci réteg és a tier-besorolás egyetlen közös metrikán függ, a piacméret és a bevételi modell mechanikusan összekapcsolódik. A rétegzés a "rendszeresen Revit-es partnerrel dolgozó" állományra épül (globálisan 5 000–10 000 iroda, a 02. szekció szűrési láncából).</p>
+
+    <div class="table-wrap">
+      <table class="filter-table">
+        <thead>
+          <tr>
+            <th>Réteg</th>
+            <th>Definíció</th>
+            <th>Arány (belső becslés)</th>
+            <th>Becsült irodaszám</th>
+            <th>Természetes tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">A: folyamatos</td>
+            <td>2+ egyidejű közös projekt, állandó heti szinkron-igény</td>
+            <td class="td-num">~15–25%</td>
+            <td class="td-strong">750–2 500</td>
+            <td>Studio</td>
+          </tr>
+          <tr>
+            <td class="td-strong">B: szakaszos</td>
+            <td>1 közös projekt, mérföldkő-alapú csere</td>
+            <td class="td-num">~35–45%</td>
+            <td class="td-strong">1 750–4 500</td>
+            <td>Professional</td>
+          </tr>
+          <tr>
+            <td class="td-strong">C: eseti</td>
+            <td>3–6 havonta egy IFC-átadás, batch-konverzióval kezelhető</td>
+            <td class="td-num">~30–50%</td>
+            <td class="td-strong">1 500–5 000</td>
+            <td>Community (ingyenes)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>A számítás lépései: <strong>fizetőképes fájdalmú piac</strong> = A réteg + B réteg fele = ~1 600–4 700 iroda; <strong>konzervatív SAM-mag (tervezési alap)</strong> = ennek ~55–60%-a = 900–2 800 iroda. A diszkont a validálatlan konverziós realizmust (bizonyítatlan fizetési hajlandóság, elérési korlátok) képviseli: explicit, felülvizsgálható tényezőként, nem a szűrési láncba rejtve. A korábbi, attitűd-alapú levezetés ("parametrikus érettség + vásárlási hajlandóság", 02. szekció) ugyanebbe a 900–2 800-as sávba fut: a két független út konvergenciája erősíti a becslést, de mindkettő belső becslés marad.</p>
+
+    <div class="callout-amber">
+      <strong>Validálási feladat a design partner-körnek</strong>
+      A rétegarányokra (15–25% / 35–45% / 30–50%) nincs iparági adat: belső becslések. Az első design partner-kör természetes feladata a kalibrálás: hány egyidejű közös projektet visznek, milyen gyakori a csere, és mekkora a tényleges fizetési hajlandóság rétegenként. Ezek az adatok a rétegarányokat és az ~55–60%-os realizmus-diszkontot is mérhetővé teszik.
+    </div>
+
+   <div class="callout-amber">
+     <strong>A TAM határai: a tartalom-készítés mint jövőbeli bővülés</strong>
+     A fenti TAM/SAM/SOM az Archicad–Revit adatcsere piacon alapul, és kizárólag az indulási termékkörre vonatkozik. A VSE-alapú, többformátumú tartalom-készítés és a gyártói szegmens nem része az indulásnak, így ezek a számok nem kalkulálnak velük. A gyártói bővülés mértéke azonban már nem teljesen méretlen: a NODU Creator (Content Engine) blueprint saját bottom-up becslése niche-TAM ~0,3–2 Mrd USD, EU SAM ~1 500–3 500 számla, 3 éves SOM 20–50 fizető ügyfél (lásd a dokumentum eleji, gyártói szegmensről szóló callout-ot). Ezek a számok a Creator-kezdeményezés saját tervezési alapjai: a Bridge-számokhoz nem adódnak hozzá.
+   </div>
+
+   <div class="callout-green">
+     <strong>Három szám, három szerep: melyik mire való</strong>
+     A dokumentum három, eltérő definíciójú SAM-jellegű számot használ, és ezek nem keverendők. (1) <strong>Konzervatív mag: 900–2 800 iroda</strong>, a fenti intenzitás-rétegzés eredménye realizmus-diszkonttal; <strong>ez a bevétel-tervezés és a SOM-számítás alapja</strong> (a 02. szekció korábbi, attitűd-alapú szűrési lánca ugyanebbe a sávba fut). (2) <strong>Fizetőképes fájdalmú piac: ~1 600–4 700 iroda</strong>, az A réteg + a B réteg fele, diszkont nélkül; ez a strukturális felső határ, amit a validáció mozgathat. (3) <strong>Tágabb mixed-tool átfedés: ~1 400–3 600 iroda</strong>, a lenti regionális tábla SAM-oszlopának összege, az „aktív mixed-tool átfedés" definícióval (a bottom-up piackutatási módszertan Európára 1 900–3 500, az USA-ra 250–560, Ázsiára 170–450 céget becsül; teljes forrásjegyzék a <a href="nodu-bridge-piackutatas.html">Piackutatás</a> dokumentumban), <strong>független módszertani keresztellenőrzés</strong>, amely a (2)-vel azonos nagyságrendbe fut. A módszertanok irányukban megegyeznek: Európa a lényegesen nagyobb és elsődleges piac, az USA kisebb, prémium szegmens. A go-to-market prioritásnál és a bevételkalkulátor régió-választójánál a piackutatás névvel azonosított forrásokra (6sense, USP Research, ACE 2024, AIA 2024) épülő számai az irányadók.
+   </div>
+
+    <h3>Regionális bontás a piac geográfiai koncentrációja</h3>
+    <p class="source-note">A lenti tábla SAM-oszlopa a tágabb, „aktív mixed-tool átfedés" definíciót követi (összege ~1 400–3 600 iroda): a regionális arányok és a prioritás-sorrend a lényeg, nem az abszolút számok; a bevétel-tervezéshez a konzervatív mag (900–2 800) az irányadó.</p>
+
+    <div class="table-wrap">
+      <table class="geo-table">
+        <colgroup>
+          <col class="col-geo-region">
+          <col class="col-geo-num">
+          <col class="col-geo-num">
+          <col class="col-geo-num">
+          <col class="col-geo-prio">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Régió</th>
+            <th>TAM (iroda)</th>
+            <th>SAM (iroda)</th>
+            <th>SOM 3 év (iroda)</th>
+            <th>Prioritás</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">DACH + Kelet-Közép-Eu</td>
+            <td class="td-num">5 000–8 000</td>
+            <td class="td-num">750–1 600</td>
+            <td class="td-num">37–160</td>
+            <td class="td-prio td-strong" style="color:var(--accent)">Elsődleges</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Nyugat-Európa (FR, BE, NL)</td>
+            <td class="td-num">2 000–4 000</td>
+            <td class="td-num">300–800</td>
+            <td class="td-num">15–80</td>
+            <td class="td-prio td-strong">Másodlagos</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Észak-Európa (Skandinávia)</td>
+            <td class="td-num">1 000–2 000</td>
+            <td class="td-num">150–400</td>
+            <td class="td-num">7–40</td>
+            <td class="td-prio td-muted">Harmadlagos</td>
+          </tr>
+          <tr>
+            <td class="td-strong">USA</td>
+            <td class="td-num">900–1 500</td>
+            <td class="td-num">90–255</td>
+            <td class="td-num">5–26</td>
+            <td class="td-prio td-strong">Premium szegmens</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Ausztrália + egyéb</td>
+            <td class="td-num">1 000–2 500</td>
+            <td class="td-num">150–500</td>
+            <td class="td-num">7–50</td>
+            <td class="td-prio td-muted">Hosszú táv</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Az USA kisebb abszolút számot jelent, de az átlagos szerződési érték magasabb lehet. Az USA-ban az Archicad-es irodák rendkívül erős Revit-nyomás alatt dolgoznak, hiszen a partnerpiac 63,5%-a Revit-es. A SaaS-megoldások iránti befogadókészség és a fizetési képesség szignifikánsan magasabb, mint Kelet-Közép-Európában. Az USA-ban egy Studio tier deal átlagértéke reálisan €8 000–15 000/év lehet, az erősebb enterprise pricing kultúra miatt.</p>
+
+    <div class="callout-amber">
+      <strong>A valódi döntéshozói szám</strong>
+      A fenti irodaszámok mögött a modellek összefésülését ténylegesen végző szakemberek állnak: nagyobb irodákban dedikált BIM koordinátor, kisebbeknél hibrid szerepben egy építész. Irodánként jellemzően egy (nagyobbaknál két) ilyen személlyel és a konzervatív SAM-maggal (900–2 800 iroda) számolva az elérendő szakmai populáció nagyságrendileg 1 000–4 000 fő, a fizetőképes fájdalmú piac felső szélén sem több ~5 000-nél. Független felmérés erre nincs: belső becslés. Ez az a populáció, amelyet el kell érni BIM koordinátori közösségeken, Graphisoft fórumokon és AEC LinkedIn csoportokon keresztül.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 06 -->
+  <section class="section">
+    <div class="section-label">06 Az USA piac különleges helyzete</div>
+    <h2>Miért jelent az USA más kockázat-hozam profilt?</h2>
+
+    <p>Az USA-ban a Revit-hegemónia annyira erős, hogy az Archicad-es iroda számára a Revit-kompatibilitás nem opcionális, hanem pályázati és szerződési követelmény. Az AIA és a General Services Administration (GSA, szövetségi ingatlankezelés) BIM-követelményei Revit-kompatibilis kimeneti formátumot várnak el számos közprojekten. Az USA-ban tehát az Archicad-es iroda a NODU Bridge-et nem „kényelemként" vásárolná, hanem projekt-hozzáférési feltételként.</p>
+
+    <h3>Az USA mint premium szegmens miért?</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimenzió</th>
+            <th>Európa (DACH, KKE)</th>
+            <th>USA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Archicad-es iroda Revit-es partnereinek aránya</td>
+            <td>~55–65%</td>
+            <td>~75–85%</td>
+          </tr>
+          <tr>
+            <td>BIM-mandátumok hatása</td>
+            <td>Közepes (egyes EU tagállamokban)</td>
+            <td>Erős (GSA, állami szint egyre több helyen)</td>
+          </tr>
+          <tr>
+            <td>SaaS-megoldások iránti befogadókészség</td>
+            <td>Közepes</td>
+            <td>Magas</td>
+          </tr>
+          <tr>
+            <td>Átlagos szerződési érték (várható)</td>
+            <td>€3 000–€8 000/év</td>
+            <td>€6 000–€15 000/év</td>
+          </tr>
+          <tr>
+            <td>Értékesítési ciklus</td>
+            <td>3–9 hónap</td>
+            <td>3–12 hónap (enterprise döntések lassabbak)</td>
+          </tr>
+          <tr>
+            <td>Értékesítési csatorna</td>
+            <td>Közvetlen + Graphisoft partner</td>
+            <td>Közvetlen + AEC konferenciák (AIA, AU)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-amber">
+      <strong>Az USA piac kockázata</strong>
+      Az USA-ban az Archicad meglévő felhasználói bázisa kisebb és jobban szórt. A piacra lépési költség (értékesítés, support, jogi, helyi jelenlét) Európánál jóval magasabb. Az USA nem elsődleges terjeszkedési célpiac korai fázisban, de a beárazásnál és a referenciaszámoknál kiindulópont, és az első 5–10 USA-beli ügyfél szignifikánsan emelheti az átlagos szerződési értéket.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 07 -->
+  <section class="section">
+    <div class="section-label">07 Nyitott kérdések</div>
+    <h2>Amit nem tudunk és ami a piac valódi méretét eldönti</h2>
+
+    <ul class="oq-list">
+      <li>
+        <span class="oq-num">01</span>
+        <span class="oq-text"><strong>A kollaborációs sűrűség kérdése.</strong> Az elemzés nem tudja mérni, hogy az Archicad-es irodák milyen arányban dolgoznak heti rendszeres Revit-adatcserével a negyedévente egyszeri IFC-átadással szemben. Ez a legkritikusabb ismeretlen: ha a „heti rendszeres" szegmens az irodáknak csak 10%-a, nem 55–65%-a, a SAM egy nagyságrenddel kisebb.</span>
+      </li>
+      <li>
+        <span class="oq-num">02</span>
+        <span class="oq-text"><strong>Graphisoft saját fejlesztési iránya.</strong> A Graphisoft 2025-ös roadmap-ja mikrokernel-architektúrát és megerősített OpenBIM-kompatibilitást ígér. Ha a natív Archicad–Revit interop minősége 2–3 éven belül érdemi javulást mutat, a NODU Bridge értékajánlatának egy részét a platform szintjén lehet majd megoldani. Ennek valószínűsége és üteme nem ismert.</span>
+      </li>
+      <li>
+        <span class="oq-num">03</span>
+        <span class="oq-text"><strong>Az IFC-teher valódi megoszlása.</strong> A dokumentált IFC-problémákat nagyvállalati, komplex projekteken mérték. Kisebb projekteken, amelyek az Archicad-irodák többségét teszik ki, ezek a számok alacsonyabbak lehetnek. Ez szűkíti az ROI-argumentum erejét a KKV-szegmensben.</span>
+      </li>
+      <li>
+        <span class="oq-num">04</span>
+        <span class="oq-text"><strong>Fizetési hajlandóság a KKV-szegmensben.</strong> Az európai kis építész irodák (5–15 fő) hagyományosan alacsony SaaS-fizetési hajlandóságot mutatnak. Empirikusan nem tesztelt, hogy a €499/hó Studio tier mennyire megfizethető egy 8 fős irodának, ahol a BIM-koordinátor feladata csak részidős.</span>
+      </li>
+      <li>
+        <span class="oq-num">05</span>
+        <span class="oq-text"><strong>Az USA-beli Archicad-irodák elérhetősége.</strong> Az USA-ban az Archicad-es irodák szétszórtan, de közösségileg aktívak: Mac-felhasználói kultúra, design-fókuszú praxis. Nem vizsgált, hogy ezek az irodák hogyan szereznek értesülést új eszközökről: AIA-konferencia, LinkedIn, Graphisoft reseller hálózat.</span>
+      </li>
+      <li>
+        <span class="oq-num">06</span>
+        <span class="oq-text"><strong>A Speckle V3 Archicad connector jövője.</strong> Ha a Speckle következő fejlesztési ciklusa az Archicad parametrikus adatmegőrzésére fókuszál (ami eddig nem volt prioritás), egy ingyenes, community-supported alternatíva csökkenti a NODU Bridge differenciációját. A Speckle-sharp legacy repo 2026 május archív státusza erre utalhat, de a V3 connector fejlesztési priorizációja nem ismert.</span>
+      </li>
+      <li>
+        <span class="oq-num">07</span>
+        <span class="oq-text"><strong>A jövőbeli, többformátumú tartalom-készítési képesség megváltoztatja-e a piac méretét és határait?</strong> Az elemzés az indulási termékkör Archicad–Revit adatcsere piacán alapul. A VSE-alapú parametrikus tartalom-készítés (és a vele párhuzamos, a gyártói szegmensre célzó NODU Creator kezdeményezés) nem része az indulásnak. Ha egyszer elérhetővé válik, és önálló értékajánlatot teremt a gyártói, GDL-specialista és Revit-orientált piacok felé, a releváns TAM lényegesen nagyobb lehet, mint a fenti számok mutatnak. Ennek mértéke empirikusan nem mért, és a jelenlegi adatokból nem számítható.</span>
+      </li>
+    </ul>
+  </section>
+
+</main>
+<script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

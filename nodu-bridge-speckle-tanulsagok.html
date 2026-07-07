@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODU Bridge Pozicionálás és modell-tanulságok</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #FAFAFA;
+    --card:         #FFFFFF;
+    --topbar:       #17171A;
+    --accent:       #F04E23;
+    --border:       #E4E4E7;
+    --text:         #18181B;
+    --muted:        #71717A;
+    --amber-bg:     #FFFBEB;
+    --amber-border: #F59E0B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--topbar);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #2A2A2D;
+  }
+
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.2px;
+  }
+
+  .topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .topbar-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #A1A1AA;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .topbar-nav a:hover {
+    color: #fff;
+    border-color: #3A3A3D;
+  }
+
+  .topbar-nav .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: #2A2A2D;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--bg);
+    padding: 48px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    margin-bottom: 22px;
+    max-width: 760px;
+    text-align: left;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: none;
+    margin-bottom: 32px;
+    text-align: justify;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 12px;
+    color: #71717A;
+    border-top: 1px solid #2A2A2D;
+    padding-top: 24px;
+  }
+
+  .hero-meta span {
+    font-weight: 500;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 32px 96px;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .section h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .section h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  .section p {
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  .section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 3px solid var(--amber-border);
+    background: var(--amber-bg);
+    padding: 18px 22px;
+    border-radius: 0 6px 6px 0;
+    margin: 36px 0;
+  }
+
+  .callout-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #92400E;
+    margin-bottom: 8px;
+  }
+
+  .callout p {
+    font-size: 0.95rem;
+    color: #78350F;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* TABLES */
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin: 28px 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    font-size: 0.9rem;
+  }
+
+  thead th {
+    background: #F4F4F5;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  thead th:first-child { border-top-left-radius: 9px; }
+  thead th:last-child { border-top-right-radius: 9px; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+  tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+
+  tbody tr:nth-child(even) td {
+    background: #FBFBFC;
+  }
+
+  tbody td {
+    padding: 13px 16px;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  tbody td:first-child {
+    font-weight: 600;
+  }
+
+  tbody tr:hover td {
+    background: #F3F4F6;
+  }
+
+  /* DECISION POINTS */
+  .decision-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  .decision-item {
+    display: flex;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .decision-item:last-child {
+    border-bottom: none;
+  }
+
+  .decision-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--topbar);
+    color: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+  }
+
+  .decision-body h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+
+  .decision-body p {
+    margin-bottom: 10px;
+    font-size: 0.97rem;
+  }
+
+  .decision-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* FAILURE ITEMS */
+  .failure-item {
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .failure-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .failure-title {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  .failure-item p {
+    font-size: 0.95rem;
+    color: #3F3F46;
+  }
+
+  /* OPEN QUESTIONS */
+  .question-list {
+    list-style: none;
+    counter-reset: q-counter;
+  }
+
+  .question-item {
+    counter-increment: q-counter;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .question-item:last-child {
+    border-bottom: none;
+  }
+
+  .question-number {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 3px;
+    min-width: 20px;
+  }
+
+  .question-body strong {
+    display: block;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .question-body p {
+    font-size: 0.93rem;
+    color: #3F3F46;
+    margin-bottom: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--topbar);
+    border-top: 1px solid #2A2A2D;
+    padding: 40px 32px;
+  }
+
+  .footer-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #A1A1AA;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  .footer-nav a:hover {
+    color: #fff;
+  }
+
+  .footer-meta {
+    font-size: 12px;
+    color: #52525B;
+    line-height: 1.6;
+    text-align: right;
+  }
+
+  .footer-meta a {
+    color: #71717A;
+    text-decoration: none;
+  }
+
+  .footer-meta a:hover {
+    color: #A1A1AA;
+  }
+
+  /* HIGHLIGHT ROW */
+  tbody tr.row-highlight td {
+    background: #FFF7F5;
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner { padding: 0 20px; }
+    .hero h1 { font-size: 1.6rem; }
+    .main { padding: 48px 20px 72px; }
+    .topbar { padding: 0 20px; }
+    .footer-meta { text-align: left; }
+  }
+</style>
+<link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+<link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+<link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="nodu-bridge-dashboard.html" class="topbar-logo">
+    <div class="logo-mark">N</div>
+    <span class="logo-text">NODU Bridge</span>
+  </a>
+  <div class="topbar-nav">
+    <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Stratégiai elemzés · pozicionálás</div>
+    <h1>Pozicionálás és modell-tanulságok versenykörnyezet és árazási logika</h1>
+    <p class="hero-subtitle">Hol áll a NODU Bridge a piacon, mit tanulunk a meglévő AEC adatplatformok árazási modelljeiből, miért nehéz technikailag a probléma, amit megoldunk, és hogyan épül fel ebből a NODU Bridge saját licenclogikája.</p>
+    <div class="hero-meta">
+      <span>Belső stratégiai dokumentum</span>
+      <span>2026-06-15 · frissítve 2026-07-06 (két külső szakértői felülvizsgálat után)</span>
+      <span>Forrás: nyilvános AEC platform-dokumentációk, Archicad–Revit mapping analízis</span>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- SECTION 01 -->
+  <section class="section">
+    <div class="section-label">01 Pozicionálás</div>
+    <h2>A NODU Bridge a versenykörnyezetben mit tanulunk a piactól, és hol térünk el</h2>
+
+    <p>A NODU Bridge két, egymással ontológiailag inkompatibilis platform (az Archicad GDL-alapú logikája és a Revit Family–Category rendszere) közötti parametrikus fordításra specializálódott, élő, inkrementális szinkronnal (csak a változott elemek mennek át), emellett batch-/egyszeri konverzióval. A termék értéke az átvitel minőségéből fakad abból, hogy ami átmegy, az parametrikus marad, nem degradálódik nyers geometriai objektummá. Ez a pozicionálás megkülönbözteti a NODU Bridge-et a piac többi szereplőjétől, amelyek jellemzően adathubok vagy általános fejlesztői platformok, nem konverziós motorok.</p>
+
+    <p>A licencmodell kialakításához több meglévő AEC és fejlesztői platform árazási logikája szolgál referenciaként. Az Autodesk APS, a Viktor.ai és a Hypar mellett a legrészletesebben dokumentálható közülük a Speckle, mint az egyetlen open-core AEC adatplatform, amelynek konverziós és árazási logikája nyilvános forrásokból (repository, changelog, fórumok, a 2024–2025-ös árazási változások kommunikációja) legalább részben rekonstruálható. Ezért a Speckle ebben a dokumentumban visszatérő referenciapont, de csak egy input a több közül, nem a modell szervező elve. Fontos, hogy az analógia mindegyik szereplőnél kizárólag az árazási struktúra szintjén érvényes, a value proposition szintjén nem: egy adathub annyi értéket teremt, amennyit a csatlakoztatott rendszerek, a NODU Bridge értéke viszont magából a fordítás minőségéből fakad.</p>
+
+    <p>Egy iparági fejlemény korlátozott relevanciájú, de említésre méltó jelzés: 2025-ben a piac egyik vezető adatplatformja az adatcsomag-alapú számlázásról szinkronizáción alapuló számlázásra váltott. Ez annyit jelez, hogy az adatmozgás az AEC adatplatformokon elfogadott számlázási metrika, a NODU Bridge modelljét azonban közvetlenül nem validálja: a mi értékmérőnk nem az adatmozgás mennyisége, hanem a parametrikus megőrzés minősége, és az árazásunk átalánydíjas, nem volumenalapú.</p>
+
+    <p>Fontos korlát: ez az elemzés egyik versenytárs belső adataira sem támaszkodhat, konverziós rátákat, churn-számokat vagy enterprise deal méreteket egyikük sem publikált. Az ebben a dokumentumban szereplő numerikus referenciaértékek iparági általános SaaS-összehasonlítókból és hasonló fejlettségű B2B platformok nyilvános adataiból vannak levezetve. Ezt a bizonytalansági szintet a dokumentum következetesen jelzi.</p>
+
+    <p>A NODU Bridge platform egy későbbi, jövőbeli iránya, a Revit Family objektumtervezés, egyszer olyan tartalom-alkotó területet nyithat meg, amellyel a jelenlegi piaci szereplők egyike sem foglalkozik; ez azonban nem része az indulási termékkörnek, és az árazási analógiát nem befolyásolja.</p>
+  </section>
+
+  <!-- SECTION 02 -->
+  <section class="section">
+    <div class="section-label">02 Árazási modell tanulságai</div>
+    <h2>Négy strukturális tanulság a piac árazási modelljeiből</h2>
+
+    <h3>Átalánydíj-logika a tranzakciós árazás elkerülése</h3>
+    <p>A piac érettebb szereplői tudatosan kerülik az API-hívásokra vagy adatvolumenre épülő, tranzakciónkénti számlázást. Az indok elsősorban megrendelői-pszichológiai: az AEC iparágban a projektdöntések irodavezetők és tervezési igazgatók kezében vannak, nem IT-osztályoknál. Egy nagy projektben a modellszinkronizálások száma hónapról hónapra tízszeresen változhat a részletes tervezési sprint és a finomítási fázis között. Ez kiszámíthatatlan számlákat termel, ami szerződéskötési szinten erős ellenállást vált ki. Az éves átalánydíjas modell stabil bevételt termel a platformnak, és tervezhető kiadást a vevőnek. A NODU Bridge ugyanezt a logikát követi: a Professional és a Studio csomagok éves átalánydíjas struktúrán alapulnak, a konverziók vagy szinkron-események száma nem befolyásolja a számlát. A kapacitás-korlát nem tranzakciós, hanem strukturális: az egyidejűleg aktív (élő szinkronban lévő) projektek számát limitálja a tier, ez kiszámítható, a vevő által előre látható határ, nem hónapról hónapra ingadozó számla.</p>
+
+    <h3>Lock-in az automatizáción keresztül</h3>
+    <p>A piacon megfigyelhető legfontosabb megtartási mechanizmus nem a funkciókészlet, hanem a workflow-beágyazódás. Minél több egyedi automatizációs kódot épít egy iroda egy platformon belül (szerver-oldali automatizálási scripteket, projekt-specifikus adatfeldolgozó logikákat), annál magasabb a tényleges váltási költség. Ez nem mesterségesen kreált lock-in: a scriptgyűjtemény valódi szellemi tőkét képvisel, amelyet az iroda munkatársai hoztak létre, és a saját folyamataikra optimalizáltak.</p>
+    <p>A NODU Bridge esetében az egyenértékű mechanizmus a mapping-script-könyvtár. Ahogy egy iroda felhalmozza a saját konverziós szabályait (GDL–Family megfeleltetéseket, koordináta-transzformációs profilokat, story-binding logikákat, egyedi paraméter-mappingeket), ezek a scriptek az iroda BIM-munkamódszerének részévé válnak. A NODU Bridge elhagyásának valódi ára nem a licencdíj elvesztése, hanem az újraépítési idő és az átmeneti minőségromlás. Jövőbeli irányként: ha a VSE-alapú parametrikus tartalom-készítési képesség egyszer elérhetővé válik, ez a mechanizmus tovább erősödhet: az iroda a konverziós logika (mapping scriptek) mellett tartalmi vagyont, többformátumú parametrikus sablonokat is felhalmozhatna (ugyanaz a definíció Revit Family-ként és más formátumokban is kiadható), kettős IP-eszközzé bővítve a lock-int. Ez azonban nem része az indulási termékkörnek.</p>
+
+    <h3>A 2025-ös sync-alapú váltás: korlátozott relevanciájú iparági jelzés</h3>
+    <p>Egy piaci vezető 2025-ös számlázási átstrukturálása a feature-alapú csomagoktól a szinkronizáción alapuló metrikák felé annyit jelez, hogy az adatmozgás az AEC adatplatformokon elfogadott számlázási alap. Ennél többet nem: egy versenytárs (részben monetizációs kényszerből fakadó) modellváltása nem piaci validáció, a NODU Bridge pedig épp nem volumenalapú, hanem átalánydíjas árazást követ.</p>
+    <p>Fontos fenntartás: a szinkronizáció volumene nem egyenlő a konverzió minőségével. Egy hub-modellben a sync-alapú metrika az adatátvitel mennyiségét méri, ami ott értelmes proxy. A NODU Bridge esetében a releváns értékmérő nem az átvitt bájtok száma, hanem az, hogy hány parametrikus elem maradt parametrikus az átmeneten keresztül. A BIG graph logikának tehát nemcsak az átvitel mennyiségét, hanem a parametrikus gazdagság megőrzésének arányát is rögzítenie kell: ez az a differenciáló adat, amellyel a NODU Bridge megkülönböztetheti magát az egyszerű geometriai konverziós eszközöktől.</p>
+
+    <h3>A platform mint hosszú távú következő lépés: az induláskori megtartás két lábon áll</h3>
+    <p>A referenciamodellekben a lock-in mechanizmus az automatizációs script-könyvtár. A NODU Bridge esetén az induláskori megtartás két elemre épül: a mapping-sablonkönyvtárra (az iroda felhalmozott konverziós logikája) és a kontrollált koordinációs ciklusokra épülő szinkron-workflow-ra, amely a projektek napi működésének részévé válik. Induláskor ennél több nincs: a Bridge önállóan áll meg, platform-tartalom nélkül.</p>
+    <p>Hosszú távon (a Build-fázisok platform-funkcióinak megérkezésével) ehhez adódik hozzá a harmadik réteg: a NODU platform-ökoszisztéma, amikor a lock-in már nem csupán "nehéz lenne lecserélni az eszközt", hanem "az egész ökoszisztémától kellene elválni". Ez a strukturálisan erősebb mechanizmus azonban jövőbeli állapot, nem induláskori tény: a launch utáni első év churn-feltevéseit a két induláskori lábra kell méretezni.</p>
+  </section>
+
+  <!-- SECTION 03 -->
+  <section class="section">
+    <div class="section-label">03 A probléma mélysége</div>
+    <h2>Miért nehéz az Archicad–Revit konverzió és miért ez a mi árkunk</h2>
+
+    <p>Az alábbiakban dokumentált hibák egy Archicad–Revit mapping analízisből származnak, a piac legrészletesebben elemezhető konverziós megoldása alapján. Nem egyetlen versenytárs kritikájaként szerepelnek itt: egyik meglévő platform deklarált célja sem volt a teljes parametrikus round-trip konverzió Archicad és Revit között. Ezek a korlátok azért relevánsak, mert meghatározzák azt a technikai problémateret, amelyben a NODU Bridge operál, és pontosan ez a probléma a mi versenyelőnyünk forrása. Az, hogy egy érett, jól finanszírozott platform sem oldotta meg ezeket a konverziós problémákat, egyszerre jelzi a probléma mélységét és a megoldás potenciális piaci értékét.</p>
+
+    <div class="failure-item">
+      <div class="failure-title">1. hiba Parametrikus intelligencia elvesztése</div>
+      <p>A dokumentált konverzió nem tudta megbízhatóan leképezni a GDL-objektumokat Revit Family-kategóriákra. Egy precízen definiált Archicad ajtó saját GDL scripttel, méreti paraméterekkel és anyagdefiníciókkal "Generic Model" elemként érkezett Revitbe. Fontos megkülönböztetés: a paraméter-<em>értékek</em> (adat) property-ként gyakran átmennek. Ami elvész, az a parametrikus <em>viselkedés</em>: a constraint-ek, a méretezhetőség, a típuslogika. Éppen ez a viselkedés-megőrzés a konverzió nehéz és értékes része. Ez nem szoftverhibaként értelmezhető, hanem a hard-coded sémaleképezés strukturális következménye: ha a konverziós motor nem ismeri az Archicad GDL-típusrendszer és a Revit Family-Category hierarchia közötti szándékolt megfeleltetést, csak a legkisebb közös nevező, a nyers geometria marad.</p>
+    </div>
+
+    <div class="failure-item">
+      <div class="failure-title">2. hiba Koordináta-rendszer torzulás</div>
+      <p>A két platform alapvetően eltérő módon kezeli a lokális koordináta-rendszereket, az alappontokat (Survey Point, Project Base Point) és az északi irányt. Tesztben Revitből Archicadbe küldött és változatlanul visszaküldött elemek rotációs torzulást szenvedtek. Ez szisztematikus, nem eseti probléma. A konverzió oda-vissza irányban kumulatív hibát halmoz fel. Helyszínközpontú tájolással dolgozó projekteknél (ahol a Survey Point és a Project Base Point eltér) az eltérés méter nagyságrendű lehet; georeferált modelleknél (EOV/UTM koordináták) akár kilométeres is, és a Revit belső geometriai kiterjedés-limitje miatt az import teljesen el is szállhat.</p>
+    </div>
+
+    <div class="failure-item">
+      <div class="failure-title">3. hiba Story vs. Level magasságkötési konfliktus</div>
+      <p>Az Archicad relációsan köti a falmagasságokat a Storyline-hoz (Home Story + eltolás). A Revit ezzel szemben független referenciasíkokat (Level) használ. Amikor a konverzió Revit falat importált Archicadbe, az algoritmus automatikusan megpróbálta alkalmazni az Archicad story-binding szabályait: a fal teteje a felette lévő szinthez csatlakozott, súlyos geometriai csonkítást okozva. Az alapvető probléma az, hogy a konverzió nem tett különbséget szerkezeti szintszabályozók és segéd-referenciasíkok között. A Revit modellekben a Levelek nem mindig szintek: lehetnek tetősíkok, álmennyezet-referenciák vagy szerkesztési segédvonalak. A megkülönböztetés formálisan létezik (a Level "Building Story" paramétere), de a gyakorlatban megbízhatatlanul karbantartott, ezért a konverzió nem támaszkodhat rá vakon: ezt a szemantikai bizonytalanságot a dokumentált konverzió egyáltalán nem kezelte.</p>
+    </div>
+
+    <div class="failure-item">
+      <div class="failure-title">4. hiba Tesszellációs élhibák szabadformájú geometrián</div>
+      <p>Az Archicad Morph elemek ilyen konverción keresztüli exportálásakor háromszögelés történt. Revitbe importáláskor a konverter nem tudott különbséget tenni puha és kemény élek között: az eredmény organikus felületek helyett drótváz-szerű poligonhálók lett. A vizuális eredmény építészetileg nem volt használható. Ez a korlát különösen az organikus homlokzatokkal vagy összetett tömegmodellekkel dolgozó irodákat érinti érzékenyen.</p>
+    </div>
+
+    <div class="failure-item">
+      <div class="failure-title">5. hiba Hierarchikus elemek (lépcsők, korlátok) a stabil toolset határain kívül</div>
+      <p>A lépcsők és korlátok rekurzív al-elem struktúrája kívül esett a dokumentált konverzió stabil export-import képességén. A konverziós logika nem kezelte a beágyazott al-elem hierarchiákat, a lépcsők egyszerűen nem konvertálódtak. A lépcsőelem mind Archicadben, mind Revitben komplex kompozit objektum: összekapcsolt lépéselemek, pihenők, tartószerkezeti referenciák és kapcsolódó korlát-definíciók alkotják. Ennek a hierarchiának flat sémává való visszavezetése a konverzió tervezési határain kívül volt.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Fontos kontextus</div>
+      <p>A vizsgált platformok egyike sem állította, hogy teljes körű parametrikus round-trip konverziót nyújt Archicad és Revit között. Ezek a korlátok a meglévő megoldások deklarált hatókörén kívül esnek. Az elemzés célja a probléma technikai mélységének megértése, nem versenytárs-kritika.</p>
+    </div>
+
+    <h3>A második hibakör: amit a fenti lista nem fed le</h3>
+    <p>A 2026-07-06-i szakértői felülvizsgálat hat további hibaosztályt azonosított, amelyek a napi gyakorlatban legalább olyan súlyúak, mint a dokumentált öt, és amelyekkel a NODU Bridge fejlesztésének és kommunikációjának számolnia kell:</p>
+    <div class="failure-item">
+      <p><strong>Rétegrendes szerkezetek:</strong> az Archicad composite skin-ek és a Revit compound layer-ek (core boundary, wrapping) megfeleltetése: a napi gyakorlatban gyakoribb fájdalom, mint a szabadformájú geometria. <strong>Anyag- és attribútum-mapping:</strong> Building Material + Surface vs. Revit Material: a kimutatások és a mennyiségszámítások erre épülnek. <strong>IFC property setek és osztályozási rendszerek</strong> (Uniclass/OmniClass/nemzeti): a BEP-megfelelés alapja; ha a szinkron elhullajtja, a modell szerződéses értelemben használhatatlan. <strong>Fázisok/felújítás:</strong> Archicad Renovation Filter vs. Revit Phases: az európai állomány jelentős része felújítási projekt. <strong>Worksharing-ütközés:</strong> ha a szinkron BIMcloud Teamwork és Revit workshared central modellbe ír, tisztázandó az elem-tulajdonlás és az ütközéskezelés. <strong>GUID-stabilitás / elemkövetés:</strong> az inkrementális szinkron alapfeltétele, hogy egy elem session-ök között mindkét platformon azonosítható maradjon.</p>
+      <p>Az utolsó kettő nem csupán hibaosztály, hanem az élő szinkron értékajánlatának <em>technikai előfeltétele</em>: a fejlesztési tervben kiemelt helyük van.</p>
+    </div>
+
+    <h3>Amit a piac sosem célzott: parametrikus tartalom-készítés jövőbeli irány</h3>
+    <p>A dokumentált hibák kivétel nélkül konverziós problémákat írnak le: meglévő Archicad-objektumok Revitbe való átmenete során keletkező adatveszteséget. Sem a meglévő platformok, sem a NODU Bridge indulási termékköre nem célozza új parametrikus tartalom tervezését. Ez egy teljesen különböző termékfunkció: a NODU platform egyik tervezett, későbbi fejlesztési iránya, amely (a 2026-07-06-i pontosítás szerint) többformátumú képességként (Revit Family és további CAD-/gyártói formátumok) nyithat tartalom-alkotó dimenziót az interop-eszközök kategóriáján túl. Párhuzamos, átfedő kezdeményezés a NODU Creator (Content Engine): knowledge-graph-alapú termékadat-motor a gyártói szegmensre, lehetséges önálló termékként (saját blueprint, 2026-06-11). Induláskor egyik sem része a terméknek.</p>
+  </section>
+
+  <!-- SECTION 04 -->
+  <section class="section">
+    <div class="section-label">04 Piaci összehasonlítás</div>
+    <h2>Árazási összehasonlítás négy releváns szereplő</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Modell</th>
+            <th>Value metric</th>
+            <th>Paywall</th>
+            <th>Tanulság a NODU Bridge számára</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Speckle</strong></td>
+            <td>Open-core, átalánydíj</td>
+            <td>Workspaces + szinkron-metrika</td>
+            <td>Governance (SSO/RBAC) enterprise szinten</td>
+            <td>Az átalánydíj és a 2025-ös sync-metrika validálja az adatmozgást mint értékmérőt; a governance-paywallt viszont a NODU szándékosan korábbra helyezi (lásd 05)</td>
+          </tr>
+          <tr>
+            <td><strong>Autodesk APS</strong></td>
+            <td>PaaS, fogyasztásalapú</td>
+            <td>Flex Tokens / API-hívások</td>
+            <td>Minden tranzakció fizetős</td>
+            <td>Negatív minta: kiszámíthatatlan számla nagy projekteknél, vásárlói ellenállás</td>
+          </tr>
+          <tr>
+            <td><strong>Viktor.ai</strong></td>
+            <td>Fejlesztő-fókuszú SaaS</td>
+            <td>Seats + publikált alkalmazások</td>
+            <td>Publikált appok száma és elérése</td>
+            <td>Részleges analógia: a "publikált script" modell közel áll a NODU Bridge marketplace logikájához (2027)</td>
+          </tr>
+          <tr>
+            <td><strong>Hypar</strong></td>
+            <td>Hibrid SaaS</td>
+            <td>Compute + privát munkaterek</td>
+            <td>IP-védelem, privát futtatás</td>
+            <td>Erős analógia a compute-lock-in logikára, de US-fókuszú, kis- és közepes irodák körében elterjedtsége korlátozott</td>
+          </tr>
+          <tr class="row-highlight">
+            <td><strong>Status quo: kézi IFC-workflow</strong></td>
+            <td>Ingyenes (szabvány)</td>
+            <td>Munkaidő (rejtett költség)</td>
+            <td>–</td>
+            <td>Ez az elsődleges valós versenytárs: a BEP-ek gyakran szerződésben írják elő; rejtett ára €15–35k/iroda/év (2–3 aktív közös projekt mellett); ezzel szemben a Studio €5 988/év a teher 17–40%-a</td>
+          </tr>
+          <tr class="row-highlight">
+            <td><strong>Status quo: újramodellezés / referencia-link</strong></td>
+            <td>Belső embernap-költség</td>
+            <td>Modellezői munkaidő</td>
+            <td>–</td>
+            <td>A legelterjedtebb valós gyakorlat, ha natív modell kell; a Bridge tényleges ár-benchmarkja az újramodellezés embernap-költsége, nem a platformok listaára</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>A legfontosabb negatív tanulság az Autodesk APS modell. Az AEC-ben a vásárlási döntések irodavezetők és tervezési igazgatók kezében vannak. Egy kiszámíthatatlan, tranzakciókhoz kötött számla büdzsészorongást teremt, amely a megbeszélés előtt véget vet az értékesítési folyamatnak. Az AEC-piac tolerálja a magasabb abszolút árakat, ha azok kiszámíthatók és éves kontraktus keretében tervezhetők. Ez a legfontosabb árképzési korlát az AEC szoftverpiacon, és ez indokolja, hogy a NODU Bridge átalánydíjas struktúrát alkalmaz a Professional és a Studio szinteken.</p>
+
+    <p>A beszerzési vitában azonban nem a fenti platformok ellen kell nyerni, hanem a status quo ellen. A szkeptikus BIM-vezető kérdései kiszámíthatók: "miért fizessek azért, amit a Graphisoft natív RVT-cseréje ingyen tud?" (válasz: a natív csere geometriát visz át, nem parametrikus viselkedést); "a koordinációs fájdalmunkat referencia-modell + BCF megoldja" (válasz: a Bridge akkor kell, amikor szerkeszthető natív modell kell a túloldalon); "mi történik az évenkénti Archicad/Revit verzióváltásnál?" (erre a 07. szekció nyitott kérdése ad keretet). Az értékesítési anyagoknak ezekre a kérdésekre kell felkészülniük, nem a platform-összehasonlításra.</p>
+  </section>
+
+  <!-- SECTION 05 -->
+  <section class="section">
+    <div class="section-label">05 Döntési logika</div>
+    <h2>Négy döntési pont hogyan jutottunk a javasolt struktúrához</h2>
+
+    <ul class="decision-list">
+
+      <li class="decision-item">
+        <div class="decision-number">01</div>
+        <div class="decision-body">
+          <h3>Az adatkonverzió commodity az ingyenes réteg szükséges, nem opcionális</h3>
+          <p>Az alapvető geometriai konverzió egyre inkább elvárás, nem differenciátor. Bármely platform, amely az alapvető fájlcsere mögé paywallt helyez, elveszíti a piacot a nyílt forráskódú alternatívákkal szemben. Az ingyenes szintnek valódi értéket kell nyújtania: azt a meggyőző első élményt, amelynek hatására a felhasználó megérti, mit tud a NODU Bridge, amit más nem tud, de meg kell állnia az igazi differenciátor előtt.</p>
+          <p>Az ingyenes szint tehát nem jóindulat kérdése: az organikus növekedés és a virális terjedés előfeltétele egy olyan iparágban, ahol a termékek értékelése elsősorban peer-ajánlásokon alapul.</p>
+        </div>
+      </li>
+
+      <li class="decision-item">
+        <div class="decision-number">02</div>
+        <div class="decision-body">
+          <h3>A parametrikus engine az 1. paywall nem a governance</h3>
+          <p>Ez az a pont, ahol a NODU Bridge szándékosan eltér a hub-platformok modelljétől. Egy hub ingyenesen adja a konnektorokat, mert azok geometriát visznek át, ami commodity. A NODU Bridge konnektor ezzel szemben tartalmazza a parametrikus mapping engine-t, ami az alapvető IP. Ezt az ingyenes szintbe helyezni azt jelentené, hogy az értéket nem tartjuk meg.</p>
+          <p>A scriptmentés funkció a természetes paywall: a felhasználó megtapasztalja az értéket, látja, hogy az ajtó ajtóként érkezik Revitbe, mielőtt eléri a korlátot. Ez az az architektúra, amely a hub-modellekből nem vehető át változtatás nélkül, mert a NODU Bridge termék-logikája alapvetően különbözik: a konnektor maga a differenciátor, nem a rá épülő automatizáció.</p>
+          <p>Jövőbeli irány a VSE-alapú parametrikus tartalom-készítési képességhez: amikor egyszer elérhetővé válik, ugyanaz a Professional paywall mögé kerülhet, mint a mapping script engine. Ez tovább erősítené a paywall megindoklását. Induláskor azonban a Professional tier értékajánlata egységesen a konverziós intelligencia (script engine); a tartalom-készítés nem része az indulási termékkörnek.</p>
+        </div>
+      </li>
+
+      <li class="decision-item">
+        <div class="decision-number">03</div>
+        <div class="decision-body">
+          <h3>A fizetős seat a funkciót követi, és a kétcéges valóságot is kezelnie kell</h3>
+          <p>A fizetős Koordinátor-seat azé, aki a modellek összefésülését és a szinkron-sablonokat gondozza: nagyobb irodákban dedikált BIM-koordinátor, kisebbeknél hibrid szerepben egy építész. A vevő tehát mindenhol létezik, ahol a fájdalom létezik. (Belső kalibrációs megjegyzés: mivel a legtöbb irodában egyetlen ember végzi ezt a munkát, a Studio 2 seat-es értékajánlata önmagában a piac kisebbik részének releváns: a Studio-konverziós várakozásokat ehhez kell mérni.)</p>
+          <p>A Professional → Studio upgrade legerősebb, mérhető triggere a <strong>2 egyidejűleg aktív projektes limit kinövése</strong>: ez automatikus, a szoftver saját állapotából látható kapacitás-esemény. Másodlagos triggerek: a második koordinátor belépése, az API-integrációs igény, és az iroda-folytonosság (a koordinátor távozásakor a sablonkönyvtár átadhatósága), ez utóbbi valós félelem, de beszerzési döntést ritkán indít el önmagában.</p>
+          <p><strong>Kétcéges alapelv (2026-07-06):</strong> egy közös Archicad–Revit projektben a két platform tipikusan két különböző cégnél van. A licencelv: <em>az fizet, akinek a két szoftver közötti adatcsere az érdeke</em>, jellemzően a koordinációt vivő (Archicad-oldali) iroda. A partneroldali résztvevők a fizető fél méltányos használati keretéből, cégen átnyúlóan kapnak ingyenes User-seatet, a konnektor telepítése ingyenes. A kapcsolódó részletkérdések (adattulajdon, felelősségi határok, megbízói CDE-előírások szerinti megfelelés) a 07. szekcióban nyitott kérdésként szerepelnek.</p>
+        </div>
+      </li>
+
+      <li class="decision-item">
+        <div class="decision-number">04</div>
+        <div class="decision-body">
+          <h3>Governance az Enterprise szinten: jövőbeli tier, terv szerint 2027 elejétől</h3>
+          <p>Az Enterprise szinten a hub-platformok governance-logikája közvetlenül alkalmazható: SSO, RBAC, on-premise deployment, audit logging, SLA. Ezek nem funkciók, hanem szervezeti kontrollmechanizmusok. Az Enterprise vásárlási döntést nem funkcionális összehasonlítás vezérli, hanem jogi és compliance követelmények, IP-védelmi igények vagy nagyvállalati IT-biztonsági előírások. Az értékesítési mozgás alapvetően eltér a Professional/Studio szintektől: az Enterprise-egyezkedés IT-biztonságon, jogi osztályon és beszerzési osztályon keresztül zajlik, és az ár másodlagos szempont a megfelelőségi garanciákhoz képest.</p>
+          <p><strong>Időzítés (2026-07-06-i döntés):</strong> az Enterprise tier induláskor nem indul: a governance-képességek (SSO, on-premise) nem v1-képességek, a Platform Core pedig a Build-fázisokkal érkezik. A tier terv szerint 2027 elején nyílik meg; addig a nagy, egyedi igényű irodák egyedi ajánlatot kapnak. Ennek fontos következménye, hogy az az iroda, amelynek beszerzési feltétele az SSO vagy az on-premise futtatás, 2026-ban nem tud vásárolni: ezt a pipeline-ban explicit kezelni kell (mit tartalmaz az egyedi ajánlat, és mit nem ígérünk). A platform-hozzáférés a majdani Enterprise-értékajánlat része lesz, nem induláskori tény.</p>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- SECTION 06 -->
+  <section class="section">
+    <div class="section-label">06 Paywall-architektúra</div>
+    <h2>A NODU Bridge paywall-architektúrája hol áll az első fizetős vonal</h2>
+
+    <p>A NODU Bridge és egy tipikus hub-platform strukturális különbsége nem a szintek számában rejlik, hanem az első paywall elhelyezkedésében.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Szint</th>
+            <th>Hub-platform (referencia)</th>
+            <th>NODU Bridge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ingyenes</strong></td>
+            <td>Konnektorok + alap geometria + közösségi hoszting</td>
+            <td>Alap geometria + preset scriptek (olvasás) + havonta 2 teljes modelles konverzió, elemszám-korlát nélkül</td>
+          </tr>
+          <tr class="row-highlight">
+            <td><strong>1. Paywall</strong></td>
+            <td style="color: var(--muted);">  (nincs intermediate tier)</td>
+            <td>Élő, inkrementális szinkron + saját sablon létrehozása/mentése (Professional, 149 EUR/Koordinátor/hó; a pontos határvonal a funkcionalitással együtt véglegesítendő)</td>
+          </tr>
+          <tr>
+            <td><strong>2. Paywall</strong></td>
+            <td style="color: var(--muted);"> </td>
+            <td>Második Koordinátor / User-plafon / aktív projekt-limit + közös sablonkönyvtár, API (Studio, 499 EUR/iroda/hó)</td>
+          </tr>
+          <tr>
+            <td><strong>Enterprise Paywall</strong> (jövőbeli tier, terv: 2027 eleje)</td>
+            <td>SSO, RBAC, on-premise, SLA</td>
+            <td>SSO, RBAC, on-premise + BIG graph + ERP-integráció, SLA + NODU platform-belépés, a tier megnyílásától; induláskor egyedi ajánlat</td>
+          </tr>
+          <tr>
+            <td><strong>Value metric</strong></td>
+            <td>Workspaces + Automate Credits</td>
+            <td>Elsődlegesen az egyidejűleg aktív projektek száma tierenként (a fájdalom-intenzitást követő kapacitás-tengely); emellett Koordinátor-seat, méltányos User-kerettel (a keret visszaélés elleni korlát, nem árazási elem)</td>
+          </tr>
+          <tr>
+            <td><strong>Lock-in mechanizmus</strong></td>
+            <td>Automate scriptek a dedikált szerveren</td>
+            <td>Induláskor: mapping-sablonkönyvtár + kontrollált koordinációs ciklusokra épülő szinkron-workflow. Hosszú távon: + NODU platform-ökoszisztéma</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Az első paywall elhelyezkedése a modell legfontosabb architekturális döntése. Ha az első paywall túl korai (mielőtt a felhasználó megtapasztalja az igazi értéket), a konverzió alacsony, és az NPS negatív. Ha túl késői (miután a felhasználó már a teljes értéket megkapta ingyenesen), a fizetési hajlandóság csökken, mert nincs egyértelmű következő lépés.</p>
+    <p>A NODU Bridge esetében a munkahipotézis szerint a sablonmentés és az élő szinkron együtt adja a természetes határpontot: a felhasználó az ingyenes batch-konverzióval már tudja, mit kap, de a megszerzett tudást (a felépített mapping-logikát) csak előfizetéssel tarthatja meg, és a folyamatos szinkron-képességet is csak ott kapja meg. A szinkron pozicionálása (2026-07-06-i döntés): <strong>kontrollált koordinációs ciklus</strong>: a Koordinátor hagyja jóvá, mi és mikor megy át, nem felügyelet nélküli háttérfolyamat. Ez tudatosan illeszkedik az irodák minőségbiztosítási gyakorlatához (verzionált, ellenőrzött átadások, BCF-körök): a Bridge a mérföldkő-alapú cserét gyorsítja fel, és teszi veszteségmentessé, nem megkerüli azt. Két fontos fenntartás áll fenn. (1) A határvonal pontos meghúzása (mit tud a preset sablon, hol kezdődik a "saját" mapping) a végleges funkcionalitás ismerete nélkül nem zárható le: ez a licencmodell legfontosabb nyitott kérdése, a fejlesztéssel együtt véglegesítendő. (2) Nyitott roadmap-kockázat, hogy az inkrementális szinkron a GA-ra (2026-09-15) elkészül-e, vagy csak a Phase 3-ban (2026 nov – 2027 jan): ez a kérdés nem előzetes egyeztetéssel dől el, hanem magával a fejlesztési ütemtervvel: a valós státusz akkor válik ismertté, amikor a roadmap az adott fázishoz ér. Amíg ez nem történik meg, a launch-közeli sales- és befektetői kommunikációban óvatosan kell fogalmazni erről a funkcióról, és ha a szinkron csúszik, a Professional GA-értékajánlatát és árát ehhez kell igazítani (pl. bevezető árazás a szinkron megérkezéséig).</p>
+  </section>
+
+  <!-- SECTION 07 -->
+  <section class="section">
+    <div class="section-label">07 Nyitott kérdések</div>
+    <h2>Amit nem tudunk nyitott kérdések és feltételezések</h2>
+
+    <p>Az alábbi kérdések nem retorikai jellegűek. Ezek valódi bizonytalansági pontok, amelyek a licencmodell kalibrálását befolyásolják, és amelyekre jelenleg nincs adatunk.</p>
+
+    <ul class="question-list">
+
+      <li class="question-item">
+        <div class="question-number">01</div>
+        <div class="question-body">
+          <strong>A free → paid konverziós ráta (5–8%) AEC-specifikus adat hiányában becslés</strong>
+          <p>A piaci referenciákat idéztük, de egyik platform sem tett közzé konverziós rátákat. Az 5–8%-os sáv a generikus 3–5%-os B2B SaaS-referenciaérték painkiller-pozícióval (akut, eddig megoldatlan probléma + szűk vertikum) felfelé korrigált változata, a 2026-07-03-i validáció szerint a legjobb vertikális SaaS-benchmarkok (pl. LegalTech) plafonja is csak 5,2–6,1%, a korábbi 6–10%-os sáv tehát a bizonyítékokhoz képest optimista volt. AEC-specifikus freemium konverziós adat nem létezik a nyilvános szakirodalomban. A tényleges ráta lehet alacsonyabb, mivel az AEC-irodák konzervatív technológia-adoptálók, ahol az eszközváltás döntési ciklusa hosszú. A 2026-07-06-i felülvizsgálat a sáv felső határát 5–6%-ra normálta: a 8% a saját idézett vertikális benchmark-plafon (6,1%) felett volt. Fontosabb vezérmetrika a konverziós rátánál az <strong>aktiváció</strong>: az első saját mapping-sablon megépítése és az első szinkron-kapcsolat beállítása: ez a két esemény jelzi előre a fizetővé válást és a megtartást, és rétegenként (A/B/C fájdalom-intenzitás) eltérő konverziót valószínűsít. Ez az a számkör, amely a licencmodell megtérülési kalkulációját leginkább befolyásolja, és jelenleg a legkevésbé megalapozott.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">02</div>
+        <div class="question-body">
+          <strong>LEZÁRVA (2026-07-06): az elemszám-korlát gyakoriság-alapú korlátra cserélve</strong>
+          <p>A 2026-07-06-i szakértői felülvizsgálat megállapította, hogy a korábbi 500 elemes kalibrációs keret (200–800 elemes "átlagprojekt" feltevéssel) nagyságrenddel melléfog: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, egyetlen lakószint is bőven 500 fölött van. Az 500 elemes korlát tehát nem "pilot projekt", hanem részmodell-demó volt, amely a Community tier deklarált célját (valódi érték az eseti cserét futtató C rétegnek) nem teljesítette. Döntés: az elemszám-korlát megszűnt, helyette gyakoriság-alapú fair use-határ: havonta 2 teljes modelles konverzió. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás) igényét fedi le teljes értékkel, miközben a gyakoribb használat (a szoftver saját állapotából mérve) a B/A rétegbe, tehát a fizetős tierekbe tereli a felhasználót. A végleges kalibrálás (havi 2 elég-e, vagy 1/3) az első 50 aktív felhasználó telemetriájából történik.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">03</div>
+        <div class="question-body">
+          <strong>A sablon-lock-in feltételezi az aktív sablonépítést az élő szinkron ezt részben kompenzálja</strong>
+          <p>A megtartási mechanizmus egyik fele feltételezi, hogy a Koordinátorok aktívan építenek és mentenek mapping-sablonokat. A valós workflow azonban nem folyamatos sablonépítés: a mapping-beállítás jellemzően projektindításkor egyszeri, intenzív munka (1–2 hét), utána hónapokig alig nyúlnak hozzá: a konverziós pillanat tehát a projektindítás, és az onboardingnak erre az egyszeri, nagy téttel bíró eseményre kell épülnie. A második megtartási szál a kontrollált koordinációs ciklusokra épülő szinkron-workflow, amely a projekt élete alatt a koordináció gerincévé válik (a teljes iroda ingyenes User-seatekkel), lemondása nem egy eszköz elhagyása, hanem egy működő koordinációs folyamat megszakítása.</p>
+          <p>Az onboarding célja ettől függetlenül változatlan: a Koordinátort el kell vezetni az első saját mapping-sablon megépítéséig és az első szinkron-kapcsolat beállításáig: ez a két aktivációs esemény a megtartás legjobb előrejelzője. Ha az onboarding egyiket sem éri el, a Professional tier nem termel megtartható értéket, és a megújítási arány alacsony marad.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">04</div>
+        <div class="question-body">
+          <strong>Az átalánydíjas Studio csomag potenciálisan alulárazza a nagy szinkron-forgalmú irodákat</strong>
+          <p>499 EUR/hó 2 Koordinátor-seat és a hozzájuk tartozó méltányos User-keret mellett fejenkénti bontásban alacsony összeg egy olyan iroda számára, amely napi szinten, éles projekteken futtat szinkront. Az átalánydíjas modell egyszerűsíti az értékesítést, de bevételt hagyhat az asztalon. A modellben a korrekciós mechanizmus már nem egy jövőbeli seat-alapú áttérés (az árazás eleve Koordinátor-seat-alapú), hanem a kapacitás-tengely kalibrálása: ha az adatok azt mutatják, hogy a Studio-irodák rendszeresen az 5 aktív projektes limit közelében járnak, vagy a 20 fős User-keretet kinövik, a limitek és az árak újrahangolása indokolt a tényleges felhasználási adatok alapján, nem előre rögzített ütemterv szerint.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">05</div>
+        <div class="question-body">
+          <strong>Az Enterprise minimum (2 500 EUR/hó) piaci referencia nélkül meghatározott, és csak a tier 2027 eleji megnyílásakor lép életbe</strong>
+          <p>Nincs közvetlen összehasonlítható adatunk egy Archicad–Revit parametrikus bridge enterprise deploymentjének árára vonatkozóan. A 2 500 EUR-os alsó határ a piac ismert enterprise árkategóriájából van levezetve, SMB-adjacent irodák felé lefelé korrigálva. A 2026-07-06-i döntés szerint az Enterprise tier induláskor nem indul: a floor a tier megnyílásakor (terv: 2027 eleje) lép életbe, addig egyedi ajánlatok élnek. A tényleges fizetési hajlandóság Enterprise szinten ismeretlen az első szerződések megkötéséig. Az Enterprise-árképzés mindig tárgyaláson alapul, és az első három-öt deal fogja meghatározni az indokolt árkategóriát és a sztenderd konstrukciót.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">06</div>
+        <div class="question-body">
+          <strong>A Bridge → Platform Core upsell feltételezi, hogy az Enterprise ügyfél BIG graph-igényt fejleszt, hosszú távú kérdés, bevételi feltevés nélkül</strong>
+          <p>A háromszintű stratégia (Bridge → Platform Core → Marketplace) feltételezi, hogy a majdani Enterprise Bridge-felhasználók természetes úton fejlesztenek igényt a BIG graph és az ERP-integráció iránt. Ez ésszerű hipotézis, de nem bizonyosság, és a 2026-07-06-i döntés szerint a jelenlegi piaci és bevételi számítások platform-upsell bevételt nem tartalmaznak, tehát ez a kérdés a tervezési számokat nem érinti. Az upsell-útvonalat a platform-fázisban explicit módon kell tervezni, aktív customer success munkával, amely a BIG graph használati eseteit az ügyfél konkrét fájdalompontjaihoz köti, nem pedig azt feltételezve, hogy az organikusan kialakul.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">07</div>
+        <div class="question-body">
+          <strong>Az "egyidejűleg aktív projekt" definíciója nyitott: a fő value metric jelenleg kijátszható</strong>
+          <p>Egy közös projekt nem folyamatosan aktív: tender/koncepció fázisban alig cserél, kiviteli fázisban intenzíven, megvalósulási szakaszban egyszer. Az irodák a projekteket deaktiválni-reaktiválni fogják, hogy a limit alatt maradjanak. Definiálandó, hogy mit őriz meg a deaktiválás (mapping-sablonok, elempárosítás), mekkora a reaktiválás súrlódása, van-e türelmi mechanizmus. A jelenlegi 60 napos inaktivitási szabály kiindulópont, de a projektciklus-viselkedésre nincs kalibrálva. Amíg ez nincs lezárva, a kapacitás-tengely (a licencmodell elsődleges value metricje) kijátszható.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">08</div>
+        <div class="question-body">
+          <strong>Kétcéges működés részletkérdései: adattulajdon, felelősség, CDE-megfelelés</strong>
+          <p>A licencelv lezárt (az fizet, akinek az adatcsere az érdeke; a partneroldal cégen átnyúló, ingyenes User-seateket kap), de a kapcsolódó kérdések nyitottak: kié a szinkronizált modell-tartalom a két cég közötti térben; ki felel egy hibás szinkron okozta kárért (szakmai felelősségbiztosítási kérdés); hogyan illeszkedik a szinkron a megbízói CDE-előírásokhoz (ISO 19650) és a worksharing elem-tulajdonláshoz. Ezek a kérdések minden komolyabb beszerzési átvilágításban elő fognak kerülni.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">09</div>
+        <div class="question-body">
+          <strong>Verziókövetés és futtatási környezet: a kategória történelmi buktatói</strong>
+          <p>Két kérdés, amelyet minden szkeptikus BIM-vezető fel fog tenni. (1) Verziókövetés: az Archicad és a Revit évente új verziót ad ki: mekkora az API-követési késés? A harmadik feles konverter-kategória korábbi szereplői jellemzően ezen véreztek el; a verziókövetési vállalás (pl. "az új verzió támogatása a megjelenéstől számított N héten belül") explicit ígéretté teendő. (2) Futtatási környezet: hol fut a szinkron: felhőben vagy lokálisan? Számos megbízói NDA tiltja a modell külső feltöltését, és az on-premise opció csak a 2027-es Enterprise-nyílással érkezik; addig tisztázandó, mit tudunk mondani az adatkezelésről (lokális feldolgozás, EU-s adattárolás, titkosítás).</p>
+        </div>
+      </li>
+
+    </ul>
+
+    <p style="margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border);">Ezek a bizonytalanságok nem érvénytelenítik a javasolt modellt, de azt jelzik, hogy az első 6–12 hónap kritikus adatgyűjtési periódus. A free tier korlátja, a Professional ára és a Studio struktúrája mind felülvizsgálandó az első 50 aktív felhasználó viselkedési adatai alapján. A modell felülvizsgálati ciklusa nem naptár-alapú, hanem adatalapú kell legyen: az árazási döntéseket az adott mérföldkő elérésekor kell újragondolni, nem korábban és nem évek múlva.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+      <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+      <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+      <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+      <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+      <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    </div>
+    <div class="footer-meta">
+      NODU Bridge · Belső stratégiai dokumentum · 2026-06-15<br>
+      <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

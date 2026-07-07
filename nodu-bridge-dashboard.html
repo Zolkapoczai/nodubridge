@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NODU Bridge Stratégiai áttekintés</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAFAFA; --card: #FFFFFF; --topbar: #17171A; --accent: #F04E23;
+      --border: #E4E4E7; --text: #18181B; --muted: #71717A;
+      --amber-bg: #FFFBEB; --amber-border: #F59E0B;
+      --green-bg: #F0FDF4; --green-border: #22C55E;
+      --blue-bg: #EFF6FF; --blue-border: #3B82F6;
+      --orange-bg: #FFF3F0; --orange-lt: #FEE8E2;
+      --green: #16A34A; --blue: #2563EB; --purple: #7C3AED; --purple-bg: #F5F3FF;
+      --amber: #D97706;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 17px; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+
+    /* TOPBAR */
+    .topbar { background: var(--topbar); height: 56px; display: flex; align-items: center; padding: 0 32px; gap: 32px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #2A2A2D; }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; }
+    .logo-text { font-size: 14px; font-weight: 600; color: #fff; }
+    .topbar-nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .topbar-nav a { font-size: 13px; font-weight: 500; color: #A1A1AA; text-decoration: none; padding: 6px 14px; border-radius: 6px; border: 1px solid transparent; transition: color 0.15s, border-color 0.15s; white-space: nowrap; text-align: left; }
+    .topbar-nav a:hover { color: #fff; border-color: #3A3A3D; }
+    .nav-divider { width: 1px; height: 20px; background: #2A2A2D; }
+
+    /* HERO */
+    .hero { background: var(--bg); padding: 40px 0 48px; border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+    .hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .hero h1 { font-size: 2.1rem; font-weight: 800; color: var(--text); line-height: 1.25; letter-spacing: -0.03em; margin-bottom: 20px; max-width: 760px; text-align: left; }
+    .hero-subtitle { font-size: 1rem; color: var(--muted); line-height: 1.65; max-width: none; margin-bottom: 28px; text-align: justify; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px; }
+
+    /* MAIN */
+    .main { max-width: 880px; margin: 0 auto; padding: 56px 32px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .section h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border); text-align: left; }
+    .section h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-top: 32px; margin-bottom: 12px; text-align: left; }
+    .section p { margin-bottom: 16px; }
+
+    /* CALLOUTS */
+    .callout { border-left: 3px solid var(--amber-border); background: var(--amber-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
+    .callout p { font-size: 0.93rem; color: #78350F; margin: 0; }
+    .callout-green { border-left: 3px solid var(--green-border); background: var(--green-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-green .callout-label { color: #14532D; }
+    .callout-green p { color: #166534; font-size: 0.93rem; margin: 0; }
+
+    /* KÉT ALAPELV KÁRTYÁK */
+    .principles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+    .principle-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px; }
+    .principle-card h3 { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-top: 0; margin-bottom: 12px; text-align: left; }
+    .principle-card p { font-size: 0.91rem; color: #3F3F46; margin: 0; line-height: 1.65; }
+
+    /* METRIKA KÁRTYÁK */
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .metric-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 22px 24px; }
+    .metric-value { font-size: 1.45rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 6px; line-height: 1.2; }
+    .metric-label { font-size: 0.82rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* DOKUMENTUMTÉRKÉP KÁRTYÁK */
+    .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+    .doc-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; display: flex; flex-direction: column; transition: box-shadow 0.18s; }
+    .doc-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+    .doc-card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; text-align: left; }
+    .doc-card-desc { font-size: 0.88rem; color: #52525B; line-height: 1.6; flex: 1; margin-bottom: 20px; }
+    .doc-card-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; border: 1px solid var(--accent); border-radius: 6px; padding: 7px 16px; align-self: flex-start; transition: background 0.15s, color 0.15s; }
+    .doc-card-link:hover { background: var(--accent); color: #fff; }
+
+    /* TÁBLÁZAT */
+    .table-wrap { width: 100%; overflow-x: auto; margin: 24px 0; border: 1px solid var(--border); border-radius: 10px; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); font-size: 0.9rem; }
+    thead th { background: #F4F4F5; border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 12px 16px; text-align: left; white-space: nowrap; }
+    thead th:first-child { border-top-left-radius: 9px; }
+    thead th:last-child { border-top-right-radius: 9px; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+    tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+    tbody tr:nth-child(even) td { background: #FBFBFC; }
+    tbody td { padding: 13px 16px; color: var(--text); vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; }
+    tbody td:first-child { font-weight: 600; }
+    tbody tr:hover td { background: #F3F4F6; }
+    .phase-badge { font-size: 0.78rem; font-weight: 600; padding: 2px 9px; border-radius: 4px; display: inline-block; white-space: nowrap; }
+    .phase-early { background: #FFF3F0; color: #C2410C; }
+    .phase-growth { background: #EFF6FF; color: #1D4ED8; }
+    .phase-enterprise { background: #F5F3FF; color: #6D28D9; }
+
+    /* KÉT LICENCMODELL */
+    .license-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
+    .license-col { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+    .license-col-title { font-size: 0.88rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; text-align: left; }
+    .license-tier { border-bottom: 1px solid var(--border); padding: 12px 0; }
+    .license-tier:last-child { border-bottom: none; padding-bottom: 0; }
+    .license-tier-name { font-size: 0.91rem; font-weight: 700; color: var(--text); margin-bottom: 3px; text-align: left; }
+    .license-tier-price { font-size: 0.83rem; color: var(--muted); }
+    .license-note { margin-top: 20px; font-size: 0.85rem; color: #52525B; background: #F4F4F5; border-radius: 6px; padding: 12px 16px; line-height: 1.6; text-align: justify; }
+
+    /* FOOTER */
+    .footer { background: var(--topbar); border-top: 1px solid #2A2A2D; padding: 36px 32px; }
+    .footer-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 13px; font-weight: 500; color: #A1A1AA; text-decoration: none; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-meta { font-size: 12px; color: #52525B; line-height: 1.6; text-align: right; }
+    .footer-meta a { color: #71717A; text-decoration: none; }
+    .footer-meta a:hover { color: #A1A1AA; }
+
+    @media (max-width: 640px) {
+      .hero-inner { padding: 0 20px; }
+      .hero h1 { font-size: 1.55rem; }
+      .main { padding: 40px 20px 64px; }
+      .topbar { padding: 0 20px; }
+      .footer-meta { text-align: left; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: 1fr; }
+      .doc-grid { grid-template-columns: 1fr; }
+      .license-compare { grid-template-columns: 1fr; }
+      .topbar-nav { gap: 4px; }
+      .topbar-nav a { padding: 5px 9px; font-size: 12px; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+  <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+  <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="nodu-bridge-dashboard.html" class="topbar-logo">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">NODU Bridge</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+      <div class="nav-divider"></div>
+      <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-label">Belső stratégiai dokumentum</div>
+      <h1>NODU Bridge Stratégiai áttekintés</h1>
+      <p class="hero-subtitle">A NODU Bridge élő, inkrementális szinkront biztosít Archicad és Revit között: csak a változott elemek mennek át, és a két szoftver között az elemek logikája (parametrikus kapcsolatok, osztályozások, egyedi paraméterek), nem pedig statikus geometria kerül át. A batch/egyszeri konverzió emellett külön funkcióként elérhető. A termék induláskor önállóan megálló eszköz, amely az irodák azonnali fájdalmát oldja meg; hosszú távon a NODU platform belépési kapuja. A VSE-alapú parametrikus tartalomkészítés (Revit Family és további formátumok) jövőbeli irány, nem része az indulási termékkörnek.</p>
+      <div class="hero-meta">
+        <span>2026-07-02</span>
+        <span>Belső dokumentum</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ALAPELV ÉS JÖVŐBELI IRÁNYOK -->
+    <section class="section">
+      <div class="section-label">Stratégiai alapok</div>
+      <h2>Az alapelv, amelyre a modell ma épül</h2>
+      <div class="principle-card" style="margin-top:8px;">
+        <h3>A fizetős seat a funkciót követi, nem a munkakört</h3>
+        <p>A modellek összefésülése és a szinkron-sablonok karbantartása minden Archicad–Revit együttműködésben elvégzendő szakértői munka: nagyobb irodákban dedikált BIM-koordinátor végzi, kisebbeknél hibrid szerepben egy építész. A fizetős Koordinátor seat azé, aki ezt a munkát végzi, tehát a vevő mindenhol létezik, ahol a fájdalom is létezik. Az élő szinkron ugyanakkor a teljes irodáé: minden munkatárs ingyenes User seatet kap, a Koordinátor-seathez kötött, méltányos használati keretben: elindíthat egy meglévő sablont, de nem szerkesztheti azt. Az árazás a munkát követi, a hozzáférés az egész irodáé.</p>
+      </div>
+
+      <h2 style="margin-top:44px;">Jövőbeli irányok (nem indulási scope)</h2>
+      <div class="callout" style="margin-top:8px;">
+        <div class="callout-label">A Bridge mint platform-belépési kapu</div>
+        <p>A Bridge hosszú távon a NODU platform belépési kapuja: az irodák a Bridge-en keresztül ismerik meg a NODU-t, és ahogy a Build-fázisok platform-funkciói elérhetővé válnak, a meglévő ügyfélbázis kész upsell-úttá válik. Induláskor azonban a Bridge önállóan is megáll: az értéke maga a szinkron, platform-tartalom ekkor még nincs. A kapu-szerep a platform-tartalommal együtt, fokozatosan nyílik meg. A jelenlegi piaci, árazási és bevételi számítások platform-bevételt nem tartalmaznak, minden későbbi platform-bevétel efölötti tartalék.</p>
+      </div>
+      <div class="callout" style="margin-top:16px;">
+        <div class="callout-label">VSE-alapú parametrikus tartalom-készítés + NODU Creator</div>
+        <p>A VSE-alapú parametrikus tartalomkészítés a platform egyik tervezett, későbbi fejlesztési iránya, a 2026-07-06-i pontosítás szerint többformátumú képességként: nem csak Revit Family, hanem további CAD- és gyártói formátumok előállítására is. Ezzel párhuzamos, átfedő kezdeményezés a <strong>NODU Creator (Content Engine)</strong>: knowledge-graph-alapú termékadat-motor, amely önálló termékként a gyártói szegmenst célozná meg B2B-úton (saját blueprint: 2026-06-11, v2.0), miközben a generálási mag a Bridge-platformon is jelen lenne. A vezetőség támogatja az irányt, a részletes kidolgozás későbbre ütemezett. Egyik sem része az induláskor szállított termékkörnek, és a jelenlegi piaci, árazási és bevételi számítások egyikkel sem kalkulálnak.</p>
+      </div>
+    </section>
+
+    <!-- KULCSSZÁMOK -->
+    <section class="section">
+      <div class="section-label">Piaci számok</div>
+      <h2>Kulcsszámok</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">€7 800 – €17 280</div>
+          <div class="metric-label">IFC éves rejtett teher / projekt</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">900 – 2 800 iroda</div>
+          <div class="metric-label">Konzervatív SAM-mag (tervezési alap; fájdalom-intenzitás szerint rétegezve, a fizetőképes fájdalmú piac ~1 600–4 700)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">90 – 400 iroda</div>
+          <div class="metric-label">3 éves célpiac (SOM)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">€499 / iroda / hó</div>
+          <div class="metric-label">Studio tier: az önkiszolgáló gerinc tipikus fizető irodája</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOKUMENTUMTÉRKÉP -->
+    <section class="section">
+      <div class="section-label">Dokumentumok</div>
+      <h2>Dokumentumtérkép</h2>
+      <div class="doc-grid">
+        <div class="doc-card">
+          <div class="doc-card-title">Vezetői összefoglaló</div>
+          <p class="doc-card-desc">A teljes dokumentumrendszer egyoldalas vezetői kivonata: kulcsszámok, oldalankénti megállapítások, nyitott döntési pontok.</p>
+          <a href="nodu-bridge-vezetoi-osszefoglalo.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Piaci elemzés</div>
+          <p class="doc-card-desc">Az Archicad–Revit kollaborációs piac mérete, az IFC-fájdalom rejtett ára, TAM/SAM/SOM számok, az USA mint prémium szegmens.</p>
+          <a href="nodu-bridge-piac-elemzes.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Pozicionálás és modell-tanulságok</div>
+          <p class="doc-card-desc">Hol áll a NODU Bridge a versenykörnyezetben, mit tanulunk a piac árazási modelljeiből, miért nehéz technikailag az a probléma, amelyet megoldunk, és hogyan épül fel ebből a paywall-architektúra.</p>
+          <a href="nodu-bridge-speckle-tanulsagok.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Licencmodell és kalkulátor</div>
+          <p class="doc-card-desc">A négytieres modell a szerepkör-tengelyre (fizetős Koordinátor + ingyenes User seatek) és a kapacitás-tengelyre (egyidejűleg aktív projektek száma) építve, a fizetési kapuk logikája, bevételkalkulátor. A Professional tier értékajánlata az élő, inkrementális szinkron. A korábbi Partnerhálózat-javaslat 2026-07-02-én elvetve.</p>
+          <a href="nodu-bridge-license-calculator.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Enterprise esettanulmányok</div>
+          <p class="doc-card-desc">Az ARUP, Ramboll és Herzog &amp; de Meuron esetek elemzése: három különböző enterprise konverziós profil és döntési ciklus.</p>
+          <a href="nodu-bridge-esettanulmanyok.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Piackutatás</div>
+          <p class="doc-card-desc">A konverziós és piacméret-feltételezések független forrásokkal: az interoperabilitási fájdalom kemény költsége, a sales-asszisztált painkiller konverzió benchmarkja, és miért Európa az elsődleges piac.</p>
+          <a href="nodu-bridge-piackutatas.html" class="doc-card-link">Megnyitás</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card-title">Termék-roadmap</div>
+          <p class="doc-card-desc">A teljes fejlesztési ütemterv a `nodu.bridge` kapcsolati rétegtől a `nodu.build` CAD-authoring platformig, négy fázisban, a tervezett €25M befektetési célhoz kötve. Nyitott kérdést jelöl a sync-időzítés és a launch-kori árazási ígéret közötti feszültségről.</p>
+          <a href="nodu-bridge-roadmap.html" class="doc-card-link">Megnyitás</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÜTEMTERV POINTER -->
+    <section class="section">
+      <div class="section-label">Ütemterv</div>
+      <h2>Stratégiai idővonal</h2>
+      <div class="callout" style="margin-top:8px;">
+        <div class="callout-label">A fázisterv jelenleg nem megerősített</div>
+        <p>A korai fázis → növekedés → enterprise ütemezés a fejlesztői roadmap-dokumentum AI-generált rétegéből származik, amelyet a fejlesztői állapotlista jelenleg nem támaszt alá; 12 tisztázó kérdés vár válaszra a fejlesztési vezetőnél. A részletes, forrásolt ütemterv és a nyitott kérdések a dedikált oldalon: <a href="nodu-bridge-roadmap.html" class="doc-card-link">Termék-roadmap megnyitása →</a></p>
+      </div>
+    </section>
+
+    <!-- ÁRKÉPZÉS POINTER -->
+    <section class="section">
+      <div class="section-label">Árképzés</div>
+      <h2>Licencmodell: szerepkör- és kapacitás-tengely</h2>
+      <p style="margin-top:8px;">Négytieres struktúra (Community → Professional → Studio → Enterprise) a fizetős Koordinátor-seat és az egyidejűleg aktív projektek száma mentén, ingyenes User seatekkel kiegészítve. A pontos árak, a tierenkénti kapacitás-bontás és az élő bevételkalkulátor a dedikált oldalon karbantartva: <a href="nodu-bridge-license-calculator.html" class="doc-card-link">Licencmodell megnyitása →</a></p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <nav class="footer-nav">
+        <a href="nodu-bridge-vezetoi-osszefoglalo.html">Vezetői összefoglaló</a>
+        <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+        <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+        <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+        <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+        <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+        <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+        <a href="nodu-bridge-roadmap.html">Roadmap</a>
+      </nav>
+      <div class="footer-meta">
+        NODU Bridge · Belső stratégiai dokumentum · 2026-07-02<br />
+        <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

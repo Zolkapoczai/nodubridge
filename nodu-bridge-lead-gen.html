@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NODU Bridge: Lead Generation rendszer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+  <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+  <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+  <style>
+    :root {
+      --bg: #FAFAFA; --card: #FFFFFF; --topbar: #17171A; --accent: #F04E23;
+      --border: #E4E4E7; --text: #18181B; --muted: #71717A;
+      --amber-bg: #FFFBEB; --amber-border: #F59E0B; --amber: #D97706;
+      --green-bg: #F0FDF4; --green-border: #22C55E; --green: #16A34A;
+      --blue-bg: #EFF6FF; --blue-border: #3B82F6; --blue: #2563EB;
+      --orange-bg: #FFF3F0; --orange-lt: #FEE8E2;
+      --purple: #7C3AED; --purple-bg: #F5F3FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 17px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+      text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--topbar); height: 56px; display: flex; align-items: center;
+      padding: 0 32px; gap: 32px; position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid #2A2A2D;
+    }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark {
+      width: 28px; height: 28px; background: var(--accent); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: #fff; letter-spacing: -0.04em;
+    }
+    .logo-text { font-size: 14px; font-weight: 600; color: #fff; }
+    .topbar-nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .topbar-nav a { font-size: 13px; font-weight: 500; color: #A1A1AA; text-decoration: none; padding: 6px 14px; border-radius: 6px; border: 1px solid transparent; transition: color 0.15s, border-color 0.15s; white-space: nowrap; text-align: left; }
+    .topbar-nav a:hover { color: #fff; border-color: #3A3A3D; }
+    .nav-divider { width: 1px; height: 20px; background: #2A2A2D; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-tag {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #A1A1AA; padding: 4px 10px; border: 1px solid #3A3A3D; border-radius: 4px;
+    }
+
+    /* HERO */
+    .hero { background: var(--bg); padding: 40px 32px 48px; border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: 880px; margin: 0 auto; }
+    .hero-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 2.2rem; font-weight: 800; color: var(--text); line-height: 1.22;
+      letter-spacing: -0.03em; margin-bottom: 20px; max-width: 720px; text-align: left;
+      text-wrap: balance;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero-subtitle {
+      font-size: 1rem; color: #52525B; line-height: 1.65; max-width: 640px;
+      margin-bottom: 32px; text-align: left;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 32px;
+      font-size: 12px; color: #52525B;
+      border-top: 1px solid #FECDC0; padding-top: 20px;
+    }
+    .hero-meta-item strong { color: var(--muted); display: block; margin-bottom: 2px; font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .hero-meta-item span { color: var(--text); font-size: 0.88rem; }
+
+    /* MAIN */
+    .main { max-width: 880px; margin: 0 auto; padding: 56px 32px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: 1.45rem; font-weight: 700; color: var(--text); line-height: 1.3;
+      margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border);
+      text-align: left; text-wrap: balance;
+    }
+    .section h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 28px 0 12px; text-align: left; }
+    .section p { margin-bottom: 16px; }
+
+    /* METRIKA KÁRTYÁK */
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .metric-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+      padding: 22px 20px; border-top: 3px solid var(--border);
+    }
+    .metric-card.accent { border-top-color: var(--accent); }
+    .metric-card.green  { border-top-color: var(--green-border); }
+    .metric-card.blue   { border-top-color: var(--blue-border); }
+    .metric-card.amber  { border-top-color: var(--amber-border); }
+    .metric-value {
+      font-size: 1.6rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em;
+      margin-bottom: 4px; line-height: 1.1; font-variant-numeric: tabular-nums;
+    }
+    .metric-value.accent-v { color: var(--accent); }
+    .metric-label { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; }
+    .metric-sub { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; text-align: left; }
+
+    /* PILLÉR KÁRTYÁK */
+    .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
+    .pillar-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 28px; display: flex; flex-direction: column; gap: 0;
+    }
+    .pillar-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 16px; gap: 12px;
+    }
+    .pillar-title { font-size: 1.05rem; font-weight: 700; color: var(--text); text-align: left; line-height: 1.3; }
+    .pillar-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-active { background: var(--green-bg); color: var(--green); }
+    .badge-planned { background: var(--amber-bg); color: var(--amber); }
+    .pillar-desc { font-size: 0.9rem; color: #52525B; line-height: 1.65; text-align: left; margin-bottom: 20px; flex: 1; }
+    .pillar-sources { display: flex; flex-direction: column; gap: 6px; }
+    .source-row {
+      display: flex; align-items: baseline; gap: 10px;
+      font-size: 0.84rem; padding: 7px 0; border-top: 1px solid var(--border);
+    }
+    .source-row:first-child { border-top: none; }
+    .source-name { font-weight: 600; color: var(--text); white-space: nowrap; min-width: 140px; }
+    .source-note { color: var(--muted); }
+
+    /* FOLYAMATÁBRA */
+    .flow-wrap {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 32px; overflow-x: auto; margin-top: 8px;
+    }
+    .flow { display: flex; align-items: stretch; gap: 0; min-width: 680px; }
+    .flow-col { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .flow-col-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 4px; text-align: center;
+    }
+    .flow-node {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
+      padding: 10px 14px; font-size: 0.82rem; font-weight: 600; color: var(--text);
+      text-align: center; line-height: 1.4;
+    }
+    .flow-node.accent-node { background: var(--orange-bg); border-color: var(--accent); color: var(--accent); }
+    .flow-node.green-node  { background: var(--green-bg);  border-color: var(--green-border); color: var(--green); }
+    .flow-node.blue-node   { background: var(--blue-bg);   border-color: var(--blue-border); color: var(--blue); }
+    .flow-node.amber-node  { background: var(--amber-bg);  border-color: var(--amber-border); color: var(--amber); }
+    .flow-node.muted-node  { background: #F4F4F5; border-color: var(--border); color: var(--muted); font-style: italic; }
+    .flow-node sub { font-size: 0.72rem; font-weight: 400; display: block; color: var(--muted); margin-top: 2px; }
+    .flow-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 8px; color: var(--border); font-size: 1.1rem; flex-shrink: 0;
+      padding-top: 28px;
+    }
+    .flow-arrow svg { width: 20px; height: 20px; fill: none; stroke: #D1D1D6; stroke-width: 2; }
+
+    /* TÁBLÁZAT */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; margin-top: 8px; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); font-size: 0.9rem; }
+    thead th {
+      background: #F4F4F5; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); padding: 12px 16px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border);
+    }
+    thead th:first-child { border-top-left-radius: 9px; }
+    thead th:last-child { border-top-right-radius: 9px; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+    tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+    tbody tr:nth-child(even) td { background: #FBFBFC; }
+    tbody td { padding: 13px 16px; color: var(--text); vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; }
+    tbody td:first-child { font-weight: 600; }
+    tbody tr:hover td { background: #F3F4F6; }
+    .td-mono { font-variant-numeric: tabular-nums; font-size: 0.83rem; color: var(--muted); white-space: nowrap; }
+    .badge {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+    }
+    .badge-now   { background: var(--green-bg);  color: var(--green); }
+    .badge-q3    { background: var(--amber-bg);  color: var(--amber); }
+    .badge-sept  { background: var(--blue-bg);   color: var(--blue); }
+    .badge-dev   { background: var(--purple-bg); color: var(--purple); }
+
+    /* CALLOUT */
+    .callout {
+      border-left: 3px solid var(--amber-border); background: var(--amber-bg);
+      padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0;
+    }
+    .callout-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
+    .callout p { font-size: 0.9rem; color: #78350F; margin: 0; line-height: 1.6; }
+    .callout-green { border-left: 3px solid var(--green-border); background: var(--green-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-green .callout-label { color: #14532D; }
+    .callout-green p { font-size: 0.9rem; color: #166534; margin: 0; line-height: 1.6; }
+    .callout-blue { border-left: 3px solid var(--blue-border); background: var(--blue-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
+    .callout-blue .callout-label { color: #1e3a8a; }
+    .callout-blue p { font-size: 0.9rem; color: #1D4ED8; margin: 0; line-height: 1.6; }
+
+    /* FÁZIS KÁRTYÁK */
+    .phase-list { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+    .phase-row {
+      display: grid; grid-template-columns: 32px 1fr auto;
+      align-items: start; gap: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 7px; padding: 16px 20px;
+    }
+    .phase-num {
+      font-size: 0.78rem; font-weight: 800; color: var(--muted);
+      line-height: 1.7; text-align: right; font-variant-numeric: tabular-nums;
+    }
+    .phase-content h4 { font-size: 0.93rem; font-weight: 700; color: var(--text); margin-bottom: 4px; text-align: left; }
+    .phase-content p  { font-size: 0.85rem; color: #52525B; line-height: 1.55; margin: 0; text-align: left; }
+    .phase-meta { font-size: 0.78rem; color: var(--muted); white-space: nowrap; line-height: 1.7; text-align: right; }
+
+    /* KÖVETKEZŐ LÉPÉSEK */
+    .todo-list { display: flex; flex-direction: column; gap: 1px; margin-top: 8px; }
+    .todo-row {
+      display: grid; grid-template-columns: 1fr 100px 90px;
+      align-items: center; gap: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 13px 18px;
+    }
+    .todo-task { font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.45; text-align: left; }
+    .todo-who  { font-size: 0.80rem; color: var(--muted); text-align: right; }
+    .todo-when { font-size: 0.80rem; font-weight: 600; text-align: right; white-space: nowrap; }
+    .todo-now   { color: var(--accent); }
+    .todo-dev   { color: var(--blue); }
+    .todo-soon  { color: var(--amber); }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+    /* FOOTER */
+    .footer { background: #F4F4F5; border-top: 1px solid var(--border); padding: 36px 32px; }
+    .footer-inner {
+      max-width: 880px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-meta { font-size: 12px; color: var(--muted); line-height: 1.6; text-align: right; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 40px 20px 48px; }
+      .hero h1 { font-size: 1.6rem; }
+      .main { padding: 40px 20px 64px; }
+      .topbar { padding: 0 20px; }
+      .topbar-nav { display: none; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .todo-row { grid-template-columns: 1fr; gap: 4px; }
+      .todo-who, .todo-when { text-align: left; }
+      .phase-row { grid-template-columns: 24px 1fr; }
+      .phase-meta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="topbar-logo" href="nodu-bridge-dashboard.html">
+    <div class="logo-mark">N</div>
+    <span class="logo-text">NODU Bridge</span>
+  </a>
+  <nav class="topbar-nav">
+    <a href="nodu-bridge-dashboard.html">Áttekintés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+  </nav>
+  <div class="topbar-right">
+    <span class="topbar-tag">Bizalmas, belső</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-label">Sales infrastruktúra, 2026</p>
+    <h1>Célzott lead-generálás<br><em>Archicad–Revit</em> fájdalompontok alapján</h1>
+    <p class="hero-subtitle">
+      Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja: figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A leadek automatikusan a Pipedrive pipeline-ba kerülnek, hogy 2026 végéig több száz aktív NODU Bridge-felhasználót érjünk el.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <strong>Státusz</strong>
+        <span>Tervezés alatt</span>
+      </div>
+      <div class="hero-meta-item">
+        <strong>Felelős</strong>
+        <span>Poczai Zoltán, sales</span>
+      </div>
+      <div class="hero-meta-item">
+        <strong>CRM</strong>
+        <span>Pipedrive</span>
+      </div>
+      <div class="hero-meta-item">
+        <strong>Automatizáció</strong>
+        <span>n8n (cloud vagy self-hosted)</span>
+      </div>
+      <div class="hero-meta-item">
+        <strong>Dokumentum dátuma</strong>
+        <span>2026. június 30. · frissítve 2026-07-06</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- MUTATÓK -->
+  <section class="section">
+    <p class="section-label">Rendszer áttekintés</p>
+    <h2>A lead-generálás négy fő mutatója</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card accent">
+        <div class="metric-value accent-v">5</div>
+        <div class="metric-label">Aktív adatforrás</div>
+        <div class="metric-sub">Reddit, Playwright, Stack Overflow, Google CSE, HTML-fórumok</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-value">≥ 5</div>
+        <div class="metric-label">Minimális relevancia-score</div>
+        <div class="metric-sub">Ennyi pont felett kerül a poszt automatikusan Pipedrive-ba</div>
+      </div>
+      <div class="metric-card blue">
+        <div class="metric-value">Most</div>
+        <div class="metric-label">Wishlist és RB2B élesítés</div>
+        <div class="metric-sub">A nodu.build/bridge feliratkozás és az RB2B ingyenes látogató-azonosítás már most indul</div>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-value">Több száz</div>
+        <div class="metric-label">Aktív felhasználó, cél</div>
+        <div class="metric-sub">Regisztrált, aktívan használó felhasználók 2026 végéig</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KÉT PILLÉR -->
+  <section class="section">
+    <p class="section-label">Stratégia</p>
+    <h2>A rendszer két forráscsatornája</h2>
+    <p>
+      A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a közösség-figyelő scraper találja meg, a másodikat a weboldal: önkéntes wishlist-feliratkozással vagy az RB2B látogató-azonosítással.
+    </p>
+
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="pillar-head">
+          <div class="pillar-title">nodu-monitor<br>közösség-figyelés</div>
+          <span class="pillar-badge badge-active">Aktív</span>
+        </div>
+        <p class="pillar-desc">
+          Python scraper, amely folyamatosan olvassa a BIM közösségek nyilvános tartalmát. Ha valaki az Archicad–Revit átültetésről ír, problémát említ vagy segítséget kér, a poszt automatikusan bekerül a rendszerbe. A releváns posztokhoz a rendszer Claude API segítségével válaszjavaslatot készít, amelyet jóváhagyás után kézzel lehet elküldeni.
+        </p>
+        <div class="pillar-sources">
+          <div class="source-row"><span class="source-name">Reddit (PRAW)</span><span class="source-note">r/Revit, r/ArchiCAD, r/BIM, valós idejű</span></div>
+          <div class="source-row"><span class="source-name">Playwright (Chromium)</span><span class="source-note">Graphisoft Community, Autodesk Community (JS-alapú oldalak)</span></div>
+          <div class="source-row"><span class="source-name">Stack Overflow API</span><span class="source-note">revit+archicad, revit+ifc; ingyenes, 300 kérés/nap</span></div>
+          <div class="source-row"><span class="source-name">Google CSE</span><span class="source-note">RevitForum, BuildingSMART fórumok</span></div>
+          <div class="source-row"><span class="source-name">HTML scraping</span><span class="source-note">Statikus phpBB alapú fórumok</span></div>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-head">
+          <div class="pillar-title">nodu.build/bridge<br>weboldal</div>
+          <span class="pillar-badge badge-active">Most induló</span>
+        </div>
+        <p class="pillar-desc">
+          A weboldal kétféleképpen szerez leadet. A wishlist-űrlapon az érdeklődő önként megadja az e-mail-címét, a szerepkörét és a fő Archicad–Revit fájdalompontját; ez egyenesen a Pipedrive-ba kerül, és a fájdalompont alapján minősül. Az első 100 feliratkozó év végéig ingyenes keretet kap, ami erős ösztönző a korai jelentkezésre. Emellett az RB2B snippet azonosítja az anonim látogatókat: az ingyenes csomag már most bekapcsolható, a teljes, automatizált azonosítás a Pro csomaggal és az éles weboldali forgalommal érkezik.
+        </p>
+        <div class="pillar-sources">
+          <div class="source-row"><span class="source-name">Wishlist-feliratkozás</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
+          <div class="source-row"><span class="source-name">Lead-minősítés</span><span class="source-note">A fájdalompont alapján pontozott, meleg lead</span></div>
+          <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">n8n webhook, Pipedrive Waitlist fázis</span></div>
+          <div class="source-row"><span class="source-name">RB2B ingyenes (most)</span><span class="source-note">Anonim látogató, USA, cégszint, Slack-értesítés</span></div>
+          <div class="source-row"><span class="source-name">RB2B Pro (szept.)</span><span class="source-note">Személyszint, webhook, automatikus Pipedrive</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOLYAMATÁBRA -->
+  <section class="section">
+    <p class="section-label">Architektúra</p>
+    <h2>Adatfolyam a scrapertől a Pipedrive-ig</h2>
+
+    <div class="flow-wrap">
+      <div class="flow">
+
+        <div class="flow-col">
+          <div class="flow-col-label">Adatforrások</div>
+          <div class="flow-node">Reddit<sub>r/Revit, r/ArchiCAD, r/BIM</sub></div>
+          <div class="flow-node">Graphisoft Community<sub>Playwright / Chromium</sub></div>
+          <div class="flow-node">Autodesk Community<sub>Playwright / Chromium</sub></div>
+          <div class="flow-node">Stack Overflow<sub>Stack Exchange API v2.3</sub></div>
+          <div class="flow-node">Google CSE<sub>RevitForum, BuildingSMART</sub></div>
+          <div class="flow-node accent-node">Wishlist<sub>nodu.build/bridge, egyenesen n8n-be</sub></div>
+          <div class="flow-node amber-node">RB2B<sub>Weboldal-látogató, ingyenes most</sub></div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="flow-col">
+          <div class="flow-col-label">Feldolgozás</div>
+          <div class="flow-node accent-node">nodu-monitor<sub>Kulcsszószűrő, 25+ kifejezés</sub></div>
+          <div class="flow-node" style="margin-top:8px">Relevanciapontozás<sub>primary 3pt · pain 2pt · context 1pt</sub></div>
+          <div class="flow-node">SQLite adatbázis<sub>Duplikátum-védelem</sub></div>
+          <div class="flow-node green-node" style="margin-top:8px">Claude Haiku<sub>Válaszjavaslat-generálás</sub></div>
+          <div class="flow-node muted-node">Flask UI (localhost:5050)<sub>Jóváhagyás, elutasítás</sub></div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="flow-col">
+          <div class="flow-col-label">Automatizáció</div>
+          <div class="flow-node blue-node">n8n webhook<sub>score ≥ 5 esetén továbbít</sub></div>
+          <div class="flow-node" style="margin-top:8px">Pipedrive: Person<sub>Szerző vagy LinkedIn profil</sub></div>
+          <div class="flow-node">Pipedrive: Deal<sub>Inbound, Waitlist vagy Website Visitor</sub></div>
+          <div class="flow-node">Pipedrive: Note<sub>URL, kivonat, pontszám, kulcsszavak</sub></div>
+          <div class="flow-node green-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads csatorna</sub></div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="flow-col">
+          <div class="flow-col-label">Sales akció</div>
+          <div class="flow-node">Contacted<sub>Reddit-komment / LinkedIn DM</sub></div>
+          <div class="flow-node">Responded<sub>Lead válaszolt</sub></div>
+          <div class="flow-node">Demo / Onboarding<sub>Bemutatkozás, bevezetés</sub></div>
+          <div class="flow-node accent-node">Aktív felhasználó<sub>Rendszeresen használja a Bridge-et</sub></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="callout-green" style="margin-top:24px">
+      <div class="callout-label">Automatikus és kézi lépések</div>
+      <p>A rendszer automatikusan gyűjt, pontoz és ment Pipedrive-ba. A kommunikáció (Reddit-komment, LinkedIn-üzenet) emberi jóváhagyás után kerül ki. Így a jelenlét hiteles marad, és megfelel a platformok feltételeinek.</p>
+    </div>
+  </section>
+
+  <!-- ADATFORRÁSOK TÁBLÁZAT -->
+  <section class="section">
+    <p class="section-label">Adatforrások részletesen</p>
+    <h2>Melyik forrás, mit ad, mikor aktív</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Forrás</th>
+            <th>Platform</th>
+            <th>Lekérdezés módja</th>
+            <th>Státusz</th>
+            <th>Korlát</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Reddit</strong></td>
+            <td>r/Revit, r/ArchiCAD, r/BIM</td>
+            <td>PRAW API, valós idejű új posztok és kommentek</td>
+            <td><span class="badge badge-now">API-kulcs kell</span></td>
+            <td class="td-mono">Ingyenes tier</td>
+          </tr>
+          <tr>
+            <td><strong>Graphisoft Community</strong></td>
+            <td>community.graphisoft.com</td>
+            <td>Playwright Chromium, JS-alapú oldalak renderelése</td>
+            <td><span class="badge badge-now">Kész</span></td>
+            <td class="td-mono">90 perc/ciklus</td>
+          </tr>
+          <tr>
+            <td><strong>Autodesk Community</strong></td>
+            <td>forums.autodesk.com</td>
+            <td>Playwright Chromium, JS-alapú oldalak renderelése</td>
+            <td><span class="badge badge-now">Kész</span></td>
+            <td class="td-mono">90 perc/ciklus</td>
+          </tr>
+          <tr>
+            <td><strong>Stack Overflow</strong></td>
+            <td>stackoverflow.com, softwareengineering.SE</td>
+            <td>Stack Exchange API v2.3, tag és szöveges keresés</td>
+            <td><span class="badge badge-now">Kész</span></td>
+            <td class="td-mono">300 kérés/nap (API-kulcs nélkül)</td>
+          </tr>
+          <tr>
+            <td><strong>Google Custom Search</strong></td>
+            <td>RevitForum, BuildingSMART, egyéb</td>
+            <td>Google CSE JSON API, domain-szűrt keresés</td>
+            <td><span class="badge badge-now">API-kulcs kell</span></td>
+            <td class="td-mono">100 kérés/nap ingyenes</td>
+          </tr>
+          <tr>
+            <td><strong>LinkedIn (Apify)</strong></td>
+            <td>LinkedIn keresés</td>
+            <td>Apify actor, BIM Coordinator és BIM Manager profilok</td>
+            <td><span class="badge badge-dev">Fejlesztő, 5. fázis</span></td>
+            <td class="td-mono">5 USD/hó kredit (free tier)</td>
+          </tr>
+          <tr>
+            <td><strong>Wishlist</strong></td>
+            <td>nodu.build/bridge</td>
+            <td>Waitlist-űrlap, egyenesen az n8n webhookra</td>
+            <td><span class="badge badge-now">Most induló</span></td>
+            <td class="td-mono">Ingyenes, saját csatorna</td>
+          </tr>
+          <tr>
+            <td><strong>RB2B ingyenes</strong></td>
+            <td>nodu.build/bridge</td>
+            <td>JS snippet: anonim látogató-azonosítás, Slack-értesítés</td>
+            <td><span class="badge badge-now">Most induló</span></td>
+            <td class="td-mono">USA, cégszint, csak Slack</td>
+          </tr>
+          <tr>
+            <td><strong>RB2B Pro</strong></td>
+            <td>nodu.build/bridge</td>
+            <td>JS snippet: személyszintű LinkedIn-azonosítás, webhook</td>
+            <td><span class="badge badge-sept">2026 szeptember</span></td>
+            <td class="td-mono">Pro, automatikus Pipedrive</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FÁZISOK -->
+  <section class="section">
+    <p class="section-label">Implementáció</p>
+    <h2>A megvalósítás fázisai</h2>
+
+    <div class="phase-list">
+      <div class="phase-row">
+        <div class="phase-num">1</div>
+        <div class="phase-content">
+          <h4>Meglévő alap élesítése</h4>
+          <p>API-kulcsok bekonfigurálása a config.yaml-ban: Reddit (reddit.com/prefs/apps), Google CSE (console.cloud.google.com), Claude Haiku (api.anthropic.com), Slack-webhook. End-to-end teszt: gyűlnek-e a posztok az SQLite-ba.</p>
+        </div>
+        <div class="phase-meta">1–2 nap<br>Zoltán</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">2</div>
+        <div class="phase-content">
+          <h4>Scraper connectorok</h4>
+          <p>A Playwright (Graphisoft és Autodesk Community JS-oldalak) és a Stack Overflow connector. Mindkettő elkészült, a Reddit, a Google CSE és a HTML-fórumok mellett fut.</p>
+        </div>
+        <div class="phase-meta">Kész<br>Fejlesztő</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">3</div>
+        <div class="phase-content">
+          <h4>n8n és Pipedrive integráció</h4>
+          <p>n8n elindítása (cloud vagy self-hosted Docker, fejlesztő döntése). Webhook-fogadó, Pipedrive Person, Deal és Note automatikus létrehozása, Slack értesítés. Az N8N_SETUP.md tartalmaz importálható workflow JSON-t.</p>
+        </div>
+        <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">4</div>
+        <div class="phase-content">
+          <h4>Wishlist oldal és feliratkozás</h4>
+          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés egyenesen az n8n-re megy, ami a Pipedrive Waitlist fázisában hozza létre a leadet. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
+        </div>
+        <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">5</div>
+        <div class="phase-content">
+          <h4>RB2B látogató-azonosítás</h4>
+          <p>Az RB2B ingyenes csomag snippetje már most beilleszthető a /bridge oldalra; az anonim, USA-beli látogatókat cégszinten azonosítja, és jelez a Slacken. A teljes, automatikus Pipedrive-integráció (személyszint, webhook) a Pro csomaggal érkezik, az éles weboldali forgalom mellé, szeptemberben.</p>
+        </div>
+        <div class="phase-meta">Most, Pro szept.<br>Zoltán</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">6</div>
+        <div class="phase-content">
+          <h4>Hatékonyság-növelés</h4>
+          <p>A fórumválasz-javaslatok finoman a wishlistre terelnek, UTM-linkkel. Minden kimenő link UTM-címkét kap, így a Pipedrive-ban látszik, melyik csatorna konvertál; heti Slack-összefoglaló készül a forrásokról és a top fájdalompontokról. Emellett heti 1-2 LinkedIn-posztjavaslat érkezik a valós közösségi fájdalompontokból, jóváhagyásra.</p>
+        </div>
+        <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">7</div>
+        <div class="phase-content">
+          <h4>LinkedIn Apify integráció</h4>
+          <p>Napi n8n-trigger keres BIM Coordinator és BIM Manager profilokat az Apify LinkedIn-scraperén keresztül. A talált profilok Pipedrive-ba kerülnek, a rendszer Claude segítségével LinkedIn-üzenetjavaslatot készít, amelyet Slacken lehet jóváhagyni. A küldés kézi, mivel a LinkedIn API nem enged automatikus üzenetküldést.</p>
+        </div>
+        <div class="phase-meta">3–5 nap<br>Fejlesztő</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Mit lehet azonnal indítani</div>
+      <p>A wishlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; ez Zoltán feladata, a kód oldala kész.</p>
+    </div>
+  </section>
+
+  <!-- PIPEDRIVE PIPELINE -->
+  <section class="section">
+    <p class="section-label">Sales pipeline</p>
+    <h2>Pipedrive: ajánlott fázisstruktúra</h2>
+    <p>
+      Az alábbi pipeline-t a Pipedrive-ban kézzel vagy n8n API-n keresztül kell létrehozni. A neve: <strong>NODU Bridge Inbound</strong>. Három belépő fázis töltődik automatikusan: az Inbound (scraper), a Waitlist (wishlist-feliratkozó) és a Website Visitor (RB2B). A Waitlist a legmelegebb belépő, mert a feliratkozó önként adta meg az adatait. A négytieres licencmodell (Community/Professional/Studio/Enterprise) struktúrája lezárt (részletek a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak konkrét feltételei viszont még nyitottak; a pipeline ettől függetlenül a felhasználói aktiválás útját követi.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Forrás</th>
+            <th>Ki hozza létre</th>
+            <th>Következő lépés</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Inbound</strong></td>
+            <td>nodu-monitor scraper (score ≥ 5)</td>
+            <td>n8n (automatikus)</td>
+            <td>Slack-értesítés, jóváhagyásra vár</td>
+          </tr>
+          <tr>
+            <td><strong>Waitlist</strong></td>
+            <td>Wishlist-feliratkozó (nodu.build/bridge)</td>
+            <td>n8n (automatikus)</td>
+            <td>Köszönő üzenet, majd jóváhagyott megkeresés</td>
+          </tr>
+          <tr>
+            <td><strong>Website Visitor</strong></td>
+            <td>RB2B weboldal-látogató</td>
+            <td>n8n (automatikus)</td>
+            <td>LinkedIn-üzenetjavaslat, Slack-jóváhagyás</td>
+          </tr>
+          <tr>
+            <td><strong>Contacted</strong></td>
+            <td>Nincs automatikus forrás</td>
+            <td>Kézzel, Zoltán</td>
+            <td>Várakozás válaszra</td>
+          </tr>
+          <tr>
+            <td><strong>Responded</strong></td>
+            <td>Nincs automatikus forrás</td>
+            <td>Kézzel</td>
+            <td>Demo egyeztetése, onboarding indítása</td>
+          </tr>
+          <tr>
+            <td><strong>Demo / Onboarding</strong></td>
+            <td>Nincs automatikus forrás</td>
+            <td>Kézzel</td>
+            <td>Regisztráció, első használat kísérése</td>
+          </tr>
+          <tr>
+            <td><strong>Aktív felhasználó</strong></td>
+            <td>Nincs automatikus forrás</td>
+            <td>Kézzel</td>
+            <td>Rendszeresen visszatérő; a négytieres licencmodell (Community/Professional/Studio/Enterprise) szerint számlázandó, a launch-kori ingyenes időszak konkrét feltételei még nyitottak</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- KÖVETKEZŐ TEENDŐK -->
+  <section class="section">
+    <p class="section-label">Teendők</p>
+    <h2>Azonnali következő lépések</h2>
+
+    <div class="todo-list">
+      <div class="todo-row">
+        <div class="todo-task">Reddit API-kulcs bekonfigurálása (reddit.com/prefs/apps → script app létrehozása)</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-now">Azonnal</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Google CSE API-kulcs és keresőmotor-azonosító beállítása (console.cloud.google.com)</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-now">Azonnal</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Claude API-kulcs hozzáadása; a <code>claude_enabled: true</code> kapcsoló beállítása a config.yaml-ban</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-now">Azonnal</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task"><code>pip install playwright &amp;&amp; playwright install chromium</code> futtatása</div>
+        <div class="todo-who">Fejlesztő</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">n8n-instance elindítása (cloud vagy self-hosted döntés); webhook URL bemásolása a configba</div>
+        <div class="todo-who">Fejlesztő</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Pipedrive "NODU Bridge Inbound" pipeline létrehozása (Inbound, Waitlist, Website Visitor stage-ekkel); Pipedrive API token n8n-be</div>
+        <div class="todo-who">Zoltán + Fejlesztő</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">N8N_SETUP.md-ből a workflow JSON importálása n8n-be (Pipedrive és Slack integráció)</div>
+        <div class="todo-who">Fejlesztő</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Wishlist-oldal a nodu.build/bridge-en (waitlist-űrlap) és a "Wishlist → Pipedrive" n8n-workflow beállítása</div>
+        <div class="todo-who">Fejlesztő + Zoltán</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">RB2B ingyenes csomag aktiválása és a JS snippet beillesztése a /bridge oldalra (Slack-értesítés)</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-now">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">LinkedIn Apify-integráció n8n-ben (7. fázis): napi BIM-profil keresés és LinkedIn-üzenetjavaslat</div>
+        <div class="todo-who">Fejlesztő</div>
+        <div class="todo-when todo-soon">2. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">RB2B Pro előfizetésre váltás és személyszintű azonosítás, amikor a teljes weboldal éles</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-soon">2026 szept.</div>
+      </div>
+    </div>
+
+    <div class="callout-blue" style="margin-top:32px">
+      <div class="callout-label">2026 sales cél összefoglalva</div>
+      <p>A rendszer célja, hogy 2026 végéig több száz aktív NODU Bridge-felhasználót érjünk el. Három belépő csatorna tölti folyamatosan a pipeline-t: a közösség-figyelő scraper, a wishlist-feliratkozás és az RB2B látogató-azonosítás. A négytieres licencmodell struktúrája lezárt (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a felhasználószám és a tényleges aktivitás növelése, a launch-kori ingyenes időszak konkrét feltételeinek tisztázásáig.</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="../assets/js/nodu-tokens.js"></script>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">NODU Bridge</span>
+    </div>
+    <div class="footer-meta">
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-06<br>
+      Bizalmas. Kizárólag belső használatra.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
