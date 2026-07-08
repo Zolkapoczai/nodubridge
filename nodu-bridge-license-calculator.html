@@ -477,8 +477,7 @@
     <span class="logo-text">NODU Bridge <span>Licencmodell & Bevételkalkulátor</span></span>
   </div>
   <nav class="topbar-nav">
-    <a href="nodu-bridge-dashboard.html">Áttekintés</a>
-    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
     <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
     <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
     <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
@@ -493,7 +492,7 @@
   <!-- PAGE HEADER -->
   <div class="page-header">
     <h1>NODU Bridge Licencmodell</h1>
-    <p>Élő, inkrementális Archicad ↔ Revit szinkron + batch konverzió · Freemium → Professional → Studio → Enterprise (az Enterprise tier terv szerint 2027 elejétől)</p>
+    <p>Parametrikus Archicad ↔ Revit konverzió saját mapping sablonokkal · Freemium → Professional → Studio → Enterprise (az Enterprise tier terv szerint 2027 elejétől) · Élő, inkrementális szinkron: Phase 3-ban érkezik (2026 Q4)</p>
   </div>
 
   <!-- TIER CARDS -->
@@ -504,8 +503,8 @@
 
   <div class="callout-green" style="margin-top: 0; margin-bottom: 24px;">
     <div class="callout-green-title">2026-07-02 végleges irány: szerepkör + kapacitás tengely</div>
-    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az "aktív kapcsolat" önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. Emellett tisztázódott, hogy a Bridge tényleges, licencelt funkciója az <strong>élő, inkrementális Archicad↔Revit szinkron</strong> (nem csak batch/script-alapú konverzió): ez a "teljes iroda" kérdést is más megvilágításba helyezi.</p>
-    <p>Helyette két, egymástól független, <strong>lokálisan kikényszeríthető</strong> tengely váltja fel: (1) <strong>szerepkör-tengely</strong>: Koordinátor (fizetős, sablon-alkotó) és User (ingyenes, de Koordinátor-számhoz kötött, limitált keretű), és (2) <strong>kapacitás-tengely</strong>: hány aktív projekt futhat egyszerre élő szinkronban. Mindkettő a szoftver saját, amúgy is szükséges állapotából mérhető, nem igényel külön nyilvántartást vagy viselkedésmegfigyelést. A projektméret-limit ezektől elkülönülő, tisztán fair-use védelmi korlát marad.</p>
+    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az "aktív kapcsolat" önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. A Bridge launch-kori fő funkciója a <strong>parametrikus Archicad↔Revit konverzió saját mapping sablonokkal</strong> (script engine): a konverzió nem statikus geometriát, hanem parametrikus logikát visz át. Az élő, inkrementális szinkron a Phase 3-ban (2026 Q4) érkezik.</p>
+    <p>Helyette két, egymástól független, <strong>lokálisan kikényszeríthető</strong> tengely váltja fel: (1) <strong>szerepkör-tengely</strong>: Koordinátor (fizetős, sablon-alkotó) és User (ingyenes, de Koordinátor-számhoz kötött, limitált keretű), és (2) <strong>kapacitás-tengely</strong>: hány aktív projekt futhat egyidejűleg. Mindkettő a szoftver saját, amúgy is szükséges állapotából mérhető, nem igényel külön nyilvántartást vagy viselkedésmegfigyelést. A projektméret-limit ezektől elkülönülő, tisztán fair-use védelmi korlát marad.</p>
   </div>
 
   <div class="tiers">
@@ -522,12 +521,12 @@
         <li><span class="check">✓</span> Havonta 2 teljes modelles konverzió, elemszám-korlát nélkül</li>
         <li><span class="check">✓</span> 3 mentett projekt</li>
         <li><span class="check">✓</span> 30 napos projekt-előzmény</li>
-        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron</li>
+        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron <em style="font-size:0.85em; color:var(--muted);">(Phase 3, 2026 Q4)</em></li>
         <li class="off"><span class="cross">✕</span> Saját sablon létrehozása/mentése <span class="seat-tag author">Koordinátor</span></li>
         <li class="off"><span class="cross">✕</span> API hozzáférés</li>
         <li class="off"><span class="cross">✕</span> Support (csak fórum)</li>
       </ul>
-      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális (saját sablon + szinkron).</div>
+      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális (script engine + saját sablon).</div>
     </div>
 
     <!-- Professional -->
@@ -540,9 +539,10 @@
       <ul class="feature-list">
         <li><span class="check">✓</span> <span class="highlight-feat">1 Koordinátor seat</span> <span class="seat-tag author">Author</span></li>
         <li><span class="check">✓</span> <span class="highlight-feat">10 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">Élő, inkrementális Archicad↔Revit szinkron</span> (csak a változott elemek)</li>
-        <li><span class="check">✓</span> Parametrikus script engine (sablon létrehozás/szerkesztés/mentés)</li>
-        <li><span class="check">✓</span> Batch/egyszeri konverzió is elérhető élő szinkron mellett</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">Parametrikus Archicad↔Revit konverzió</span> (logika-megőrző, nem statikus geometria)</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">Script engine</span> (saját mapping sablon létrehozás/szerkesztés/mentés)</li>
+        <li><span class="check">✓</span> Batch/egyszeri konverzió korlátlan számú futtatással</li>
+        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron <em style="font-size:0.85em; color:var(--muted);">(Phase 3-ban érkezik, 2026 Q4 – meglévő előfizetők automatikusan megkapják)</em></li>
         <li><span class="check">✓</span> <span class="highlight-feat">2 egyidejűleg aktív projekt</span></li>
         <li><span class="check">✓</span> 90 napos projekt-előzmény + alap analitika</li>
         <li class="off"><span class="cross">✕</span> Közös sablonkönyvtár</li>
@@ -604,9 +604,9 @@
 
   </div>
 
-  <div class="callout-amber" style="margin-top: -16px;">
-    <div class="callout-amber-title">Nyitott kérdés: a Professional tier fő funkciója launch-kori formában megerősítetlen (frissítve 2026-07-06)</div>
-    <p>A 2026-07-03-i termék-roadmap fejlesztői rétege alapján a kép a korábban jelzettnél is óvatosabb: a "delta-only syncing" kizárólag a roadmap AI-generált fázistervében szerepel (Phase 3, 2026 nov – 2027 jan), a fejlesztői állapotlista sehol nem említi. A v1 konnektor emellett elemtípusonként épül (falak kész, kivágások folyamatban, födémek és nyílászárók hátravannak; oszlopok/gerendák/függönyfalak v2, MEP v3), vagyis a GA-kori adatcsere legjobb esetben is részleges elemkörű. Munkahipotézis továbbá (megerősítendő), hogy a v1 egyirányú: Revit→Archicad. A fejlesztési vezetőnek 12 pontos tisztázó kérdéssor ment ki (2026-07-06); a válaszokig az itt hirdetett "élő, inkrementális szinkron" launch-kori funkcióként nem kommunikálható, és a tier-struktúra funkció-hozzárendelése sem véglegesíthető. Részletek: <a href="nodu-bridge-roadmap.html">Termék-roadmap</a>.</p>
+  <div class="callout-green" style="margin-top: -16px;">
+    <div class="callout-green-title">Eldöntve (2026-07-07): az élő szinkron Phase 3-ban érkezik, nem launch-funkció</div>
+    <p>A delta-only szinkron a Phase 3-ban marad (2026 nov – 2027 jan). A launch-kori értékajánlat a <strong>parametrikus script engine + saját mapping sablonok</strong>: a konverzió nem statikus geometriát, hanem parametrikus logikát (kapcsolatok, osztályozások, egyedi paraméterek) visz át – ez különbözteti meg az IFC-alapú munkafolyamatoktól. Az élő szinkron a meglévő Professional és Studio előfizetők számára automatikus frissítésként érkezik Phase 3-ban. A v1 konnektor elemtípusonként épül (falak kész, kivágások folyamatban, födémek és nyílászárók hátravannak); részletek: <a href="nodu-bridge-roadmap.html">Termék-roadmap</a>.</p>
   </div>
 
   <!-- PAYWALL LOGIKA -->
@@ -619,14 +619,14 @@
     <div class="paywall-items">
       <div class="paywall-item">
         <div class="pw-from-to">Community → Professional</div>
-        <div class="pw-title">A sablon mentési korlát + élő szinkron hiánya</div>
-        <div class="pw-desc">Az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és nem kapja meg az élő, inkrementális szinkront, csak egyszeri batch-konverziót. A következő projekten újra kellene felépítenie a leképezést. Ez az a fájdalompont, ami fizetővé tesz.</div>
-        <div class="pw-trigger">"Szeretnéd menteni ezt a mapping-sablont, és élőben szinkronizálni a következő projekten?"</div>
+        <div class="pw-title">A sablon mentési korlát + korlátozott konverziós keret</div>
+        <div class="pw-desc">Az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 konverziós kerete van. A következő projekten újra kellene felépítenie a leképezést. Ez az a fájdalompont, ami fizetővé tesz: a saját sablon idő-megtakarítás, a korlátlan konverzió pedig a napi munkafolyamat alapja.</div>
+        <div class="pw-trigger">"Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval."</div>
       </div>
       <div class="paywall-item green-wall">
         <div class="pw-from-to">Professional → Studio</div>
         <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit</div>
-        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade három helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is élő szinkronban akarnak futtatni. A trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés.</div>
+        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade három helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak. A trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés.</div>
         <div class="pw-trigger green">"2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt"</div>
       </div>
       <div class="paywall-item purple-wall">

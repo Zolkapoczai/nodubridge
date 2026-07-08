@@ -131,7 +131,7 @@
     }
 
     .hero-inner {
-      max-width: 860px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 0 2rem;
     }
@@ -166,7 +166,7 @@
 
     /* MAIN */
     .main {
-      max-width: 860px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 3rem 2rem 5rem;
     }
@@ -241,36 +241,80 @@
       font-size: 0.92rem;
     }
 
-    .region-table {
-      table-layout: fixed;
-    }
-    .region-table col.col-region { width: 15%; }
-    .region-table col.col-share { width: 19%; }
-    .region-table col.col-trend { width: 15%; }
-    .region-table col.col-note { width: 32%; }
+    /* REGION TABLE (01) */
+    .region-table { table-layout: fixed; }
+    .region-table col.col-region { width: 18%; }
+    .region-table col.col-share  { width: 18%; }
+    .region-table col.col-trend  { width: 14%; }
+    .region-table col.col-note   { width: 32%; }
 
-    .geo-table {
-      table-layout: fixed;
-    }
-    .geo-table col.col-geo-region { width: 30%; }
-    .geo-table col.col-geo-num { width: 16%; }
-    .geo-table col.col-geo-prio { width: 22%; }
+    /* GEO TABLE (05) */
+    .geo-table { table-layout: fixed; }
+    .geo-table col.col-geo-region { width: 28%; }
+    .geo-table col.col-geo-num    { width: 16%; }
+    .geo-table col.col-geo-prio   { width: 16%; }
     .geo-table td:first-child { white-space: nowrap; }
     .geo-table .td-prio { white-space: nowrap; }
 
-    .filter-table {
-      table-layout: fixed;
-    }
-    .filter-table col.col-filter-step { width: 32%; }
+    /* FILTER TABLE (02) – 4 oszlopos */
+    .filter-table { table-layout: fixed; }
+    .filter-table col.col-filter-step  { width: 36%; }
     .filter-table col.col-filter-ratio { width: 12%; }
-    .filter-table col.col-filter-count { width: 20%; }
-    .filter-table col.col-filter-note { width: 36%; }
+    .filter-table col.col-filter-count { width: 18%; }
+    .filter-table col.col-filter-note  { width: 34%; }
     .filter-table td:nth-child(2),
     .filter-table td:nth-child(3) {
       text-align: right;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+
+    /* FILTER TABLE – 5 oszlopos variáns (fájdalom-intenzitás) */
+    .filter-table-5 { table-layout: fixed; }
+    .filter-table-5 col:nth-child(1) { width: 14%; }
+    .filter-table-5 col:nth-child(2) { width: 30%; }
+    .filter-table-5 col:nth-child(3) { width: 16%; }
+    .filter-table-5 col:nth-child(4) { width: 20%; }
+    .filter-table-5 col:nth-child(5) { width: 20%; }
+    .filter-table-5 td:nth-child(3),
+    .filter-table-5 td:nth-child(4) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* PRICING TABLE (03) – szerzői szoftverek */
+    .pricing-table { table-layout: fixed; }
+    .pricing-table col:nth-child(1) { width: 26%; }
+    .pricing-table col:nth-child(2) { width: 20%; }
+    .pricing-table col:nth-child(3) { width: 22%; }
+    .pricing-table col:nth-child(4) { width: 32%; }
+    .pricing-table td:nth-child(2),
+    .pricing-table td:nth-child(3) {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* INTEROP TABLE (03) – összehasonlító eszköztábla */
+    .interop-table { table-layout: fixed; }
+    .interop-table col:nth-child(1) { width: 34%; }
+    .interop-table col:nth-child(2) { width: 26%; }
+    .interop-table col:nth-child(3) { width: 40%; }
+    .interop-table td:nth-child(3) {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* IFC-TEHER TABLE (04) */
+    .ifc-table { table-layout: fixed; }
+    .ifc-table col:nth-child(1) { width: 38%; }
+    .ifc-table col:nth-child(2) { width: 30%; }
+    .ifc-table col:nth-child(3) { width: 32%; }
+
+    /* EU-USA COMPARISON TABLE (06) */
+    .compare-table { table-layout: fixed; }
+    .compare-table col:nth-child(1) { width: 40%; }
+    .compare-table col:nth-child(2) { width: 30%; }
+    .compare-table col:nth-child(3) { width: 30%; }
 
     th {
       padding: 1rem 1.2rem;
@@ -646,7 +690,7 @@
 
 <!-- TOPBAR -->
 <nav class="topbar">
-  <a href="nodu-bridge-dashboard.html" class="topbar-logo">
+  <a href="nodu-bridge-vezetoi-osszefoglalo.html" class="topbar-logo">
     <div class="topbar-icon">N</div>
     <div>
       <div class="topbar-title">NODU Bridge</div>
@@ -654,9 +698,7 @@
     </div>
   </a>
   <div class="topbar-nav">
-    <a href="nodu-bridge-dashboard.html">Áttekintés</a>
-    <span class="topbar-sep">|</span>
-    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
     <span class="topbar-sep">|</span>
     <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
     <span class="topbar-sep">|</span>
