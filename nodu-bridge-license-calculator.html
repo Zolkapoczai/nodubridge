@@ -1365,15 +1365,18 @@
   }
 
   // ÜZLETI REALITÁS SZIMULÁCIÓ
+  // Benchmark-kalibrált létra (2026-07-08): niche vertikális B2B SaaS, freemium/PLG, új belépő, kezdeti lock-in nélkül.
+  // A churn self-serve logó-churn (Pro a leggyengébb retenció, Ent a legerősebb). A CAC a regionális CPL-hez igazított
+  // (Európa CPL €80): az optimista CAC feszes, de védhető lead->fizető konverziót feltételez. Monoton: konzervatív < base < optimista.
   const SCENARIOS = {
-    conservative: { growthPro: 0.020, growthStudio: 0.015, churnProAnn: 0.14, churnStudioAnn: 0.12, churnEntAnn: 0.08, cacPro: 380,  cacStudio: 1800, cacEnt: 15000, upgradeAnn: 0.10 },
-    base:         { growthPro: 0.045, growthStudio: 0.030, churnProAnn: 0.10, churnStudioAnn: 0.08, churnEntAnn: 0.05, cacPro: 280,  cacStudio: 1200, cacEnt: 9000,  upgradeAnn: 0.17 },
-    optimistic:   { growthPro: 0.070, growthStudio: 0.050, churnProAnn: 0.07, churnStudioAnn: 0.05, churnEntAnn: 0.03, cacPro: 180,  cacStudio: 800,  cacEnt: 5000,  upgradeAnn: 0.22 },
+    conservative: { growthPro: 0.015, growthStudio: 0.010, churnProAnn: 0.26, churnStudioAnn: 0.19, churnEntAnn: 0.12, cacPro: 2200, cacStudio: 4000, cacEnt: 16000, upgradeAnn: 0.08 },
+    base:         { growthPro: 0.030, growthStudio: 0.020, churnProAnn: 0.18, churnStudioAnn: 0.13, churnEntAnn: 0.08, cacPro: 1100, cacStudio: 2500, cacEnt: 11000, upgradeAnn: 0.13 },
+    optimistic:   { growthPro: 0.045, growthStudio: 0.035, churnProAnn: 0.12, churnStudioAnn: 0.09, churnEntAnn: 0.05, cacPro: 550,  cacStudio: 1500, cacEnt: 7000,  upgradeAnn: 0.18 },
   };
   const SCENARIO_NOTES = {
-    conservative: 'Konzervatív szcenárió: lassabb növekedés, magasabb churn és CAC, visszafogott piaci fogadtatás esetén.',
-    base:         'Alap szcenárió: mérsékelt növekedés, piaci átlag körüli churn és ügyfélszerzési költség (CAC).',
-    optimistic:   'Optimista szcenárió: gyors növekedés, alacsony churn és CAC, erős piaci visszhang esetén.',
+    conservative: 'Konzervatív szcenárió: lassú növekedés, magas (self-serve-reális) churn és a CPL-hez igazított magas CAC. A növekedést a regionális SAM-telítődés fékezi.',
+    base:         'Alap szcenárió: mérsékelt növekedés, benchmark-kalibrált churn és a €80 CPL-hez igazított CAC. A növekedést a regionális SAM-telítődés fékezi.',
+    optimistic:   'Optimista szcenárió: gyors, de plafonozott növekedés, alsó-széli (még védhető) churn és kedvező CAC. A növekedést a regionális SAM-telítődés fékezi.',
   };
   let currentScenario = 'base';
   let horizonMonths = 24;
@@ -1583,12 +1586,18 @@
       if (m === entStartMonth && entStartMonth > 1) ent += entContracts0;
 
       const mktEntRealloc = entOpen ? 0 : mktEnt;
-      const newPro    = s.cacPro    > 0 ? (mktPro    + mktEntRealloc * (0.60 / 0.85)) / s.cacPro    : 0;
-      const newStudio = s.cacStudio > 0 ? (mktStudio + mktEntRealloc * (0.25 / 0.85)) / s.cacStudio : 0;
-      const newEnt    = entOpen && s.cacEnt > 0 ? mktEnt / s.cacEnt : 0;
+      // Piaci telítődés: az organikus és az akvizíciós hozzáadást a regionális SAM-hoz (samHigh) közeledve fojtjuk,
+      // hogy a bázis ne nőhessen a szolgálható piac fölé. Cég-ekvivalens: ent + studio + pro / UPGRADE_TEAM_FACTOR.
+      const marketCapFirms = (REGIONS[currentRegion] && REGIONS[currentRegion].samHigh) || 3500;
+      const accountsFirmEq = ent + studio + pro / UPGRADE_TEAM_FACTOR;
+      const saturation = Math.max(0, 1 - accountsFirmEq / marketCapFirms);
 
-      const orgPro    = pro * s.growthPro;
-      const orgStudio = studio * s.growthStudio;
+      const newPro    = s.cacPro    > 0 ? saturation * (mktPro    + mktEntRealloc * (0.60 / 0.85)) / s.cacPro    : 0;
+      const newStudio = s.cacStudio > 0 ? saturation * (mktStudio + mktEntRealloc * (0.25 / 0.85)) / s.cacStudio : 0;
+      const newEnt    = entOpen && s.cacEnt > 0 ? saturation * mktEnt / s.cacEnt : 0;
+
+      const orgPro    = pro * s.growthPro * saturation;
+      const orgStudio = studio * s.growthStudio * saturation;
 
       const upgrading = pro * mUpgrade;
 
