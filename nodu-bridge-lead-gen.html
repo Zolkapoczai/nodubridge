@@ -53,21 +53,21 @@
     }
 
     /* HERO */
-    .hero { background: var(--bg); padding: 40px 32px 48px; border-bottom: 1px solid var(--border); }
-    .hero-inner { max-width: 880px; margin: 0 auto; }
+    .hero { background: var(--bg); padding: 40px 0 48px; border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
     .hero-label {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 20px;
     }
     .hero h1 {
       font-size: 2.2rem; font-weight: 800; color: var(--text); line-height: 1.22;
-      letter-spacing: -0.03em; margin-bottom: 20px; max-width: 720px; text-align: left;
+      letter-spacing: -0.03em; margin-bottom: 20px; text-align: left;
       text-wrap: balance;
     }
     .hero h1 em { color: var(--accent); font-style: normal; }
     .hero-subtitle {
-      font-size: 1rem; color: #52525B; line-height: 1.65; max-width: 640px;
-      margin-bottom: 32px; text-align: left;
+      font-size: 1rem; color: #52525B; line-height: 1.65;
+      margin-bottom: 32px; text-align: justify; hyphens: auto; -webkit-hyphens: auto;
     }
     .hero-meta {
       display: flex; flex-wrap: wrap; gap: 32px;
@@ -251,7 +251,8 @@
     .footer-meta { font-size: 12px; color: var(--muted); line-height: 1.6; text-align: right; }
 
     @media (max-width: 640px) {
-      .hero { padding: 40px 20px 48px; }
+      .hero { padding: 40px 0 48px; }
+      .hero-inner { padding: 0 20px; }
       .hero h1 { font-size: 1.6rem; }
       .main { padding: 40px 20px 64px; }
       .topbar { padding: 0 20px; }
