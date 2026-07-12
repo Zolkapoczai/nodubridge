@@ -721,7 +721,7 @@
     <p class="section-label">Sales pipeline</p>
     <h2>NODU Sales: automatikus routing (stage-mapping)</h2>
     <p>
-      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap" döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája lezárt (részletek a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak feltételei még nyitottak.
+      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap" döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája még kialakítás alatt van — a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függ (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak.
     </p>
 
     <div class="table-wrap">
@@ -846,7 +846,7 @@
 
     <div class="callout-blue" style="margin-top:32px">
       <div class="callout-label">2026 sales cél összefoglalva</div>
-      <p>A rendszer célja, hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a waitlist-feliratkozás („Bridge Waitlist" kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája lezárt (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a felhasználószám növelése és az ingyenes feliratkozók fizetőssé konvertálása.</p>
+      <p>A rendszer célja, hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a waitlist-feliratkozás („Bridge Waitlist" kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája még kialakítás alatt van, a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függően alakul (jelenlegi állás: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak, a jelenlegi fókusz a felhasználószám növelése és az ingyenes feliratkozók fizetőssé konvertálása.</p>
     </div>
   </section>
 
