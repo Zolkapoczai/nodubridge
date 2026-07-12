@@ -182,6 +182,12 @@
     tbody td { padding: 13px 16px; color: var(--text); vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; }
     tbody td:first-child { font-weight: 600; }
     tbody tr:hover td { background: #F3F4F6; }
+    tr.table-group-row td {
+      background: #F4F4F5 !important; padding: 7px 16px; font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    tr.table-group-row:first-child td { border-top: none; }
     .td-mono { font-variant-numeric: tabular-nums; font-size: 0.83rem; color: var(--muted); white-space: nowrap; }
     .badge {
       display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
@@ -585,11 +591,12 @@
           </tr>
         </thead>
         <tbody>
+          <tr class="table-group-row"><td colspan="5">Közösség-figyelés — nodu-monitor scraper</td></tr>
           <tr>
             <td><strong>Reddit</strong></td>
             <td>r/Revit, r/ArchiCAD, r/BIM</td>
             <td>PRAW API, valós idejű új posztok és kommentek</td>
-            <td><span class="badge badge-now">API-kulcs kell</span></td>
+            <td><span class="badge badge-q3">API-kulcs kell</span></td>
             <td class="td-mono">Ingyenes tier</td>
           </tr>
           <tr>
@@ -617,21 +624,22 @@
             <td><strong>Google Custom Search</strong></td>
             <td>RevitForum, BuildingSMART, egyéb</td>
             <td>Google CSE JSON API, domain-szűrt keresés</td>
-            <td><span class="badge badge-now">API-kulcs kell</span></td>
+            <td><span class="badge badge-q3">API-kulcs kell</span></td>
             <td class="td-mono">100 kérés/nap ingyenes</td>
           </tr>
+          <tr class="table-group-row"><td colspan="5">Weboldal — nodu.build/bridge</td></tr>
           <tr>
             <td><strong>Waitlist</strong></td>
             <td>nodu.build/bridge</td>
             <td>Waitlist-űrlap, egyenesen az n8n webhookra</td>
-            <td><span class="badge badge-now">Most induló</span></td>
+            <td><span class="badge badge-q3">Beillesztésre vár</span></td>
             <td class="td-mono">Ingyenes, saját csatorna</td>
           </tr>
           <tr>
             <td><strong>RB2B ingyenes</strong></td>
             <td>nodu.build/bridge</td>
             <td>JS snippet: anonim látogató-azonosítás, Slack-értesítés</td>
-            <td><span class="badge badge-now">Most induló</span></td>
+            <td><span class="badge badge-q3">Beillesztésre vár</span></td>
             <td class="td-mono">USA, cégszint, csak Slack</td>
           </tr>
           <tr>
