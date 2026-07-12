@@ -349,7 +349,7 @@
       </div>
       <div class="metric-card blue">
         <div class="metric-value">Most</div>
-        <div class="metric-label">Wishlist és RB2B élesítés</div>
+        <div class="metric-label">Waitlist és RB2B élesítés</div>
         <div class="metric-sub">A nodu.build/bridge feliratkozás és az RB2B ingyenes látogató-azonosítás már most indul</div>
       </div>
       <div class="metric-card amber">
@@ -365,7 +365,7 @@
     <p class="section-label">Stratégia</p>
     <h2>A rendszer két forráscsatornája</h2>
     <p>
-      A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a közösség-figyelő scraper találja meg, a másodikat a weboldal: önkéntes wishlist-feliratkozással vagy az RB2B látogató-azonosítással.
+      A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a közösség-figyelő scraper találja meg, a másodikat a weboldal: önkéntes waitlist-feliratkozással vagy az RB2B látogató-azonosítással.
     </p>
 
     <div class="pillar-grid">
@@ -392,12 +392,12 @@
           <span class="pillar-badge badge-active">Most induló</span>
         </div>
         <p class="pillar-desc">
-          A weboldal kétféleképpen szerez leadet. A wishlist-űrlapon az érdeklődő önként megadja az e-mail-címét, a szerepkörét és a fő Archicad–Revit fájdalompontját; ez a NODU Sales „Bridge Wishlist" kampányába kerül (Registration lépcső), így a tölcsér-riport ingyen méri a konverziót. Az első 100 feliratkozó év végéig ingyenes keretet kap, ami erős ösztönző a korai jelentkezésre. Emellett az RB2B snippet azonosítja az anonim látogatókat: az ingyenes csomag már most bekapcsolható, a teljes, automatizált azonosítás a Pro csomaggal és az éles weboldali forgalommal érkezik.
+          A weboldal kétféleképpen szerez leadet. A waitlist-űrlapon az érdeklődő önként megadja az e-mail-címét, a szerepkörét és a fő Archicad–Revit fájdalompontját; ez a NODU Sales „Bridge Waitlist" kampányába kerül (Registration lépcső), így a tölcsér-riport ingyen méri a konverziót. Az első 100 feliratkozó év végéig ingyenes keretet kap, ami erős ösztönző a korai jelentkezésre. Emellett az RB2B snippet azonosítja az anonim látogatókat: az ingyenes csomag már most bekapcsolható, a teljes, automatizált azonosítás a Pro csomaggal és az éles weboldali forgalommal érkezik.
         </p>
         <div class="pillar-sources">
-          <div class="source-row"><span class="source-name">Wishlist-feliratkozás</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
+          <div class="source-row"><span class="source-name">Waitlist-feliratkozás</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
           <div class="source-row"><span class="source-name">Lead-minősítés</span><span class="source-note">A fájdalompont alapján pontozott, meleg lead</span></div>
-          <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">n8n → NODU Sales „Bridge Wishlist" kampány</span></div>
+          <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">n8n → NODU Sales „Bridge Waitlist" kampány</span></div>
           <div class="source-row"><span class="source-name">RB2B ingyenes (most)</span><span class="source-note">Anonim látogató, USA, cégszint, Slack-értesítés</span></div>
           <div class="source-row"><span class="source-name">RB2B Pro (szept.)</span><span class="source-note">Személyszint, webhook, automatikus NODU Sales (email-domain verify, no-PII)</span></div>
         </div>
@@ -517,7 +517,7 @@
           <div class="flow-node">Autodesk Community<sub>Playwright / Chromium</sub></div>
           <div class="flow-node">Stack Overflow<sub>Stack Exchange API v2.3</sub></div>
           <div class="flow-node">Google CSE<sub>RevitForum, BuildingSMART</sub></div>
-          <div class="flow-node accent-node">Wishlist<sub>nodu.build/bridge, egyenesen n8n-be</sub></div>
+          <div class="flow-node accent-node">Waitlist<sub>nodu.build/bridge, egyenesen n8n-be</sub></div>
           <div class="flow-node amber-node">RB2B<sub>Weboldal-látogató, ingyenes most</sub></div>
         </div>
 
@@ -621,7 +621,7 @@
             <td class="td-mono">100 kérés/nap ingyenes</td>
           </tr>
           <tr>
-            <td><strong>Wishlist</strong></td>
+            <td><strong>Waitlist</strong></td>
             <td>nodu.build/bridge</td>
             <td>Waitlist-űrlap, egyenesen az n8n webhookra</td>
             <td><span class="badge badge-now">Most induló</span></td>
@@ -672,15 +672,15 @@
         <div class="phase-num">3</div>
         <div class="phase-content">
           <h4>n8n és NODU Sales integráció</h4>
-          <p>A NODU Sales oldali ingest-adapter <strong>elkészült</strong> (POST /api/bridge/ingest — Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló; spec: SalesOS docs/08). A fogadó rendszer azóta a teljes MVP-kört lezárta és élesben tesztelve fut: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok (a „Bridge Wishlist" kampány már most létezik és fogadja a jelzéseket), globális keresés és az AI-copilot mind működik, a kódbázis pedig verziózott és biztonsági mentése megvan. Hátravan: n8n elindítása (cloud vagy self-hosted) és a workflow átkötése erre az endpointra a Pipedrive helyett, plusz Slack-értesítés. Előfeltétel: a NODU Sales elérhető legyen az n8n felől (hosting vagy tunnel).</p>
+          <p>A NODU Sales oldali ingest-adapter <strong>elkészült</strong> (POST /api/bridge/ingest — Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló; spec: SalesOS docs/08). A fogadó rendszer azóta a teljes MVP-kört lezárta és élesben tesztelve fut: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok (a „Bridge Waitlist" kampány már most létezik és fogadja a jelzéseket), globális keresés és az AI-copilot mind működik, a kódbázis pedig verziózott és biztonsági mentése megvan. Hátravan: n8n elindítása (cloud vagy self-hosted) és a workflow átkötése erre az endpointra a Pipedrive helyett, plusz Slack-értesítés. Előfeltétel: a NODU Sales elérhető legyen az n8n felől (hosting vagy tunnel).</p>
         </div>
         <div class="phase-meta">1–2 nap<br>Fejlesztő + Zoltán</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">4</div>
         <div class="phase-content">
-          <h4>Wishlist oldal és feliratkozás</h4>
-          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés az n8n-en át a NODU Sales „Bridge Wishlist" kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
+          <h4>Waitlist oldal és feliratkozás</h4>
+          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés az n8n-en át a NODU Sales „Bridge Waitlist" kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
         </div>
         <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
       </div>
@@ -696,7 +696,7 @@
         <div class="phase-num">6</div>
         <div class="phase-content">
           <h4>Hatékonyság-növelés</h4>
-          <p>A fórumválasz-javaslatok finoman a wishlistre terelnek, UTM-linkkel. Minden kimenő link UTM-címkét kap, így a NODU Salesben látszik, melyik csatorna konvertál; heti Slack-összefoglaló készül a forrásokról és a top fájdalompontokról. Emellett heti 1-2 LinkedIn-posztjavaslat érkezik a valós közösségi fájdalompontokból, jóváhagyásra.</p>
+          <p>A fórumválasz-javaslatok finoman a waitlist-feliratkozásra terelnek, UTM-linkkel. Minden kimenő link UTM-címkét kap, így a NODU Salesben látszik, melyik csatorna konvertál; heti Slack-összefoglaló készül a forrásokról és a top fájdalompontokról. Emellett heti 1-2 LinkedIn-posztjavaslat érkezik a valós közösségi fájdalompontokból, jóváhagyásra.</p>
         </div>
         <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
       </div>
@@ -712,7 +712,7 @@
 
     <div class="callout">
       <div class="callout-label">Mit lehet azonnal indítani</div>
-      <p>A wishlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; ez Zoltán feladata, a kód oldala kész.</p>
+      <p>A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; ez Zoltán feladata, a kód oldala kész.</p>
     </div>
   </section>
 
@@ -754,8 +754,8 @@
             <td>A jelzés a cég-dossziéban és az AI Briefben látszik</td>
           </tr>
           <tr>
-            <td><strong>Wishlist-feliratkozó</strong></td>
-            <td>Contact + „Bridge Wishlist" kampány-tagság + Activity; nincs auto-deal</td>
+            <td><strong>Waitlist-feliratkozó</strong></td>
+            <td>Contact + „Bridge Waitlist" kampány-tagság + Activity; nincs auto-deal</td>
             <td>Registration (kampány)</td>
             <td>Köszönő e-mail; minősítés után kézi deal-nyitás</td>
           </tr>
@@ -818,7 +818,7 @@
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">Wishlist-oldal a nodu.build/bridge-en (waitlist-űrlap) és a "Wishlist → NODU Sales" n8n-workflow beállítása (channel: wishlist)</div>
+        <div class="todo-task">Waitlist-oldal a nodu.build/bridge-en (waitlist-űrlap) és a "Waitlist → NODU Sales" n8n-workflow beállítása (channel: waitlist)</div>
         <div class="todo-who">Fejlesztő + Zoltán</div>
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
@@ -846,7 +846,7 @@
 
     <div class="callout-blue" style="margin-top:32px">
       <div class="callout-label">2026 sales cél összefoglalva</div>
-      <p>A rendszer célja, hogy 2026 végéig több száz aktív NODU Bridge-felhasználót érjünk el. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a wishlist-feliratkozás („Bridge Wishlist" kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája lezárt (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a felhasználószám és a tényleges aktivitás növelése, a launch-kori ingyenes időszak konkrét feltételeinek tisztázásáig.</p>
+      <p>A rendszer célja, hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a waitlist-feliratkozás („Bridge Waitlist" kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája lezárt (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a felhasználószám és a tényleges aktivitás növelése, a launch-kori ingyenes időszak konkrét feltételeinek tisztázásáig.</p>
     </div>
   </section>
 
