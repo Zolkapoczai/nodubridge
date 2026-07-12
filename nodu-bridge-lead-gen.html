@@ -405,6 +405,103 @@
     </div>
   </section>
 
+  <!-- SALESOS -->
+  <section class="section">
+    <p class="section-label">A célrendszer</p>
+    <h2>SalesOS: a NODU Sales CRM, ami fogadja és kezeli a leadeket</h2>
+    <p>
+      A NODU Sales (fejlesztői munkanevén SalesOS) egy saját fejlesztésű, account-centrikus, AI-natív CRM — nem harmadik féltől vásárolt eszköz, mint a korábban használt Pipedrive, hanem kifejezetten a NODU sales-munkafolyamatára épített rendszer. Minden adat egy cég köré szerveződik (dosszié-nézet: kontaktok, activity-történet és dealek egy helyen), a felület billentyűzet-first (globális Ctrl+K kereső, gyorsbillentyűk minden listán), és beépített AI-copilot segít az összefoglalásban és a következő lépés javaslatában.
+    </p>
+
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="pillar-head">
+          <div class="pillar-title">Napi sales-munka</div>
+          <span class="pillar-badge badge-active">Kész, éles</span>
+        </div>
+        <p class="pillar-desc">
+          A cégektől a lezárásig minden lépés egy rendszerben, dosszié-szemlélettel: egy cég oldalán látszik minden kontakt, esemény és nyitott deal.
+        </p>
+        <div class="pillar-sources">
+          <div class="source-row"><span class="source-name">Cégek &amp; Kontaktok</span><span class="source-note">Dosszié-nézet, szerep-flagek, dedup-ellenőrzés</span></div>
+          <div class="source-row"><span class="source-name">Activity-timeline</span><span class="source-note">Meeting / Hívás / Email / Jegyzet, forrás szerint (Bridge-jelzés is)</span></div>
+          <div class="source-row"><span class="source-name">Pipeline</span><span class="source-note">Kanban board, stage-history, elavulás-jelzés</span></div>
+          <div class="source-row"><span class="source-name">Kampányok</span><span class="source-note">Tölcsér-riport, CSV-import, konverzió-számítás</span></div>
+          <div class="source-row"><span class="source-name">Teendők</span><span class="source-note">Határidős lista, halasztás-fék</span></div>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-head">
+          <div class="pillar-title">Kereső + AI-réteg</div>
+          <span class="pillar-badge badge-active">Kész, éles</span>
+        </div>
+        <p class="pillar-desc">
+          A rendszer nem csak tárolja az adatot, hanem aktívan segít is vele dolgozni, kereséssel és AI-asszisztenssel.
+        </p>
+        <div class="pillar-sources">
+          <div class="source-row"><span class="source-name">Globális keresés</span><span class="source-note">Ctrl+K, full-text search minden entitáson</span></div>
+          <div class="source-row"><span class="source-name">Parancs-paletta</span><span class="source-note">Gyors műveletek billentyűzetről</span></div>
+          <div class="source-row"><span class="source-name">AI Copilot</span><span class="source-note">Cég-összefoglaló, meeting-előkészítés, e-mail-javaslat, következő lépés</span></div>
+          <div class="source-row"><span class="source-name">Zero-hallucination szabály</span><span class="source-note">Minden AI-állítás forrás-ID-hoz kötött</span></div>
+          <div class="source-row"><span class="source-name">Bridge-jelzés</span><span class="source-note">Saját badge az activity-feedben, forrás-URL kötelező</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOLYAMAT: NODU-MONITOR -> SALESOS -->
+  <section class="section">
+    <p class="section-label">Folyamat</p>
+    <h2>Hogyan jut el egy jelzés a nodu-monitortól a SalesOS-ig</h2>
+    <p>
+      A nodu-monitor (a fenti közösség-figyelő scraper) nem közvetlenül ír a SalesOS adatbázisába — egy jól elhatárolt, auditálható folyamaton megy át minden jelzés:
+    </p>
+
+    <div class="phase-list">
+      <div class="phase-row">
+        <div class="phase-num">1</div>
+        <div class="phase-content">
+          <h4>A nodu-monitor észlel és pontoz</h4>
+          <p>A scraper egy releváns posztot talál (Reddit, Playwright-forrás, Stack Overflow, Google CSE), kulcsszó szerint pontozza, és az SQLite adatbázisába menti, duplikátum-védelemmel.</p>
+        </div>
+        <div class="phase-meta">nodu-monitor</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">2</div>
+        <div class="phase-content">
+          <h4>n8n továbbítja a SalesOS-nak</h4>
+          <p>Az n8n-workflow felveszi az új, elég magas pontszámú jelzéseket, és átadja őket a SalesOS beépített, hitelesített fogadó-felületének.</p>
+        </div>
+        <div class="phase-meta">n8n</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">3</div>
+        <div class="phase-content">
+          <h4>A SalesOS azonosítja a céget</h4>
+          <p>Egyezés-keresés lépcsőzetesen: cégjegyzékszám → e-mail-domain → névhasonlóság. Ha nincs találat, új cég jön létre, sosem duplikált.</p>
+        </div>
+        <div class="phase-meta">SalesOS</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">4</div>
+        <div class="phase-content">
+          <h4>Deal vagy Activity, a pontszám szerint</h4>
+          <p>Magas pontszámnál új Deal nyílik a pipeline-on a megfelelő stage-ben, alacsonyabbnál csak egy Activity kerül a cég dossziéjába, forrás-URL-lel és „Bridge" jelzéssel.</p>
+        </div>
+        <div class="phase-meta">SalesOS</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">5</div>
+        <div class="phase-content">
+          <h4>Értesítés, és a sales kolléga átveszi</h4>
+          <p>Slack-értesítés megy ki a csapatnak; onnantól a SalesOS felületén (dosszié, pipeline, teendők) folytatódik a kézi munka. A kommunikáció mindig emberi jóváhagyás után megy ki.</p>
+        </div>
+        <div class="phase-meta">Zoltán</div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOLYAMATÁBRA -->
   <section class="section">
     <p class="section-label">Architektúra</p>
@@ -765,7 +862,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-12 (NODU Sales MVP-teljesség + GitHub-repó jelezve)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-12 (NODU Sales MVP-teljesség, SalesOS-leírás és nodu-monitor→SalesOS folyamatleírás hozzáadva)<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>
