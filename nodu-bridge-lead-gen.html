@@ -667,25 +667,25 @@
         <div class="phase-num">1</div>
         <div class="phase-content">
           <h4>Meglévő alap élesítése</h4>
-          <p>API-kulcsok bekonfigurálása a config.yaml-ban: Reddit (reddit.com/prefs/apps), Google CSE (console.cloud.google.com), Claude Haiku (api.anthropic.com), Slack-webhook. End-to-end teszt: gyűlnek-e a posztok az SQLite-ba.</p>
+          <p>API-kulcsok bekonfigurálása a config.yaml-ban: Reddit (reddit.com/prefs/apps), Google CSE (console.cloud.google.com), céges Anthropic (Claude) API-kulcs — céges fiókkal, nem személyes kulccsal, <code>claude_enabled: true</code> —, Slack-webhook. Emellett a NODU Sales hosting/tunnel döntés (hogy az n8n elérje a lokális appot) és az adatbázis-mentés (pg_dump ütemezés) beállítása. End-to-end teszt: gyűlnek-e a posztok az SQLite-ba.</p>
         </div>
-        <div class="phase-meta">1–2 nap<br>Zoltán</div>
+        <div class="phase-meta">1–2 nap<br>Fejlesztő + Zoltán</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">2</div>
         <div class="phase-content">
           <h4>Scraper connectorok</h4>
-          <p>A Playwright (Graphisoft és Autodesk Community JS-oldalak) és a Stack Overflow connector. Mindkettő elkészült, a Reddit, a Google CSE és a HTML-fórumok mellett fut.</p>
+          <p>A Playwright (Graphisoft és Autodesk Community JS-oldalak) és a Stack Overflow connector kódja elkészült, a Reddit, a Google CSE és a HTML-fórumok mellett fut. Éles indításhoz még hátravan a Playwright-függőség telepítése a szerveren (<code>pip install playwright &amp;&amp; playwright install chromium</code>).</p>
         </div>
-        <div class="phase-meta">Kész<br>Fejlesztő</div>
+        <div class="phase-meta">Kód kész, telepítés: 2. sprint<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">3</div>
         <div class="phase-content">
           <h4>n8n és NODU Sales integráció</h4>
-          <p>A NODU Sales oldali ingest-adapter <strong>elkészült</strong> (POST /api/bridge/ingest — Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló; spec: SalesOS docs/08). A fogadó rendszer azóta a teljes MVP-kört lezárta és élesben tesztelve fut: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok (a „Bridge Waitlist" kampány már most létezik és fogadja a jelzéseket), globális keresés és az AI-copilot mind működik, a kódbázis pedig verziózott és biztonsági mentése megvan. Hátravan: n8n elindítása (cloud vagy self-hosted) és a workflow átkötése erre az endpointra a Pipedrive helyett, plusz Slack-értesítés. Előfeltétel: a NODU Sales elérhető legyen az n8n felől (hosting vagy tunnel).</p>
+          <p>A NODU Sales oldali ingest-adapter <strong>elkészült</strong> (POST /api/bridge/ingest — Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló; spec: SalesOS docs/08). A fogadó rendszer azóta a teljes MVP-kört lezárta és élesben tesztelve fut: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok (a „Bridge Waitlist" kampány már most létezik és fogadja a jelzéseket), globális keresés és az AI-copilot mind működik, a kódbázis pedig verziózott és biztonsági mentése megvan. Hátravan: n8n-instance elindítása (cloud vagy self-hosted), a <code>BRIDGE_API_KEY</code> átadása neki, és a workflow átkötése erre az endpointra a Pipedrive helyett, plusz Slack-értesítés. Előfeltétel: az 1. fázisban eldöntött hosting/tunnel-megoldás élesben működjön.</p>
         </div>
-        <div class="phase-meta">1–2 nap<br>Fejlesztő + Zoltán</div>
+        <div class="phase-meta">1–2 nap<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">4</div>
@@ -693,15 +693,15 @@
           <h4>Waitlist oldal és feliratkozás</h4>
           <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés az n8n-en át a NODU Sales „Bridge Waitlist" kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
         </div>
-        <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
+        <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">5</div>
         <div class="phase-content">
           <h4>RB2B látogató-azonosítás</h4>
-          <p>Az RB2B ingyenes csomag snippetje már most beilleszthető a /bridge oldalra; az anonim, USA-beli látogatókat cégszinten azonosítja, és jelez a Slacken. A teljes, automatikus NODU Sales-integráció (személyszint, webhook, email-domain-ellenőrzéssel és PII-védelemmel) a Pro csomaggal érkezik, az éles weboldali forgalom mellé, szeptemberben.</p>
+          <p>Az RB2B ingyenes csomag snippetjét a fejlesztő illeszti be a /bridge oldalra; az anonim, USA-beli látogatókat cégszinten azonosítja, és jelez a Slacken. A teljes, automatikus NODU Sales-integráció (személyszint, webhook, email-domain-ellenőrzéssel és PII-védelemmel) a Pro csomaggal érkezik, az éles weboldali forgalom mellé, szeptemberben — a Pro-váltás költség-döntése Zoltáné, a technikai bekötés a fejlesztőé.</p>
         </div>
-        <div class="phase-meta">Most, Pro szept.<br>Zoltán</div>
+        <div class="phase-meta">Most, Pro szept.<br>Fejlesztő + Zoltán</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">6</div>
@@ -719,11 +719,19 @@
         </div>
         <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
       </div>
+      <div class="phase-row">
+        <div class="phase-num">8</div>
+        <div class="phase-content">
+          <h4>Relevancia-pontozás A/B teszt</h4>
+          <p>A jelenlegi 3-2-1 kulcsszó-formula (elsődleges kifejezés 3 pont, fájdalompont-jelző 2 pont, kontextus-szó 1 pont) mellett egy LLM-alapú reclassification-ág tesztelése — melyik pontoz pontosabban. A relevancia-küszöbök (<code>BRIDGE_SCORE_QUALIFIED</code>, <code>BRIDGE_SCORE_LEAD</code>) env-konfigban hangolhatók, deploy nélkül. A tesztet a fejlesztő futtatja, az eredményt Zoltán értékeli.</p>
+        </div>
+        <div class="phase-meta">3. sprint<br>Fejlesztő + Zoltán</div>
+      </div>
     </div>
 
     <div class="callout">
       <div class="callout-label">Mit lehet azonnal indítani</div>
-      <p>A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; ez Zoltán feladata, a kód oldala kész.</p>
+      <p>A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; a kulcsok beszerzése és bekonfigurálása a fejlesztő feladata, a hosting/tunnel-döntés Zoltánnal közösen — a scraper kódja már kész.</p>
     </div>
   </section>
 
@@ -790,63 +798,64 @@
   <!-- KÖVETKEZŐ TEENDŐK -->
   <section class="section">
     <p class="section-label">Teendők</p>
-    <h2>Azonnali következő lépések</h2>
+    <h2>Következő lépések</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:-8px;margin-bottom:8px;">Az alábbi sprint-beosztás javaslat, nem kötött határidő — nem biztos, hogy azonnal van rá fejlesztői kapacitás, a sorrend és az ütemezés a tényleges erőforrástól függően csúszhat.</p>
 
     <div class="todo-list">
       <div class="todo-row">
         <div class="todo-task">Reddit API-kulcs bekonfigurálása (reddit.com/prefs/apps → script app létrehozása)</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
+        <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">Google CSE API-kulcs és keresőmotor-azonosító beállítása (console.cloud.google.com)</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
+        <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">Céges Anthropic (Claude) API-kulcs igénylése és bekötése — céges fiókkal, nem személyes kulccsal; a <code>claude_enabled: true</code> kapcsoló beállítása a config.yaml-ban</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
+        <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task"><code>pip install playwright &amp;&amp; playwright install chromium</code> futtatása</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
+        <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">NODU Sales hosting/tunnel döntés (a lokális app elérhetővé tétele az n8n felől) + adatbázis-mentés (pg_dump ütemezés)</div>
         <div class="todo-who">Zoltán + Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
+        <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">n8n-instance elindítása (cloud vagy self-hosted döntés); BRIDGE_API_KEY átadása az n8n-nek</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
+        <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">n8n workflow átkötése a NODU Sales ingest-endpointra (POST /api/bridge/ingest) — a NODU Sales oldali adapter kész, tesztelve</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
+        <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">Waitlist-oldal a nodu.build/bridge-en (waitlist-űrlap) és a "Waitlist → NODU Sales" n8n-workflow beállítása (channel: waitlist)</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
+        <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">RB2B ingyenes csomag aktiválása és a JS snippet beillesztése a /bridge oldalra (Slack-értesítés)</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">1. sprint</div>
+        <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">Slack-approve workflow (7. fázis): 👍/👎 gyorsjóváhagyás a Flask UI kiváltására — a konverzió-lánc szűk keresztmetszete</div>
         <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-soon">2. sprint</div>
+        <div class="todo-when todo-soon">3. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">Relevancia-pontozás A/B teszt (3-2-1 formula vs. LLM-reclassification); a küszöbök env-ben hangolhatók (BRIDGE_SCORE_QUALIFIED / BRIDGE_SCORE_LEAD) — Fejlesztő futtatja, Zoltán értékeli az eredményt</div>
         <div class="todo-who">Fejlesztő + Zoltán</div>
-        <div class="todo-when todo-soon">2. sprint</div>
+        <div class="todo-when todo-soon">3. sprint</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">RB2B Pro előfizetésre váltás (költség-döntés), a technikai bekötés a fejlesztőé</div>
