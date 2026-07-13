@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODU Bridge Enterprise esettanulmányok</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #FAFAFA;
+    --card:         #FFFFFF;
+    --topbar:       #17171A;
+    --accent:       #F04E23;
+    --border:       #E4E4E7;
+    --text:         #18181B;
+    --muted:        #71717A;
+    --amber-bg:     #FFFBEB;
+    --amber-border: #F59E0B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--topbar);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #2A2A2D;
+  }
+
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.2px;
+  }
+
+  .topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .topbar-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #A1A1AA;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .topbar-nav a:hover {
+    color: #fff;
+    border-color: #3A3A3D;
+  }
+
+  .topbar-nav .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: #2A2A2D;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--bg);
+    padding: 48px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    margin-bottom: 22px;
+    max-width: 760px;
+    text-align: left;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: none;
+    margin-bottom: 32px;
+    text-align: justify;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 12px;
+    color: #71717A;
+    border-top: 1px solid #2A2A2D;
+    padding-top: 24px;
+    text-align: left;
+  }
+
+  .hero-meta span {
+    font-weight: 500;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 32px 96px;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .section h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .section h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  .section p {
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  .section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 3px solid var(--amber-border);
+    background: var(--amber-bg);
+    padding: 18px 22px;
+    border-radius: 0 6px 6px 0;
+    margin: 36px 0;
+  }
+
+  .callout-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #92400E;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .callout p {
+    font-size: 0.95rem;
+    color: #78350F;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* TABLES */
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin: 28px 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    font-size: 0.9rem;
+  }
+
+  thead th {
+    background: #F4F4F5;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  thead th:first-child { border-top-left-radius: 9px; }
+  thead th:last-child { border-top-right-radius: 9px; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+  tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+
+  tbody tr:nth-child(even) td {
+    background: #FBFBFC;
+  }
+
+  tbody td {
+    padding: 13px 16px;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  tbody td:first-child {
+    font-weight: 600;
+  }
+
+  tbody tr:hover td {
+    background: #F3F4F6;
+  }
+
+  /* FAILURE ITEMS */
+  .failure-item {
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .failure-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .failure-title {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  .failure-item p {
+    font-size: 0.95rem;
+    color: #3F3F46;
+  }
+
+  /* OPEN QUESTIONS */
+  .question-list {
+    list-style: none;
+    counter-reset: q-counter;
+  }
+
+  .question-item {
+    counter-increment: q-counter;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .question-item:last-child {
+    border-bottom: none;
+  }
+
+  .question-number {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 3px;
+    min-width: 20px;
+  }
+
+  .question-body strong {
+    display: block;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .question-body p {
+    font-size: 0.93rem;
+    color: #3F3F46;
+    margin-bottom: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--topbar);
+    border-top: 1px solid #2A2A2D;
+    padding: 40px 32px;
+  }
+
+  .footer-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #A1A1AA;
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover {
+    color: #fff;
+  }
+
+  .footer-meta {
+    font-size: 12px;
+    color: #52525B;
+    line-height: 1.6;
+    text-align: right;
+  }
+
+  .footer-meta a {
+    color: #71717A;
+    text-decoration: none;
+  }
+
+  .footer-meta a:hover {
+    color: #A1A1AA;
+  }
+
+  /* HIGHLIGHT ROW */
+  tbody tr.row-highlight td {
+    background: #FFF7F5;
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner { padding: 0 20px; }
+    .hero h1 { font-size: 1.6rem; }
+    .main { padding: 48px 20px 72px; }
+    .topbar { padding: 0 20px; }
+    .footer-meta { text-align: left; }
+  }
+</style>
+<link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+<link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+<link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+    <script src="_auth.js"></script>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="nodu-bridge-vezetoi-osszefoglalo.html" class="topbar-logo">
+    <div class="logo-mark">N</div>
+    <span class="logo-text">NODU Bridge</span>
+  </a>
+  <div class="topbar-nav">
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    <div class="nav-divider"></div>
+    <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Belső stratégiai dokumentum</div>
+    <h1>Enterprise esettanulmányok: három különböző konverziós trigger</h1>
+    <p class="hero-subtitle">Három nyilvános enterprise eset egy AEC adatplatform körül azt mutatja: az enterprise konverzió nem egyetlen okból következik be, a három kiváltó ok három különböző vásárlói profilt fed le. Ezek iparági analógiák a mechanizmus megértésére, nem NODU-referenciák.</p>
+    <div class="hero-meta">
+      <span>Belső stratégiai dokumentum</span>
+      <span>2026-06-15</span>
+      <span>Forrás: nyilvános AEC projektleírások és iparági közlemények</span>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- INTRO SECTION -->
+  <section class="section">
+    <h2>Az esettanulmányok funkciója és korlátai</h2>
+
+    <p>A három eset egyike sem véletlenül Enterprise-előfizető. Mindhárom esetben egy technikai szakember (BIM-koordinátor, computational lead vagy technológiai vezető) volt az, aki elsőként vezette be az eszközt, majd megteremtette a feltételeket a szervezeti szintű belépéshez. Ez a „beachhead” minta: a szakember megoldja a közvetlen problémáját, a szervezet megismeri a platformot, az Enterprise döntés utólag követi.</p>
+
+    <p>Ezek az esettanulmányok egy konkrét elemzési célt szolgálnak: megérteni, hogy mi váltotta ki az ingyenes szintről az Enterprise szintre való átlépést olyan irodáknál, amelyek egy nyílt AEC adatplatformot már bevezettek. A kérdés nem az, hogy „miért szerették a platformot”, hanem az, hogy „mi tette az ingyenes szintet elégtelenné”.</p>
+
+    <p>A leírások az adott platform saját publikált anyagaiból, konferencia-előadásokból és iparági sajtóból származnak. Ez túlélési torzítást (survivorship bias) jelent: a nyilvánosság elé kerülő esetek azok, ahol az eredmény pozitív volt. Azokhoz az esetekhez nem férünk hozzá, ahol a bevezetés sikertelen volt, vagy ahol az irodák visszatértek az ingyenes szintre. Az enterprise kimenetelek tényleges eloszlása ismeretlen.</p>
+
+    <p>A három esetből nem tudjuk a ténylegesen kifizetett szerződéses árat, a bevezetési ütemezést, a belső ellenállást, az Enterprise-döntés időpontjában aktív felhasználók számát, sem azt, hogy az iroda megújította-e a szerződését. Az elemzési érték a kiváltó mechanizmusban rejlik, nem a kereskedelmi részletekben.</p>
+
+    <p>Jövőbeli irányként megjegyzendő: ha a VSE-alapú parametrikus tartalomkészítési képesség egyszer elérhetővé válik, egy párhuzamos belépési profil is megjelenhet: a tartalomalkotó, aki nem adatcserével, hanem többformátumú parametrikus tartalom (Revit Family és további CAD-/gyártói formátumok) tervezésével kezd. Az induláskor azonban ez a profil nem létezik, az alábbi esettanulmányok kizárólag az adatcsere-alapú adaptációt elemzik.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cég</th>
+            <th>Projekt típus</th>
+            <th>Enterprise trigger kategória</th>
+            <th>Felhasznált funkció</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ARUP</strong></td>
+            <td>Multidiszciplináris infrastruktúra</td>
+            <td>Jogi / szerződéses kényszer</td>
+            <td>SSO, RBAC, dedikált szerver</td>
+          </tr>
+          <tr>
+            <td><strong>Ramboll</strong></td>
+            <td>Automatizált szerkezeti tervezés</td>
+            <td>Számítási kapacitás</td>
+            <td>Szerver-oldali automatizálás (Enterprise keret)</td>
+          </tr>
+          <tr>
+            <td><strong>Herzog &amp; de Meuron</strong></td>
+            <td>Egyedi szoftver integráció</td>
+            <td>Szellemi tulajdon védelme</td>
+            <td>Privát szerver, elzárt munkaterek</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 01 -->
+  <section class="section">
+    <div class="section-label">01 ARUP</div>
+    <h2>ARUP: amikor az adatszuverenitás nem IT-szabály, hanem szerződéses kötelezettség</h2>
+
+    <p>Az ARUP eset egy nagy, multidiszciplináris infrastrukturális projektet érint Hongkongban. A csapatstruktúra jellegzetes: az ARUP vezet belső szerkezeti, MEP és homlokzatmérnökökkel, miközben több külső tervező partner biztosítja a diszciplína-specifikus modelleket. A projekt léptéke és földrajzi összetettsége nem véletlen. Ezek teszik az adatkezelési problémát éles kérdéssé.</p>
+
+    <p>Ilyen projekten az adathozzáférés-kezelés nem belső preferencia kérdése, hanem szerződéses követelmény. A különböző külső közreműködőknek különböző jogaik vannak a modell különböző rétegeihez. Egy külső iroda szerkezeti mérnöke nem láthatja a szabadalmaztatott homlokzati részleteket. Egy MEP-alvállalkozó nem kaphat írási jogot a szerkezeti modellhez. Az ilyen platformok közösségi (ingyenes) szintje a tervezésénél fogva nem biztosítja azt a részletes hozzáférés-kezelést, amely e határok betartatásához szükséges.</p>
+
+    <p>Ez lényeges megkülönböztetés a NODU Bridge paywall-elemzéshez. Az ARUP nem azért lépett Enterprise szintre, mert az IT osztályuknak biztonsági szabályzata volt. Azért léptek, mert a projektszerződés megkövetelte a demonstrálható adathozzáférés-kezelést. A döntést jogi és beszerzési szint vezérelte, nem a mérnöki csapat.</p>
+
+    <p>Amire ténylegesen szükségük volt: dedikált felhőkörnyezet (az adatok nem élnek megosztott nyilvános szerveren), SSO-integráció (a külső közreműködők a saját szervezeti hitelesítő adataikkal lépnek be, a hozzáférés visszavonható, amikor egy megbízás véget ér), részletes RBAC (szerepmeghatározások diszciplína és projektfázis szerint), valamint auditnapló (annak bizonyítéka, hogy ki mikor mihez fért hozzá).</p>
+
+    <p>Az ARUP eset a NODU Bridge potenciális Enterprise ügyfeleinek egy konkrét szegmensére vetíthető: olyan irodákra vagy BIM-koordinátorokra, akik több külső közreműködőt kezelnek egyetlen projekten belül. A kiváltó ok nem az iroda mérete, hanem az együttműködési struktúra. Egy kisebb iroda, amely 5 külső homlokzati szakértőt koordinál, ugyanolyan szerződéses adatkezelési követelménnyel szembesülhet.</p>
+
+    <div class="callout">
+      <div class="callout-label">Amit nem tudunk</div>
+      <p>Nem ismert, hogy az ARUP esetében a döntést a projekt BIM-menedzsere, a jogi osztály vagy a beszerzési osztály hozta. Ez azért releváns, mert a különböző döntéshozó profilok különböző értékesítési megközelítést igényelnek.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 02 -->
+  <section class="section">
+    <div class="section-label">02 Ramboll</div>
+    <h2>Ramboll: ahol nem a biztonság, hanem a számítási kapacitás volt a trigger</h2>
+
+    <p>A Ramboll „Soufflé” projektje automatizált szerkezeti tervezést és végeselem-analízist (FEA) foglalt magában csőhidak esetében. Ez parametrikus mérnöki munkafolyamat: a tervezési teret számítógéppel tárják fel, nem kézzel modelleznek egyszerre egy variánst. A csapat több száz szerkezeti variánst generál, amelyek mindegyike automatizált FEA-validálást igényel. A platform szerveroldali automatizálási szolgáltatását használták a futtatáshoz.</p>
+
+    <p>Ez a szerveroldali automatizálás Community szinten számítási kredit-limitet tartalmaz. Egy olyan munkafolyamatban, amely folyamatos parametrikus felfedezést futtat (generálja, értékeli és elveti a variánsokat automatizált ciklusokban), a Community-kredit gyorsan elfogy. A munka nem szünetelhet egy számlázási cikluson át. Ez nem biztonsággal vagy hozzáférés-kezeléssel kapcsolatos, tisztán számítási áteresztőképességről van szó.</p>
+
+    <p>A Ramboll eset alapvetően más Enterprise döntést képvisel. A döntéshozó a projektmérnök vagy a számítástechnikai tervezési vezető, nem a jogi vagy IT osztály. Az értékajánlat közvetlen: „az automatizált pipeline-unk X órát fut hetente, Y napon belül meghaladja a Community kredit-limitet, az Enterprise szint Z kreditet biztosít.” Ez lényegesen egyszerűbb ROI-kalkuláció, mint az ARUP esetben.</p>
+
+    <p>Ez az eset releváns a NODU Bridge számára, mert validálja a parametrikus motort mint értékhajtót. A Ramboll nem fájlok átvitelére használja a platformot, hanem a parametrikus tervezési folyamat infrastruktúrájaként. Minél mélyebben beágyazott a parametrikus munkafolyamat, annál magasabb a fizetési hajlandóság a megszakítatlan végrehajtásért. A NODU Bridge Vizuális Script Engine hasonló függőséget teremt: azok az irodák, amelyek összetett leképezési scripteket építenek ismétlődő projekttípusokhoz, garantált hozzáférést fognak akarni.</p>
+
+    <p>A Ramboll eset nem vetíthető közvetlenül a NODU Bridge Professional szintjére: a jelenlegi kialakításban a Professional szint seat-alapú, nem számításalapú. Egy kérdést azonban felvet: ha az irodák automatizált konverziós pipeline-okat építenek a NODU Bridge API-jával (Studio szinttől elérhető), egy API-hívás-korlát természetes frissítési kiváltóvá válhat a Studio-ból az Enterprise-ra. Ezt érdemes nyomon követni az első 12 hónapban.</p>
+
+    <div class="callout">
+      <div class="callout-label">Amit nem tudunk</div>
+      <p>Nem ismert, hogy a Ramboll-projekt mekkora volt, hány automatizálási futtatást igényelt hetente, és hogy a Community tier pontosan mikor bizonyult elégtelennek. A „számítási kapacitás mint trigger” hipotézis ezekre a részletekre épülne, ha a NODU Bridge esetében alkalmaznánk.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 03 -->
+  <section class="section">
+    <div class="section-label">03 Herzog &amp; de Meuron</div>
+    <h2>Herzog &amp; de Meuron: a saját szoftver és az IP-védelem mint elsődleges motiváció</h2>
+
+    <p>A Herzog &amp; de Meuron egy saját fejlesztésű életciklus-értékelési (LCA) eszközt integrált a BIM-adatpipeline-jükbe. Az LCA-szoftvert belső fejlesztéssel hozták létre, amely évnyi módszertani befektetést tükröz, és versenyképes megkülönböztetőt jelent az iroda számára. Az integráció lehetővé tette az irodának, hogy fenntarthatósági elemzést futtasson közvetlenül a BIM-adatpipeline-jükben.</p>
+
+    <p>Egy saját algoritmus futtatása megosztott, közösségi szerverkörnyezeten keresztül azt jelenti, hogy az eszköz kimenetei, esetleg bemenetei és logikája is megosztott infrastruktúrán léteznek. Egy olyan iroda számára, amely jelentősen befektetett egy saját módszertan kidolgozásába, ez IP-kitettséget teremt. Az aggodalom nem a hagyományos értelemben vett adatszivárgásról szól, hanem arról, hogy a saját algoritmusok nem futhatnak megosztott infrastruktúrán.</p>
+
+    <p>Az ARUP eset külső szerződéses követelményeknek való megfelelésről szólt. A H&amp;dM eset belső versenyelőny védelméről szól. Ezek strukturálisan különböző motivációk. A megfelelés küszöbkövetelmény: vagy teljesíted, vagy nem tudod használni az eszközt. A versenyelőny-védelem stratégiai választás: az iroda elméletileg elfogadhatná a kockázatot, de nem teszi. A fizetési hajlandóság logikája ezért más: a saját algoritmus érzékelt értékéhez kötődik, nem szerződéses kötelezettséghez.</p>
+
+    <p>Amire ténylegesen szükségük volt: privát szerver (az LCA-eszköz elszigetelt környezetben fut), munkaterület-hozzáférés-kezelés (csak az arra felhatalmazott belső csapattagok indíthatják el az LCA-integrációt), és a lehetőség, hogy az iroda saját adatfeldolgozása lecsatolható legyen a megosztott, nyilvános infrastruktúráról.</p>
+
+    <p>Ez az eset releváns a NODU Bridge számára azon irodáknál, amelyek fejlett leképezési scripteket fejlesztenek. Egy homlokzatszakértő iroda, amely 12-18 hónap alatt összetett parametrikus leképezési könyvtárat épít fel, szellemi tőkét hoz létre a NODU Bridge környezetben. A kérdés, hogy ez az IP hol él (a NODU megosztott felhőjén vagy az iroda saját infrastruktúráján), stratégiailag relevánssá válik, ahogy a script könyvtár érik. Ez egy lassan kialakuló Enterprise trigger: nem jelenik meg az első napon, hanem ahogy az iroda platform-befektetése növekszik.</p>
+
+    <div class="callout">
+      <div class="callout-label">Amit nem tudunk</div>
+      <p>Nem ismert, hogy a H&amp;dM LCA-integráció milyen mélységű volt, és hogy az IP-védelem aggálya a technológiai vezető vagy a menedzsment szintjéről érkezett. Az egyik esetben gyorsabb, a másik esetben sokkal lassabb értékesítési ciklust jelent.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 04 -->
+  <section class="section">
+    <div class="section-label">04 Összehasonlítás</div>
+    <h2>Három eset, három különböző trigger összehasonlítás</h2>
+
+    <p>A három eset egy közös jellemzőt oszt: mindhárom nagy, kifinomult iroda bevett BIM-munkafolyamattal. Az Enterprise konverzió mindhárom esetben azután következett be, hogy az iroda már beépítette a platformot a munkafolyamatába (az ingyenes szint elegendő volt a kezdeti bevezetéshez), és a kiváltó ok egy konkrét projekt- vagy stratégiai szükségletből alakult ki, amelyet az ingyenes szint nem tudott kielégíteni. A konverziókat nem funkciófelismerés vezérelte, hanem egy konkrét működési korlátba való ütközés.</p>
+
+    <p>A három kiváltó ok kategorikusan különböző: jogi/szerződéses (ARUP), számítási kapacitás (Ramboll), IP védelem (H&amp;dM). Mindegyik különböző vásárlói profilt, döntési időtávot és értékesítési megközelítést implikál. A megfelelési trigger gyorsan mozoghat, miután a szerződéses követelmény azonosítva van. A kapacitási trigger egy projekt életciklusát követi. Az IP trigger stratégiai és lassan mozgó.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimenzió</th>
+            <th>ARUP</th>
+            <th>Ramboll</th>
+            <th>H&amp;dM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Trigger kategória</strong></td>
+            <td>Jogi/szerződéses kényszer</td>
+            <td>Számítási kapacitás</td>
+            <td>Szellemi tulajdon védelme</td>
+          </tr>
+          <tr>
+            <td><strong>Döntéshozó (feltételezett)</strong></td>
+            <td>Jogi/beszerzési osztály</td>
+            <td>Projekt mérnök / computational lead</td>
+            <td>Technológiai vezető / menedzsment</td>
+          </tr>
+          <tr>
+            <td><strong>Döntési időtáv</strong></td>
+            <td>Gyors (szerződéses kötöttség)</td>
+            <td>Projekt-követő (kapacitásigény alapján)</td>
+            <td>Lassú (stratégiai)</td>
+          </tr>
+          <tr>
+            <td><strong>Trigger megjelenési idő</strong></td>
+            <td>Projekt indulásakor</td>
+            <td>Workflow elmélyülésekor</td>
+            <td>Platform-befektetés növekedésekor</td>
+          </tr>
+          <tr>
+            <td><strong>Elsődleges Enterprise funkció</strong></td>
+            <td>SSO + RBAC + dedikált szerver</td>
+            <td>Automate Enterprise keret</td>
+            <td>Privát szerver / on-premise</td>
+          </tr>
+          <tr>
+            <td><strong>Free tier miért nem elég</strong></td>
+            <td>Hozzáférés-kezelés nem granulált</td>
+            <td>Compute limit</td>
+            <td>Megosztott infrastruktúra</td>
+          </tr>
+          <tr>
+            <td><strong>ROI kalkulálhatósága</strong></td>
+            <td>Közvetett (compliance cost)</td>
+            <td>Közvetlen (compute hours)</td>
+            <td>Közvetett (IP érték)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>A fenti táblázat feltárja, hogy az „enterprise konverzió” nem egyetlen jelenség. Legalább három különböző jelenség, amelyek véletlenszerűen ugyanolyan kereskedelmi eredményre jutnak. Ennek közvetlen következményei vannak a NODU Bridge Enterprise piacra lépési stratégiájára: egyetlen általános Enterprise-értékajánlat kevésbé lesz hatékony, mint a kiváltó-specifikus üzenetküldés.</p>
+
+    <h3>A platform-belépés mint negyedik trigger</h3>
+
+    <p>Az ARUP, Ramboll és H&amp;dM esetei compliance-, kapacitás- és IP-triggert mutatnak. Van egy negyedik trigger, amely a NODU Bridge-nél különösen releváns: a platform-belépés.</p>
+
+    <p>Az Enterprise Bridge-előfizető hozzáfér a NODU platform-funkcióihoz (BIG graph, ERP integráció, constraint optimizer). Azok az irodák, amelyek már a Bridge-et intenzíven használják és komplex mapping script könyvtárat építenek, természetes lépésként mélyítik a platform-kapcsolatot. Ez a trigger lassan alakul ki az iroda platform-befektetésével arányosan, de strukturálisan a legmagasabb LTV-t eredményezi.</p>
+
+    <h3>Egy lehetséges ötödik trigger, jövőbeli irány: a saját parametrikus tartalomkönyvtár mint IP-eszköz</h3>
+    <p>A fenti négy trigger az indulási termékkörre vonatkozik. A VSE-alapú parametrikus tartalomkészítés egy későbbi fejlesztési irány: ha egyszer elérhetővé válik, egy ötödik trigger is kialakulhat. Az iroda, amely saját parametrikus tartalomkönyvtárat épít fel, szellemi vagyont halmozna fel hasonlóan a mapping script könyvtárhoz, de egy dimenzióval mélyebben: a könyvtár az iroda parametrikus tervezési tartalmát tárolja, és mivel a képesség a 2026-07-06-i pontosítás szerint többformátumú, ugyanaz a definíció Revit Family-ként, Archicad-, IFC- vagy más formátumban is kiadható, licencelhető, értékesíthető vagy partnereknek kiosztható. Az egyetlen definícióból sok formátum elv az IP-érvet erősíti: a felhalmozott tartalom értéke nem egy célszoftverhez kötött. Ez strukturálisan erős Enterprise trigger lehetne, különösen a homlokzat-specialista és dizájnintenzív irodáknál. Mindez azonban nem része az indulási termékkörnek, és a jelenlegi számítások nem kalkulálnak vele.</p>
+  </section>
+
+  <!-- SECTION 05 -->
+  <section class="section">
+    <div class="section-label">05 Nyitott kérdések</div>
+    <h2>Nyitott kérdések: mit mondanak ezek az esetek a NODU Bridge számára</h2>
+
+    <p>Az alábbi kérdések szándékosan nincsenek megválaszolva ebben a dokumentumban. Megválaszolásuk az első enterprise értékesítési ciklusok adatai alapján lehetséges, előtte bármilyen válasz spekulatív lenne.</p>
+
+    <ul class="question-list">
+
+      <li class="question-item">
+        <div class="question-number">01</div>
+        <div class="question-body">
+          <strong>Melyik Enterprise trigger profil releváns a NODU Bridge első célszegmensében?</strong>
+          <p>A NODU Bridge 2026-os célszegmense (kis- és közepes tervező-kivitelező irodák, homlokzati specializáció) nem egyezik teljesen egyik esettanulmány-profillal sem. Az ARUP nagy, multidiszciplináris infrastrukturális kontextust feltételez. A Ramboll fejlett parametrikus tervezési kultúrát igényel. A H&amp;dM érett platform-befektetést. Kérdés: a NODU Bridge első Enterprise ügyfelei melyik profil felé gravitálnak?</p>
+          <p style="margin-top: 12px;">Egy várható minta: a kisebb, de ambiciózusabb irodák BIM-koordinátora inkább a kapacitás- vagy IP-triggert fogja mutatni. A nagyobb, projektvezérelt irodák inkább a compliance-triggert. A platform-trigger mindkét profilban megjelenhet, de csak azután, hogy az iroda már 6-12 hónapja aktívan használja a Bridge-et.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">02</div>
+        <div class="question-body">
+          <strong>A script engine létrehoz-e IP-védelmi igényt, és ha igen, mikor?</strong>
+          <p>A H&amp;dM esetéből következik: ha egy iroda 12-18 hónap alatt épít fel egy komplex mapping script könyvtárat, az a NODU Bridge-ben tárolt szellemi tőkét képvisel. Kérdés: melyik az az értékhatár vagy időtáv, amelynél az iroda számára stratégiai kérdéssé válik, hogy ez a script könyvtár hol tárolódik? Jövőbeli irányként ez a kérdés a Revit Family könyvtárra fokozottabban is felmerülhet, ha a Family-tervezés egyszer bekerül a termékbe. Az induláskor azonban kizárólag a mapping script könyvtárra vonatkozik.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">03</div>
+        <div class="question-body">
+          <strong>A Community-ból Professional frissítési kiváltó elegendő-e, vagy az Enterprise trigger az első éles korlát?</strong>
+          <p>Az esettanulmányok mind Enterprise-szintű konverziókat mutatnak, az intermediate tier dinamikájáról a nyilvános esetekből sincs adatunk. Kérdés: a KKV-piacon az első éles fizetési korlát a Professional tier (sablonmentés + élő szinkron) lesz-e, vagy egyes ügyfelek a Community-ból közvetlenül Enterprise-ra ugranak, ha a compliance trigger elég erős?</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">04</div>
+        <div class="question-body">
+          <strong>A három enterprise profil közül kettő lassan mozgó döntési ciklust feltételez: hogyan finanszírozza a NODU Bridge ezt az időtávot?</strong>
+          <p>Az IP-védelmi és a szerződéses compliance trigger jellemzően 6-12 hónapos értékesítési ciklust jelent. Ha a NODU Bridge Enterprise ügyfelei főként ezekbe a kategóriákba esnek, a bevételtervnek ezen a szinten konzervatívan kell kalkulálnia. A Professional és Studio tier gyorsabb konverziójának kell finanszíroznia az Enterprise pipeline fejlesztését.</p>
+        </div>
+      </li>
+
+      <li class="question-item">
+        <div class="question-number">05</div>
+        <div class="question-body">
+          <strong>A gyártói szegmens go-to-market logikája: a kérdésre már van kidolgozott válasz-vázlat</strong>
+          <p>Ez a kérdés a 2026-06-11-i NODU Creator (Content Engine) blueprint v2.0-val részben megválaszolódott: a gyártói szegmens nem a Bridge licencstruktúrájára illesztendő, hanem önálló termékpályát kap: knowledge-graph-alapú termékadat-motor, saját árazással (Starter/Growth/Enterprise, €3–50k/év platform fee + generálási díj), sales-vezérelt pilot-GTM-mel, és többformátumú kimenettel (a Revit Family csak egy export a sok közül). A vezetőség az irányt támogatja, a részletes kidolgozás későbbre ütemezett. Ami nyitott marad: a Bridge-en belüli VSE-tartalomkészítés (iroda-oldali képesség) és a Creator (gyártói termék) közös generálási magjának határvonala, vagyis hogy mely komponens él melyik termékben, és hogyan kerülik el a kettős fejlesztést.</p>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="callout" style="margin-top: 36px;">
+      <div class="callout-label">A Platform-belépés mint hosszú ciklusú trigger</div>
+      <p>A Bridge -&gt; Platform Core upsell nem az első napon következik be. Az iroda először a közvetlen problémát oldja meg (adatcsere), majd megismeri a platform többi funkcióját, majd ha a BIM-koordinátor vagy a principál látja az értéket, mélyíti a kapcsolatot. Ez 12-24 hónapos ciklus, amelyet aktív customer success munkával lehet rövidíteni. Nem szabad feltételezni, hogy organikusan kialakul.</p>
+    </div>
+
+    <p style="margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border);">Ezek a kérdések az első 3-5 Enterprise tárgyalási folyamat során válaszolhatók meg, előtte nem.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+      <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+      <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+      <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+      <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+      <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    </div>
+    <div class="footer-meta">
+      NODU Bridge · Enterprise esettanulmányok · 2026-06-15 · Belső stratégiai dokumentum<br>
+      <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

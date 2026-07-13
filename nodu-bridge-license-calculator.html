@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODU Bridge Licencmodell & Bevételkalkulátor</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #FAFAFA;
+    --white:    #FFFFFF;
+    --border:   #E4E4E7;
+    --border2:  #D1D5DB;
+    --text:     #18181B;
+    --muted:    #71717A;
+    --muted2:   #A1A1AA;
+    --sidebar:  #17171A;
+    --orange:   #F04E23;
+    --orange-h: #D94216;
+    --orange-bg:#FFF3F0;
+    --orange-lt:#FEE8E2;
+    --green:    #16A34A;
+    --green-bg: #F0FDF4;
+    --blue:     #2563EB;
+    --blue-bg:  #EFF6FF;
+    --purple:   #7C3AED;
+    --purple-bg:#F5F3FF;
+    --amber:    #D97706;
+    --amber-bg: #FFFBEB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--sidebar);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #2A2A2D;
+  }
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--orange);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+  .logo-text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .logo-text span { color: var(--muted2); font-weight: 400; margin-left: 8px; font-size: 12px; white-space: nowrap; }
+  .topbar-meta { color: #52525B; font-size: 12px; white-space: nowrap; }
+
+  nav.topbar-nav { display: flex; align-items: center; gap: 8px; text-align: left; }
+  nav.topbar-nav a {
+    color: var(--muted2);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    text-align: left;
+  }
+  nav.topbar-nav a:hover { color: #fff; border-color: #3A3A3D; }
+
+  /* PAGE */
+  .page { max-width: 1160px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: 31px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; text-align: left; }
+  .page-header p { color: var(--muted); font-size: 17px; text-align: justify; }
+
+  /* SECTION HEADER */
+  .section-header { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .section-header h2 { font-size: 20px; font-weight: 600; color: var(--text); text-align: left; }
+  .section-divider { flex: 1; height: 1px; background: var(--border); }
+
+  /* TIER CARDS */
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+  .tiers-alt { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 28px; }
+  .tier-card { background: var(--white); padding: 24px; position: relative; }
+  .tier-card.recommended { background: #FFFAF9; }
+
+  .tier-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted2); margin-bottom: 10px; text-align: left; }
+  .tier-name { font-size: 23px; font-weight: 700; margin-bottom: 2px; text-align: left; }
+  .tier-price { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin: 14px 0 2px; color: var(--text); text-align: left; }
+  .tier-price sub { font-size: 17px; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+  .tier-billing { font-size: 14px; color: var(--muted); margin-bottom: 14px; text-align: left; }
+  .tier-tagline { font-size: 14px; color: var(--muted); font-style: italic; margin-top: 10px; text-align: left; }
+
+  .paywall-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1.3;
+    padding: 4px 9px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+  }
+  .paywall-chip.orange { background: var(--orange-lt); color: var(--orange); }
+  .paywall-chip.green  { background: var(--green-bg); color: var(--green); }
+  .paywall-chip.purple { background: var(--purple-bg); color: var(--purple); }
+
+  .divider-line { height: 1px; background: var(--border); margin: 14px 0; }
+
+  .feature-list { list-style: none; }
+  .feature-list li {
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 5px 0 5px 24px;
+    position: relative;
+    color: var(--text);
+    text-align: left;
+  }
+  .feature-list li.off { color: var(--muted2); }
+  .check, .cross { position: absolute; left: 0; top: 7px; font-size: 13px; font-weight: 700; line-height: 1; }
+  .check { color: var(--green); }
+  .cross { color: var(--muted2); }
+  .highlight-feat { font-weight: 600; color: var(--text); }
+
+  /* PAYWALL SECTION */
+  .paywall-section { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 40px; }
+  .paywall-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  .paywall-item { padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; border-left: 3px solid var(--orange); }
+  .paywall-item.green-wall  { border-left-color: var(--green); }
+  .paywall-item.purple-wall { border-left-color: var(--purple); }
+  .paywall-item.amber-wall  { border-left-color: var(--amber); }
+  .pw-from-to { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; text-align: left; }
+  .pw-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; text-align: left; }
+  .pw-desc { font-size: 16px; color: var(--muted); line-height: 1.5; }
+  .pw-trigger { font-size: 16px; font-style: italic; color: var(--orange); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); text-align: left; }
+  .pw-trigger.green  { color: var(--green); }
+  .pw-trigger.purple { color: var(--purple); }
+  .pw-trigger.amber  { color: var(--amber); }
+
+  /* CALCULATOR */
+  .calc-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 40px; }
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  /* Inputs */
+  .input-group { margin-bottom: 22px; }
+  .input-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .input-label span:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+  .input-label .val-badge {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+  .val-badge.orange { color: var(--orange); }
+  .val-badge.green  { color: var(--green); }
+  .val-badge.purple { color: var(--purple); }
+
+  .val-input {
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    width: 90px;
+    text-align: right;
+    outline: none;
+    cursor: text;
+    font-family: 'Inter', system-ui, sans-serif;
+    transition: border-color 0.15s;
+    -moz-appearance: textfield;
+  }
+  .val-input::-webkit-outer-spin-button,
+  .val-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .val-input:hover, .val-input:focus { border-bottom-color: var(--border2); }
+  .val-input.orange { color: var(--orange); }
+  .val-input.green  { color: var(--green); }
+  .val-input.purple { color: var(--purple); }
+
+  input[type=range] {
+    width: 100%;
+    height: 4px;
+    border-radius: 99px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type=range].orange { accent-color: var(--orange); background: linear-gradient(to right, var(--orange) 0%, var(--border) 0%); }
+  input[type=range].green  { accent-color: var(--green);  background: linear-gradient(to right, var(--green)  0%, var(--border) 0%); }
+  input[type=range].purple { accent-color: var(--purple); background: linear-gradient(to right, var(--purple) 0%, var(--border) 0%); }
+  input[type=range].neutral{ accent-color: var(--text);   background: linear-gradient(to right, var(--text)   0%, var(--border) 0%); }
+
+  .input-hint { font-size: 14px; color: var(--muted2); margin-top: 5px; text-align: left; }
+
+  .section-divider-sm { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* Result cards */
+  .result-block { margin-bottom: 14px; }
+  .result-block-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 6px; text-align: left; }
+  .result-big { font-size: 49px; font-weight: 800; letter-spacing: -1.5px; color: var(--text); line-height: 1; text-align: left; }
+  .result-big.orange { color: var(--orange); }
+  .result-big.green  { color: var(--green); }
+
+  .breakdown-table { margin-top: 10px; }
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-row .label { color: var(--muted); display: flex; align-items: center; gap: 6px; text-align: left; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot.orange { background: var(--orange); }
+  .dot.green  { background: var(--green); }
+  .dot.purple { background: var(--purple); }
+  .dot.blue   { background: var(--blue); }
+  .dot.gray   { background: var(--muted2); }
+  .breakdown-row .amount { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .neg { color: var(--amber); }
+  .pos { color: var(--green); }
+
+  /* Milestone */
+  .milestone-wrap { margin-top: 20px; padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .milestone-head { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .milestone-pct { font-weight: 700; color: var(--orange); }
+  .bar-track { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--orange), #F97316); transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+  .milestone-note { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.4; text-align: left; }
+
+  /* Onboarding card */
+  .onboarding-card { margin-top: 14px; padding: 14px 16px; background: var(--amber-bg); border: 1px solid #FDE68A; border-radius: 8px; }
+  .onboarding-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--amber); margin-bottom: 4px; text-align: left; }
+  .onboarding-val { font-size: 31px; font-weight: 800; color: var(--amber); letter-spacing: -0.5px; text-align: left; }
+  .onboarding-sub { font-size: 14px; color: var(--amber); margin-top: 2px; text-align: left; }
+
+  /* BENCHMARK TABLE */
+  .table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+  .table-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; }
+  .benchmark-table { table-layout: fixed; }
+  .benchmark-table col.col-param { width: 25%; }
+  .benchmark-table col.col-value { width: 14%; }
+  .benchmark-table col.col-note { width: 47%; }
+  .benchmark-table .td-num { white-space: nowrap; }
+  .benchmark-table td:first-child { white-space: normal; }
+  thead th {
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding: 12px 16px;
+    background: #F4F4F5;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 16px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  tbody td:first-child { font-weight: 600; }
+  tbody tr:nth-child(even) td { background: #FBFBFC; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #F3F4F6; }
+  .td-num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .td-orange { color: var(--orange); font-weight: 600; }
+  .td-green  { color: var(--green);  font-weight: 600; }
+  .td-muted  { color: var(--muted); }
+  .td-note   { color: var(--muted); font-size: 14px; }
+
+  /* DECISION SECTION */
+  .decision-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 40px; }
+  .decision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  .decision-item { padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+  .decision-item-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--orange); margin-bottom: 6px; text-align: left; }
+  .decision-item h4 { font-size: 17px; font-weight: 600; margin-bottom: 6px; text-align: left; }
+  .decision-item p { font-size: 16px; color: var(--muted); line-height: 1.5; }
+
+  /* ALT MODEL SECTION */
+  .alt-section { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 40px; }
+  .alt-section h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: left; }
+  .alt-intro { font-size: 17px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  /* CALLOUT */
+  .callout-amber { background: var(--amber-bg); border: 1px solid #FDE68A; border-left: 4px solid var(--amber); border-radius: 8px; padding: 16px 20px; margin-top: 24px; }
+  .callout-amber-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--amber); margin-bottom: 6px; text-align: left; }
+  .callout-amber p { font-size: 16px; color: #92400E; line-height: 1.6; }
+
+  .callout-green { background: var(--green-bg); border: 1px solid #BBF7D0; border-left: 4px solid var(--green); border-radius: 8px; padding: 16px 20px; margin-top: 20px; margin-bottom: 4px; }
+  .callout-green-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green); margin-bottom: 6px; text-align: left; }
+  .callout-green p { font-size: 16px; color: #14532D; line-height: 1.6; }
+  .callout-green p + p { margin-top: 8px; }
+
+  .fair-use-note { font-size: 14px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); text-align: left; line-height: 1.5; }
+  .seat-tag { display: inline-block; white-space: nowrap; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 1px 6px; border-radius: 4px; margin-left: 4px; vertical-align: 1px; }
+  .seat-tag.author { background: var(--orange-lt); color: var(--orange); }
+  .seat-tag.contributor { background: var(--green-bg); color: var(--green); }
+
+  /* COMPARISON TABLE in alt section */
+  .comp-table-wrap { margin-top: 24px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .comp-table-wrap table thead th { background: var(--bg); }
+
+  /* SIMULÁCIÓ */
+  .sim-intro { font-size: 16px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  /* RESEARCH BASIS BOX */
+  .research-box { background: var(--blue-bg); border: 1px solid #BFDBFE; border-left: 4px solid var(--blue); border-radius: 8px; padding: 18px 22px; margin-top: 24px; }
+  .research-box-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); margin-bottom: 8px; text-align: left; }
+  .research-box p { font-size: 15px; color: #1E3A8A; line-height: 1.6; margin-bottom: 10px; }
+  .research-box ul { list-style: none; margin: 10px 0; }
+  .research-box li { font-size: 15px; color: #1E3A8A; line-height: 1.55; padding: 5px 0 5px 16px; position: relative; text-align: left; }
+  .research-box li::before { content: "-"; position: absolute; left: 0; color: var(--blue); }
+  .research-box a { color: var(--blue); text-decoration: underline; }
+  .research-box .caveat { font-size: 14px; color: var(--muted); font-style: italic; margin-top: 10px; }
+  .research-box .memo-link { font-size: 15px; font-weight: 600; margin-top: 12px; margin-bottom: 0; }
+
+  .scenario-bar { display: flex; gap: 10px; margin-bottom: 10px; }
+  .scenario-btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 8px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .scenario-btn:hover { border-color: var(--border2); }
+  .scenario-btn.active { border-color: var(--orange); background: var(--orange-bg); color: var(--orange); }
+  .scenario-note { font-size: 14px; color: var(--muted2); margin-bottom: 18px; text-align: left; }
+
+  .region-bar { display: flex; gap: 10px; margin-bottom: 10px; }
+  .region-btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 8px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .region-btn:hover { border-color: var(--border2); }
+  .region-btn.active { border-color: var(--blue); background: var(--blue-bg); color: var(--blue); }
+  .region-note { font-size: 14px; color: var(--muted2); margin-bottom: 18px; text-align: left; }
+
+  .section-subhead { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); margin-bottom: 14px; text-align: left; }
+
+  .fte-block { margin-bottom: 18px; }
+  .fte-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .fte-label { flex: 1; font-size: 16px; color: var(--text); text-align: left; }
+  .fte-input {
+    width: 64px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 15px;
+    font-family: 'Inter', system-ui, sans-serif;
+    text-align: right;
+  }
+  .fte-x { font-size: 13px; color: var(--muted2); white-space: nowrap; }
+
+  .horizon-bar { display: flex; gap: 8px; margin-top: 8px; }
+  .horizon-btn, .funnel-horizon-btn {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 6px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .horizon-btn.active, .funnel-horizon-btn.active { border-color: var(--text); background: var(--white); color: var(--text); }
+
+  .chart-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 18px; }
+  .chart-wrap svg { width: 100%; height: 180px; display: block; }
+  .chart-legend { display: flex; gap: 20px; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .chart-legend span { display: flex; align-items: center; gap: 6px; }
+
+  .sim-metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
+  .sim-metric-card { padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .sim-metric-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 4px; text-align: left; }
+  .sim-metric-val { font-size: 23px; font-weight: 800; letter-spacing: -0.5px; color: var(--text); text-align: left; }
+  .sim-metric-val.neg { color: var(--amber); }
+  .sim-metric-val.pos { color: var(--green); }
+
+  .ltv-table { font-size: 15px; }
+  .ltv-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr 0.8fr 1fr; gap: 6px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: center; }
+  .ltv-row:last-child { border-bottom: none; }
+  .ltv-row span:first-child { display: flex; align-items: center; gap: 6px; text-align: left; color: var(--text); }
+  .ltv-head { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .ltv-row:not(.ltv-head) span:not(:first-child) { font-variant-numeric: tabular-nums; font-weight: 500; text-align: left; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--border); padding-top: 20px; text-align: center; color: var(--muted2); font-size: 14px; }
+
+  @media (max-width: 960px) {
+    .tiers { grid-template-columns: repeat(2, 1fr); }
+    .tiers-alt { grid-template-columns: repeat(2, 1fr); }
+    .calc-grid { grid-template-columns: 1fr; }
+    .paywall-items { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .tiers { grid-template-columns: 1fr; }
+    .tiers-alt { grid-template-columns: 1fr; }
+  }
+</style>
+<link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+<link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+<link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+    <script src="_auth.js"></script>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">N</div>
+    <span class="logo-text">NODU Bridge <span>Licencmodell & Bevételkalkulátor</span></span>
+  </div>
+  <nav class="topbar-nav">
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
+    <span class="topbar-meta">v1.5 · 2026-07-06</span>
+  </nav>
+</div>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>NODU Bridge Licencmodell</h1>
+    <p>Parametrikus Archicad ↔ Revit konverzió saját mapping sablonokkal · Freemium → Professional → Studio → Enterprise (az Enterprise tier terv szerint 2027 elejétől) · Élő, inkrementális szinkron: Phase 3-ban érkezik (2026 Q4)</p>
+  </div>
+
+  <!-- TIER CARDS -->
+  <div class="section-header">
+    <h2>Licenctierek</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="callout-green" style="margin-top: 0; margin-bottom: 24px;">
+    <div class="callout-green-title">2026-07-02 végleges irány: szerepkör + kapacitás tengely</div>
+    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az "aktív kapcsolat" önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. A Bridge launch-kori fő funkciója a <strong>parametrikus Archicad↔Revit konverzió saját mapping sablonokkal</strong> (script engine): a konverzió nem statikus geometriát, hanem parametrikus logikát visz át. Az élő, inkrementális szinkron a Phase 3-ban (2026 Q4) érkezik.</p>
+    <p>Helyette két, egymástól független, <strong>lokálisan kikényszeríthető</strong> tengely váltja fel: (1) <strong>szerepkör-tengely</strong>: Koordinátor (fizetős, sablon-alkotó) és User (ingyenes, de Koordinátor-számhoz kötött, limitált keretű), és (2) <strong>kapacitás-tengely</strong>: hány aktív projekt futhat egyidejűleg. Mindkettő a szoftver saját, amúgy is szükséges állapotából mérhető, nem igényel külön nyilvántartást vagy viselkedésmegfigyelést. A projektméret-limit ezektől elkülönülő, tisztán fair-use védelmi korlát marad.</p>
+  </div>
+
+  <div class="tiers">
+
+    <!-- Community -->
+    <div class="tier-card">
+      <div class="tier-label">Tier 0</div>
+      <div class="tier-name">Community</div>
+      <div class="tier-price">€0 <sub>/ hó</sub></div>
+      <div class="tier-billing">Egyéni próba · virális belépő</div>
+      <div class="divider-line"></div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span> <span class="highlight-feat">Archicad ↔ Revit adatcsere</span> (batch konverzió, preset sablonokkal)</li>
+        <li><span class="check">✓</span> Havonta 2 teljes modelles konverzió, elemszám-korlát nélkül</li>
+        <li><span class="check">✓</span> 3 mentett projekt</li>
+        <li><span class="check">✓</span> 30 napos projekt-előzmény</li>
+        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron <em style="font-size:0.85em; color:var(--muted);">(Phase 3, 2026 Q4)</em></li>
+        <li class="off"><span class="cross">✕</span> Saját sablon létrehozása/mentése <span class="seat-tag author">Koordinátor</span></li>
+        <li class="off"><span class="cross">✕</span> API hozzáférés</li>
+        <li class="off"><span class="cross">✕</span> Support (csak fórum)</li>
+      </ul>
+      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális (script engine + saját sablon).</div>
+    </div>
+
+    <!-- Professional -->
+    <div class="tier-card recommended">
+      <div class="tier-label">Tier 1 · Ajánlott</div>
+      <div class="tier-name">Professional</div>
+      <div class="tier-price">€199 <sub>/ Koordinátor / hó</sub></div>
+      <div class="tier-billing">€1,990 / Koordinátor / év (2 hó ingyen)</div>
+      <div class="paywall-chip orange">① Paywall · Script engine</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span> <span class="highlight-feat">1 Koordinátor seat</span> <span class="seat-tag author">Author</span></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">10 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">Parametrikus Archicad↔Revit konverzió</span> (logika-megőrző, nem statikus geometria)</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">Script engine</span> (saját mapping sablon létrehozás/szerkesztés/mentés)</li>
+        <li><span class="check">✓</span> Batch/egyszeri konverzió korlátlan számú futtatással</li>
+        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron <em style="font-size:0.85em; color:var(--muted);">(Phase 3-ban érkezik, 2026 Q4 – meglévő előfizetők automatikusan megkapják)</em></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">2 egyidejűleg aktív projekt</span></li>
+        <li><span class="check">✓</span> 90 napos projekt-előzmény + alap analitika</li>
+        <li class="off"><span class="cross">✕</span> Közös sablonkönyvtár</li>
+        <li class="off"><span class="cross">✕</span> API hozzáférés</li>
+        <li><span class="check">✓</span> E-mail support (48h SLA)</li>
+      </ul>
+      <div class="fair-use-note">Projektméret: nagyvonalú fair-use korlát (a limit felett throttling, nem leállás): infrastruktúra-védelem, nem árazási csapda.</div>
+    </div>
+
+    <!-- Studio -->
+    <div class="tier-card">
+      <div class="tier-label">Tier 2</div>
+      <div class="tier-name">Studio</div>
+      <div class="tier-price">€499 <sub>/ iroda / hó</sub></div>
+      <div class="tier-billing">€4,990 / év</div>
+      <div class="paywall-chip green">② Paywall · Iroda-folytonosság</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span> Minden Professional funkció</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">2 Koordinátor seat</span> <span class="seat-tag author">Author</span></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">20 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">5 egyidejűleg aktív projekt</span></li>
+        <li><span class="check">✓</span> Közös sablonkönyvtár (Koordinátorok között megosztva)</li>
+        <li><span class="check">✓</span> 1 éves projekt-előzmény + teljes analitika</li>
+        <li><span class="check">✓</span> REST API hozzáférés</li>
+        <li><span class="check">✓</span> Alap audit napló</li>
+        <li><span class="check">✓</span> Webhook integráció</li>
+        <li><span class="check">✓</span> Google / Microsoft bejelentkezés (OAuth)</li>
+        <li class="off"><span class="cross">✕</span> SAML / Active Directory / Okta</li>
+        <li class="off"><span class="cross">✕</span> On-premise telepítés</li>
+        <li><span class="check">✓</span> Priority support (24h SLA)</li>
+      </ul>
+      <div class="fair-use-note">Projektméret: nagyvonalú fair-use korlát (throttling, nem leállás): infrastruktúra-védelem, nem árazási csapda.</div>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="tier-card">
+      <div class="tier-label">Tier 3: jövőbeli tier, terv szerint 2027 elejétől</div>
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price">Egyedi</div>
+      <div class="tier-billing">Min. €2,500 / hó · éves szerződés · induláskor nem indul, addig egyedi ajánlat</div>
+      <div class="paywall-chip purple">③ Paywall · Governance</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span> Minden Studio funkció</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">5 Koordinátor seat</span> <span class="seat-tag author">Author</span> (egyedi igény szerint bővíthető)</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">50 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
+        <li><span class="check">✓</span> <span class="highlight-feat">15 egyidejűleg aktív projekt</span> (bővíthető)</li>
+        <li><span class="check">✓</span> Korlátlan projekt-előzmény + teljes analitika + iparági benchmark (opt-in)</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">On-premise / dedikált felhő</span></li>
+        <li><span class="check">✓</span> SAML SSO (Active Directory, Okta, SCIM)</li>
+        <li><span class="check">✓</span> RBAC szerepkör-alapú jogok</li>
+        <li><span class="check">✓</span> Teljes audit napló (ISO 27001)</li>
+        <li><span class="check">✓</span> <span class="highlight-feat">Platform Core hozzáférés (BIG graph + ERP integráció)</span></li>
+        <li><span class="check">✓</span> Custom node fejlesztés</li>
+        <li><span class="check">✓</span> Onboarding csomag (€2–8k)</li>
+        <li><span class="check">✓</span> SLA + 24/7 mérnöki support</li>
+      </ul>
+      <div class="fair-use-note">Projektméret: on-premise futtatás esetén a terhelés nem a NODU infrastruktúráján jelentkezik, ezért fair-use limit itt nem indokolt.</div>
+    </div>
+
+  </div>
+
+  <div class="callout-green" style="margin-top: -16px;">
+    <div class="callout-green-title">Eldöntve (2026-07-07): az élő szinkron Phase 3-ban érkezik, nem launch-funkció</div>
+    <p>A delta-only szinkron a Phase 3-ban marad (2026 nov – 2027 jan). A launch-kori értékajánlat a <strong>parametrikus script engine + saját mapping sablonok</strong>: a konverzió nem statikus geometriát, hanem parametrikus logikát (kapcsolatok, osztályozások, egyedi paraméterek) visz át – ez különbözteti meg az IFC-alapú munkafolyamatoktól. Az élő szinkron a meglévő Professional és Studio előfizetők számára automatikus frissítésként érkezik Phase 3-ban. A v1 konnektor elemtípusonként épül (falak kész, kivágások folyamatban, födémek és nyílászárók hátravannak); részletek: <a href="nodu-bridge-roadmap.html">Termék-roadmap</a>.</p>
+  </div>
+
+  <!-- PAYWALL LOGIKA -->
+  <div class="section-header">
+    <h2>Paywall logika frissítési kiváltók</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="paywall-section">
+    <div class="paywall-items">
+      <div class="paywall-item">
+        <div class="pw-from-to">Community → Professional</div>
+        <div class="pw-title">A sablon mentési korlát + korlátozott konverziós keret</div>
+        <div class="pw-desc">Az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 konverziós kerete van. A következő projekten újra kellene felépítenie a leképezést. Ez az a fájdalompont, ami fizetővé tesz: a saját sablon idő-megtakarítás, a korlátlan konverzió pedig a napi munkafolyamat alapja.</div>
+        <div class="pw-trigger">"Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval."</div>
+      </div>
+      <div class="paywall-item green-wall">
+        <div class="pw-from-to">Professional → Studio</div>
+        <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit</div>
+        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade három helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak. A trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés.</div>
+        <div class="pw-trigger green">"2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt"</div>
+      </div>
+      <div class="paywall-item purple-wall">
+        <div class="pw-from-to">Studio → Enterprise</div>
+        <div class="pw-title">Adatszuverenitás · compliance</div>
+        <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez a paywall a tier megnyílásától (terv: 2027 eleje) él. Addig az ilyen igényű irodák egyedi ajánlatot kapnak.</div>
+        <div class="pw-trigger purple">"A projektek nem hagyhatják el a vállalati infrastruktúrát"</div>
+      </div>
+      <div class="paywall-item amber-wall">
+        <div class="pw-from-to">Enterprise → Platform Core</div>
+        <div class="pw-title">BIG graph + gyártás szinkron</div>
+        <div class="pw-desc">A majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok a Build-fázisokkal elérhetővé válnak. A mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést.</div>
+        <div class="pw-trigger amber">"Integráljuk a gyártástervező rendszerrel"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KALKULÁTOR -->
+  <div class="section-header">
+    <h2>Bevételkalkulátor</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="calc-grid">
+
+      <!-- INPUTS -->
+      <div>
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--orange);">Professional Koordinátorok száma</span>
+            <input type="number" class="val-input orange" id="proUsersVal" value="20" min="0" oninput="syncFromInput(this,'proUsers','orange'); calc()">
+          </div>
+          <input type="range" class="orange" id="proUsers" min="0" max="500" value="20" step="1" oninput="syncFromSlider(this,'proUsersVal','orange'); calc()">
+          <div class="input-hint">€199 / Koordinátor / hó &nbsp;·&nbsp; a hozzájuk tartozó ingyenes User seat (10×) nem árazási tényező</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--green);">Studio csapatok száma</span>
+            <input type="number" class="val-input green" id="studioTeamsVal" value="8" min="0" oninput="syncFromInput(this,'studioTeams','green'); calc()">
+          </div>
+          <input type="range" class="green" id="studioTeams" min="0" max="200" value="8" step="1" oninput="syncFromSlider(this,'studioTeamsVal','green'); calc()">
+          <div class="input-hint">€499 / iroda / hó &nbsp;·&nbsp; 2 Koordinátor + 20 ingyenes User seat</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--purple);">Enterprise szerződések száma</span>
+            <input type="number" class="val-input purple" id="entContractsVal" value="0" min="0" oninput="syncFromInput(this,'entContracts','purple'); calc()">
+          </div>
+          <input type="range" class="purple" id="entContracts" min="0" max="50" value="0" step="1" oninput="syncFromSlider(this,'entContractsVal','purple'); calc()">
+          <div class="input-hint">Jövőbeli tier, terv szerint 2027 elejétől · min. €2,500 / hó · induláskor 0 (egyedi ajánlatok)</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span>Átlagos Enterprise érték (€/hó)</span>
+            <span class="val-badge" id="entAvgVal">2.500</span>
+          </div>
+          <input type="range" class="neutral" id="entAvg" min="2000" max="8000" value="2500" step="500" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Min. €2,500 · Komplex deployment esetén €5–8k</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span>Éves díjas ügyfelek aránya</span>
+            <span class="val-badge" id="annualPctVal">60%</span>
+          </div>
+          <input type="range" class="neutral" id="annualPct" min="0" max="100" value="60" step="5" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Éves előfizetők 2 hó kedvezménnyel javítja a cash flow-t</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="result-block">
+          <div class="result-block-label">Havi Ismétlődő Bevétel (MRR)</div>
+          <div class="result-big orange" id="mrr">€11.3k</div>
+          <div class="breakdown-table">
+            <div class="breakdown-row">
+              <span class="label"><span class="dot orange"></span>Professional</span>
+              <span class="amount" id="mrrPro"> </span>
+            </div>
+            <div class="breakdown-row">
+              <span class="label"><span class="dot green"></span>Studio</span>
+              <span class="amount" id="mrrStudio"> </span>
+            </div>
+            <div class="breakdown-row">
+              <span class="label"><span class="dot purple"></span>Enterprise</span>
+              <span class="amount" id="mrrEnt"> </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+
+        <div class="result-block">
+          <div class="result-block-label">Éves Ismétlődő Bevétel (ARR)</div>
+          <div class="result-big green" id="arr">€0</div>
+          <div class="breakdown-table">
+            <div class="breakdown-row">
+              <span class="label"><span class="dot gray"></span>MRR × 12 (alap)</span>
+              <span class="amount" id="arrBase"> </span>
+            </div>
+            <div class="breakdown-row">
+              <span class="label"><span class="dot gray"></span>Éves kedvezmény hatás</span>
+              <span class="amount neg" id="arrDisc"> </span>
+            </div>
+            <div class="breakdown-row" style="font-weight:700;">
+              <span class="label"><span class="dot gray"></span>Nettó ARR</span>
+              <span class="amount" id="arrNet"> </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone-wrap">
+          <div class="milestone-head">
+            <span>€0</span>
+            <span class="milestone-pct" id="arrPct">0%</span>
+            <span>€200K ARR cél (2027) / €500K cél (2028)</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="arrBar" style="width:0%"></div>
+          </div>
+          <div class="milestone-note" id="milestoneNote">Állítsd be az ügyfeleket a projekció megtekintéséhez.</div>
+        </div>
+
+        <div class="onboarding-card">
+          <div class="onboarding-label">Onboarding bevétel (egyszeri, éves becslés)</div>
+          <div class="onboarding-val" id="onboarding">€0</div>
+          <div class="onboarding-sub" id="onboardingSub">Enterprise €3,500 átlag · Studio €500 setup fee</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LEAD-GENERÁCIÓS REALITÁS-BECSLÉS -->
+  <div class="section-header">
+    <h2>Lead-generációs realitás-becslés</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="sim-intro">Ez a blokk nem a költségekről szól, hanem arról, hogy a ténylegesen tervezett go-to-market csatornák (fizetett lead-gen rendszer, LinkedIn mikroinfluencerek, konferenciák) és egyetlen sales munkatárs kapacitása mellett havonta reálisan hány érdeklődő, illetve hány új fizető ügyfél várható. A konferencia- és influencer-hatás a valóságban hullámzó (esemény körüli csúcsokkal jelentkezik), itt az egyszerűség kedvéért havi átlagként szerepel.</div>
+
+    <div class="section-subhead">Célpiac</div>
+    <div class="region-bar">
+      <button type="button" class="region-btn active" data-region="europe" onclick="applyRegion('europe')">Európa</button>
+      <button type="button" class="region-btn" data-region="usa" onclick="applyRegion('usa')">Amerika (USA)</button>
+      <button type="button" class="region-btn" data-region="asia" onclick="applyRegion('asia')">Ázsia</button>
+    </div>
+    <div class="region-note" id="regionNote">Az Archicad hazai piaca (Németország ~27%, 2021-es adat) miatt itt a legnagyobb a tényleges Archicad-Revit átfedés (~1 900–3 500 cég, belső becslés). Az Open BIM mandátumok (UK, DE, Nordics) nem kényszerítenek platformváltásra, hanem fenntartják a gyártófüggetlen leadási igényt: ez legitimálja és stabilizálja a vegyes-platformos piacot, nem önmagában hajtja azt.</div>
+
+    <div class="section-divider-sm"></div>
+
+    <div class="calc-grid">
+
+      <!-- INPUTS: channels -->
+      <div>
+        <div class="section-subhead">Fizetett lead-gen rendszer</div>
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--orange);">Havi büdzsé (€)</span>
+            <span class="val-badge orange" id="leadgenBudgetVal">3.500</span>
+          </div>
+          <input type="range" class="orange" id="leadgenBudget" min="0" max="10000" value="3500" step="100" oninput="updateSlider(this,'orange'); calc()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Költség / lead (CPL)</span>
+            <span class="val-badge" id="cplVal">€200</span>
+          </div>
+          <input type="range" class="neutral" id="cpl" min="50" max="400" value="200" step="10" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Nincs AEC/BIM-specifikus publikált CPL-adat; a rokon B2B szegmensek (Construction ~210€, B2B SaaS ~175-220€, Software Dev ~550€) alapján €150–300 blended a védhető sáv. A korábbi €60–150 becslés a validáció során cáfolódott.</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="section-subhead">LinkedIn mikroinfluencerek</div>
+        <div class="fte-row">
+          <span class="fte-label">Influencerek száma</span>
+          <input type="number" class="fte-input" id="influCount" value="2" min="0" oninput="calc()">
+          <span class="fte-x">fő</span>
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Átlagos követőszám / fő</span>
+            <span class="val-badge" id="influFollowersVal">12.000</span>
+          </div>
+          <input type="range" class="neutral" id="influFollowers" min="3000" max="30000" value="12000" step="500" oninput="updateSlider(this,'neutral'); calc()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Posztok száma / hó / fő</span>
+            <span class="val-badge" id="influPostsVal">4</span>
+          </div>
+          <input type="range" class="neutral" id="influPosts" min="1" max="12" value="4" step="1" oninput="updateSlider(this,'neutral'); calc()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Lead / 1000 elérés</span>
+            <span class="val-badge" id="influLeadsPer1kVal">0.10</span>
+          </div>
+          <input type="range" class="neutral" id="influLeadsPer1k" min="0.02" max="1.00" value="0.10" step="0.01" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Egybe vonja az organikus elérést, a kattintást és a kapcsolatfelvételt</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="section-subhead">Konferenciák</div>
+        <div class="fte-row">
+          <span class="fte-label">Konferenciák / év</span>
+          <input type="number" class="fte-input" id="confPerYear" value="2" min="0" oninput="calc()">
+          <span class="fte-x">db</span>
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Átlagos látogatószám / esemény</span>
+            <span class="val-badge" id="confAttendeesVal">1.000</span>
+          </div>
+          <input type="range" class="neutral" id="confAttendees" min="300" max="3000" value="1000" step="50" oninput="updateSlider(this,'neutral'); calc()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Releváns közönség aránya</span>
+            <span class="val-badge" id="confRelevantPctVal">12%</span>
+          </div>
+          <input type="range" class="neutral" id="confRelevantPct" min="3" max="25" value="12" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">BIM-koordinátor / döntéshozó arány az általános AEC-közönségben</div>
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Lead-befogási arány</span>
+            <span class="val-badge" id="confCapturePctVal">15%</span>
+          </div>
+          <input type="range" class="neutral" id="confCapturePct" min="5" max="30" value="15" step="1" oninput="updateSlider(this,'neutral'); calc()">
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="section-subhead">Önkiszolgáló konverzió (Professional + Studio)</div>
+        <div class="input-group" style="margin-bottom:0;">
+          <div class="input-label">
+            <span>Lead → fizető ügyfél (önállóan, sales nélkül)</span>
+            <span class="val-badge" id="selfServeConvPctVal">8%</span>
+          </div>
+          <input type="range" class="neutral" id="selfServeConvPct" min="0" max="100" value="8" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">A leadek túlnyomó része önállóan találja meg a Bridge-et és konvertál: nincs demó, nincs sales-kapacitás korlát. Az 5–8%-os Free→Paid benchmarkra épül (lásd a Kutatási alap szakaszt). A legjobb vertikális SaaS-benchmarkok plafonja is 5–6% körül van, a 8% már felső eset.</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="section-subhead">Enterprise sales-tölcsér (sales-asszisztált)</div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Enterprise-jelölt lead aránya</span>
+            <span class="val-badge" id="entLeadPctVal">10%</span>
+          </div>
+          <input type="range" class="neutral" id="entLeadPct" min="2" max="30" value="10" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">A generált leadek hány százaléka minősül Enterprise-jelöltnek (nagy iroda, egyedi igény). Csak ez a szelet megy sales-asszisztált demó-tölcsérbe, a többi önállóan konvertál.</div>
+        </div>
+        <div class="fte-row">
+          <span class="fte-label">Sales munkatárs</span>
+          <input type="number" class="fte-input" id="salesRepCount" value="1" min="0" oninput="calc()">
+          <span class="fte-x">fő</span>
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Kapacitás / fő (lead/hó)</span>
+            <span class="val-badge" id="capacityPerRepVal">40</span>
+          </div>
+          <input type="range" class="neutral" id="capacityPerRep" min="15" max="100" value="40" step="5" oninput="updateSlider(this,'neutral'); calc()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">
+            <span>Lead → demó arány</span>
+            <span class="val-badge" id="leadToDemoPctVal">35%</span>
+          </div>
+          <input type="range" class="neutral" id="leadToDemoPct" min="15" max="60" value="35" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Az Enterprise-jelölt leadek közül hány jut el a demóig (kvalifikációs ráta), nem a zárás</div>
+        </div>
+        <div class="input-group" style="margin-bottom:0;">
+          <div class="input-label">
+            <span>Demó → ügyfél arány</span>
+            <span class="val-badge" id="demoToClosePctVal">30%</span>
+          </div>
+          <input type="range" class="neutral" id="demoToClosePct" min="5" max="60" value="30" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">Kizárólag az Enterprise-jelölt leadekre vonatkozik. Sales-asszisztált painkiller motion: a független benchmarkok forrásonként 15-70% között szórnak (a korábban idézett "35-55%, medián 55%" a legoptimistább forrásból származott, méghozzá hibásan hivatkozva); konzervatív, védhető sáv 30–45%, a 30% ennek alsó, óvatos bázisa. Lásd a Kutatási alap szakaszt.</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="section-subhead">Havi lead-bontás csatornánként</div>
+        <div class="breakdown-table">
+          <div class="breakdown-row">
+            <span class="label"><span class="dot orange"></span>Lead-gen rendszer</span>
+            <span class="amount" id="leadsLeadgen">–</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="label"><span class="dot blue"></span>LinkedIn influencerek</span>
+            <span class="amount" id="leadsInflu">–</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="label"><span class="dot purple"></span>Konferenciák (havi átlag)</span>
+            <span class="amount" id="leadsConf">–</span>
+          </div>
+          <div class="breakdown-row" style="font-weight:700;">
+            <span class="label"><span class="dot gray"></span>Összes generált lead / hó</span>
+            <span class="amount" id="leadsTotal">–</span>
+          </div>
+        </div>
+
+        <div class="callout-amber" id="capacityCallout" style="margin-top:16px; display:none;">
+          <div class="callout-amber-title">Sales-kapacitás korlát</div>
+          <p id="capacityText"></p>
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="section-subhead">Tölcsér eredménye</div>
+        <div class="sim-metric-grid">
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">Effektív Enterprise lead / hó</div>
+            <div class="sim-metric-val" id="effectiveLeadsVal">–</div>
+          </div>
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">Új fizető ügyfél / hó</div>
+            <div class="sim-metric-val pos" id="newCustomersVal">–</div>
+          </div>
+        </div>
+
+        <div class="breakdown-table">
+          <div class="breakdown-row">
+            <span class="label"><span class="dot orange"></span>Ebből Professional</span>
+            <span class="amount" id="newCustPro">–</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="label"><span class="dot green"></span>Ebből Studio</span>
+            <span class="amount" id="newCustStudio">–</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="label"><span class="dot purple"></span>Ebből Enterprise</span>
+            <span class="amount" id="newCustEnt">–</span>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-top:14px;">
+          <div class="input-label"><span>Önkiszolgáló ügyfelek megoszlása · Professional</span></div>
+          <input type="range" class="orange" id="tierProPct" min="0" max="100" value="75" step="5" oninput="updateSlider(this,'orange'); calc()">
+          <div class="input-hint">Studio = maradék a 100%-ig. Az Enterprise itt nem szerepel: az a külön sales-tölcsérből érkezik.</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+        <div class="horizon-bar">
+          <button type="button" class="funnel-horizon-btn" data-fh="12" onclick="setFunnelHorizon(12)">12 hónap</button>
+          <button type="button" class="funnel-horizon-btn active" data-fh="24" onclick="setFunnelHorizon(24)">24 hónap</button>
+          <button type="button" class="funnel-horizon-btn" data-fh="36" onclick="setFunnelHorizon(36)">36 hónap</button>
+        </div>
+        <div class="onboarding-card" style="background: var(--green-bg); border-color: #BBF7D0;">
+          <div class="onboarding-label" style="color: var(--green);">Becsült összes új fizető ügyfél az időtávon</div>
+          <div class="onboarding-val" style="color: var(--green);" id="cumCustomersVal">–</div>
+          <div class="onboarding-sub" style="color: var(--green);" id="cumCustomersSub"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout-amber" style="margin-top: 24px;">
+      <div class="callout-amber-title">Realitás-ellenőrzés</div>
+      <p id="funnelRealityText">Állítsd be a paramétereket az értékeléshez.</p>
+    </div>
+
+    <div class="research-box">
+      <div class="research-box-title">Kutatási alap és források</div>
+      <p>A fenti konverziós és piaci feltételezések 2024–2026-os független kutatáson alapulnak. A konverziónál a védhető, konzervatív sávvéget vettük: a painkiller-prémium hipotézis marad, amíg az első fizető kohorszok nem igazolják.</p>
+      <ul>
+        <li>Az interoperabilitás kemény költsége: <strong>15,8 Mrd USD/év</strong> az USA-ban (<a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867</a>, 2004-es tanulmány, 2002-es árakon, jelezve, hogy a szám elavult; frissebb, tágabb hatókörű becslés: az Autodesk-FMI 2021-es riportja 1,85 billió USD globális kárt említ "rossz adatból", ebből 88,7 Mrd USD rework); az újramunka a projektköltség <strong>5–10%-a</strong> az iparágban (konzervatív, a közvetett költségekkel együtt akár 10-25% is dokumentált).</li>
+        <li>Az IFC oda-vissza konverzió mindkét irányban elveszti a parametrikus adatot; a Revit→Archicad út hivatalos fórumon is <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed"</a>, és nincs gyártói roadmap natív parametrikus átvitelre: a fájdalom valós, a megoldás kielégítetlen.</li>
+        <li>Sales-assisted painkiller motion konverziója forrásonként nagyon szór (<strong>15–70%</strong>): a GrowthSpree 55%-os mediánt közöl (sáv 35-70%), az ADV.me viszont csak 28-42%-ot mér, más források 15-30%-ot; a szórás a "sales-asszisztált" eltérő definícióiból fakad. Konzervatív, védhető tervezési sáv: <strong>30–45%</strong> (<a href="https://adv.me/articles/conversion-optimization/saas-free-trial-conversion-rate-benchmarks-2025/" target="_blank" rel="noopener">ADV.me 2025</a>, <a href="https://www.growthspreeofficial.com/blogs/b2b-saas-trial-to-paid-conversion-rate-benchmarks-2026-by-trial-type-acv-length-credit-card" target="_blank" rel="noopener">GrowthSpree 2026</a>).</li>
+        <li>A tényleges Archicad↔Revit átfedés Európában a legnagyobb (~1 900–3 500 cég), nem az USA-ban (~250–560): Archicad-natív piac és Open BIM mandátumok (<a href="https://6sense.com/tech/bim-and-architectural-design-software/autodesk-revit-market-share" target="_blank" rel="noopener">6sense</a>, <a href="https://www.usp-research.com/insights/news/market-overview-of-bim-and-cad-software-usage-of-european-architects/" target="_blank" rel="noopener">USP Research</a>, <a href="https://ace-cae.eu/publication/ace-2024-sector-study/" target="_blank" rel="noopener">ACE 2024</a>).</li>
+      </ul>
+      <p class="caveat">Kaveat: nincs publikus per-elem mérnökóra-szám kifejezetten az Archicad↔Revit esetre, és nincs nyilvános Revit/Archicad plugin-konverziós adat sem: a számaink modellezett, forrásolt becslések, nem hivatkozható tények.</p>
+      <p class="memo-link"><a href="nodu-bridge-piackutatas.html">Részletes piackutatás, módszertan és teljes forrásjegyzék →</a></p>
+    </div>
+  </div>
+
+  <!-- BEVÉTEL-ELŐREJELZÉS -->
+  <div class="section-header">
+    <h2>Bevétel-előrejelzés (MRR-szimuláció)</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="sim-intro">A tervezés jelen szakaszában kizárólag a bevétel-oldal és a havi marketing büdzsé releváns, a csapat- és fix költségek egyelőre nem részei a modellnek. A szimuláció a fenti ügyfélszámokat veszi kiindulópontnak, és havi bontásban vetíti előre a bevétel (MRR) alakulását, figyelembe véve a marketingköltségből finanszírozott új ügyfélszerzést, az organikus növekedést, a lemorzsolódást (churn) és a Professional → Studio upgrade-mozgást (az egyszerűsített modell átlagosan 3 Professional Koordinátorból számol 1 Studio csapatot az upgrade pillanatában). A szimuláció 1. hónapja a GA hónapja (2026. szeptember), bevétel azonban csak a fizetés indulásától képződik: az addig felépülő bázis ingyenes felhasználókból áll.</div>
+
+    <div class="callout-amber" style="margin-top: 16px; margin-bottom: 20px;">
+      <div class="callout-amber-title">Módosítás (2026-07-06): a bevétel-idővonal a fizetési rendszer érkezéséhez igazítva</div>
+      <p>A fejlesztői roadmap a fizetési rendszert a <code>nodu.bridge v2</code>-be sorolja, vagyis a szeptemberi GA-nál bevétel technikailag nem képződhet: a korábbi, GA-tól bevételt számoló idővonal ezt nem tükrözte. A szimuláció mostantól a "Fizetés indulása" csúszkával kezeli ezt: az addig tartó ingyenes időszak tudatos felhasználószerzési szakasz (ez a launch-stratégia része, nem kényszerű mellékhatás), a fizetés élesítésekor pedig az ingyenes bázisnak csak egy becsült része vált fizetőre. A fizetés korábbra hozása belső cél, de a tervezési alap a v2-es érkezés (2026. november); a csúszkával a korábbi vagy későbbi élesítés hatása is tesztelhető.</p>
+    </div>
+
+    <div class="scenario-bar">
+      <button type="button" class="scenario-btn" data-scenario="conservative" onclick="applyScenario('conservative')">Konzervatív</button>
+      <button type="button" class="scenario-btn active" data-scenario="base" onclick="applyScenario('base')">Alap</button>
+      <button type="button" class="scenario-btn" data-scenario="optimistic" onclick="applyScenario('optimistic')">Optimista</button>
+    </div>
+    <div class="scenario-note" id="scenarioNote">Alap szcenárió: mérsékelt növekedés, piaci átlag körüli churn és ügyfélszerzési költség (CAC).</div>
+
+    <div class="section-divider-sm"></div>
+
+    <div class="calc-grid">
+
+      <!-- INPUTS: marketing budget only -->
+      <div>
+        <div class="section-subhead">Marketing büdzsé</div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--orange);">Havi marketing büdzsé</span>
+            <input type="number" class="val-input orange" id="marketingBudgetVal" value="5000" min="0" step="100" oninput="syncFromInput(this,'marketingBudget','orange'); calc()">
+          </div>
+          <input type="range" class="orange" id="marketingBudget" min="0" max="50000" value="5000" step="100" oninput="syncFromSlider(this,'marketingBudgetVal','orange'); calc()">
+          <div class="input-hint">Megoszlás: 60% Professional, 25% Studio, 15% Enterprise akvizíció (ez hajtja az új ügyfélszerzést a szcenárió CAC-értékein keresztül). Az Enterprise-rész a tier megnyílásáig arányosan a Professional/Studio csatornákra oszlik vissza.</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--amber);">Fizetés indulása (payment rendszer)</span>
+            <span class="val-badge" id="payStartMonthVal">3. hó</span>
+          </div>
+          <input type="range" class="neutral" id="payStartMonth" min="1" max="12" value="3" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">A fejlesztői roadmap a fizetési rendszert a v2-be sorolja (terv: 2026. november = a szimuláció 3. hónapja). A GA-nál nincs számlázási képesség. Az indulási ingyenes időszak emellett tudatos felhasználószerzési szakasz. A korábbra hozás belső cél; a csúszkával tesztelhető a hatása.</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span>Ingyenes bázis fizetővé válása</span>
+            <span class="val-badge" id="freeConvPctVal">25%</span>
+          </div>
+          <input type="range" class="neutral" id="freeConvPct" min="0" max="100" value="25" step="5" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">A fizetés élesítésekor az addig felépült ingyenes felhasználói bázisnak csak egy része vált fizetőre. A 25% illusztratív kiindulóérték a self-serve trial→paid benchmarkok sávjából. Az ingyenes időszak lezárási feltételei (időtartam, landolási tier, grace-period) még nyitott döntések.</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span style="color: var(--purple);">Enterprise tier megnyílása</span>
+            <span class="val-badge" id="entStartMonthVal">5. hó</span>
+          </div>
+          <input type="range" class="purple" id="entStartMonth" min="1" max="36" value="5" step="1" oninput="updateSlider(this,'purple'); calc()">
+          <div class="input-hint">A szimuláció 1. hónapja 2026. szeptember (GA); az alapértelmezett 5. hónap 2027. január. A megnyílásig nincs Enterprise-akvizíció és Enterprise-bevétel. A dátum feltételezi, hogy a governance-képességek (SSO, on-premise) addigra leszállnak: ez fejlesztési függőség, amelyet a roadmap fejlesztői listája jelenleg nem támaszt alá (SSO/on-premise a v1–v4 tételek között nem szerepel). Enterprise-bevétel emellett legkorábban a fizetés indulásától képződhet.</div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+
+        <div class="input-group" style="margin-bottom:0;">
+          <div class="input-label">
+            <span>Szimulációs időtáv</span>
+          </div>
+          <div class="horizon-bar">
+            <button type="button" class="horizon-btn" data-h="12" onclick="setHorizon(12)">12 hónap</button>
+            <button type="button" class="horizon-btn active" data-h="24" onclick="setHorizon(24)">24 hónap</button>
+            <button type="button" class="horizon-btn" data-h="36" onclick="setHorizon(36)">36 hónap</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS: chart & metrics -->
+      <div>
+        <div class="section-subhead">Havi bevétel (MRR) alakulása</div>
+        <div class="chart-wrap">
+          <svg id="simChart" viewBox="0 0 560 200" preserveAspectRatio="none"></svg>
+          <div class="chart-legend">
+            <span><span class="dot orange"></span>Havi bevétel (MRR)</span>
+          </div>
+        </div>
+
+        <div class="sim-metric-grid">
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">Első fizetős hónap MRR</div>
+            <div class="sim-metric-val" id="startMrr">–</div>
+          </div>
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">Záró havi MRR</div>
+            <div class="sim-metric-val pos" id="endMrr">–</div>
+          </div>
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">Kumulatív bevétel (időtáv alatt)</div>
+            <div class="sim-metric-val pos" id="cumRevenue">–</div>
+          </div>
+          <div class="sim-metric-card">
+            <div class="sim-metric-label">MRR-növekedési szorzó</div>
+            <div class="sim-metric-val pos" id="growthMultiplier">–</div>
+          </div>
+        </div>
+
+        <div class="section-divider-sm"></div>
+
+        <div class="ltv-table">
+          <div class="ltv-row ltv-head">
+            <span>Tier</span><span>LTV</span><span>CAC</span><span>LTV:CAC</span><span>Megtérülés</span>
+          </div>
+          <div class="ltv-row">
+            <span><span class="dot orange"></span>Professional</span>
+            <span id="ltvPro">–</span><span id="cacProDisp">–</span><span id="ratioPro">–</span><span id="paybackPro">–</span>
+          </div>
+          <div class="ltv-row">
+            <span><span class="dot green"></span>Studio</span>
+            <span id="ltvStudio">–</span><span id="cacStudioDisp">–</span><span id="ratioStudio">–</span><span id="paybackStudio">–</span>
+          </div>
+          <div class="ltv-row">
+            <span><span class="dot purple"></span>Enterprise</span>
+            <span id="ltvEnt">–</span><span id="cacEntDisp">–</span><span id="ratioEnt">–</span><span id="paybackEnt">–</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout-amber" style="margin-top: 28px;">
+      <div class="callout-amber-title">Realitás-ellenőrzés</div>
+      <p id="realityText">Állítsd be a paramétereket az értékeléshez.</p>
+    </div>
+  </div>
+
+  <!-- BENCHMARK TABLE -->
+  <div class="section-header">
+    <h2>Feltételezések és piaci összehasonlítók</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="benchmark-table">
+      <colgroup>
+        <col class="col-param">
+        <col class="col-value">
+        <col class="col-value">
+        <col class="col-note">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Paraméter</th>
+          <th>NODU Bridge</th>
+          <th>Speckle referencia</th>
+          <th>Megjegyzés</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Free → Paid konverzió</td>
+          <td class="td-num td-orange">5–8%</td>
+          <td class="td-num td-muted">2–4%</td>
+          <td class="td-note">Painkiller-pozíció + szűk vertikum a generikus 3-5% fölé emeli; a legjobb vertikális SaaS-benchmarkok plafonja is 5-6% körül van, a 8% felső eset, nem tervezési alap</td>
+        </tr>
+        <tr>
+          <td>Pro → Studio upgrade</td>
+          <td class="td-num td-orange">15–20%</td>
+          <td class="td-num td-muted">~10%</td>
+          <td class="td-note">Második Koordinátor, User-plafon betelése, aktív projekt-limit elérése, API-igény</td>
+        </tr>
+        <tr>
+          <td>Studio → Enterprise</td>
+          <td class="td-num td-orange">5–8%</td>
+          <td class="td-num td-muted">3–5%</td>
+          <td class="td-note">Compliance igény a nagyobb irodáknál</td>
+        </tr>
+        <tr>
+          <td>Átlagos user élettartam</td>
+          <td class="td-num td-green">8–12 év</td>
+          <td class="td-num td-muted">–</td>
+          <td class="td-note">A 8-12%-os éves churn matematikai következménye (1/churn): érett, lock-in utáni állapotot feltételez; az első 1-2 évben a korai kohorszoknál ennél magasabb churn valószínű, mielőtt a sablonkönyvtár + élő szinkron beágyazódik</td>
+        </tr>
+        <tr>
+          <td>Éves churn</td>
+          <td class="td-num" style="color:var(--amber);">8–12%</td>
+          <td class="td-num td-muted">~15%</td>
+          <td class="td-note">Célállapot AEC-beágyazottsággal (a piacon már bevezetett gyártóknál 1-5% is dokumentált); új belépőként a korai évekre optimista feltevés, kalibrálandó</td>
+        </tr>
+        <tr>
+          <td>Professional ARPU (éves)</td>
+          <td class="td-num">€1,990–€2,388</td>
+          <td class="td-num td-muted">–</td>
+          <td class="td-note">Éves vs. havi mix alapján</td>
+        </tr>
+        <tr>
+          <td>Studio ARPU (iroda/év)</td>
+          <td class="td-num">€4,990–€5,988</td>
+          <td class="td-num td-muted">–</td>
+          <td class="td-note">Fix irodai ár: 2 Koordinátor + 20 ingyenes User seat</td>
+        </tr>
+        <tr>
+          <td>Enterprise ARPU (éves)</td>
+          <td class="td-num">€30k–€96k</td>
+          <td class="td-num td-muted">€50k–€150k</td>
+          <td class="td-note">Onboarding + éves licenc + custom fejlesztés</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SZEREPKÖR- ÉS KAPACITÁS-TENGELY -->
+  <div class="section-header">
+    <h2>Szerepkör- és kapacitás-tengely: hogyan működik</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="alt-section">
+    <div class="alt-intro">A korábbi Partnerhálózat-javaslat (árazás aktív partner-kapcsolatok száma alapján) helyett két, egymástól független, a szoftver saját állapotából lokálisan kikényszeríthető tengely adja a licencelt kapacitást: nincs önbevallás, nincs külön telemetria-fejlesztés.</div>
+
+    <div class="callout-green">
+      <div class="callout-green-title">1. Szerepkör-tengely: Koordinátor vs. User</div>
+      <p>A <strong>Koordinátor</strong> (<span class="seat-tag author">Author</span>) hozza létre és módosítja a mapping/szinkron-sablont: ez a ritka, szakértői munka, ezért fizetős seat. A <strong>User</strong> (<span class="seat-tag contributor">Contributor</span>) egy meglévő sablont indíthat el egy új modellen (élő szinkronhoz vagy batch-konverzióhoz), de nem szerkesztheti a sablon logikáját: ez ingyenes, de a Koordinátor-számhoz kötött, rögzített kereten belül (1:10 arány a fizetős tierekben; a Community-ben nincs Koordinátor, így ott a szerepkör-megkülönböztetés nem értelmezett). Ez egy bináris jogosultság-ellenőrzés a licenckulcs szintjén, nem viselkedésmegfigyelés.</p>
+      <p><strong>2. Kapacitás-tengely: aktív projektek száma.</strong> A tier egy adott számú, egyidejűleg élő szinkronban lévő projektet enged. Egy projekt automatikusan inaktívvá válik (felszabadítva a helyet, a konfiguráció megmarad), ha 60 napig egyetlen modell-pár sem produkál szinkron-eseményt; a Koordinátor bármikor kifejezetten is archiválhatja. Limit-elérésnél kemény blokk: új aktív projekt csak hely felszabadulása vagy tier-váltás után indítható. Ez egy value-capture trigger, ezért szigorúbb, mint a projektméret fair-use throttlingja.</p>
+    </div>
+
+    <!-- ÖSSZEFOGLALÓ TÁBLA -->
+    <div class="comp-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Koordinátor</th>
+            <th>User (ingyenes)</th>
+            <th>Aktív projekt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Community</td>
+            <td class="td-num">0</td>
+            <td class="td-num td-muted">nem értelmezett</td>
+            <td class="td-num td-muted">nem értelmezett (nincs élő szinkron)</td>
+          </tr>
+          <tr>
+            <td>Professional</td>
+            <td class="td-num td-orange">1</td>
+            <td class="td-num">10</td>
+            <td class="td-num">2</td>
+          </tr>
+          <tr>
+            <td>Studio</td>
+            <td class="td-num td-orange">2</td>
+            <td class="td-num">20</td>
+            <td class="td-num">5</td>
+          </tr>
+          <tr>
+            <td>Enterprise</td>
+            <td class="td-num td-orange">5</td>
+            <td class="td-num">50</td>
+            <td class="td-num">15</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-amber">
+      <div class="callout-amber-title">Miért nem a Partnerhálózat-modell, és mi maradt nyitva</div>
+      <p>2026-07-02: a Partnerhálózat-modellt (aktív adatcsere-kapcsolatok száma) elvetettük, mert az "aktív kapcsolat" fogalma önbevallással nem tartható fenn megbízhatóan, telemetria-alapú kikényszerítése pedig irreális a mai desktop-plugin scope-ban. A szerepkör- és kapacitás-tengely ugyanazt a célt szolgálja (árazás a tényleges használathoz kötve, miközben a teljes iroda hozzáférhet), de mindkettő a sync-motor saját, amúgy is szükséges állapotából mérhető.</p>
+      <p>Nyitva maradt, az első fizető ügyfelek adatai alapján kalibrálandó: a fenti táblázat számai (Koordinátor/User arány, aktív projekt-limitek) illusztratív kiindulópontok, nem véglegesek; a 60 napos dormancy-időablak szintén finomítható a tényleges projektritmus ismeretében. A projektméret-limit logikája (fair-use, throttling, nem value-capture) változatlan marad, és továbbra sem keveredik a fenti két tengellyel.</p>
+    </div>
+  </div>
+
+  <!-- DÖNTÉSI PONTOK -->
+  <div class="section-header">
+    <h2>Nyitott döntési pontok</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="decision-wrap">
+    <div class="decision-grid">
+      <div class="decision-item">
+        <div class="decision-item-label">Döntő kérdés · Community → Professional határvonal</div>
+        <h4>Pontosan miért fog fizetni az ügyfél?</h4>
+        <p>A Community-ben az Archicad↔Revit adatcsere-alapélménynek teljes értékűnek kell lennie, enélkül nincs virális belépő. A jelenlegi munkahipotézis szerint a fizetős vonal az élő, inkrementális szinkron + a saját sablon létrehozása/mentése; a batch-konverzió preset sablonokkal ingyenes marad. Ez a határvonal azonban a pontos funkcionalitás ismerete nélkül (mit tud pontosan a preset sablon, hol kezdődik a "saját" mapping) nem zárható le: a fejlesztéssel együtt kell véglegesíteni. Ez a licencmodell legfontosabb nyitott kérdése.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">Free tier kalibrálás (LEZÁRVA 2026-07-06)</div>
+        <h4>Havonta 2 teljes modelles konverzió, elemszám-korlát helyett</h4>
+        <p>A korábbi 500 elemes korlátot a 2026-07-06-i szakértői felülvizsgálat nagyságrenddel alacsonynak találta: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, tehát az 500 elem valójában részmodell-demó volt, nem "pilot homlokzati projekt". Az új szabály gyakoriság-alapú: teljes modell, elemszám-korlát nélkül, havonta 2 alkalommal. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás, fájdalom-intenzitás szerinti rétegzés) számára ad teljes értékű, ingyenes kiszolgálást, így a Community tier végre betölti deklarált szerepét (valódi érték, virális belépő), miközben aki gyakrabban cserélne, az definíció szerint a B/A rétegbe, tehát a fizetős tierekbe tartozik. A differenciátor (saját sablon, élő szinkron) változatlanul fizetős marad.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">Professional ár</div>
+        <h4>€99 vs. €199 / Koordinátor / hó</h4>
+        <p>A €99 gyorsabb free-paid konverziót hozna, a €199 viszont komolyabb szűrőként működne. Az AEC piacon az alacsony ár olykor gyanút kelt. Javasolt: €199 - magabiztosabb pozicionálás, magasabb LTV. Az indulási termékkör (élő, inkrementális szinkron + sablon-alapú konverzió) értékajánlatához ez az ár illik; a végleges kalibrálás az első 50 fizető ügyfél konverziós adatai alapján dönthető el.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">Studio trigger</div>
+        <h4>Második Koordinátor, User-plafon vagy aktív projekt-limit, nem csapatméret</h4>
+        <p>Az upgrade konkrét, mérhető kapacitás-eléréskor jön: második Koordinátor kell, betelik a 10 fős ingyenes User-keret, vagy egyszerre 3. projektet akarnak élő szinkronban futtatni a Professional 2-es limitje felett. Javasolt: mindhárom eseményre célzott in-app üzenet, nem elvont csapatméret-becslés.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">Enterprise floor</div>
+        <h4>€2,500 / hó minimum, a tier megnyílásától</h4>
+        <p>Az Enterprise tier induláskor nem indul: tartalmi elemei (SSO, on-premise, Platform Core) nem v1-képességek. A floor a tier megnyílásakor (terv: 2027 eleje) lép életbe; addig a nagy irodák egyedi ajánlatot kapnak. Konzervatív ár: bevezetési díjjal az éves bevétel €32–46k, ha pedig BIG graph integráció is benne van, akkor €4–5k/hó reálisabb. Javasolt: €2,500 mint floor, felfelé egyedi tárgyalás.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">User/Koordinátor arány kalibrálás</div>
+        <h4>1:10 arány, illusztratív kiindulópont</h4>
+        <p>A rögzített 1 Koordinátor : 10 User arány (és a tierenkénti 1/2/5 Koordinátor, 2/5/15 aktív projekt szám) egyelőre becslés, nem az első ügyfelek tényleges használati adatából származik. Javasolt: az első 50 fizető ügyfél tényleges User-kihasználtsága és projekt-egyidejűsége alapján felülvizsgálni, mielőtt a limitek kemény blokkot váltanának ki a gyakorlatban.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-item-label">Dormancy-időablak kalibrálás</div>
+        <h4>60 nap, óvatos alapérték</h4>
+        <p>A 60 napos inaktivitási időzítő (ami után egy projekt automatikusan felszabadítja a helyét az aktív projekt-limitben) szándékosan hosszú, hogy elkerülje a hamis-pozitív kizárást (aktív projekt téves inaktívvá minősítése egy csendesebb projektfázisban). Javasolt: a tényleges AEC-projektritmus ismeretében rövidíthető, ha az adat azt mutatja, hogy a limitek emiatt ritkán telnek be reálisan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    NODU Bridge Licencmodell v1.5 &nbsp;·&nbsp; 2026-07-06 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; poczai@nodu.build
+  </div>
+
+</div>
+
+<script>
+  function fmt(n) {
+    if (n >= 1000000) return '€' + (n/1000000).toFixed(2) + 'M';
+    if (n >= 1000)    return '€' + (n/1000).toFixed(1) + 'k';
+    return '€' + Math.round(n).toLocaleString('de-DE');
+  }
+
+  function updateSlider(el, color) {
+    const pct = (el.value - el.min) / (el.max - el.min) * 100;
+    el.style.background = `linear-gradient(to right, var(--${color === 'neutral' ? 'text' : color}) ${pct}%, var(--border) ${pct}%)`;
+  }
+
+  function syncFromSlider(slider, inputId, color) {
+    const v = +slider.value;
+    document.getElementById(inputId).value = v;
+    updateSlider(slider, color);
+  }
+
+  function syncFromInput(input, sliderId, color) {
+    const v = Math.max(0, +input.value || 0);
+    const slider = document.getElementById(sliderId);
+    slider.value = Math.min(v, +slider.max);
+    updateSlider(slider, color);
+  }
+
+  // ÜZLETI REALITÁS SZIMULÁCIÓ
+  // Benchmark-kalibrált létra (2026-07-08): niche vertikális B2B SaaS, freemium/PLG, új belépő, kezdeti lock-in nélkül.
+  // A churn self-serve logó-churn (Pro a leggyengébb retenció, Ent a legerősebb). A CAC a regionális CPL-hez igazított
+  // (Európa CPL €80): az optimista CAC feszes, de védhető lead->fizető konverziót feltételez. Monoton: konzervatív < base < optimista.
+  const SCENARIOS = {
+    conservative: { growthPro: 0.015, growthStudio: 0.010, churnProAnn: 0.26, churnStudioAnn: 0.19, churnEntAnn: 0.12, cacPro: 2200, cacStudio: 4000, cacEnt: 16000, upgradeAnn: 0.08 },
+    base:         { growthPro: 0.030, growthStudio: 0.020, churnProAnn: 0.18, churnStudioAnn: 0.13, churnEntAnn: 0.08, cacPro: 1100, cacStudio: 2500, cacEnt: 11000, upgradeAnn: 0.13 },
+    optimistic:   { growthPro: 0.045, growthStudio: 0.035, churnProAnn: 0.12, churnStudioAnn: 0.09, churnEntAnn: 0.05, cacPro: 550,  cacStudio: 1500, cacEnt: 7000,  upgradeAnn: 0.18 },
+  };
+  const SCENARIO_NOTES = {
+    conservative: 'Konzervatív szcenárió: lassú növekedés, magas (self-serve-reális) churn és a CPL-hez igazított magas CAC. A növekedést a regionális SAM-telítődés fékezi.',
+    base:         'Alap szcenárió: mérsékelt növekedés, benchmark-kalibrált churn és a €80 CPL-hez igazított CAC. A növekedést a regionális SAM-telítődés fékezi.',
+    optimistic:   'Optimista szcenárió: gyors, de plafonozott növekedés, alsó-széli (még védhető) churn és kedvező CAC. A növekedést a regionális SAM-telítődés fékezi.',
+  };
+  let currentScenario = 'base';
+  let horizonMonths = 24;
+  let funnelHorizon = 24;
+
+  // A szimuláció 1. hónapja a GA hónapja: 2026. szeptember
+  function simMonthLabel(m) {
+    const names = ['jan.', 'febr.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'];
+    const total = 8 + (m - 1); // 8 = szeptember indexe
+    return (2026 + Math.floor(total / 12)) + '. ' + names[total % 12];
+  }
+
+  const REGIONS = {
+    usa:    { label: 'Amerika (USA)', cpl: 120, confAttendees: 1500, confRelevantPct: 10, influLeadsPer1k: 0.10, samLow: 250, samHigh: 560,
+              note: 'Revit-dominált piac (~60–65%), az Archicad csak ~3–8%, ezért a tényleges Archicad↔Revit átfedés szűk niche (~250–560 cég), amely a magasabb konverzió mellett 2–3 év alatt telítődik. A hirdetés és kiállítás itt a legdrágább.' },
+    europe: { label: 'Európa',        cpl: 80,  confAttendees: 800,  confRelevantPct: 14, influLeadsPer1k: 0.12, samLow: 1900, samHigh: 3500,
+              note: 'Az Archicad hazai piaca (Németország ~27%, 2021-es adat) miatt itt a legnagyobb a tényleges Archicad-Revit átfedés (~1 900–3 500 cég, belső becslés). Az Open BIM mandátumok (UK, DE, Nordics) nem kényszerítenek platformváltásra, hanem fenntartják a gyártófüggetlen leadási igényt: ez legitimálja és stabilizálja a vegyes-platformos piacot, nem önmagában hajtja azt.' },
+    asia:   { label: 'Ázsia',         cpl: 50,  confAttendees: 600,  confRelevantPct: 8,  influLeadsPer1k: 0.06, samLow: 170, samHigh: 450,
+              note: 'Gyorsan növekvő, de alacsony Archicad-penetrációjú, Revit-dominált piac, kicsi tényleges átfedés (~170–450 cég); a LinkedIn szakmai súlya régiónként eltérő, ezért óvatosabb a becsült konverzió.' },
+  };
+  let currentRegion = 'europe';
+
+  function applyRegion(name) {
+    currentRegion = name;
+    const r = REGIONS[name];
+    document.querySelectorAll('.region-btn').forEach(b => b.classList.toggle('active', b.dataset.region === name));
+    document.getElementById('regionNote').textContent = r.note;
+
+    document.getElementById('cpl').value = r.cpl;
+    updateSlider(document.getElementById('cpl'), 'neutral');
+    document.getElementById('confAttendees').value = r.confAttendees;
+    updateSlider(document.getElementById('confAttendees'), 'neutral');
+    document.getElementById('confRelevantPct').value = r.confRelevantPct;
+    updateSlider(document.getElementById('confRelevantPct'), 'neutral');
+    document.getElementById('influLeadsPer1k').value = r.influLeadsPer1k;
+    updateSlider(document.getElementById('influLeadsPer1k'), 'neutral');
+
+    calc();
+  }
+
+  function setFunnelHorizon(h) {
+    funnelHorizon = h;
+    document.querySelectorAll('.funnel-horizon-btn').forEach(b => b.classList.toggle('active', +b.dataset.fh === h));
+    calc();
+  }
+
+  function calcFunnel() {
+    const leadgenBudget = +document.getElementById('leadgenBudget').value;
+    const cpl           = +document.getElementById('cpl').value;
+    const influCount     = Math.max(0, +document.getElementById('influCount').value || 0);
+    const influFollowers = +document.getElementById('influFollowers').value;
+    const influPosts     = +document.getElementById('influPosts').value;
+    const influLeadsPer1k= +document.getElementById('influLeadsPer1k').value;
+    const confPerYear    = Math.max(0, +document.getElementById('confPerYear').value || 0);
+    const confAttendees  = +document.getElementById('confAttendees').value;
+    const confRelevantPct= +document.getElementById('confRelevantPct').value / 100;
+    const confCapturePct = +document.getElementById('confCapturePct').value / 100;
+    const selfServeConvPct = +document.getElementById('selfServeConvPct').value / 100;
+    const entLeadPct     = +document.getElementById('entLeadPct').value / 100;
+    const salesRepCount  = Math.max(0, +document.getElementById('salesRepCount').value || 0);
+    const capacityPerRep = +document.getElementById('capacityPerRep').value;
+    const leadToDemoPct  = +document.getElementById('leadToDemoPct').value / 100;
+    const demoToClosePct = +document.getElementById('demoToClosePct').value / 100;
+
+    const tierProPct    = +document.getElementById('tierProPct').value;
+    const tierStudioPct = 100 - tierProPct;
+
+    document.getElementById('leadgenBudgetVal').textContent  = leadgenBudget.toLocaleString('de-DE');
+    document.getElementById('cplVal').textContent            = '€' + cpl;
+    document.getElementById('influFollowersVal').textContent = influFollowers.toLocaleString('de-DE');
+    document.getElementById('influPostsVal').textContent     = influPosts;
+    document.getElementById('influLeadsPer1kVal').textContent= influLeadsPer1k.toFixed(2);
+    document.getElementById('confAttendeesVal').textContent  = confAttendees.toLocaleString('de-DE');
+    document.getElementById('confRelevantPctVal').textContent= Math.round(confRelevantPct * 100) + '%';
+    document.getElementById('confCapturePctVal').textContent = Math.round(confCapturePct * 100) + '%';
+    document.getElementById('selfServeConvPctVal').textContent = Math.round(selfServeConvPct * 100) + '%';
+    document.getElementById('entLeadPctVal').textContent     = Math.round(entLeadPct * 100) + '%';
+    document.getElementById('capacityPerRepVal').textContent = capacityPerRep;
+    document.getElementById('leadToDemoPctVal').textContent  = Math.round(leadToDemoPct * 100) + '%';
+    document.getElementById('demoToClosePctVal').textContent = Math.round(demoToClosePct * 100) + '%';
+
+    const leadsLeadgen = cpl > 0 ? leadgenBudget / cpl : 0;
+    const leadsInflu    = influCount * influPosts * (influFollowers / 1000) * influLeadsPer1k;
+    const leadsPerEvent = confAttendees * confRelevantPct * confCapturePct;
+    const leadsConf     = confPerYear * leadsPerEvent / 12;
+    const leadsTotal    = leadsLeadgen + leadsInflu + leadsConf;
+
+    // A leadek két, egymástól független tölcsérbe ágaznak: önkiszolgáló (sales nélkül) és Enterprise (sales-asszisztált).
+    const entLeads      = leadsTotal * entLeadPct;
+    const selfServeLeads= leadsTotal - entLeads;
+
+    const salesCapacity  = salesRepCount * capacityPerRep;
+    const effectiveEntLeads = Math.min(entLeads, salesCapacity);
+    const overflow          = Math.max(0, entLeads - salesCapacity);
+
+    const newSelfServe = selfServeLeads * selfServeConvPct;
+    const newEnt        = effectiveEntLeads * leadToDemoPct * demoToClosePct;
+    const newCustomers  = newSelfServe + newEnt;
+
+    const newPro    = newSelfServe * tierProPct / 100;
+    const newStudio = newSelfServe * tierStudioPct / 100;
+
+    document.getElementById('leadsLeadgen').textContent = leadsLeadgen.toFixed(1) + ' / hó';
+    document.getElementById('leadsInflu').textContent   = leadsInflu.toFixed(1)   + ' / hó';
+    document.getElementById('leadsConf').textContent    = leadsConf.toFixed(1)    + ' / hó';
+    document.getElementById('leadsTotal').textContent   = leadsTotal.toFixed(1)   + ' / hó';
+
+    const capacityCallout = document.getElementById('capacityCallout');
+    if (overflow > 0.5) {
+      capacityCallout.style.display = 'block';
+      document.getElementById('capacityText').textContent =
+        `Havonta kb. ${entLeads.toFixed(0)} Enterprise-jelölt lead képződik, de ${salesRepCount} sales munkatárs kapacitása csak ${salesCapacity.toFixed(0)} lead kezelésére elég. A fennmaradó ~${overflow.toFixed(0)} Enterprise-lead/hó vagy várólistára kerül, vagy elvész. Ez indokolhatja egy második sales-pozíció felvételét. Az önkiszolgáló Professional/Studio ügyfeleket ez nem érinti.`;
+    } else {
+      capacityCallout.style.display = 'none';
+    }
+
+    document.getElementById('effectiveLeadsVal').textContent = effectiveEntLeads.toFixed(1);
+    document.getElementById('newCustomersVal').textContent   = newCustomers.toFixed(1);
+    document.getElementById('newCustPro').textContent    = newPro.toFixed(2)    + ' / hó';
+    document.getElementById('newCustStudio').textContent = newStudio.toFixed(2) + ' / hó';
+    document.getElementById('newCustEnt').textContent    = newEnt.toFixed(2)    + ' / hó';
+
+    const region = REGIONS[currentRegion];
+    const samMid = (region.samLow + region.samHigh) / 2;
+    // Enterprise-zárás csak a tier megnyílásától számít; előtte a jelöltek egyedi ajánlatos pipeline-ba kerülnek.
+    // Fizető ügyfél emellett csak a fizetés indulásától létezik: az ingyenes időszakban érkező kohorsz
+    // a fizetés élesítésekor freeConvPct hányaddal válik fizetővé.
+    const entStartMonth = Math.max(1, Math.round(+document.getElementById('entStartMonth').value || 1));
+    const payStartMonth = Math.max(1, Math.round(+document.getElementById('payStartMonth').value || 1));
+    const freeConvPct   = +document.getElementById('freeConvPct').value / 100;
+    const entOpenMonth  = Math.max(entStartMonth, payStartMonth);
+    const entActiveMonths = Math.max(0, funnelHorizon - (entOpenMonth - 1));
+    const freeCohortMonths = Math.min(funnelHorizon, payStartMonth - 1);
+    const payingMonthsSS   = Math.max(0, funnelHorizon - freeCohortMonths);
+    const cumCustomers = newSelfServe * (payingMonthsSS + freeCohortMonths * freeConvPct) + newEnt * entActiveMonths;
+    document.getElementById('cumCustomersVal').textContent = Math.round(cumCustomers).toLocaleString('de-DE');
+    const samPct  = cumCustomers / samMid * 100;
+    document.getElementById('cumCustomersSub').textContent =
+      `${funnelHorizon} hónap alatt · a(z) ${region.label} régió becsült ${region.samLow.toLocaleString('de-DE')}–${region.samHigh.toLocaleString('de-DE')} irodás SAM-jának kb. ${samPct.toFixed(1)}%-a`;
+
+    let text = `${region.label} piacra fókuszálva a jelenlegi csatornamix havonta kb. ${leadsTotal.toFixed(0)} érdeklődőt termel. Ennek ${Math.round((1-entLeadPct)*100)}%-a (${selfServeLeads.toFixed(0)} lead) önállóan, sales nélkül konvertál: ez adja a ${newSelfServe.toFixed(1)} új Professional/Studio ügyfelet havonta. A fennmaradó ${entLeads.toFixed(0)} Enterprise-jelölt leadből a sales-tölcsér ${newEnt.toFixed(1)} új Enterprise-ügyfelet zár havonta, de csak a tier megnyílásától (${entStartMonth}. hó, ${simMonthLabel(entStartMonth)}); addig a jelöltek egyedi ajánlatos pipeline-ba kerülnek. Fizető ügyfél a fizetés indulásától (${payStartMonth}. hó, ${simMonthLabel(payStartMonth)}) létezik: az addig érkező érdeklődők ingyenes felhasználóként lépnek be, és az élesítéskor becsülten ${Math.round(freeConvPct*100)}%-uk vált fizetőre: a kumulált fizető ügyfélszám mindkét eltolást tartalmazza. Összesen a megnyílás után: ${newCustomers.toFixed(1)} új fizető ügyfél/hó. `;
+    if (overflow > 0.5) {
+      text += `Az Enterprise-jelölt leadek önmagukban meghaladják a sales-kapacitást, itt van a szűk keresztmetszet, nem az önkiszolgáló volumenben. `;
+    } else {
+      text += `A sales-kapacitás bőven fedezi az Enterprise-jelölt leadeket; a növekedés fő hajtóereje az önkiszolgáló konverziós ráta és a lead-volumen, nem a sales-erőforrás. `;
+    }
+    text += `Ez egy modellezett becslés valós kampányadatok nélkül, az első 2–3 hónap tényleges lead- és konverziós adatai alapján pontosítandó, különösen az Enterprise-jelölt arány és az önkiszolgáló konverzió.`;
+    document.getElementById('funnelRealityText').textContent = text;
+  }
+
+  function applyScenario(name) {
+    currentScenario = name;
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.toggle('active', b.dataset.scenario === name));
+    document.getElementById('scenarioNote').textContent = SCENARIO_NOTES[name];
+    calc();
+  }
+
+  function setHorizon(h) {
+    horizonMonths = h;
+    document.querySelectorAll('.horizon-btn').forEach(b => b.classList.toggle('active', +b.dataset.h === h));
+    calc();
+  }
+
+  function runSimulation(priceProMo, priceStudioMo, entAvg) {
+    const s = SCENARIOS[currentScenario];
+    const proUsers0     = Math.max(0, +document.getElementById('proUsersVal').value    || 0);
+    const studioTeams0  = Math.max(0, +document.getElementById('studioTeamsVal').value  || 0);
+    const entContracts0 = Math.max(0, +document.getElementById('entContractsVal').value || 0);
+
+    const marketingBudget= Math.max(0, +document.getElementById('marketingBudgetVal').value || 0);
+
+    const mChurnPro    = 1 - Math.pow(1 - s.churnProAnn, 1/12);
+    const mChurnStudio = 1 - Math.pow(1 - s.churnStudioAnn, 1/12);
+    const mChurnEnt    = 1 - Math.pow(1 - s.churnEntAnn, 1/12);
+    const mUpgrade     = 1 - Math.pow(1 - s.upgradeAnn, 1/12);
+
+    const mktPro    = marketingBudget * 0.60;
+    const mktStudio = marketingBudget * 0.25;
+    const mktEnt    = marketingBudget * 0.15;
+    const UPGRADE_TEAM_FACTOR = 3; // átlagosan ennyi Professional userből lesz 1 Studio csapat
+
+    const entStartMonth = Math.max(1, Math.round(+document.getElementById('entStartMonth').value || 1));
+    document.getElementById('entStartMonthVal').textContent = entStartMonth + '. hó (' + simMonthLabel(entStartMonth) + ')';
+
+    // A fizetési rendszer a payStartMonth hónapban élesedik (fejlesztői roadmap: v2 = 3. hó, 2026. november).
+    // Előtte a pro/studio számok INGYENES aktív felhasználókat jelentenek, bevétel nem képződik;
+    // az élesítéskor az ingyenes bázisnak csak freeConvPct hányada vált fizetőre.
+    const payStartMonth = Math.max(1, Math.round(+document.getElementById('payStartMonth').value || 1));
+    const freeConvPct = +document.getElementById('freeConvPct').value / 100;
+    document.getElementById('payStartMonthVal').textContent = payStartMonth + '. hó (' + simMonthLabel(payStartMonth) + ')';
+    document.getElementById('freeConvPctVal').textContent = Math.round(freeConvPct * 100) + '%';
+
+    // Az Enterprise tier csak az entStartMonth hónaptól él; addig a kiinduló szerződések sem aktívak,
+    // és az Enterprise-büdzsé arányosan (60:25) a Professional/Studio csatornákra oszlik vissza.
+    // Enterprise-bevétel legkorábban a fizetés indulásától képződhet (a mrr-kapu ezt is fedi).
+    let pro = proUsers0, studio = studioTeams0, ent = entStartMonth <= 1 ? entContracts0 : 0;
+    const months = [];
+    let cumulativeRevenue = 0;
+
+    for (let m = 1; m <= horizonMonths; m++) {
+      if (m === payStartMonth && payStartMonth > 1) {
+        pro    *= freeConvPct;
+        studio *= freeConvPct;
+      }
+
+      const entOpen = m >= entStartMonth;
+      if (m === entStartMonth && entStartMonth > 1) ent += entContracts0;
+
+      const mktEntRealloc = entOpen ? 0 : mktEnt;
+      // Piaci telítődés: az organikus és az akvizíciós hozzáadást a regionális SAM-hoz (samHigh) közeledve fojtjuk,
+      // hogy a bázis ne nőhessen a szolgálható piac fölé. Cég-ekvivalens: ent + studio + pro / UPGRADE_TEAM_FACTOR.
+      const marketCapFirms = (REGIONS[currentRegion] && REGIONS[currentRegion].samHigh) || 3500;
+      const accountsFirmEq = ent + studio + pro / UPGRADE_TEAM_FACTOR;
+      const saturation = Math.max(0, 1 - accountsFirmEq / marketCapFirms);
+
+      const newPro    = s.cacPro    > 0 ? saturation * (mktPro    + mktEntRealloc * (0.60 / 0.85)) / s.cacPro    : 0;
+      const newStudio = s.cacStudio > 0 ? saturation * (mktStudio + mktEntRealloc * (0.25 / 0.85)) / s.cacStudio : 0;
+      const newEnt    = entOpen && s.cacEnt > 0 ? saturation * mktEnt / s.cacEnt : 0;
+
+      const orgPro    = pro * s.growthPro * saturation;
+      const orgStudio = studio * s.growthStudio * saturation;
+
+      const upgrading = pro * mUpgrade;
+
+      const churnedPro    = pro * mChurnPro;
+      const churnedStudio = studio * mChurnStudio;
+      const churnedEnt    = ent * mChurnEnt;
+
+      pro    = Math.max(0, pro + newPro + orgPro - upgrading - churnedPro);
+      studio = Math.max(0, studio + newStudio + orgStudio + (upgrading / UPGRADE_TEAM_FACTOR) - churnedStudio);
+      ent    = Math.max(0, ent + newEnt - churnedEnt);
+
+      const mrr = m >= payStartMonth ? pro * priceProMo + studio * priceStudioMo + ent * entAvg : 0;
+      cumulativeRevenue += mrr;
+
+      months.push({ m, mrr });
+    }
+
+    return { months, cumulativeRevenue, s, mChurnPro, mChurnStudio, mChurnEnt, priceProMo, priceStudioMo, entAvg, payStartMonth, freeConvPct };
+  }
+
+  function buildChart(months, payStartMonth) {
+    const svg = document.getElementById('simChart');
+    const w = 560, h = 200, pad = 8;
+    const maxVal = Math.max(1, ...months.map(d => d.mrr));
+    const pts = (key) => months.map((d, i) => {
+      const x = pad + (i / (months.length - 1 || 1)) * (w - 2 * pad);
+      const y = h - pad - (d[key] / maxVal) * (h - 2 * pad);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    let marker = '';
+    if (payStartMonth > 1 && payStartMonth <= months.length) {
+      const mx = pad + ((payStartMonth - 1) / (months.length - 1 || 1)) * (w - 2 * pad);
+      marker = `<line x1="${mx.toFixed(1)}" y1="${pad}" x2="${mx.toFixed(1)}" y2="${h - pad}" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4 3"/>` +
+               `<text x="${(mx + 6).toFixed(1)}" y="${pad + 12}" font-family="Inter, sans-serif" font-size="11" fill="#D97706">fizetés indul</text>`;
+    }
+    svg.innerHTML = marker + `<polyline points="${pts('mrr')}" fill="none" stroke="#F04E23" stroke-width="2.5"/>`;
+  }
+
+  function renderSimMetrics(sim) {
+    const { months, cumulativeRevenue, s } = sim;
+
+    const firstPayIdx = months.findIndex(d => d.mrr > 0);
+    const first = firstPayIdx >= 0 ? months[firstPayIdx] : months[0];
+    const last  = months[months.length - 1];
+
+    document.getElementById('startMrr').textContent = fmt(first.mrr);
+    document.getElementById('endMrr').textContent   = fmt(last.mrr);
+    document.getElementById('cumRevenue').textContent = fmt(cumulativeRevenue);
+    const growthMultiplier = first.mrr > 0 ? (last.mrr / first.mrr) : 0;
+    document.getElementById('growthMultiplier').textContent = growthMultiplier.toFixed(1) + '×';
+
+    const ltvPro    = sim.priceProMo    / Math.max(0.002, sim.mChurnPro);
+    const ltvStudio = sim.priceStudioMo / Math.max(0.002, sim.mChurnStudio);
+    const ltvEnt    = sim.entAvg        / Math.max(0.002, sim.mChurnEnt);
+
+    document.getElementById('ltvPro').textContent    = fmt(ltvPro);
+    document.getElementById('ltvStudio').textContent = fmt(ltvStudio);
+    document.getElementById('ltvEnt').textContent    = fmt(ltvEnt);
+    document.getElementById('cacProDisp').textContent    = fmt(s.cacPro);
+    document.getElementById('cacStudioDisp').textContent = fmt(s.cacStudio);
+    document.getElementById('cacEntDisp').textContent    = fmt(s.cacEnt);
+
+    const ratioPro    = ltvPro / s.cacPro;
+    const ratioStudio = ltvStudio / s.cacStudio;
+    const ratioEnt    = ltvEnt / s.cacEnt;
+    document.getElementById('ratioPro').textContent    = ratioPro.toFixed(1) + '×';
+    document.getElementById('ratioStudio').textContent = ratioStudio.toFixed(1) + '×';
+    document.getElementById('ratioEnt').textContent    = ratioEnt.toFixed(1) + '×';
+
+    document.getElementById('paybackPro').textContent    = Math.ceil(s.cacPro / sim.priceProMo) + ' hó';
+    document.getElementById('paybackStudio').textContent = Math.ceil(s.cacStudio / sim.priceStudioMo) + ' hó';
+    document.getElementById('paybackEnt').textContent    = Math.ceil(s.cacEnt / sim.entAvg) + ' hó';
+
+    let text = '';
+    if (sim.payStartMonth > 1) {
+      text += `Az első ${sim.payStartMonth - 1} hónap ingyenes felhasználószerzési időszak: bevétel a ${sim.payStartMonth}. hónaptól (${simMonthLabel(sim.payStartMonth)}) képződik, és az élesítéskor az ingyenes bázis becsült ${Math.round(sim.freeConvPct * 100)}%-a vált fizetőre. `;
+    }
+    text += `A ${horizonMonths} hónapos időtáv alatt a havi bevétel az első fizetős hónap ${fmt(first.mrr)} szintjéről ${fmt(last.mrr)}-ra nő (${growthMultiplier.toFixed(1)}×-es szorzó), a kumulatív bevétel az időszak alatt ${fmt(cumulativeRevenue)}. `;
+    if (ratioPro < 3) {
+      text += `A Professional tier LTV:CAC aránya (${ratioPro.toFixed(1)}×) elmarad a szokásos befektetői elvárástól (3× felett). `;
+    } else {
+      text += `A Professional tier LTV:CAC aránya (${ratioPro.toFixed(1)}×) az egészséges B2B SaaS-sávban van. `;
+    }
+    text += `Ez egy modellezett projekció, nem tényadat, és a csapat- vagy fix költségeket ezen a szakaszon szándékosan nem tartalmazza, az első fizető kohorszok valós megtartási és akvizíciós adatai alapján pontosítandó.`;
+    document.getElementById('realityText').textContent = text;
+  }
+
+  function calc() {
+    const proUsers     = Math.max(0, +document.getElementById('proUsersVal').value    || 0);
+    const studioTeams  = Math.max(0, +document.getElementById('studioTeamsVal').value  || 0);
+    const entContracts = Math.max(0, +document.getElementById('entContractsVal').value || 0);
+    const entAvg       = +document.getElementById('entAvg').value;
+    const annualPct    = +document.getElementById('annualPct').value / 100;
+
+    document.getElementById('entAvgVal').textContent      = entAvg.toLocaleString('de-DE');
+    document.getElementById('annualPctVal').textContent   = Math.round(annualPct * 100) + '%';
+
+    const priceProMo    = 149;
+    const priceStudioMo = 499;
+    const priceProAnn   = 149 * 10;
+    const priceStudioAnn= 499 * 10;
+
+    const mrrPro    = proUsers    * (annualPct * (priceProAnn/12)    + (1-annualPct) * priceProMo);
+    const mrrStudio = studioTeams * (annualPct * (priceStudioAnn/12) + (1-annualPct) * priceStudioMo);
+    const mrrEnt    = entContracts * entAvg;
+    const mrr       = mrrPro + mrrStudio + mrrEnt;
+
+    const arrBase = mrr * 12;
+    const disc    = proUsers    * annualPct * (priceProMo    * 12 - priceProAnn)
+                  + studioTeams * annualPct * (priceStudioMo * 12 - priceStudioAnn);
+    const arrNet  = arrBase - disc;
+
+    const target = 1000000;
+    const pct    = Math.min(100, (arrNet / target) * 100);
+
+    const newEnt    = Math.ceil(entContracts * 0.4);
+    const newStudio = Math.ceil(studioTeams  * 0.4);
+    const totalOb   = newEnt * 3500 + newStudio * 500;
+
+    document.getElementById('mrr').textContent       = fmt(mrr);
+    document.getElementById('mrrPro').textContent    = fmt(mrrPro);
+    document.getElementById('mrrStudio').textContent = fmt(mrrStudio);
+    document.getElementById('mrrEnt').textContent    = fmt(mrrEnt);
+
+    document.getElementById('arr').textContent       = fmt(arrNet);
+    document.getElementById('arrBase').textContent   = fmt(arrBase);
+    document.getElementById('arrDisc').textContent   = '−' + fmt(disc);
+    document.getElementById('arrNet').textContent    = fmt(arrNet);
+
+    document.getElementById('arrPct').textContent    = pct.toFixed(1) + '%';
+    document.getElementById('arrBar').style.width    = pct + '%';
+
+    let note = '';
+    if (arrNet === 0) {
+      note = 'Állítsd be az ügyfeleket a projekció megtekintéséhez.';
+    } else if (arrNet < 200000) {
+      const needed = Math.ceil((200000 - arrNet) / (priceProMo * 12));
+      note = `€200K ARR-hoz (2027) még ~${needed} Professional vagy ~${Math.ceil((200000 - arrNet) / (priceStudioMo * 12))} Studio csapat szükséges.`;
+    } else if (arrNet < 500000) {
+      note = `Jó haladás! €500K ARR-hoz (2028) ${fmt(500000 - arrNet)} hiányzik.`;
+    } else {
+      note = `Kiváló! €500K ARR cél elérve (2028) – jelenleg ${fmt(arrNet)} az ARR-od.`;
+    }
+    document.getElementById('milestoneNote').textContent = note;
+
+    document.getElementById('onboarding').textContent    = fmt(totalOb);
+    document.getElementById('onboardingSub').textContent =
+      `Enterprise onboarding: ${fmt(newEnt * 3500)} · Studio setup: ${fmt(newStudio * 500)}`;
+
+    const blendedProMo    = annualPct * (priceProAnn/12)    + (1-annualPct) * priceProMo;
+    const blendedStudioMo = annualPct * (priceStudioAnn/12) + (1-annualPct) * priceStudioMo;
+    const sim = runSimulation(blendedProMo, blendedStudioMo, entAvg);
+    buildChart(sim.months, sim.payStartMonth);
+    renderSimMetrics(sim);
+    calcFunnel();
+  }
+
+  // Init sliders visual state
+  document.querySelectorAll('input[type=range]').forEach(el => {
+    const cls = el.classList[0];
+    updateSlider(el, cls);
+  });
+  // Sync initial input values from sliders
+  ['proUsers','studioTeams','entContracts'].forEach(id => {
+    const slider = document.getElementById(id);
+    const inputId = id + 'Val';
+    const color = slider.classList[0];
+    document.getElementById(inputId).value = slider.value;
+  });
+
+  applyRegion(currentRegion);
+</script>
+<script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODU Bridge Piackutatás</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #FAFAFA;
+    --white:    #FFFFFF;
+    --border:   #E4E4E7;
+    --border2:  #D1D5DB;
+    --text:     #18181B;
+    --muted:    #71717A;
+    --muted2:   #A1A1AA;
+    --sidebar:  #17171A;
+    --orange:   #F04E23;
+    --green:    #16A34A;
+    --green-bg: #F0FDF4;
+    --blue:     #2563EB;
+    --blue-bg:  #EFF6FF;
+    --amber:    #D97706;
+    --amber-bg: #FFFBEB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--sidebar);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #2A2A2D;
+  }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark {
+    width: 28px; height: 28px;
+    background: var(--orange);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; color: white; letter-spacing: -0.5px;
+  }
+  .logo-text { color: #fff; font-size: 14px; font-weight: 600; letter-spacing: -0.2px; }
+  .logo-text span { color: var(--muted2); font-weight: 400; margin-left: 8px; font-size: 12px; white-space: nowrap; }
+
+  nav.topbar-nav { display: flex; align-items: center; gap: 8px; text-align: left; }
+  nav.topbar-nav a {
+    color: var(--muted2);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    text-align: left;
+  }
+  nav.topbar-nav a:hover { color: #fff; border-color: #3A3A3D; }
+  nav.topbar-nav .meta { color: #52525B; font-size: 12px; white-space: nowrap; }
+
+  /* PAGE */
+  .page { max-width: 920px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: 31px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; text-align: left; line-height: 1.2; }
+  .page-header .sub { color: var(--muted); font-size: 18px; text-align: justify; margin-bottom: 16px; }
+  .page-header .meta { color: var(--muted2); font-size: 14px; text-align: left; }
+
+  .lead { font-size: 18px; color: var(--text); margin-bottom: 14px; }
+
+  /* SECTION */
+  .section { margin-top: 44px; }
+  .section-num { font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; text-align: left; }
+  .section h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 16px; text-align: left; }
+  .section h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; text-align: left; }
+  .section p { margin-bottom: 14px; }
+  .section a { color: var(--blue); text-decoration: underline; }
+  strong { font-weight: 700; }
+
+  /* TABLE */
+  .table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; margin: 18px 0; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 520px; font-size: 0.95rem; }
+  thead th {
+    text-align: left; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); padding: 12px 16px; background: #F4F4F5; border-bottom: 1px solid var(--border);
+  }
+  thead th:first-child { border-top-left-radius: 9px; }
+  thead th:last-child { border-top-right-radius: 9px; }
+  tbody tr:nth-child(even) td { background: #FBFBFC; }
+  tbody tr:hover td { background: #F3F4F6; }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; text-align: left; vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; }
+  tbody td:first-child { font-weight: 600; color: var(--text); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
+  tbody tr:last-child td:last-child { border-bottom-right-radius: 9px; }
+  .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .hl-orange { color: var(--orange); font-weight: 700; }
+  .hl-green { color: var(--green); font-weight: 700; }
+  .conf { font-size: 13px; color: var(--muted2); }
+
+  /* CALLOUTS */
+  .callout { border-radius: 8px; padding: 16px 20px; margin: 18px 0; }
+  .callout-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; text-align: left; }
+  .callout p { font-size: 15px; line-height: 1.6; margin-bottom: 8px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.green { background: var(--green-bg); border: 1px solid #BBF7D0; border-left: 4px solid var(--green); }
+  .callout.green .callout-title { color: var(--green); }
+  .callout.green p { color: #14532D; }
+  .callout.amber { background: var(--amber-bg); border: 1px solid #FDE68A; border-left: 4px solid var(--amber); }
+  .callout.amber .callout-title { color: var(--amber); }
+  .callout.amber p { color: #92400E; }
+  .callout.blue { background: var(--blue-bg); border: 1px solid #BFDBFE; border-left: 4px solid var(--blue); }
+  .callout.blue .callout-title { color: var(--blue); }
+  .callout.blue p { color: #1E3A8A; }
+
+  /* SOURCES */
+  .sources { margin-top: 16px; padding: 14px 18px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; }
+  .sources-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 8px; text-align: left; }
+  .sources ul { list-style: none; }
+  .sources li { font-size: 14px; line-height: 1.5; padding: 3px 0 3px 16px; position: relative; text-align: left; color: var(--muted); }
+  .sources li::before { content: "-"; position: absolute; left: 0; color: var(--muted2); }
+  .sources a { color: var(--blue); text-decoration: underline; }
+
+  ul.body-list { margin: 12px 0 14px; padding-left: 20px; }
+  ul.body-list li { margin-bottom: 7px; text-align: left; }
+
+  .footer { border-top: 1px solid var(--border); margin-top: 56px; padding-top: 20px; text-align: center; color: var(--muted2); font-size: 14px; }
+</style>
+<link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+<link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+<link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+</head>
+<body>
+    <script src="_auth.js"></script>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">N</div>
+    <span class="logo-text">NODU Bridge <span>Piackutatás</span></span>
+  </div>
+  <nav class="topbar-nav">
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
+    <span class="meta">v1.0 · 2026-07-01</span>
+  </nav>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Piackutatás</h1>
+    <div class="sub">A lead-generációs kalkulátor konverziós és piacméret-feltételezéseinek független forrásokkal alátámasztott háttere.</div>
+    <div class="meta">2026-07-01 · Belső tervezési dokumentum · poczai@nodu.build</div>
+  </div>
+
+  <p class="lead">A NODU Bridge egy eddig megoldhatatlannak tűnő problémát old meg: a fal, tető, padló és más építőelemek parametrikus átvitelét Archicad és Revit között. Ez a dokumentum három párhuzamos kutatás eredményeit foglalja össze, amelyek a bevételkalkulátor konverziós rátáit és régiós piacméret-feltételezéseit alapozzák meg.</p>
+
+  <p>Egy sales-asszisztált, akut fájdalmat oldó (painkiller) terméknél a független benchmarkok forrásonként erősen szórnak (15–70%), a védhető, konzervatív sáv 30–45%. A kalkulátor ennek alsó végét (30%) használja, mert a painkiller-prémium hipotézis az első fizető kohorszok validációjáig hipotézis marad. A tényleges Archicad↔Revit átfedés piaca <strong>Európában</strong> koncentrálódik, nem az Egyesült Államokban.</p>
+
+  <p>Az alábbi szintézis 2024–2026-os forrásokkal dolgozik. A számszerű állításokat forrással jelöljük, és következetesen elkülönítjük a független benchmarkot a gyártói marketingtől. Ahol nincs megbízható publikus adat, azt kimondjuk. Ez a dokumentum kifejezetten a bevételkalkulátor konverziós és régiós feltételezéseinek bizonyítéknaplója; a teljes piacméret-narratívához (TAM/SAM/SOM, Autodesk-költségstruktúra, USA-pozicionálás) lásd a <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a> dokumentumot.</p>
+
+  <!-- SECTION 01 -->
+  <div class="section">
+    <div class="section-num">01: A probléma</div>
+    <h2>Az interoperabilitási fájdalom valós és számszerűsíthető</h2>
+
+    <p>Az Archicad és a Revit közötti adatcsere ma jellemzően IFC-n keresztül történik. Az IFC statikus geometriát visz át, de elveszíti a parametrikus szerkeszthetőséget, ezért minden tervezési változásnál a fogadó csapatnak újra kell modelleznie vagy jelentősen át kell dolgoznia az elemeket. Ennek a problémának a költsége jól dokumentált iparági szinten.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Mutató</th><th>Érték</th><th>Megbízhatóság</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>USA interoperabilitási veszteség (2004)</td><td class="num">15,8 Mrd USD / év</td><td class="conf">magas (NIST, módszertan közölt)</td></tr>
+          <tr><td>Újramunka aránya a projektköltségben</td><td class="num">5–10%</td><td class="conf">közepes-magas</td></tr>
+          <tr><td>Konverzió utáni kézi tisztítás aránya egy migrációban</td><td class="num">~90%</td><td class="conf">közepes</td></tr>
+          <tr><td>IFC export + import idő (worst-case)</td><td class="num">3–4 h + 4–6 h</td><td class="conf">közepes (fórum-jelentések)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Az IFC oda-vissza konverzió mindkét irányban veszteséges</h3>
+    <p>A falak, födémek és tetők gyakran generikus objektumként vagy In-Place családként érkeznek meg, és eközben elveszítik a parametrikus intelligenciát. A Revit→Archicad utat a hivatalos Graphisoft fórum egyik threadje egyenesen <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed"</a> (alapjaiban hibás) megnevezéssel illeti. Akadémiai elemzések (MDPI, ResearchGate) öt éven át tartó vizsgálatban is megerősítik, hogy az IFC-verziók fejlődése ellenére az adat- és geometriaveszteség tartós marad.</p>
+
+    <h3>A kereslet valós, de kielégítetlen</h3>
+    <p>Nincs gyártói roadmap natív parametrikus Archicad↔Revit átvitelre. A létező részmegoldások (IFC, RFA/RVT geometria-export, Speckle, Rhino.Inside) vagy csak geometriát visznek át, vagy más eszközfilozófiát követnek. A gyakorló mérnökök több éven át, több fórumon (Graphisoft Community, Autodesk Community, OSArch) ismétlik ugyanazt a panaszt.</p>
+
+    <div class="callout amber">
+      <div class="callout-title">Őszinte korlát</div>
+      <p>Nem található publikus, kifejezetten az Archicad↔Revit esetre vonatkozó per-elem vagy per-revízió mérnökóra-szám. Az iparági újramunka-adatok általánosak (minden BIM-interoperabilitás). A saját óra-becslésünk ezért modellezett, nem hivatkozható tény.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">Források</div>
+      <ul>
+        <li><a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867: Cost Analysis of Inadequate Interoperability</a></li>
+        <li><a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">Graphisoft Community: „Revit IFC to Archicad is fundamentally flawed"</a></li>
+        <li><a href="https://bimheroes.com/archicad-to-revit/" target="_blank" rel="noopener">BIM Heroes: Archicad to Revit migrációs útmutató (90% utómunka)</a></li>
+        <li><a href="https://www.mdpi.com/2076-3417/11/23/11430" target="_blank" rel="noopener">MDPI: BIM Interoperability via the IFC Standard (akadémiai)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 02 -->
+  <div class="section">
+    <div class="section-num">02: A piac</div>
+    <h2>A piac súlypontja: Európa, nem Amerika</h2>
+
+    <p>A NODU Bridge célpiaca azoknak a cégeknek a metszete, amelyek mind Archicadet, mind Revitet használnak, vagy a kettő között kénytelenek modellt átadni. A bottom-up becslés régiónként:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Régió</th><th>Aktív mixed-tool cégek</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>USA</td><td class="num">250–560</td></tr>
+          <tr><td>Európa</td><td class="num hl-green">1 900–3 500</td></tr>
+          <tr><td>Ázsia</td><td class="num">170–450</td></tr>
+          <tr><td>Globális aktív</td><td class="num">3 000–5 000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Az ok strukturális. A Revit az USA piacának ~60–65%-át uralja, az Archicad ott csak ~3–8%-ot, így a kettő metszete szűk niche. Az Archicad ezzel szemben európai-natív, és az Open BIM mandátumok (Egyesült Királyság, Németország, skandináv országok) tovább növelik az eszközváltásra kényszerülő cégek számát. A teljes régiónkénti Revit/Archicad szoftverrészesedési tábla (Németország, UK, DACH, Kelet-Közép-Európa, Ausztrália) a <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a> 01. szakaszában található.</p>
+
+    <div class="callout green">
+      <div class="callout-title">Stratégiai következmény</div>
+      <p>A go-to-market elsődleges piaca Európa, nem az USA, ezért a kalkulátor alapértelmezett régiója is Európa. Az amerikai niche kicsi és prémium, a magasabb konverzió mellett 2–3 év alatt telítődik, míg Európa 5–7-szer nagyobb futásteret ad. Egy más módszertanú, független elemzés (lásd Piaci elemzés) is ugyanerre a következtetésre jut: DACH+CEE elsődleges, USA prémium szegmens. Két független becslés ugyanoda jut.</p>
+    </div>
+
+    <h3>Fizetési hajlandóság (WTP) benchmark</h3>
+    <p>Az összehasonlítható eszközkategória (interop, modell-QA, koordináció: BIMcollab, Speckle, Solibri) árazása alátámasztja a jelenlegi €199/Koordinátor/hó Professional pozíciót: ez a commodity BCF/issue-eszközök felett, a prémium modell-ellenőrzők sávjában helyezkedik el. Fontos, hogy a Bridge nem a szerzői szoftvereket (Revit, Archicad) váltja ki - azok ára csak költségvetési kontextus, nem viszonyítási alap. A teljes árazási tábla a <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a> 03. szakaszában található.</p>
+
+    <div class="sources">
+      <div class="sources-title">Források</div>
+      <ul>
+        <li><a href="https://6sense.com/tech/bim-and-architectural-design-software/autodesk-revit-market-share" target="_blank" rel="noopener">6sense: Autodesk Revit piaci részesedés</a></li>
+        <li><a href="https://www.usp-research.com/insights/news/market-overview-of-bim-and-cad-software-usage-of-european-architects/" target="_blank" rel="noopener">USP Research: Európai építészek BIM/CAD szoftverhasználata</a></li>
+        <li><a href="https://ace-cae.eu/publication/ace-2024-sector-study/" target="_blank" rel="noopener">Architects' Council of Europe: 2024 Sector Study</a></li>
+        <li><a href="https://www.aia.org/resource-center/aia-firm-survey-report-2024" target="_blank" rel="noopener">AIA: 2024 Firm Survey Report (USA cégszámok)</a></li>
+        <li><a href="https://www.marketsandmarkets.com/Market-Reports/building-information-modeling-market-95037387.html" target="_blank" rel="noopener">Markets&amp;Markets: BIM szoftverpiac mérete régiónként</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 03 -->
+  <div class="section">
+    <div class="section-num">03: A konverzió</div>
+    <h2>Konverziós benchmarkok sales-asszisztált painkiller termékekre</h2>
+
+    <p>A független 2024–2026-os benchmarkok szerint a konverziós ráta erősen függ a motiontól (az értékesítési mechanizmustól):</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Motion</th><th>Konverzió</th><th>Relevancia a NODU Bridge-re</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tiszta freemium (nyílt végű)</td><td class="num">2–8% (medián ~4,5%)</td><td>az önkiszolgáló konverzió referenciapontja</td></tr>
+          <tr><td>Opt-in trial (kártya nélkül)</td><td class="num">8–14%</td><td>–</td></tr>
+          <tr><td>Opt-out trial (kártya kötelező)</td><td class="num">40–60%</td><td>–</td></tr>
+          <tr><td>Sales-asszisztált trial (GrowthSpree)</td><td class="num hl-orange">35–70% (medián 55%)</td><td>a demó-vezérelt tölcsérünk, de lásd lent: más forrás 28–42%-ot, illetve 15–30%-ot mér</td></tr>
+          <tr><td>Demo-only (enterprise)</td><td class="num">55–75%</td><td>nagyobb Enterprise-ügyletek</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Egy sales-asszisztált, painkiller-jellegű terméknél a védhető demó→ügyfél sáv <strong>~30–45%</strong>: a GrowthSpree 55%-os mediánja a legoptimistább forrásból származik, más benchmarkok (ADV.me 28–42%, egyéb 15–30%) lényegesen alacsonyabbak; a szórás a „sales-asszisztált" eltérő definícióiból fakad. A kalkulátor a 30%-ot használja alapértelmezettként (a sáv konzervatív vége), a felső tartomány (45%-ig) csúszkával elérhető.</p>
+
+    <h3>Painkiller vs. vitamin: a szorzó realitása</h3>
+    <p>A „painkiller" (akut fájdalmat oldó) termékek konverziója jellemzően magasabb, mint a „vitaminoké" (jó, de nem sürgető). A mobilalkalmazás-piacon ez a különbség akár 9-szeres is lehet (37% vs. 4%), de ez mobilapp-adat. <strong>B2B-ben a reális szorzó 3–5×</strong>, mert az értékesítési ciklus és a több döntéshozó kiegyenlíti a különbséget. A szűk vertikumú (niche ICP) szoftverek a generikus átlag 2–3-szorosát hozzák, és jobban megtartják az ügyfeleket (91% vs. 78–85% bruttó retenció).</p>
+
+    <div class="callout amber">
+      <div class="callout-title">Kaveát</div>
+      <p>A „painkiller" besorolás egyelőre hipotézis: attól, hogy mi annak látjuk, a felhasználó még nem feltétlenül így éli meg. Validáció: az első kohorszok aktiválási sebessége, a trial→fizető arány és az árérzékenység. Emellett nincs publikus konverziós adat kifejezetten a Revit/Archicad plugin-ökoszisztémára, így a számunk modellezett, forrásolt becslés.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">Források</div>
+      <ul>
+        <li><a href="https://adv.me/articles/conversion-optimization/saas-free-trial-conversion-rate-benchmarks-2025/" target="_blank" rel="noopener">ADV.me 2025: SaaS free trial konverziós benchmarkok</a></li>
+        <li><a href="https://www.growthspreeofficial.com/blogs/b2b-saas-trial-to-paid-conversion-rate-benchmarks-2026-by-trial-type-acv-length-credit-card" target="_blank" rel="noopener">GrowthSpree 2026: Trial-to-paid benchmarkok motion és ACV szerint</a></li>
+        <li><a href="https://www.1capture.io/blog/free-trial-conversion-benchmarks-2025" target="_blank" rel="noopener">1Capture: Free-to-paid benchmarkok (10 000+ SaaS cég)</a></li>
+        <li><a href="https://www.airbridge.io/en/blog/painkiller-vs-vitamin-app-pricing" target="_blank" rel="noopener">Airbridge: Painkiller vs Vitamin konverzió</a></li>
+        <li><a href="https://www.saasmag.com/vertical-saas-niche-beats-horizontal-2026/" target="_blank" rel="noopener">SaaS Magazine: Vertical SaaS retenció és konverzió</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 04 -->
+  <div class="section">
+    <div class="section-num">04: A kalkulátor kalibrációja</div>
+    <h2>A kalkulátor konverziós és piaci kalibrációja</h2>
+
+    <ul class="body-list">
+      <li><strong>Önkiszolgáló konverzió:</strong> 8% alapértelmezett a Professional/Studio ügyfelekre, sales-közreműködés nélkül; ez az 5–8%-os Free→Paid benchmark felső határa (a legjobb vertikális SaaS-benchmarkok plafonja is csak 5–6% körül van).</li>
+      <li><strong>Sales-asszisztált demó→ügyfél arány:</strong> 30% alapértelmezett, kizárólag az Enterprise-jelölt leadekre (a sales-asszisztált painkiller sáv konzervatív vége); a 45%-ig terjedő felső tartomány csúszkával elérhető (a GrowthSpree-forrás magasabb, 55–70%-os számai a legoptimistább becslésből származnak, más források ennél lényegesen alacsonyabbak).</li>
+      <li><strong>Régiós fókusz:</strong> Európa az elsődleges piac (1 900–3 500 aktív mixed-tool cég), az USA (250–560) és Ázsia (170–450) kisebb, gyorsan telítődő niche.</li>
+      <li><strong>Csatorna-megoszlás:</strong> a leadek túlnyomó része (jellemzően ~90%) önállóan konvertál, csak az Enterprise-jelölt szelet (~8–10%) megy sales-asszisztált demó-tölcsérbe, amit egyetlen sales munkatárs kapacitása (~40 lead/hó) bőven fedez.</li>
+    </ul>
+
+    <div class="callout blue">
+      <div class="callout-title">A reális kép</div>
+      <p>A havi forgalmat két, egymástól független csatorna adja: az önkiszolgáló Professional/Studio konverzió (a volumen nagy része, sales nélkül) és a sales-asszisztált Enterprise-tölcsér (kis volumen, magasabb egyedi érték). A növekedés fő hajtóereje az önkiszolgáló konverziós ráta és a lead-volumen, nem a sales-kapacitás. Ez egy modellezett projekció, amit az első fizető kohorszok valós adatai pontosítanak.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 05 -->
+  <div class="section">
+    <div class="section-num">05: Korlátok</div>
+    <h2>Őszinte adathiányok és a következő validációs lépések</h2>
+
+    <p>A konzervatív hangnem megtartása érdekében kimondjuk, mit nem tudunk megbízhatóan:</p>
+    <ul class="body-list">
+      <li>Nincs publikus per-elem vagy per-revízió mérnökóra-szám az Archicad↔Revit esetre: a fájdalom iránya bizonyított, a pontos óraszám modellezett.</li>
+      <li>Nincs nyilvános konverziós adat a Revit/Archicad plugin-piacra: a 30% becslés analóg (sales-asszisztált vertical SaaS) benchmarkokon nyugszik.</li>
+      <li>A regionális CPL- és konferencia-paraméterek modellezett feltételezések; a kutatás nem adott hard regionális CPL-t.</li>
+      <li>A „painkiller" besorolás hipotézis a validációig.</li>
+    </ul>
+
+    <div class="callout green">
+      <div class="callout-title">Mit kell validálni az első 2–3 hónap után</div>
+      <p>Tényleges lead-szám csatornánként és régiónként; a lead→demó és demó→ügyfél arány a valós kohorszokon; az aktiválási sebesség (mennyi idő alatt jut el a felhasználó az első sikeres parametrikus átvitelig); valamint az árérzékenység. Ezek mentén a kalkulátor feltételezései pontosíthatók.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    NODU Bridge Piackutatás v1.0 &nbsp;·&nbsp; 2026-07-01 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; A számszerű állítások független 2024–2026-os forrásokon alapulnak &nbsp;·&nbsp; poczai@nodu.build
+  </div>
+
+</div>
+
+<script src="../assets/js/nodu-tokens.js"></script>
+</body>
+</html>
