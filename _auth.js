@@ -1,26 +1,31 @@
-// NODU Bridge Authentication Check
+// NODU Bridge Authentication Check - Strong Protection
 (function() {
     const SESSION_KEY = 'nodu_bridge_auth';
     const LOGIN_PAGE = 'index.html';
     const CURRENT_PAGE = window.location.pathname.split('/').pop() || 'index.html';
 
-    // Don't redirect from login page
+    // Don't block login page or root
     if (CURRENT_PAGE === LOGIN_PAGE || CURRENT_PAGE === '') {
         return;
     }
 
-    // Check authentication on page load
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', checkAuth);
-    } else {
-        checkAuth();
+    // Immediate check - block page load if not authenticated
+    if (!isAuthenticated()) {
+        // Block content immediately
+        document.documentElement.innerHTML = '';
+        // Redirect to login
+        window.location.href = LOGIN_PAGE;
+        return;
     }
 
-    function checkAuth() {
-        if (!isAuthenticated()) {
-            window.location.href = LOGIN_PAGE;
+    // Also check on page visibility change (tab focus)
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+            if (!isAuthenticated()) {
+                window.location.href = LOGIN_PAGE;
+            }
         }
-    }
+    });
 
     function isAuthenticated() {
         return sessionStorage.getItem(SESSION_KEY) === 'authenticated';
