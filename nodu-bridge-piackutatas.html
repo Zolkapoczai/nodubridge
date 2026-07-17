@@ -108,7 +108,7 @@
   thead th:last-child { border-top-right-radius: 9px; }
   tbody tr:nth-child(even) td { background: #FBFBFC; }
   tbody tr:hover td { background: #F3F4F6; }
-  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; text-align: left; vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; text-align: left; vertical-align: top; line-height: 1.55; font-variant-numeric: tabular-nums; hyphens: none; -webkit-hyphens: none; }
   tbody td:first-child { font-weight: 600; color: var(--text); }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:last-child td:first-child { border-bottom-left-radius: 9px; }
@@ -167,7 +167,7 @@
     <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
     <a href="nodu-bridge-roadmap.html">Roadmap</a>
     <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
-    <span class="meta">v1.0 · 2026-07-01</span>
+    <span class="meta">v1.1 · frissítve 2026-07-17</span>
   </nav>
 </div>
 
@@ -177,7 +177,7 @@
   <div class="page-header">
     <h1>Piackutatás</h1>
     <div class="sub">A lead-generációs kalkulátor konverziós és piacméret-feltételezéseinek független forrásokkal alátámasztott háttere.</div>
-    <div class="meta">2026-07-01 · Belső tervezési dokumentum · poczai@nodu.build</div>
+    <div class="meta">2026-07-01 · frissítve 2026-07-17 · Belső tervezési dokumentum · poczai@nodu.build</div>
   </div>
 
   <p class="lead">A NODU Bridge egy eddig megoldhatatlannak tűnő problémát old meg: a fal, tető, padló és más építőelemek parametrikus átvitelét Archicadből Revitbe. Ez a dokumentum három párhuzamos kutatás eredményeit foglalja össze, amelyek a bevételkalkulátor konverziós rátáit és régiós piacméret-feltételezéseit alapozzák meg.</p>
@@ -208,7 +208,7 @@
     </div>
 
     <h3>Az IFC oda-vissza konverzió mindkét irányban veszteséges</h3>
-    <p>A falak, födémek és tetők gyakran generikus objektumként vagy In-Place családként érkeznek meg, és eközben elveszítik a parametrikus intelligenciát. A Revit→Archicad utat a hivatalos Graphisoft fórum egyik threadje egyenesen <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed"</a> (alapjaiban hibás) megnevezéssel illeti. Akadémiai elemzések (MDPI, ResearchGate) öt éven át tartó vizsgálatban is megerősítik, hogy az IFC-verziók fejlődése ellenére az adat- és geometriaveszteség tartós marad.</p>
+    <p>A falak, födémek és tetők gyakran generikus objektumként vagy In-Place családként érkeznek meg, és eközben elveszítik a parametrikus intelligenciát. A Revit→Archicad utat a hivatalos Graphisoft fórum egyik threadje egyenesen <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed”</a> (alapjaiban hibás) megnevezéssel illeti. Akadémiai elemzések (MDPI, ResearchGate) öt éven át tartó vizsgálatban is megerősítik, hogy az IFC-verziók fejlődése ellenére az adat- és geometriaveszteség tartós marad.</p>
 
     <h3>A kereslet valós, de kielégítetlen</h3>
     <p>Nincs gyártói roadmap natív parametrikus Archicad↔Revit átvitelre. A létező részmegoldások (IFC, RFA/RVT geometria-export, Speckle, Rhino.Inside) vagy csak geometriát visznek át, vagy más eszközfilozófiát követnek. A gyakorló mérnökök több éven át, több fórumon (Graphisoft Community, Autodesk Community, OSArch) ismétlik ugyanazt a panaszt.</p>
@@ -222,7 +222,7 @@
       <div class="sources-title">Források</div>
       <ul>
         <li><a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867: Cost Analysis of Inadequate Interoperability</a></li>
-        <li><a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">Graphisoft Community: „Revit IFC to Archicad is fundamentally flawed"</a></li>
+        <li><a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">Graphisoft Community: „Revit IFC to Archicad is fundamentally flawed”</a></li>
         <li><a href="https://bimheroes.com/archicad-to-revit/" target="_blank" rel="noopener">BIM Heroes: Archicad to Revit migrációs útmutató (90% utómunka)</a></li>
         <li><a href="https://www.mdpi.com/2076-3417/11/23/11430" target="_blank" rel="noopener">MDPI: BIM Interoperability via the IFC Standard (akadémiai)</a></li>
       </ul>
@@ -294,14 +294,14 @@
       </table>
     </div>
 
-    <p>Egy sales-asszisztált, painkiller-jellegű terméknél a védhető demó→ügyfél sáv <strong>~30–45%</strong>: a GrowthSpree 55%-os mediánja a legoptimistább forrásból származik, más benchmarkok (ADV.me 28–42%, egyéb 15–30%) lényegesen alacsonyabbak; a szórás a „sales-asszisztált" eltérő definícióiból fakad. A kalkulátor a 30%-ot használja alapértelmezettként (a sáv konzervatív vége), a felső tartomány (45%-ig) csúszkával elérhető.</p>
+    <p>Egy sales-asszisztált, painkiller-jellegű terméknél a védhető demó→ügyfél sáv <strong>~30–45%</strong>: a GrowthSpree 55%-os mediánja a legoptimistább forrásból származik, más benchmarkok (ADV.me 28–42%, egyéb 15–30%) lényegesen alacsonyabbak; a szórás a „sales-asszisztált” eltérő definícióiból fakad. A kalkulátor a 30%-ot használja alapértelmezettként (a sáv konzervatív vége), a felső tartomány (45%-ig) csúszkával elérhető.</p>
 
     <h3>Painkiller vs. vitamin: a szorzó realitása</h3>
-    <p>A „painkiller" (akut fájdalmat oldó) termékek konverziója jellemzően magasabb, mint a „vitaminoké" (jó, de nem sürgető). A mobilalkalmazás-piacon ez a különbség akár 9-szeres is lehet (37% vs. 4%), de ez mobilapp-adat. <strong>B2B-ben a reális szorzó 3–5×</strong>, mert az értékesítési ciklus és a több döntéshozó kiegyenlíti a különbséget. A szűk vertikumú (niche ICP) szoftverek a generikus átlag 2–3-szorosát hozzák, és jobban megtartják az ügyfeleket (91% vs. 78–85% bruttó retenció).</p>
+    <p>A „painkiller” (akut fájdalmat oldó) termékek konverziója jellemzően magasabb, mint a „vitaminoké” (jó, de nem sürgető). A mobilalkalmazás-piacon ez a különbség akár 9-szeres is lehet (37% vs. 4%), de ez mobilapp-adat. <strong>B2B-ben a reális szorzó 3–5×</strong>, mert az értékesítési ciklus és a több döntéshozó kiegyenlíti a különbséget. A szűk vertikumú (niche ICP) szoftverek a generikus átlag 2–3-szorosát hozzák, és jobban megtartják az ügyfeleket (91% vs. 78–85% bruttó retenció).</p>
 
     <div class="callout amber">
       <div class="callout-title">Kaveát</div>
-      <p>A „painkiller" besorolás egyelőre hipotézis: attól, hogy mi annak látjuk, a felhasználó még nem feltétlenül így éli meg. Validáció: az első kohorszok aktiválási sebessége, a trial→fizető arány és az árérzékenység. Emellett nincs publikus konverziós adat kifejezetten a Revit/Archicad plugin-ökoszisztémára, így a számunk modellezett, forrásolt becslés.</p>
+      <p>A „painkiller” besorolás egyelőre hipotézis: attól, hogy mi annak látjuk, a felhasználó még nem feltétlenül így éli meg. Validáció: az első kohorszok aktiválási sebessége, a trial→fizető arány és az árérzékenység. Emellett nincs publikus konverziós adat kifejezetten a Revit/Archicad plugin-ökoszisztémára, így a számunk modellezett, forrásolt becslés.</p>
     </div>
 
     <div class="sources">
@@ -344,7 +344,7 @@
       <li>Nincs publikus per-elem vagy per-revízió mérnökóra-szám az Archicad↔Revit esetre: a fájdalom iránya bizonyított, a pontos óraszám modellezett.</li>
       <li>Nincs nyilvános konverziós adat a Revit/Archicad plugin-piacra: a 30% becslés analóg (sales-asszisztált vertical SaaS) benchmarkokon nyugszik.</li>
       <li>A regionális CPL- és konferencia-paraméterek modellezett feltételezések; a kutatás nem adott hard regionális CPL-t.</li>
-      <li>A „painkiller" besorolás hipotézis a validációig.</li>
+      <li>A „painkiller” besorolás hipotézis a validációig.</li>
     </ul>
 
     <div class="callout green">
@@ -354,7 +354,7 @@
   </div>
 
   <div class="footer">
-    NODU Bridge Piackutatás v1.0 &nbsp;·&nbsp; 2026-07-01 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; A számszerű állítások független 2024–2026-os forrásokon alapulnak &nbsp;·&nbsp; poczai@nodu.build
+    NODU Bridge Piackutatás v1.1 &nbsp;·&nbsp; 2026-07-01 &nbsp;·&nbsp; frissítve 2026-07-17 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; A számszerű állítások független 2024–2026-os forrásokon alapulnak &nbsp;·&nbsp; poczai@nodu.build
   </div>
 
 </div>

@@ -306,7 +306,7 @@
     background: #F4F4F5;
     border-bottom: 1px solid var(--border);
   }
-  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 16px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 16px; line-height: 1.5; font-variant-numeric: tabular-nums; text-align: left; hyphens: none; -webkit-hyphens: none; }
   tbody td:first-child { font-weight: 600; }
   tbody tr:nth-child(even) td { background: #FBFBFC; }
   tbody tr:last-child td { border-bottom: none; }
@@ -485,7 +485,7 @@
     <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
     <a href="nodu-bridge-roadmap.html">Roadmap</a>
     <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
-    <span class="topbar-meta">v1.5 · 2026-07-06</span>
+    <span class="topbar-meta">v1.6 · 2026-07-17</span>
   </nav>
 </div>
 
@@ -505,7 +505,7 @@
 
   <div class="callout-green" style="margin-top: 0; margin-bottom: 24px;">
     <div class="callout-green-title">2026-07-02 végleges irány: szerepkör + kapacitás tengely</div>
-    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az "aktív kapcsolat" önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. A Bridge launch-kori fő funkciója a <strong>parametrikus Archicad→Revit konverzió saját mapping sablonokkal</strong> (script engine): a konverzió nem statikus geometriát, hanem parametrikus logikát visz át. Az élő szinkron és a delta fel-/letöltés a v2-ben (2026. december 15.) érkezik.</p>
+    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az „aktív kapcsolat” önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. A Bridge launch-kori fő funkciója a <strong>parametrikus Archicad→Revit konverzió saját mapping sablonokkal</strong> (script engine): a konverzió nem statikus geometriát, hanem parametrikus logikát visz át. Az élő szinkron és a delta fel-/letöltés a v2-ben (2026. december 15.) érkezik.</p>
     <p>Helyette két, egymástól független, <strong>lokálisan kikényszeríthető</strong> tengely váltja fel: (1) <strong>szerepkör-tengely</strong>: Koordinátor (fizetős, sablon-alkotó) és User (ingyenes, de Koordinátor-számhoz kötött, limitált keretű), és (2) <strong>kapacitás-tengely</strong>: hány aktív projekt futhat egyidejűleg. Mindkettő a szoftver saját, amúgy is szükséges állapotából mérhető, nem igényel külön nyilvántartást vagy viselkedésmegfigyelést. A projektméret-limit ezektől elkülönülő, tisztán fair-use védelmi korlát marad.</p>
   </div>
 
@@ -623,25 +623,25 @@
         <div class="pw-from-to">Community → Professional</div>
         <div class="pw-title">A sablon mentési korlát + korlátozott konverziós keret</div>
         <div class="pw-desc">Az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 konverziós kerete van. A következő projekten újra kellene felépítenie a leképezést. Ez az a fájdalompont, ami fizetővé tesz: a saját sablon idő-megtakarítás, a korlátlan konverzió pedig a napi munkafolyamat alapja.</div>
-        <div class="pw-trigger">"Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval."</div>
+        <div class="pw-trigger">„Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval.”</div>
       </div>
       <div class="paywall-item green-wall">
         <div class="pw-from-to">Professional → Studio</div>
         <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit</div>
         <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade három helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak. A trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés.</div>
-        <div class="pw-trigger green">"2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt"</div>
+        <div class="pw-trigger green">„2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt”</div>
       </div>
       <div class="paywall-item purple-wall">
         <div class="pw-from-to">Studio → Enterprise</div>
         <div class="pw-title">Adatszuverenitás · compliance</div>
         <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez a paywall a tier megnyílásától (terv: 2027 eleje) él. Addig az ilyen igényű irodák egyedi ajánlatot kapnak.</div>
-        <div class="pw-trigger purple">"A projektek nem hagyhatják el a vállalati infrastruktúrát"</div>
+        <div class="pw-trigger purple">„A projektek nem hagyhatják el a vállalati infrastruktúrát”</div>
       </div>
       <div class="paywall-item amber-wall">
         <div class="pw-from-to">Enterprise → Platform Core</div>
         <div class="pw-title">BIG graph + gyártás szinkron</div>
         <div class="pw-desc">A majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok a Build-fázisokkal elérhetővé válnak. A mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést.</div>
-        <div class="pw-trigger amber">"Integráljuk a gyártástervező rendszerrel"</div>
+        <div class="pw-trigger amber">„Integráljuk a gyártástervező rendszerrel”</div>
       </div>
     </div>
   </div>
@@ -916,7 +916,7 @@
             <span class="val-badge" id="demoToClosePctVal">30%</span>
           </div>
           <input type="range" class="neutral" id="demoToClosePct" min="5" max="60" value="30" step="1" oninput="updateSlider(this,'neutral'); calc()">
-          <div class="input-hint">Kizárólag az Enterprise-jelölt leadekre vonatkozik. Sales-asszisztált painkiller motion: a független benchmarkok forrásonként 15-70% között szórnak (a korábban idézett "35-55%, medián 55%" a legoptimistább forrásból származott, méghozzá hibásan hivatkozva); konzervatív, védhető sáv 30–45%, a 30% ennek alsó, óvatos bázisa. Lásd a Kutatási alap szakaszt.</div>
+          <div class="input-hint">Kizárólag az Enterprise-jelölt leadekre vonatkozik. Sales-asszisztált painkiller motion: a független benchmarkok forrásonként 15-70% között szórnak (a korábban idézett „35-55%, medián 55%” a legoptimistább forrásból származott, méghozzá hibásan hivatkozva); konzervatív, védhető sáv 30–45%, a 30% ennek alsó, óvatos bázisa. Lásd a Kutatási alap szakaszt.</div>
         </div>
       </div>
 
@@ -1005,8 +1005,8 @@
       <div class="research-box-title">Kutatási alap és források</div>
       <p>A fenti konverziós és piaci feltételezések 2024–2026-os független kutatáson alapulnak. A konverziónál a védhető, konzervatív sávvéget vettük: a painkiller-prémium hipotézis marad, amíg az első fizető kohorszok nem igazolják.</p>
       <ul>
-        <li>Az interoperabilitás kemény költsége: <strong>15,8 Mrd USD/év</strong> az USA-ban (<a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867</a>, 2004-es tanulmány, 2002-es árakon, jelezve, hogy a szám elavult; frissebb, tágabb hatókörű becslés: az Autodesk-FMI 2021-es riportja 1,85 billió USD globális kárt említ "rossz adatból", ebből 88,7 Mrd USD rework); az újramunka a projektköltség <strong>5–10%-a</strong> az iparágban (konzervatív, a közvetett költségekkel együtt akár 10-25% is dokumentált).</li>
-        <li>Az IFC oda-vissza konverzió mindkét irányban elveszti a parametrikus adatot; a Revit→Archicad út hivatalos fórumon is <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed"</a>, és nincs gyártói roadmap natív parametrikus átvitelre: a fájdalom valós, a megoldás kielégítetlen.</li>
+        <li>Az interoperabilitás kemény költsége: <strong>15,8 Mrd USD/év</strong> az USA-ban (<a href="https://nvlpubs.nist.gov/nistpubs/gcr/2004/nist.gcr.04-867.pdf" target="_blank" rel="noopener">NIST GCR 04-867</a>, 2004-es tanulmány, 2002-es árakon, jelezve, hogy a szám elavult; frissebb, tágabb hatókörű becslés: az Autodesk-FMI 2021-es riportja 1,85 billió USD globális kárt említ „rossz adatból”, ebből 88,7 Mrd USD rework); az újramunka a projektköltség <strong>5–10%-a</strong> az iparágban (konzervatív, a közvetett költségekkel együtt akár 10-25% is dokumentált).</li>
+        <li>Az IFC oda-vissza konverzió mindkét irányban elveszti a parametrikus adatot; a Revit→Archicad út hivatalos fórumon is <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed”</a>, és nincs gyártói roadmap natív parametrikus átvitelre: a fájdalom valós, a megoldás kielégítetlen.</li>
         <li>Sales-assisted painkiller motion konverziója forrásonként nagyon szór (<strong>15–70%</strong>): a GrowthSpree 55%-os mediánt közöl (sáv 35-70%), az ADV.me viszont csak 28-42%-ot mér, más források 15-30%-ot; a szórás a "sales-asszisztált" eltérő definícióiból fakad. Konzervatív, védhető tervezési sáv: <strong>30–45%</strong> (<a href="https://adv.me/articles/conversion-optimization/saas-free-trial-conversion-rate-benchmarks-2025/" target="_blank" rel="noopener">ADV.me 2025</a>, <a href="https://www.growthspreeofficial.com/blogs/b2b-saas-trial-to-paid-conversion-rate-benchmarks-2026-by-trial-type-acv-length-credit-card" target="_blank" rel="noopener">GrowthSpree 2026</a>).</li>
         <li>A tényleges Archicad↔Revit átfedés Európában a legnagyobb (~1 900–3 500 cég), nem az USA-ban (~250–560): Archicad-natív piac és Open BIM mandátumok (<a href="https://6sense.com/tech/bim-and-architectural-design-software/autodesk-revit-market-share" target="_blank" rel="noopener">6sense</a>, <a href="https://www.usp-research.com/insights/news/market-overview-of-bim-and-cad-software-usage-of-european-architects/" target="_blank" rel="noopener">USP Research</a>, <a href="https://ace-cae.eu/publication/ace-2024-sector-study/" target="_blank" rel="noopener">ACE 2024</a>).</li>
       </ul>
@@ -1025,8 +1025,8 @@
     <div class="sim-intro">A tervezés jelen szakaszában kizárólag a bevétel-oldal és a havi marketing büdzsé releváns, a csapat- és fix költségek egyelőre nem részei a modellnek. A szimuláció a fenti ügyfélszámokat veszi kiindulópontnak, és havi bontásban vetíti előre a bevétel (MRR) alakulását, figyelembe véve a marketingköltségből finanszírozott új ügyfélszerzést, az organikus növekedést, a lemorzsolódást (churn) és a Professional → Studio upgrade-mozgást (az egyszerűsített modell átlagosan 3 Professional Koordinátorból számol 1 Studio csapatot az upgrade pillanatában). A szimuláció 1. hónapja a GA hónapja (2026. szeptember), bevétel azonban csak a fizetés indulásától képződik: az addig felépülő bázis ingyenes felhasználókból áll.</div>
 
     <div class="callout-amber" style="margin-top: 16px; margin-bottom: 20px;">
-      <div class="callout-amber-title">Módosítás (2026-07-06): a bevétel-idővonal a fizetési rendszer érkezéséhez igazítva</div>
-      <p>A fejlesztői roadmap a fizetési rendszert a <code>nodu.bridge v2</code>-be sorolja, vagyis a szeptemberi GA-nál bevétel technikailag nem képződhet: a korábbi, GA-tól bevételt számoló idővonal ezt nem tükrözte. A szimuláció mostantól a "Fizetés indulása" csúszkával kezeli ezt: az addig tartó ingyenes időszak tudatos felhasználószerzési szakasz (ez a launch-stratégia része, nem kényszerű mellékhatás), a fizetés élesítésekor pedig az ingyenes bázisnak csak egy becsült része vált fizetőre. A fizetés korábbra hozása belső cél, de a tervezési alap a v2-es érkezés (2026. november); a csúszkával a korábbi vagy későbbi élesítés hatása is tesztelhető.</p>
+      <div class="callout-amber-title">Megerősítve (2026-07-16): a Stripe fizetési rendszer már a Release v1-ben (GA) elérhető</div>
+      <p>A fejlesztői roadmap a Stripe fizetési integrációt a Release v1-be (GA, 2026-09-15) sorolja, tehát a számlázási képesség már a launch pillanatától adott, nem a v2-től. A szimuláció ennek ellenére megőrzi a „Fizetés indulása” csúszkát: az esetleges kezdeti ingyenes időszak nem technikai korlát, hanem tudatos, tesztelhető felhasználószerzési stratégia (ez a launch-stratégia része, nem kényszerű mellékhatás), a fizetés élesítésekor pedig az addig felépült ingyenes bázisnak csak egy becsült része vált fizetőre. A csúszkával az azonnali (1. hótól induló) és a késleltetett élesítés hatása egyaránt tesztelhető.</p>
     </div>
 
     <div class="scenario-bar">
@@ -1059,7 +1059,7 @@
             <span class="val-badge" id="payStartMonthVal">3. hó</span>
           </div>
           <input type="range" class="neutral" id="payStartMonth" min="1" max="12" value="3" step="1" oninput="updateSlider(this,'neutral'); calc()">
-          <div class="input-hint">A fejlesztői roadmap a fizetési rendszert a v2-be sorolja (terv: 2026. november = a szimuláció 3. hónapja). A GA-nál nincs számlázási képesség. Az indulási ingyenes időszak emellett tudatos felhasználószerzési szakasz. A korábbra hozás belső cél; a csúszkával tesztelhető a hatása.</div>
+          <div class="input-hint">A Stripe fizetési rendszer már a Release v1-ben (GA, 2026-09-15) elérhető, a számlázás technikailag az 1. hónaptól indulhatna. A csúszka alapértéke egy illusztratív, tesztelhető felhasználószerzési késleltetést mutat, nem technikai korlátot; a csúszkával mind az azonnali, mind a késleltetett élesítés hatása tesztelhető.</div>
         </div>
 
         <div class="input-group">
@@ -1284,7 +1284,7 @@
 
     <div class="callout-amber">
       <div class="callout-amber-title">Miért nem a Partnerhálózat-modell, és mi maradt nyitva</div>
-      <p>2026-07-02: a Partnerhálózat-modellt (aktív adatcsere-kapcsolatok száma) elvetettük, mert az "aktív kapcsolat" fogalma önbevallással nem tartható fenn megbízhatóan, telemetria-alapú kikényszerítése pedig irreális a mai desktop-plugin scope-ban. A szerepkör- és kapacitás-tengely ugyanazt a célt szolgálja (árazás a tényleges használathoz kötve, miközben a teljes iroda hozzáférhet), de mindkettő a sync-motor saját, amúgy is szükséges állapotából mérhető.</p>
+      <p>2026-07-02: a Partnerhálózat-modellt (aktív adatcsere-kapcsolatok száma) elvetettük, mert az „aktív kapcsolat” fogalma önbevallással nem tartható fenn megbízhatóan, telemetria-alapú kikényszerítése pedig irreális a mai desktop-plugin scope-ban. A szerepkör- és kapacitás-tengely ugyanazt a célt szolgálja (árazás a tényleges használathoz kötve, miközben a teljes iroda hozzáférhet), de mindkettő a sync-motor saját, amúgy is szükséges állapotából mérhető.</p>
       <p>Nyitva maradt, az első fizető ügyfelek adatai alapján kalibrálandó: a fenti táblázat számai (Koordinátor/User arány, aktív projekt-limitek) illusztratív kiindulópontok, nem véglegesek; a 60 napos dormancy-időablak szintén finomítható a tényleges projektritmus ismeretében. A projektméret-limit logikája (fair-use, throttling, nem value-capture) változatlan marad, és továbbra sem keveredik a fenti két tengellyel.</p>
     </div>
   </div>
@@ -1305,7 +1305,7 @@
       <div class="decision-item">
         <div class="decision-item-label">Free tier kalibrálás (LEZÁRVA 2026-07-06)</div>
         <h4>Havonta 2 teljes modelles konverzió, elemszám-korlát helyett</h4>
-        <p>A korábbi 500 elemes korlátot a 2026-07-06-i szakértői felülvizsgálat nagyságrenddel alacsonynak találta: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, tehát az 500 elem valójában részmodell-demó volt, nem "pilot homlokzati projekt". Az új szabály gyakoriság-alapú: teljes modell, elemszám-korlát nélkül, havonta 2 alkalommal. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás, fájdalom-intenzitás szerinti rétegzés) számára ad teljes értékű, ingyenes kiszolgálást, így a Community tier végre betölti deklarált szerepét (valódi érték, virális belépő), miközben aki gyakrabban cserélne, az definíció szerint a B/A rétegbe, tehát a fizetős tierekbe tartozik. A differenciátor (saját sablon, élő szinkron) változatlanul fizetős marad.</p>
+        <p>A korábbi 500 elemes korlátot a 2026-07-06-i szakértői felülvizsgálat nagyságrenddel alacsonynak találta: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, tehát az 500 elem valójában részmodell-demó volt, nem „pilot homlokzati projekt”. Az új szabály gyakoriság-alapú: teljes modell, elemszám-korlát nélkül, havonta 2 alkalommal. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás, fájdalom-intenzitás szerinti rétegzés) számára ad teljes értékű, ingyenes kiszolgálást, így a Community tier végre betölti deklarált szerepét (valódi érték, virális belépő), miközben aki gyakrabban cserélne, az definíció szerint a B/A rétegbe, tehát a fizetős tierekbe tartozik. A differenciátor (saját sablon, élő szinkron) változatlanul fizetős marad.</p>
       </div>
       <div class="decision-item">
         <div class="decision-item-label">Professional ár</div>
@@ -1336,7 +1336,7 @@
   </div>
 
   <div class="footer">
-    NODU Bridge Licencmodell v1.5 &nbsp;·&nbsp; 2026-07-06 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; poczai@nodu.build
+    NODU Bridge Licencmodell v1.6 &nbsp;·&nbsp; 2026-07-17 &nbsp;·&nbsp; Belső tervezési dokumentum &nbsp;·&nbsp; poczai@nodu.build
   </div>
 
 </div>
@@ -1563,7 +1563,8 @@
     const entStartMonth = Math.max(1, Math.round(+document.getElementById('entStartMonth').value || 1));
     document.getElementById('entStartMonthVal').textContent = entStartMonth + '. hó (' + simMonthLabel(entStartMonth) + ')';
 
-    // A fizetési rendszer a payStartMonth hónapban élesedik (fejlesztői roadmap: v2 = 3. hó, 2026. november).
+    // A fizetési rendszer (Stripe) a Release v1-ben (GA, 2026-09-15) már elérhető; a payStartMonth csúszka
+    // egy illusztratív, tesztelhető felhasználószerzési késleltetést modellez, nem technikai korlátot.
     // Előtte a pro/studio számok INGYENES aktív felhasználókat jelentenek, bevétel nem képződik;
     // az élesítéskor az ingyenes bázisnak csak freeConvPct hányada vált fizetőre.
     const payStartMonth = Math.max(1, Math.round(+document.getElementById('payStartMonth').value || 1));
