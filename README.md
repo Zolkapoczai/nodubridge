@@ -20,9 +20,9 @@ Ez a repository a NODU Bridge projekt tartalmi oldalait és dokumentációját t
 - **nodu-bridge-lead-gen.html** — Lead generation oldal
 - **bridge-waitlist.html** — Waitlist oldal
 
-## GitHub Pages
+## Hozzáférés
 
-A projekt GitHub Pages segítségével érhető el [nodubridge.zolkapoczai.com](https://zolkapoczai.github.io/nodubridge)-en.
+A repo priváttá téve (2026-07-27) — a korábbi GitHub Pages-link nem érhető el. Publikus hosztolás (Pages) csak jelszó-védelem felülvizsgálata után jöhet szóba.
 
 ## Licenc
 
