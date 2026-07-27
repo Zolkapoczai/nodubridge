@@ -316,7 +316,7 @@
     <div class="hero-meta">
       <div class="hero-meta-item">
         <strong>Státusz</strong>
-        <span>Éles üzemben: 8 aktív forrás, AI-osztályozás fut</span>
+        <span>Éles üzemben: 8 aktív forrás, AI-osztályozás és Slack-riasztás fut</span>
       </div>
       <div class="hero-meta-item">
         <strong>Felelős</strong>
@@ -332,7 +332,7 @@
       </div>
       <div class="hero-meta-item">
         <strong>Dokumentum dátuma</strong>
-        <span>2026. június 30. · frissítve 2026-07-27</span>
+        <span>2026. június 30. · frissítve 2026-07-27 (Slack-riasztási lánc élesítve)</span>
       </div>
     </div>
   </div>
@@ -369,9 +369,9 @@
       </div>
     </div>
 
-    <div class="callout">
-      <div class="callout-label">Egyetlen szűk keresztmetszet a láncban</div>
-      <p>A begyűjtés, az AI-osztályozás és a válaszjavaslat-generálás éles üzemben fut, de <strong>riasztási csatorna még nincs bekötve</strong> (sem Slack-webhook, sem e-mail): a jelzések a monitor adatbázisában gyűlnek „new” státuszban, és kizárólag a dashboardon láthatók. Amíg ez nincs meg, a kész riasztási lánc nem ér el senkit. Egyetlen felhasználói lépés kell hozzá: egy Slack-webhook-URL.</p>
+    <div class="callout-green">
+      <div class="callout-label">A riasztási lánc él</div>
+      <p>A Slack-webhook 2026-07-27-én bekötésre került (<code>--test-slack</code> → HTTP 200), és a felgyűlt 90 fájdalom-jel azonnal ki is ment 5 részletes Slack-üzenetben — semmi nem tűnt el a beállítás előtti időszakból. Innentől a napi digest és a connector-heartbeat riasztása is automatikusan eljut a csatornára. Az egyetlen megmaradt tétel a jóváhagyás Slack-first-té tétele (👍/👎 gomb a csatornában a mai dashboard/CLI-jóváhagyás helyett) — ez már nem blokkoló, csak kényelmi fejlesztés.</p>
     </div>
   </section>
 
@@ -521,7 +521,7 @@
         <div class="phase-num">6</div>
         <div class="phase-content">
           <h4>Értesítés, és a sales kolléga átveszi</h4>
-          <p><strong>Ez a lánc egyetlen még nem élő eleme:</strong> a #sales-leads Slack-értesítés kódja kész, de webhook-URL nélkül nem megy ki semmi — a jelzések „new” státuszban gyűlnek, és csak a dashboardon látszanak. Amint a webhook megvan, a napi digest (severity ≥ 3) és a connector-heartbeat riasztása is beindul. Onnantól a SalesOS felületén folytatódik a kézi munka: a dossziéban látszik a kontextus, a pipeline-on léptethető a deal, a teendők közé felvehető a következő lépés. A tényleges kapcsolatfelvétel (fórum-komment, LinkedIn-üzenet) mindig emberi jóváhagyás után megy ki — automatikus tömeges kiküldés tudatosan nincs.</p>
+          <p><strong>Élő (2026-07-27-től).</strong> A #sales-leads Slack-csatornára automatikus értesítés megy az új jelzésekről — a webhook bekötése után a felgyűlt 90 fájdalom-jel egy csapásra kiment 5 részletes üzenetben. A napi digest (severity ≥ 3) és a connector-heartbeat riasztása is ezen a csatornán fut. Onnantól a SalesOS felületén folytatódik a kézi munka: a dossziéban látszik a kontextus, a pipeline-on léptethető a deal, a teendők közé felvehető a következő lépés. A tényleges kapcsolatfelvétel (fórum-komment, LinkedIn-üzenet) mindig emberi jóváhagyás után megy ki — automatikus tömeges kiküldés tudatosan nincs.</p>
         </div>
         <div class="phase-meta">Zoltán</div>
       </div>
@@ -557,7 +557,7 @@
           <div class="flow-node">SQLite adatbázis<sub>Duplikátum-védelem, napi mentés</sub></div>
           <div class="flow-node green-node" style="margin-top:8px">Pain Classifier<sub>Gemini · is_pain · severity 1–5 · vásárlási szándék</sub></div>
           <div class="flow-node green-node">Válaszjavaslat<sub>Gemini · 70–80 szó · Speckle és support-KB kizárva</sub></div>
-          <div class="flow-node amber-node">Emberi kapudöntés<sub>Dashboard vagy CLI · Slack-approve még nincs</sub></div>
+          <div class="flow-node">Emberi kapudöntés<sub>Dashboard vagy CLI · Slack-approve gomb még nincs</sub></div>
         </div>
 
         <div class="flow-arrow">
@@ -570,7 +570,7 @@
           <div class="flow-node" style="margin-top:8px">Company-match<sub>házszám → email-domain → trigram → új cég · cégnév kézi megadással</sub></div>
           <div class="flow-node">Deal<sub>severity × 2 = score · ≥ 7: Qualified · 5–6: Lead · nyitott dealre csak Activity</sub></div>
           <div class="flow-node">Activity<sub>forrás-URL kötelező · source = BRIDGE</sub></div>
-          <div class="flow-node amber-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads · kód kész, webhook-URL-re vár</sub></div>
+          <div class="flow-node green-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads · él, 2026-07-27-től</sub></div>
         </div>
 
         <div class="flow-arrow">
@@ -787,17 +787,17 @@
         <div class="phase-num">6</div>
         <div class="phase-content">
           <h4>Hatékonyság-növelés</h4>
-          <p><strong>Nagyrészt kész, a kimenete a Slack-webhookra vár.</strong> A waitlist-CTA (UTM-linkkel, <code>bridge_waitlist</code> kampányra) be van konfigurálva, de a válasz-draftokban <strong>egyelőre ki van kapcsolva</strong> — bekapcsolása egyetlen konfig-kapcsoló, amint a waitlist-oldal él. Elkészült a heti riport (hétfő 8:00, magyar) fájdalom-klaszter-elemzéssel, a heti 2 LinkedIn-posztjavaslat a valós fájdalom-jelzésekből (angol), a versenytárs-detektor, valamint egy tudásbázis-építő, amely a NODU technical és Bridge repo dokumentumaiból állítja elő a fórum-válaszok prompt-kontextusát — így a válaszjavaslatok a termék tényleges képességeire hivatkoznak. A dashboardon LinkedIn-válasz fül is van: beillesztett posztra ír kommentet, a lentebb leírt Thought Leadership Engine-nel.</p>
+          <p><strong>Kész, a Slack-webhook élesedésével a kimenete is célba ér.</strong> A waitlist-CTA (UTM-linkkel, <code>bridge_waitlist</code> kampányra) be van konfigurálva, de a válasz-draftokban <strong>egyelőre ki van kapcsolva</strong> — bekapcsolása egyetlen konfig-kapcsoló, amint a waitlist-oldal él. Elkészült a heti riport (hétfő 8:00, magyar) fájdalom-klaszter-elemzéssel, a heti 2 LinkedIn-posztjavaslat a valós fájdalom-jelzésekből (angol), a versenytárs-detektor, valamint egy tudásbázis-építő, amely a NODU technical és Bridge repo dokumentumaiból állítja elő a fórum-válaszok prompt-kontextusát — így a válaszjavaslatok a termék tényleges képességeire hivatkoznak. A dashboardon LinkedIn-válasz fül is van: beillesztett posztra ír kommentet, a lentebb leírt Thought Leadership Engine-nel.</p>
         </div>
         <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">7</div>
         <div class="phase-content">
-          <h4>Slack-webhook, majd Slack-approve workflow</h4>
-          <p><strong>Ez a rendszer egyetlen nyitott, blokkoló tétele — és két lépésből áll.</strong> Először a webhook-URL kell: a riasztási lánc kódja 2026-07-27-én elkészült és 24 lánc-teszttel zöld, tehát ez tisztán felhasználói lépés. Az URL a git-ignorált <code>.env</code>-be kerül <code>SLACK_WEBHOOK_URL</code> néven (nem a <code>config.yaml</code>-be, mert az verziókövetett, és az admin felület mentése amúgy is letörli a fájl kommentjeit), az ellenőrzés pedig a <code>python main.py --test-slack</code> paranccsal történik, a valódi riasztási úton. Enélkül sem a napi digest, sem a connector-heartbeat riasztása nem jut el senkihez. Csak utána érdemes a jóváhagyást is Slack-first-té tenni: 👍/👎 gyorsjóváhagyás a csatornában, egy kattintásos deep-review a teljes kontextussal, archiválás/halasztás — ma ez a dashboardon vagy CLI-ből történik, ami működik, csak lassabb. <strong>Javasolt megvalósítás (fejlesztői feladat):</strong> natív bővítés a meglévő Python-appban — a jóváhagyás kétirányú folyamat (Slack-kattintás → adatbázis-írás → visszajelzés Slackbe), és az app már úgyis beszél Slackkel, van saját adatbázisa, és a SalesOS-t is közvetlenül hívja. Konkrétan: (1) <code>notifier.py</code> bővítése Slack Block Kit gombokkal a draft-üzeneteken; (2) új Flask-route (pl. <code>/slack/actions</code>) a Slack-kattintás fogadására, aláírás-ellenőrzéssel; (3) egy DB-mező bővítés (<code>storage/db.py</code>) az approve/reject állapothoz. Előfeltétel: Zoltán létrehoz egy Slack App-ot a workspace-en (Bot Token + Signing Secret) — ezt csak workspace-admin teheti meg, a kódolás a fejlesztőé. <em>Megjegyzés: a korábban itt szereplő LinkedIn Apify-scraping a 2026-07-11-i audit alapján törölve — ütközik a „no LinkedIn scraping” elvvel. LinkedIn-jelenlét kizárólag kézi üzenetekkel és posztokkal.</em></p>
+          <h4>Slack-webhook élesítve — hátra van a Slack-approve workflow</h4>
+          <p><strong>A webhook él, 2026-07-27 óta.</strong> Az URL a git-ignorált <code>.env</code>-be került <code>SLACK_WEBHOOK_URL</code> néven (nem a <code>config.yaml</code>-be, mert az verziókövetett, és az admin felület mentése amúgy is letörli a fájl kommentjeit), a <code>python main.py --test-slack</code> ellenőrzés HTTP 200-at adott, 24/24 lánc-teszt zöld. Élesben azonnal bizonyította az értékét: a beállítás előtt felgyűlt 90 fájdalom-jel egy csapásra kiment 5 részletes Slack-üzenetben — a napi digest és a connector-heartbeat riasztása mostantól folyamatosan idejut. Egy néma hiba is előkerült és javításra került menet közben: a <code>.env</code> egy <code>=</code> nélküli sora korábban észrevétlenül kimaradt a beolvasásból, ez most hibát ír ki. <strong>Hátravan a jóváhagyás Slack-first-té tétele:</strong> 👍/👎 gyorsjóváhagyás a csatornában, egy kattintásos deep-review a teljes kontextussal, archiválás/halasztás — ma ez a dashboardon vagy CLI-ből történik, ami működik, csak lassabb, és ez már nem blokkolja a riasztási láncot. <strong>Javasolt megvalósítás (fejlesztői feladat):</strong> natív bővítés a meglévő Python-appban — a jóváhagyás kétirányú folyamat (Slack-kattintás → adatbázis-írás → visszajelzés Slackbe), és az app már úgyis beszél Slackkel, van saját adatbázisa, és a SalesOS-t is közvetlenül hívja. Konkrétan: (1) <code>notifier.py</code> bővítése Slack Block Kit gombokkal a draft-üzeneteken; (2) új Flask-route (pl. <code>/slack/actions</code>) a Slack-kattintás fogadására, aláírás-ellenőrzéssel; (3) egy DB-mező bővítés (<code>storage/db.py</code>) az approve/reject állapothoz. Előfeltétel: Zoltán létrehoz egy Slack App-ot a workspace-en (Bot Token + Signing Secret) — ezt csak workspace-admin teheti meg, a kódolás a fejlesztőé. <em>Megjegyzés: a korábban itt szereplő LinkedIn Apify-scraping a 2026-07-11-i audit alapján törölve — ütközik a „no LinkedIn scraping” elvvel. LinkedIn-jelenlét kizárólag kézi üzenetekkel és posztokkal.</em></p>
         </div>
-        <div class="phase-meta">Webhook: azonnal<br>Approve: 2–3 nap</div>
+        <div class="phase-meta">Webhook: kész<br>Approve: 2–3 nap</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">8</div>
@@ -812,7 +812,7 @@
 
     <div class="callout">
       <div class="callout-label">Mit lehet azonnal indítani</div>
-      <p>A közösség-figyelés már éles üzemben gyűjt és osztályoz, tehát nem vár semmire — de a kimenete ma csak a dashboardon látszik. A leggyorsabban megtérülő lépés a Slack-webhook beállítása: egyetlen URL, és a kész riasztási lánc azonnal működik. A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet.</p>
+      <p>A közösség-figyelés éles üzemben gyűjt, osztályoz, és a Slack-webhook bekötésével a riasztás is célba ér — ez a láncszem lezárva. A beta-tesztelő oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet.</p>
     </div>
   </section>
 
@@ -839,7 +839,7 @@
             <td><strong>Jelzés, severity 4–5 (score 8–10)</strong></td>
             <td>Cég-match/létrehozás + Deal + Activity (forrás-URL-lel)</td>
             <td>Qualified</td>
-            <td>Válaszjavaslat jóváhagyásra; Slack-értesítés a webhook beállítása után</td>
+            <td>Válaszjavaslat jóváhagyásra; Slack-értesítés a #sales-leads csatornára</td>
           </tr>
           <tr>
             <td><strong>Jelzés, severity 3 (score 6)</strong></td>
@@ -893,11 +893,6 @@
     <h2>Azonnali következő lépések</h2>
 
     <div class="todo-list">
-      <div class="todo-row">
-        <div class="todo-task"><strong>Slack-webhook-URL létrehozása és beírása a <code>.env</code>-be</strong> (<code>SLACK_WEBHOOK_URL</code>), majd szerver-újraindítás és <code>--test-slack</code> ellenőrzés — a lánc egyetlen blokkoló tétele: enélkül sem a napi digest, sem a connector-riasztás nem jut el senkihez. Kód-oldalon minden kész</div>
-        <div class="todo-who">Zoltán</div>
-        <div class="todo-when todo-now">Azonnal</div>
-      </div>
       <div class="todo-row">
         <div class="todo-task">NODU Sales tartós hosting vagy tunnel döntés (ma lokálisan fut, ezért az ingest is csak a gépen működik); az adatbázis-mentés már ütemezve van (napi 21:00)</div>
         <div class="todo-who">Zoltán + Fejlesztő</div>
@@ -968,7 +963,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine és a waitlist → Beta-toborzás átállás átvezetve)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine, a waitlist → Beta-toborzás átállás és a Slack-riasztási lánc élesítése átvezetve)<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>
