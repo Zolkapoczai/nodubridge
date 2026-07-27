@@ -407,10 +407,10 @@
           <span class="pillar-badge badge-active">Most induló</span>
         </div>
         <p class="pillar-desc">
-          A weboldal kétféleképpen szerez leadet. A waitlist-űrlapon az érdeklődő önként megadja az e-mail-címét, a szerepkörét és a fő Archicad–Revit fájdalompontját; ez a NODU Sales „Bridge Waitlist” kampányába kerül (Registration lépcső), így a tölcsér-riport ingyen méri a konverziót. Az első 100 feliratkozó év végéig ingyenes keretet kap, ami erős ösztönző a korai jelentkezésre. Emellett az RB2B snippet azonosítja az anonim látogatókat: az ingyenes csomag már most bekapcsolható, a teljes, automatizált azonosítás a Pro csomaggal és az éles weboldali forgalommal érkezik.
+          A weboldal kétféleképpen szerez leadet. Az oldal célja jelenleg nem az általános érdeklődés-gyűjtés, hanem a <strong>Beta-fázis (2026-08-18–09-15) tesztelőinek toborzása</strong>: a jelentkező megadja az e-mail-címét, a szerepkörét és a fő Archicad–Revit fájdalompontját, ez a NODU Sales „Bridge Waitlist” kampányába kerül (Registration lépcső), a tölcsér-riport pedig méri a jelentkezés-konverziót. A jelentkezők közül 10 irodát választunk ki a Beta-kohorszba; a bekerülők év végéig ingyenes keretet kapnak, a többiek a szeptemberi GA-indulásnál elsők között kapnak hozzáférést. Emellett az RB2B snippet azonosítja az anonim látogatókat: az ingyenes csomag már most bekapcsolható, a teljes, automatizált azonosítás a Pro csomaggal és az éles weboldali forgalommal érkezik.
         </p>
         <div class="pillar-sources">
-          <div class="source-row"><span class="source-name">Waitlist-feliratkozás</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
+          <div class="source-row"><span class="source-name">Beta-jelentkezés</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
           <div class="source-row"><span class="source-name">Lead-minősítés</span><span class="source-note">A fájdalompont alapján pontozott, meleg lead</span></div>
           <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">Közvetlen ingest → NODU Sales „Bridge Waitlist” kampány (n8n nélkül)</span></div>
           <div class="source-row"><span class="source-name">RB2B ingyenes (most)</span><span class="source-note">Anonim látogató, USA, cégszint, Slack-értesítés</span></div>
@@ -543,7 +543,7 @@
           <div class="flow-node">GitHub issue-k<sub>IfcOpenShell, Speckle, xeokit · 74 poszt</sub></div>
           <div class="flow-node">Fórum-API-k<sub>OSArch, buildingSMART, Speckle, Stack Overflow</sub></div>
           <div class="flow-node">YouTube + Graphisoft KB<sub>Intelligencia-források, nem lead</sub></div>
-          <div class="flow-node accent-node">Waitlist<sub>nodu.build/bridge, közvetlen ingest</sub></div>
+          <div class="flow-node accent-node">Beta-jelentkezés<sub>nodu.build/bridge, közvetlen ingest</sub></div>
           <div class="flow-node amber-node">RB2B<sub>Weboldal-látogató, ingyenes most</sub></div>
         </div>
 
@@ -702,11 +702,11 @@
           </tr>
           <tr class="table-group-row"><td colspan="5">Weboldal — nodu.build/bridge</td></tr>
           <tr>
-            <td><strong>Waitlist</strong></td>
+            <td><strong>Beta-jelentkezés</strong></td>
             <td>nodu.build/bridge</td>
-            <td>Waitlist-űrlap, közvetlenül a SalesOS ingest-végpontjára</td>
+            <td>Beta-tesztelő űrlap, közvetlenül a SalesOS ingest-végpontjára</td>
             <td><span class="badge badge-q3">Beillesztésre vár</span></td>
-            <td class="td-mono">Ingyenes, saját csatorna</td>
+            <td class="td-mono">10 iroda a Beta-kohorszba</td>
           </tr>
           <tr>
             <td><strong>RB2B ingyenes</strong></td>
@@ -770,8 +770,8 @@
       <div class="phase-row">
         <div class="phase-num">4</div>
         <div class="phase-content">
-          <h4>Waitlist oldal és feliratkozás</h4>
-          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés közvetlenül a NODU Sales „Bridge Waitlist” kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
+          <h4>Beta-tesztelő oldal élesítése</h4>
+          <p>A tartalom kész (<code>bridge-waitlist.html</code>, referenciaként a dokumentumkörben), a fókusza a Beta-fázis (2026-08-18–09-15) tesztelőinek toborzása, nem az általános érdeklődés-gyűjtés: e-mail, név, szerepkör, fő fájdalompont, a NODU dizájnnal. A beküldés közvetlenül a NODU Sales „Bridge Waitlist” kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a jelentkezés-konverziót. GDPR-megerősítés (double opt-in). Hátravan: a tényleges kihelyezés a nodu.build/bridge-re és a SalesOS ingest-végpont bekötése (a <code>WEBHOOK_URL</code> ma placeholder).</p>
         </div>
         <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
       </div>
@@ -860,10 +860,10 @@
             <td>A jelzés a cég-dossziéban és az AI Briefben látszik</td>
           </tr>
           <tr>
-            <td><strong>Waitlist-feliratkozó</strong></td>
+            <td><strong>Beta-jelentkező</strong></td>
             <td>Contact + „Bridge Waitlist” kampány-tagság + Activity; nincs auto-deal</td>
             <td>Registration (kampány)</td>
-            <td>Köszönő e-mail; minősítés után kézi deal-nyitás</td>
+            <td>Köszönő e-mail; a 10 kiválasztott iroda kézi minősítés után lép deal-be</td>
           </tr>
           <tr>
             <td><strong>RB2B látogató</strong></td>
@@ -909,7 +909,7 @@
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">Waitlist-oldal a nodu.build/bridge-en és a „Waitlist → NODU Sales” közvetlen bekötés (channel: waitlist, Registration lépcső)</div>
+        <div class="todo-task">Beta-tesztelő oldal kihelyezése a nodu.build/bridge-re és a SalesOS közvetlen bekötés (channel: waitlist, Registration lépcső) — a tartalom kész, a <code>WEBHOOK_URL</code> ma placeholder</div>
         <div class="todo-who">Fejlesztő</div>
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
@@ -952,7 +952,7 @@
 
     <div class="callout-blue" style="margin-top:32px">
       <div class="callout-label">2026 sales cél összefoglalva</div>
-      <p>A rendszer célja, hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a waitlist-feliratkozás („Bridge Waitlist” kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája még kialakítás alatt van, a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függően alakul (jelenlegi állás: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak, a jelenlegi fókusz a felhasználószám növelése és az ingyenes feliratkozók fizetőssé konvertálása.</p>
+      <p>A rendszer célja, hogy a Beta-fázisra (2026-08-18–09-15) 10 tesztelő irodát toborozzunk, majd a szeptemberi GA-indulás után, az ingyenes időszak lejártával, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a beta-jelentkezés („Bridge Waitlist” kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája és a paywall-trigger rendszer 2026-07-17-én véglegesült (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a Beta-kohorsz feltöltése, majd a GA utáni fizetőssé konvertálás.</p>
     </div>
   </section>
 
@@ -968,7 +968,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor 2026-07-19-i pivotja és a SalesOS 0.1/0.2 release-ei átvezetve, élő adatbázis-számokkal)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine és a waitlist → Beta-toborzás átállás átvezetve)<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NODU Bridge: korai hozzáférés</title>
+  <title>NODU Bridge: beta-tesztelő jelentkezés</title>
 
   <!--
     ============================================================
@@ -143,16 +143,16 @@
   <div class="wrap">
 
     <!-- HERO -->
-    <p class="hero-label">Korai hozzáférés</p>
+    <p class="hero-label">Beta-tesztelő program · 2026-08-18 – 09-15</p>
     <h1>Archicad modellek Revitbe, a <em>paraméterek</em> elvesztése nélkül</h1>
     <p class="lead">
-      A NODU Bridge az elemek logikáját viszi át Archicadból Revitbe, nem pusztán a statikus geometriát. Iratkozz fel a korai hozzáférési listára, és szólunk, amint elérhető.
+      A NODU Bridge az elemek logikáját viszi át Archicadból Revitbe, nem pusztán a statikus geometriát. A Beta-fázisban 10 irodát választunk ki, akik élesben, saját projekten próbálják ki a konnektort, és visszajelzéssel alakítják a végleges terméket a szeptemberi indulás előtt.
     </p>
 
     <div class="points">
       <div class="point"><span class="point-dot"></span><span>Parametrikus átültetés natív mapping alapján, nem nyers IFC-export.</span></div>
       <div class="point"><span class="point-dot"></span><span>Kevesebb kézi utómunka: megmaradnak a paraméterek és az elemtípusok.</span></div>
-      <div class="point"><span class="point-dot"></span><span>A feliratkozók elsőként próbálhatják ki, és alakíthatják a fejlesztést.</span></div>
+      <div class="point"><span class="point-dot"></span><span>A beta-tesztelők közvetlenül alakítják a fejlesztést, még a GA-indulás (2026-09-15) előtt.</span></div>
     </div>
 
     <!--
@@ -165,10 +165,10 @@
     -->
     <section class="card" id="waitlist-card">
       <div class="earlybird">
-        <strong>Az első 100 feliratkozó</strong> év végéig ingyenes keretet kap a Bridge használatához.
+        <strong>A beta-kohorszba bekerülők</strong> év végéig ingyenes keretet kapnak a Bridge használatához. A jelentkezők közül 10 irodát választunk ki a 2026-08-18–09-15-i Beta-fázisra; a többiek elsőként kapnak hozzáférést a szeptemberi indulásnál.
       </div>
-      <h2>Feliratkozás a korai hozzáférésre</h2>
-      <p class="card-sub">Néhány adat segít, hogy a számodra fontos problémával kezdjük.</p>
+      <h2>Jelentkezés a beta-tesztelésre</h2>
+      <p class="card-sub">Néhány adat segít, hogy a számodra fontos problémával kezdjük, és eldöntsük, illik-e a beta-kohorszba az irodátok.</p>
 
       <form id="waitlist-form" novalidate>
         <div class="field">
@@ -200,22 +200,22 @@
         <div class="consent">
           <input type="checkbox" id="consent" name="consent" required />
           <label for="consent">
-            Hozzájárulok, hogy a NODU felvegye velem a kapcsolatot a Bridge korai hozzáférésével kapcsolatban.
+            Hozzájárulok, hogy a NODU felvegye velem a kapcsolatot a Bridge beta-tesztelésével kapcsolatban.
             <a href="https://nodu.build/adatkezeles" target="_blank" rel="noopener">Adatkezelési tájékoztató</a>
           </label>
         </div>
 
-        <button type="submit" class="btn" id="submit-btn">Feliratkozom a korai hozzáférésre</button>
+        <button type="submit" class="btn" id="submit-btn">Jelentkezem a beta-tesztelésre</button>
         <div class="form-error" id="form-error">Valami nem sikerült. Kérjük, próbáld újra, vagy írj a poczai@nodu.build címre.</div>
       </form>
 
-      <p class="privacy-note">Megerősítő emailt küldünk; csak a megerősítés után veszünk fel a listára.</p>
+      <p class="privacy-note">Megerősítő emailt küldünk; csak a megerősítés után jelölünk beta-jelöltként.</p>
     </section>
 
     <!-- KÖSZÖNŐ ÁLLAPOT -->
     <section class="thanks" id="thanks">
-      <h2>Köszönjük a feliratkozást</h2>
-      <p>Küldtünk egy megerősítő emailt. Kérjük, kattints a benne lévő linkre, hogy véglegesítsd a feliratkozást. Amint a Bridge elérhető, elsők között szólunk.</p>
+      <h2>Köszönjük a jelentkezést</h2>
+      <p>Küldtünk egy megerősítő emailt. Kérjük, kattints a benne lévő linkre, hogy véglegesítsd a jelentkezést. A Beta-fázisra kiválasztott 10 iroda 2026-08-18 körül kap tőlünk visszajelzést; a többieket a szeptemberi indulásnál elsők között értesítjük.</p>
     </section>
 
     <p class="foot">NODU Bridge &middot; nodu.build</p>
@@ -283,7 +283,7 @@
           errorBox.textContent = "Valami nem sikerült. Kérjük, próbáld újra, vagy írj a poczai@nodu.build címre.";
           errorBox.style.display = "block";
           btn.disabled = false;
-          btn.textContent = "Feliratkozom a korai hozzáférésre";
+          btn.textContent = "Jelentkezem a beta-tesztelésre";
         }
       });
     })();
