@@ -311,12 +311,12 @@
     <p class="hero-label">Sales infrastruktúra, 2026</p>
     <h1>Célzott lead-generálás<br><em>Archicad–Revit</em> fájdalompontok alapján</h1>
     <p class="hero-subtitle">
-      Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja: figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A leadek automatikusan a NODU Sales CRM-be kerülnek (a saját, account-centrikus rendszerünkbe — a Pipedrive kikerült a láncból), hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk.
+      Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja: figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A közösség-figyelés 2026-07-19-én <strong>pivotot kapott</strong>: a puszta kulcsszó-figyelőből AI-alapú fájdalom-osztályozó (buying signal detection) rendszer lett, amely nem azt méri, hogy egy poszt tartalmazza-e a keresett szavakat, hanem hogy valódi fájdalmat fejez-e ki, milyen súlyossággal és van-e mögötte vásárlási szándék. A leadek a NODU Sales CRM-be kerülnek (saját, account-centrikus rendszer — a Pipedrive kikerült a láncból), hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk.
     </p>
     <div class="hero-meta">
       <div class="hero-meta-item">
         <strong>Státusz</strong>
-        <span>Kód kész, n8n-bekötésre vár</span>
+        <span>Éles üzemben: 8 aktív forrás, AI-osztályozás fut</span>
       </div>
       <div class="hero-meta-item">
         <strong>Felelős</strong>
@@ -328,11 +328,11 @@
       </div>
       <div class="hero-meta-item">
         <strong>Automatizáció</strong>
-        <span>n8n → POST /api/bridge/ingest</span>
+        <span>Közvetlen POST /api/bridge/ingest (n8n nélkül)</span>
       </div>
       <div class="hero-meta-item">
         <strong>Dokumentum dátuma</strong>
-        <span>2026. június 30. · frissítve 2026-07-17</span>
+        <span>2026. június 30. · frissítve 2026-07-27</span>
       </div>
     </div>
   </div>
@@ -348,25 +348,30 @@
 
     <div class="metrics-grid">
       <div class="metric-card accent">
-        <div class="metric-value accent-v">5</div>
+        <div class="metric-value accent-v">8</div>
         <div class="metric-label">Aktív adatforrás</div>
-        <div class="metric-sub">Reddit, Playwright, Stack Overflow, Google CSE, HTML-fórumok</div>
+        <div class="metric-sub">Playwright (Graphisoft, Autodesk), Brave web-keresés, GitHub, OSArch, Discourse (buildingSMART, Speckle), Graphisoft support KB, YouTube, Stack Overflow</div>
       </div>
       <div class="metric-card green">
-        <div class="metric-value">5 / 7</div>
-        <div class="metric-label">Relevancia-küszöbök</div>
-        <div class="metric-sub">Score ≥ 5: Lead-deal, score ≥ 7: Qualified-deal a NODU Salesben (env-konfig, A/B-teszt alatt)</div>
+        <div class="metric-value">305</div>
+        <div class="metric-label">Valódi fájdalom-jelzés</div>
+        <div class="metric-sub">1 125 begyűjtött posztból 833 osztályozva, ebből 305 igazolt fájdalom (36,6%); 130 jelzés severity ≥ 4, 76-nál kimutatható vásárlási szándék (2026-07-27)</div>
       </div>
       <div class="metric-card blue">
-        <div class="metric-value">Most</div>
-        <div class="metric-label">Waitlist és RB2B élesítés</div>
-        <div class="metric-sub">A nodu.build/bridge feliratkozás és az RB2B ingyenes látogató-azonosítás már most indul</div>
+        <div class="metric-value">5 / 7</div>
+        <div class="metric-label">Relevancia-küszöbök</div>
+        <div class="metric-sub">A severity (1–5) kétszerese adja a SalesOS score-t (0–10): ≥ 7 Qualified-deal, 5–6 Lead-deal. A régi 3-2-1 kulcsszó-formula már csak előszűrő</div>
       </div>
       <div class="metric-card amber">
         <div class="metric-value">10</div>
         <div class="metric-label">Fizetős ügyfél, cél</div>
         <div class="metric-sub">Az ingyenes időszak lejárta után, 2026. december 31-ig</div>
       </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Egyetlen szűk keresztmetszet a láncban</div>
+      <p>A begyűjtés, az AI-osztályozás és a válaszjavaslat-generálás éles üzemben fut, de <strong>riasztási csatorna még nincs bekötve</strong> (sem Slack-webhook, sem e-mail): a jelzések a monitor adatbázisában gyűlnek „new” státuszban, és kizárólag a dashboardon láthatók. Amíg ez nincs meg, a kész riasztási lánc nem ér el senkit. Egyetlen felhasználói lépés kell hozzá: egy Slack-webhook-URL.</p>
     </div>
   </section>
 
@@ -375,7 +380,7 @@
     <p class="section-label">Stratégia</p>
     <h2>A rendszer két forráscsatornája</h2>
     <p>
-      A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a <strong>nodu-monitor</strong> találja meg — egy önállóan (cron-jobként) futó Python-alkalmazás, amely a nyilvános BIM-közösségi fórumokat figyeli és pontozza a releváns bejegyzéseket; a másodikat a weboldal: önkéntes waitlist-feliratkozással vagy az RB2B látogató-azonosítással.
+      A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a <strong>nodu-monitor</strong> találja meg — egy saját Python-alkalmazás (Flask + APScheduler, egyprocesszes szerver), amely nyolc nyilvános forrást figyel, és minden begyűjtött bejegyzést AI-osztályozáson vezet át; a másodikat a weboldal: önkéntes waitlist-feliratkozással vagy az RB2B látogató-azonosítással.
     </p>
 
     <div class="pillar-grid">
@@ -385,14 +390,14 @@
           <span class="pillar-badge badge-active">Aktív</span>
         </div>
         <p class="pillar-desc">
-          <strong>Mi ez:</strong> egy önállóan (cron-jobként) futó Python-alkalmazás, amely a forrás típusától függő ütemben olvassa a BIM-közösségek nyilvános tartalmát — a Reddit-figyelés valós idejű, a többi forrást 90 percenkénti ciklusban járja körbe. Ha valaki az Archicad–Revit átültetésről ír, problémát említ vagy segítséget kér, a bejegyzést a rendszer 25+ kulcsszó alapján pontozza (elsődleges kifejezés 3 pont, fájdalompont-jelző 2 pont, kontextus-szó 1 pont), és duplikátum-szűréssel a saját SQLite adatbázisába menti. A releváns posztokhoz a rendszer Claude API segítségével válaszjavaslatot készít, amelyet a sales kolléga Slack-en egy 👍/👎 gombbal hagy jóvá, mielőtt kézzel kiküldi.
+          <strong>Mi ez:</strong> egy saját Python-alkalmazás, amely forrásonként külön ütemben (90 perctől 24 óráig) olvassa a BIM-közösségek nyilvános tartalmát, és duplikátum-szűréssel a saját SQLite adatbázisába menti. A kulcsszavas pontozás (elsődleges kifejezés 3 pont, fájdalompont-jelző 2, kontextus-szó 1) mára <strong>előszűrővé</strong> lépett vissza: az érdemi döntést a <strong>Pain Classifier</strong> hozza, egyetlen strukturált Gemini-hívással posztonként. Ez adja meg, hogy a bejegyzés valódi fájdalom-e (<code>is_pain</code>), milyen súlyos (<code>severity</code> 1–5), van-e mögötte vásárlási szándék, milyen szerepkörű az író, érintett-e az IFC, és említ-e versenytársat. A fájdalom-jelzésekhez ugyancsak Gemini ír válaszjavaslatot (70–80 szó, lista-tiltással), amit ember hagy jóvá, mielőtt kézzel kimegy. Az osztályozó tudatosan <strong>nincs</strong> az ütemezőben — kézi kapudöntéses fázisban vagyunk.
         </p>
         <div class="pillar-sources">
-          <div class="source-row"><span class="source-name">Reddit (PRAW)</span><span class="source-note">r/Revit, r/ArchiCAD, r/BIM, valós idejű</span></div>
-          <div class="source-row"><span class="source-name">Playwright (Chromium)</span><span class="source-note">Graphisoft Community, Autodesk Community (JS-alapú oldalak)</span></div>
-          <div class="source-row"><span class="source-name">Stack Overflow API</span><span class="source-note">revit+archicad, revit+ifc; ingyenes, 300 kérés/nap</span></div>
-          <div class="source-row"><span class="source-name">Google CSE</span><span class="source-note">RevitForum, BuildingSMART fórumok</span></div>
-          <div class="source-row"><span class="source-name">HTML scraping</span><span class="source-note">Statikus phpBB alapú fórumok</span></div>
+          <div class="source-row"><span class="source-name">Playwright (Chromium)</span><span class="source-note">Graphisoft + Autodesk Community, a legnagyobb volumen (742 poszt)</span></div>
+          <div class="source-row"><span class="source-name">Brave web-keresés</span><span class="source-note">A halott Google CSE pótlása; ezen jön a Reddit-tartalom is</span></div>
+          <div class="source-row"><span class="source-name">GitHub issue-k</span><span class="source-note">IfcOpenShell, speckle-server, xeokit — a legjobb jelminőség (84,1%)</span></div>
+          <div class="source-row"><span class="source-name">Fórum-API-k</span><span class="source-note">OSArch (Vanilla), buildingSMART + Speckle (Discourse), Stack Overflow</span></div>
+          <div class="source-row"><span class="source-name">YouTube + Graphisoft KB</span><span class="source-note">Kommentek (Data API v3) és support-cikkek: intelligencia, nem lead</span></div>
         </div>
       </div>
 
@@ -407,7 +412,7 @@
         <div class="pillar-sources">
           <div class="source-row"><span class="source-name">Waitlist-feliratkozás</span><span class="source-note">E-mail, név, szerepkör, fő fájdalompont</span></div>
           <div class="source-row"><span class="source-name">Lead-minősítés</span><span class="source-note">A fájdalompont alapján pontozott, meleg lead</span></div>
-          <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">n8n → NODU Sales „Bridge Waitlist” kampány</span></div>
+          <div class="source-row"><span class="source-name">Egyenes út</span><span class="source-note">Közvetlen ingest → NODU Sales „Bridge Waitlist” kampány (n8n nélkül)</span></div>
           <div class="source-row"><span class="source-name">RB2B ingyenes (most)</span><span class="source-note">Anonim látogató, USA, cégszint, Slack-értesítés</span></div>
           <div class="source-row"><span class="source-name">RB2B Pro (szept.)</span><span class="source-note">Személyszint, webhook, automatikus NODU Sales (email-domain verify, no-PII)</span></div>
         </div>
@@ -421,6 +426,9 @@
     <h2>SalesOS: a NODU Sales CRM, ami fogadja és kezeli a leadeket</h2>
     <p>
       A NODU Sales (fejlesztői munkanevén SalesOS) egy saját fejlesztésű, account-centrikus, AI-natív CRM — nem harmadik féltől vásárolt eszköz, mint a korábban használt Pipedrive, hanem kifejezetten a NODU sales-munkafolyamatára épített rendszer. Minden adat egy cég köré szerveződik (dosszié-nézet: kontaktok, activity-történet és dealek egy helyen), a felület billentyűzet-first (globális Ctrl+K kereső, gyorsbillentyűk minden listán), és beépített AI-copilot segít az összefoglalásban és a következő lépés javaslatában.
+    </p>
+    <p>
+      Állapot 2026-07-21-én: a <strong>Release 0.1 („Éles")</strong> és a <strong>Release 0.2 („Billentyű-sebesség")</strong> lezárult — napi adatbázis-mentés, aktivációs import, néma hibák megszüntetése, dashboard-integritás, Won-út integritása, megosztott primitívek, prioritizálás. Az AI-réteg 2026-07-19-én OpenAI-ról <strong>Google Geminire</strong> váltott (STRONG: gemini-2.5-pro, MINI: gemini-2.5-flash), ugyanazon a <code>callAI</code> felületen — vagyis a monitor és a CRM ma ugyanazt az AI-szolgáltatót használja. A cég-dosszié 2026-07-21-én editoriális layoutot kapott a NODU Bridge one-pager tipográfiája alapján, fabrikált mutatók nélkül: minden jelző szabály-alapú (elavult kapcsolat, lejárt teendő, MEDDIC-hézag). Éles adat is van benne: 2026-07-20-án <strong>12 valós célcég és 12 kontakt</strong> importálódott Target státusszal.
     </p>
 
     <div class="pillar-grid">
@@ -465,28 +473,36 @@
     <p class="section-label">Folyamat</p>
     <h2>Hogyan jut el egy jelzés a nodu-monitortól a SalesOS-ig</h2>
     <p>
-      A nodu-monitor (a fenti közösség-figyelő scraper) nem közvetlenül ír a SalesOS adatbázisába — egy jól elhatárolt, auditálható folyamaton megy át minden jelzés:
+      A nodu-monitor (a fenti közösség-figyelő alkalmazás) nem közvetlenül ír a SalesOS adatbázisába — egy jól elhatárolt, auditálható folyamaton megy át minden jelzés. <strong>A lánc 2026 júliusában egyszerűbb lett:</strong> a korábban tervezett n8n-köztes réteg kimaradt, a monitor saját kliense hívja a SalesOS ingest-végpontját.
     </p>
 
     <div class="phase-list">
       <div class="phase-row">
         <div class="phase-num">1</div>
         <div class="phase-content">
-          <h4>A nodu-monitor észlel és pontoz</h4>
-          <p>A Reddit-figyelés valós idejű (PRAW-stream), a többi forrást (Playwright, Stack Overflow, Google CSE) 90 percenkénti ciklusban járja körbe. Minden új bejegyzést a 25+ kulcsszavas listával pontoz (elsődleges kifejezés 3 pont, fájdalompont-jelző 2 pont, kontextus-szó 1 pont), és az eredményt — poszt-ID-vel, hogy ne duplikálódjon — a saját SQLite adatbázisába menti.</p>
+          <h4>A nodu-monitor begyűjt és előszűr</h4>
+          <p>Nyolc connector fut forrásonként külön ütemben: Playwright 90 perc, Stack Overflow és YouTube 180 perc, GitHub, OSArch és a Discourse-fórumok 240 perc, Graphisoft support KB 720 perc, Brave web-keresés napi egyszer. Minden új bejegyzés átmegy a kulcsszavas előszűrőn (3-2-1 pontozás), és poszt-ID-vel — hogy ne duplikálódjon — a saját SQLite adatbázisába kerül. A gyűjtés robots.txt-fegyelemmel megy: a Discourse-fórumokon a keresés tiltott, ezért csak a lapozott friss-listát olvassuk.</p>
         </div>
         <div class="phase-meta">nodu-monitor</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">2</div>
         <div class="phase-content">
-          <h4>n8n továbbítja a SalesOS-nak</h4>
-          <p>Az n8n-workflow rendszeresen lekérdezi a nodu-monitor SQLite-adatbázisát, és csak az 5 pontot elérő (Lead-küszöb) vagy magasabb jelzéseket veszi fel — az ez alatti posztok a Bridge oldalán maradnak, megfigyelésre. A kiválasztott jelzést a workflow a <code>POST /api/bridge/ingest</code> végponton adja át a SalesOS-nak, Bearer-kulcsos hitelesítéssel és egyedi <code>externalId</code>-vel, hogy egy jelzés véletlenül se kerüljön be duplán.</p>
+          <h4>A Pain Classifier eldönti, valódi jelzés-e</h4>
+          <p>Ez a rendszer agya, és itt dől el, mi minősül leadnek. Posztonként egy strukturált Gemini-hívás adja meg, hogy a bejegyzés valódi fájdalom-e, milyen súlyos (severity 1–5), van-e mögötte vásárlási szándék, milyen szerepkörű az író, érintett-e az IFC, és említ-e versenytársat. A kulcsszó-egyezés önmagában nem elég: a 833 osztályozott posztból 305 lett igazolt fájdalom-jelzés (36,6%) — a többit a rendszer tudatosan eldobja. Az osztályozó szándékosan nincs az ütemezőben, kézzel indul: ez a kapudöntéses fázis.</p>
         </div>
-        <div class="phase-meta">n8n</div>
+        <div class="phase-meta">Pain Classifier</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">3</div>
+        <div class="phase-content">
+          <h4>A monitor közvetlenül átadja a SalesOS-nak</h4>
+          <p>A <code>crm/salesos_client.py</code> a <code>POST /api/bridge/ingest</code> végpontot hívja, Bearer-kulcsos hitelesítéssel és egyedi <code>externalId</code>-vel az idempotenciáért — n8n nélkül (a korábbi tervben szereplő webhook végig kikapcsolt, placeholder URL-lel állt, ezért a köztes réteg kimaradt). A severity kétszerese adja a SalesOS score-t (0–10). <strong>Egy kézi mozzanat maradt:</strong> a SalesOS account-centrikus, cég-adat nélkül 422-t ad, ezért az átadás előtt a dashboard megkérdezi a cégnevet a felhasználótól — automatikus cégtalálgatás tudatosan nincs.</p>
+        </div>
+        <div class="phase-meta">nodu-monitor</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">4</div>
         <div class="phase-content">
           <h4>A SalesOS azonosítja a céget</h4>
           <p>Egyezés-keresés lépcsőzetesen fut: elsőként a cégjegyzékszám (Companies House-szám), majd az e-mail-domain a cég weboldalával, végül a normalizált cégnév pontos egyezése. Ha csak hasonló (de nem pontos) névre talál, a rendszer nem von össze automatikusan — új cég jön létre, és a jelzés emberi ellenőrzésre (⚠) kerül jelölve, hogy elkerülje a téves összevonást.</p>
@@ -494,7 +510,7 @@
         <div class="phase-meta">SalesOS</div>
       </div>
       <div class="phase-row">
-        <div class="phase-num">4</div>
+        <div class="phase-num">5</div>
         <div class="phase-content">
           <h4>Deal vagy Activity, a pontszám szerint</h4>
           <p>7-es vagy magasabb pontszámnál a Deal a Qualified stage-ben nyílik, 5–6 pont esetén a Lead stage-ben. Ha a cégen már van nyitott deal, nem jön létre új: a jelzés csak Activityként kerül a meglévő dealhez, hogy elkerülje a duplikációt. Minden esetben a bejegyzés forrás-URL-lel és „Bridge” jelzéssel látható a cég dossziéjában.</p>
@@ -502,10 +518,10 @@
         <div class="phase-meta">SalesOS</div>
       </div>
       <div class="phase-row">
-        <div class="phase-num">5</div>
+        <div class="phase-num">6</div>
         <div class="phase-content">
           <h4>Értesítés, és a sales kolléga átveszi</h4>
-          <p>A #sales-leads Slack-csatornára automatikus értesítés megy ki az új jelzésről; onnantól a SalesOS felületén folytatódik a kézi munka — a dossziéban látja a kontextust, a pipeline-on léptetheti a dealt, a teendők közé felveheti a következő lépést. A tényleges kapcsolatfelvétel (Reddit-komment, LinkedIn-üzenet) mindig emberi jóváhagyás után megy ki — automatikus tömeges kiküldés tudatosan nincs.</p>
+          <p><strong>Ez a lánc egyetlen még nem élő eleme:</strong> a #sales-leads Slack-értesítés kódja kész, de webhook-URL nélkül nem megy ki semmi — a jelzések „new” státuszban gyűlnek, és csak a dashboardon látszanak. Amint a webhook megvan, a napi digest (severity ≥ 3) és a connector-heartbeat riasztása is beindul. Onnantól a SalesOS felületén folytatódik a kézi munka: a dossziéban látszik a kontextus, a pipeline-on léptethető a deal, a teendők közé felvehető a következő lépés. A tényleges kapcsolatfelvétel (fórum-komment, LinkedIn-üzenet) mindig emberi jóváhagyás után megy ki — automatikus tömeges kiküldés tudatosan nincs.</p>
         </div>
         <div class="phase-meta">Zoltán</div>
       </div>
@@ -522,12 +538,12 @@
 
         <div class="flow-col">
           <div class="flow-col-label">Adatforrások</div>
-          <div class="flow-node">Reddit<sub>r/Revit, r/ArchiCAD, r/BIM</sub></div>
-          <div class="flow-node">Graphisoft Community<sub>Playwright / Chromium</sub></div>
-          <div class="flow-node">Autodesk Community<sub>Playwright / Chromium</sub></div>
-          <div class="flow-node">Stack Overflow<sub>Stack Exchange API v2.3</sub></div>
-          <div class="flow-node">Google CSE<sub>RevitForum, BuildingSMART</sub></div>
-          <div class="flow-node accent-node">Waitlist<sub>nodu.build/bridge, egyenesen n8n-be</sub></div>
+          <div class="flow-node">Graphisoft + Autodesk<sub>Playwright / Chromium · 742 poszt</sub></div>
+          <div class="flow-node">Brave web-keresés<sub>Reddit és egyéb tartalom · 127 poszt</sub></div>
+          <div class="flow-node">GitHub issue-k<sub>IfcOpenShell, Speckle, xeokit · 74 poszt</sub></div>
+          <div class="flow-node">Fórum-API-k<sub>OSArch, buildingSMART, Speckle, Stack Overflow</sub></div>
+          <div class="flow-node">YouTube + Graphisoft KB<sub>Intelligencia-források, nem lead</sub></div>
+          <div class="flow-node accent-node">Waitlist<sub>nodu.build/bridge, közvetlen ingest</sub></div>
           <div class="flow-node amber-node">RB2B<sub>Weboldal-látogató, ingyenes most</sub></div>
         </div>
 
@@ -537,11 +553,11 @@
 
         <div class="flow-col">
           <div class="flow-col-label">Feldolgozás</div>
-          <div class="flow-node accent-node">nodu-monitor<sub>Kulcsszószűrő, 25+ kifejezés</sub></div>
-          <div class="flow-node" style="margin-top:8px">Relevanciapontozás<sub>primary 3pt · pain 2pt · context 1pt</sub></div>
-          <div class="flow-node">SQLite adatbázis<sub>Duplikátum-védelem</sub></div>
-          <div class="flow-node green-node" style="margin-top:8px">Claude Haiku<sub>Válaszjavaslat-generálás</sub></div>
-          <div class="flow-node amber-node">Slack-approve<sub>👍/👎 gyorsjóváhagyás (P0, a Flask UI kiváltása)</sub></div>
+          <div class="flow-node accent-node">nodu-monitor<sub>Kulcsszavas előszűrő, 3-2-1 pontozás</sub></div>
+          <div class="flow-node">SQLite adatbázis<sub>Duplikátum-védelem, napi mentés</sub></div>
+          <div class="flow-node green-node" style="margin-top:8px">Pain Classifier<sub>Gemini · is_pain · severity 1–5 · vásárlási szándék</sub></div>
+          <div class="flow-node green-node">Válaszjavaslat<sub>Gemini · 70–80 szó · Speckle és support-KB kizárva</sub></div>
+          <div class="flow-node amber-node">Emberi kapudöntés<sub>Dashboard vagy CLI · Slack-approve még nincs</sub></div>
         </div>
 
         <div class="flow-arrow">
@@ -550,11 +566,11 @@
 
         <div class="flow-col">
           <div class="flow-col-label">Automatizáció</div>
-          <div class="flow-node blue-node">n8n → NODU Sales ingest<sub>POST /api/bridge/ingest · Bearer-kulcs · idempotens</sub></div>
-          <div class="flow-node" style="margin-top:8px">Company-match<sub>házszám → email-domain → trigram → új cég</sub></div>
-          <div class="flow-node">Deal<sub>score ≥ 7: Qualified · 5–6: Lead · nyitott dealre csak Activity</sub></div>
+          <div class="flow-node blue-node">Közvetlen NODU Sales ingest<sub>POST /api/bridge/ingest · Bearer-kulcs · idempotens · n8n nélkül</sub></div>
+          <div class="flow-node" style="margin-top:8px">Company-match<sub>házszám → email-domain → trigram → új cég · cégnév kézi megadással</sub></div>
+          <div class="flow-node">Deal<sub>severity × 2 = score · ≥ 7: Qualified · 5–6: Lead · nyitott dealre csak Activity</sub></div>
           <div class="flow-node">Activity<sub>forrás-URL kötelező · source = BRIDGE</sub></div>
-          <div class="flow-node green-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads csatorna</sub></div>
+          <div class="flow-node amber-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads · kód kész, webhook-URL-re vár</sub></div>
         </div>
 
         <div class="flow-arrow">
@@ -583,6 +599,10 @@
     <p class="section-label">Adatforrások részletesen</p>
     <h2>Melyik forrás, mit ad, mikor aktív</h2>
 
+    <p>
+      A táblázat a 2026-07-27-i élő adatbázis-állapotot tükrözi. A „fájdalom-arány" azt mutatja, hogy az adott forrásból osztályozott posztok mekkora része lett igazolt fájdalom-jelzés — ez a forrás valódi minősége, a volumentől függetlenül. Jól látszik a kétféle érték: a Playwright-forrásoknak nagy a volumene, a GitHubnak és a Speckle-nek a jelminősége.
+    </p>
+
     <div class="table-wrap">
       <table>
         <thead>
@@ -591,51 +611,100 @@
             <th>Platform</th>
             <th>Lekérdezés módja</th>
             <th>Státusz</th>
-            <th>Korlát</th>
+            <th>Poszt / fájdalom-arány</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="table-group-row"><td colspan="5">Közösség-figyelés — nodu-monitor scraper</td></tr>
+          <tr class="table-group-row"><td colspan="5">Közösség-figyelés — nodu-monitor (8 aktív connector)</td></tr>
           <tr>
-            <td><strong>Reddit</strong></td>
-            <td>r/Revit, r/ArchiCAD, r/BIM</td>
-            <td>PRAW API, valós idejű új posztok és kommentek</td>
-            <td><span class="badge badge-q3">API-kulcs kell</span></td>
-            <td class="td-mono">Ingyenes tier</td>
+            <td><strong>Autodesk Community</strong></td>
+            <td>forums.autodesk.com</td>
+            <td>Playwright Chromium, JS-alapú oldalak renderelése, 90 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">517 · 32,6%</td>
           </tr>
           <tr>
             <td><strong>Graphisoft Community</strong></td>
             <td>community.graphisoft.com</td>
-            <td>Playwright Chromium, JS-alapú oldalak renderelése</td>
-            <td><span class="badge badge-now">Kész</span></td>
-            <td class="td-mono">90 perc/ciklus</td>
+            <td>Playwright Chromium, JS-alapú oldalak renderelése, 90 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">225 · 36,3%</td>
           </tr>
           <tr>
-            <td><strong>Autodesk Community</strong></td>
-            <td>forums.autodesk.com</td>
-            <td>Playwright Chromium, JS-alapú oldalak renderelése</td>
-            <td><span class="badge badge-now">Kész</span></td>
-            <td class="td-mono">90 perc/ciklus</td>
+            <td><strong>Brave web-keresés</strong></td>
+            <td>Reddit, LinkedIn, vegyes fórumok</td>
+            <td>Brave Search API, problémára hangolt lekérdezések, napi</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">127 · 34,8%</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub issue-k</strong></td>
+            <td>IfcOpenShell, speckle-server, xeokit-sdk</td>
+            <td>GitHub API, issue-keresés, 240 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">74 · 84,1%</td>
+          </tr>
+          <tr>
+            <td><strong>OSArch community</strong></td>
+            <td>community.osarch.org</td>
+            <td>Vanilla Forums API (nem Discourse), 240 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">71 · 28,0%</td>
+          </tr>
+          <tr>
+            <td><strong>Speckle community</strong></td>
+            <td>speckle.community</td>
+            <td>Discourse friss-lista lapozva (keresés robots.txt miatt tiltva), 240 perc</td>
+            <td><span class="badge badge-dev">Csak intelligencia</span></td>
+            <td class="td-mono">35 · 82,9%</td>
+          </tr>
+          <tr>
+            <td><strong>Graphisoft support KB</strong></td>
+            <td>support.graphisoft.com</td>
+            <td>Zendesk Help Center API, két interop-szekció, 720 perc</td>
+            <td><span class="badge badge-dev">Csak intelligencia</span></td>
+            <td class="td-mono">32 · 6,3%</td>
+          </tr>
+          <tr>
+            <td><strong>YouTube kommentek</strong></td>
+            <td>youtube.com</td>
+            <td>Data API v3, videó-keresés + kommentek, 180 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">29 · 14,3%</td>
+          </tr>
+          <tr>
+            <td><strong>buildingSMART fórum</strong></td>
+            <td>forums.buildingsmart.org</td>
+            <td>Discourse friss-lista lapozva (keresés robots.txt miatt tiltva), 240 perc</td>
+            <td><span class="badge badge-q3">Közel null hozam</span></td>
+            <td class="td-mono">10 · 30,0%</td>
           </tr>
           <tr>
             <td><strong>Stack Overflow</strong></td>
-            <td>stackoverflow.com, softwareengineering.SE</td>
-            <td>Stack Exchange API v2.3, tag és szöveges keresés</td>
-            <td><span class="badge badge-now">Kész</span></td>
-            <td class="td-mono">300 kérés/nap (API-kulcs nélkül)</td>
+            <td>stackoverflow.com</td>
+            <td>Stack Exchange API, tag- és szöveges keresés, 180 perc</td>
+            <td><span class="badge badge-now">Éles</span></td>
+            <td class="td-mono">5 · nincs adat</td>
           </tr>
           <tr>
-            <td><strong>Google Custom Search</strong></td>
-            <td>RevitForum, BuildingSMART, egyéb</td>
-            <td>Google CSE JSON API, domain-szűrt keresés</td>
-            <td><span class="badge badge-q3">API-kulcs kell</span></td>
-            <td class="td-mono">100 kérés/nap ingyenes</td>
+            <td><strong>Reddit (PRAW)</strong></td>
+            <td>r/Revit, r/ArchiCAD, r/BIM + 5 további</td>
+            <td>PRAW API — a kulcsigénylés CAPTCHA és platform-szabályzati jóváhagyás mögött</td>
+            <td><span class="badge badge-q3">Elakadt, áthidalva</span></td>
+            <td class="td-mono">0 · a Brave-en jön</td>
+          </tr>
+          <tr>
+            <td><strong>RevitForum</strong></td>
+            <td>revitforum.org</td>
+            <td>—</td>
+            <td><span class="badge badge-sept">Kivezetve</span></td>
+            <td class="td-mono">XenForo + Cloudflare</td>
           </tr>
           <tr class="table-group-row"><td colspan="5">Weboldal — nodu.build/bridge</td></tr>
           <tr>
             <td><strong>Waitlist</strong></td>
             <td>nodu.build/bridge</td>
-            <td>Waitlist-űrlap, egyenesen az n8n webhookra</td>
+            <td>Waitlist-űrlap, közvetlenül a SalesOS ingest-végpontjára</td>
             <td><span class="badge badge-q3">Beillesztésre vár</span></td>
             <td class="td-mono">Ingyenes, saját csatorna</td>
           </tr>
@@ -656,6 +725,16 @@
         </tbody>
       </table>
     </div>
+
+    <div class="callout-green" style="margin-top:24px">
+      <div class="callout-label">Két forrás tudatosan csak intelligencia, nem lead</div>
+      <p>A <strong>Speckle community</strong> a legjobb jelminőségű fórumaink egyike (82,9%), de versenytárs fóruma: a poszt bejön, jelzésként látszik és számít a riportokban, <strong>válasz azonban nem készül rá</strong> — a kizárás két helyen zár, a batch-szelekcióban és a kézi „Válasz generálása" gombnál is. A <strong>Graphisoft support KB</strong> cikkeit a gyártó supportja írja, a kommentelés tiltott: nincs kit megszólítani. A 6,3%-os fájdalom-arány itt nem hiba, hanem a helyes viselkedés — amit ez a forrás ad, az piaci intelligencia arról, melyik interop-probléma fordul elő elégszer ahhoz, hogy KB-cikk szülessen róla.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Amit a jelzések tartalmáról tudunk</div>
+      <p>A 305 fájdalom-jelzés szerepkör-hipotézise szinte kivétel nélkül <strong>BIM-koordinátor, modellező vagy építész</strong> — vagyis pontosan az a persona, akire a Professional tier Koordinátor-seatje épül. A versenytárs-detektor 36 posztban azonosított Speckle-említést, ami messze a legtöbb; utána szórványosan Vectorworks, Tekla, Revizto, Qonic és a Graphisoft saját Archicad-to-Revit add-inje következik. A jelzések severity-je erősen a 3–4-es sávba tömörül (174 + 129), 5-es súlyosság alig fordul elő: a fájdalom valós és gyakori, de ritkán projekt-megállító.</p>
+    </div>
   </section>
 
   <!-- FÁZISOK -->
@@ -668,31 +747,31 @@
         <div class="phase-num">1</div>
         <div class="phase-content">
           <h4>Meglévő alap élesítése</h4>
-          <p>API-kulcsok bekonfigurálása a config.yaml-ban: Reddit (reddit.com/prefs/apps), Google CSE (console.cloud.google.com), Claude Haiku (api.anthropic.com), Slack-webhook. End-to-end teszt: gyűlnek-e a posztok az SQLite-ba.</p>
+          <p><strong>Kész.</strong> A titkok a git-ignorált <code>.env</code>-be kerültek (Gemini, YouTube, Brave és a SalesOS Bridge-kulcs) — a config.yaml-ből kivezetve, mert a GitHub push-protection joggal elutasította az éles kulcsot tartalmazó commitot. A Google CSE teljesen kikerült a kódból (halott API), helyét a Brave Search vette át. A Reddit-kulcs az egyetlen, ami nincs meg, és ez nem rajtunk áll: a kulcsigénylés CAPTCHA és a 2025 novemberi platform-szabályzat jóváhagyása mögött van — áthidalva a Brave <code>site:reddit.com</code> lekérdezéseivel.</p>
         </div>
-        <div class="phase-meta">1–2 nap<br>Zoltán</div>
+        <div class="phase-meta">Kész<br>Zoltán + Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">2</div>
         <div class="phase-content">
-          <h4>Scraper connectorok</h4>
-          <p>A Playwright (Graphisoft és Autodesk Community JS-oldalak) és a Stack Overflow connector. Mindkettő elkészült, a Reddit, a Google CSE és a HTML-fórumok mellett fut.</p>
+          <h4>Connectorok és üzemeltetési védőháló</h4>
+          <p><strong>Kész, 8 aktív connector.</strong> A 2026-07-24/25-i lead-volumen audit kiderítette, hogy a hét connector közül négy néma hibával nullán állt, és semmi nem jelezte — a poszt-szám 28-ról 402-re állt vissza, ma 1 125. Ezért épült be a connector-heartbeat (6 óránként), a <code>/health</code> végpont (503, ha bármelyik connector hibás vagy „vak"), és a napi adatbázis-mentés hét napos rotációval. A <code>runs.items_seen</code> a nyers elemszámot rögzíti — ez választja el a „nincs új tartalom"-ot az „eltört connector"-tól.</p>
         </div>
         <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">3</div>
         <div class="phase-content">
-          <h4>n8n és NODU Sales integráció</h4>
-          <p>A NODU Sales oldali ingest-adapter <strong>elkészült</strong> (POST /api/bridge/ingest — Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló; spec: SalesOS docs/08). A fogadó rendszer azóta a teljes MVP-kört lezárta és élesben tesztelve fut: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok (a „Bridge Waitlist” kampány már most létezik és fogadja a jelzéseket), globális keresés és az AI-copilot mind működik, a kódbázis pedig verziózott és biztonsági mentése megvan. Hátravan: n8n elindítása (cloud vagy self-hosted) és a workflow átkötése erre az endpointra a Pipedrive helyett, plusz Slack-értesítés. Előfeltétel: a NODU Sales elérhető legyen az n8n felől (hosting vagy tunnel).</p>
+          <h4>AI-osztályozás és NODU Sales integráció</h4>
+          <p><strong>Kész, éles.</strong> A 2026-07-19-i pivot óta a Pain Classifier adja az érdemi szűrést, és a monitor <strong>közvetlenül</strong> hívja a <code>POST /api/bridge/ingest</code> végpontot (Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló) — az n8n kimaradt a láncból, mert egy egyirányú átadáshoz nem adott hozzá semmit. A fogadó oldalon a SalesOS a Release 0.1 és 0.2 kört lezárta: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok, globális keresés, AI-copilot, napi mentés, CI és zöld e2e. Valós kulcs mellett élesben verifikálva (valódi kulcs → 422 validáció, hamis → 401). Hátravan: a SalesOS tartós hostingja vagy tunnelje, hogy ne csak lokálisan legyen elérhető.</p>
         </div>
-        <div class="phase-meta">1–2 nap<br>Fejlesztő + Zoltán</div>
+        <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">4</div>
         <div class="phase-content">
           <h4>Waitlist oldal és feliratkozás</h4>
-          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés az n8n-en át a NODU Sales „Bridge Waitlist” kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
+          <p>A nodu.build/bridge oldalon waitlist-űrlap (e-mail, név, szerepkör, fő fájdalompont) készül a NODU dizájnnal. A beküldés közvetlenül a NODU Sales „Bridge Waitlist” kampányába érkezik (Registration lépcső) — a kampány-tölcsér automatikusan méri a konverziót. GDPR-megerősítés (double opt-in). Önálló, beágyazható komponens, amelyet a fejlesztő illeszt a weboldal stackjébe.</p>
         </div>
         <div class="phase-meta">2–3 nap<br>Fejlesztő + Zoltán</div>
       </div>
@@ -708,23 +787,23 @@
         <div class="phase-num">6</div>
         <div class="phase-content">
           <h4>Hatékonyság-növelés</h4>
-          <p>A fórumválasz-javaslatok finoman a waitlist-feliratkozásra terelnek, UTM-linkkel. Minden kimenő link UTM-címkét kap, így a NODU Salesben látszik, melyik csatorna konvertál; heti Slack-összefoglaló készül a forrásokról és a top fájdalompontokról. Emellett heti 1-2 LinkedIn-posztjavaslat érkezik a valós közösségi fájdalompontokból, jóváhagyásra.</p>
+          <p><strong>Nagyrészt kész, a kimenete a Slack-webhookra vár.</strong> A waitlist-CTA (UTM-linkkel, <code>bridge_waitlist</code> kampányra) be van konfigurálva, de a válasz-draftokban <strong>egyelőre ki van kapcsolva</strong> — bekapcsolása egyetlen konfig-kapcsoló, amint a waitlist-oldal él. Elkészült a heti riport (hétfő 8:00, magyar) fájdalom-klaszter-elemzéssel, a heti 2 LinkedIn-posztjavaslat a valós fájdalom-jelzésekből (angol), a versenytárs-detektor, valamint egy tudásbázis-építő, amely a NODU technical és Bridge repo dokumentumaiból állítja elő az AI-prompt kontextusát — így a válaszjavaslatok a termék tényleges képességeire hivatkoznak. A dashboardon LinkedIn-válasz fül is van: beillesztett posztra háromágú döntéssel (Bridge / nodu.build / nincs illeszkedés) ír választ.</p>
         </div>
-        <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
+        <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
       <div class="phase-row">
         <div class="phase-num">7</div>
         <div class="phase-content">
-          <h4>Slack-approve workflow (a Flask UI kiváltása)</h4>
-          <p>A válaszjavaslat-jóváhagyás a Flask UI helyett Slack-first: 👍/👎 gyorsjóváhagyás a csatornában, egy kattintásos deep-review a teljes kontextussal, archiválás/halasztás. Ez a teljes konverzió-lánc szűk keresztmetszetét oldja fel. <strong>Javasolt megvalósítás (fejlesztői feladat):</strong> natív bővítés a meglévő Python-appban, nem n8n — az n8n egyirányú (Bridge → NODU Sales ingest), ez viszont kétirányú (Slack-kattintás → adatbázis-írás → visszajelzés Slackbe), és az app már úgyis beszél Slackkel és van saját adatbázisa. Konkrétan: (1) <code>notifier.py</code> bővítése Slack Block Kit gombokkal a draft-üzeneteken; (2) új Flask-route (pl. <code>/slack/actions</code>) a Slack-kattintás fogadására, aláírás-ellenőrzéssel; (3) egy DB-mező bővítés (<code>storage/db.py</code>) az approve/reject állapothoz. Előfeltétel: Zoltán létrehoz egy Slack App-ot a workspace-en (Bot Token + Signing Secret) — ezt csak workspace-admin teheti meg, a kódolás a fejlesztőé. <em>Megjegyzés: a korábban itt szereplő LinkedIn Apify-scraping a 2026-07-11-i audit alapján törölve — ütközik a „no LinkedIn scraping” elvvel. LinkedIn-jelenlét kizárólag kézi üzenetekkel és posztokkal.</em></p>
+          <h4>Slack-webhook, majd Slack-approve workflow</h4>
+          <p><strong>Ez a rendszer egyetlen nyitott, blokkoló tétele — és két lépésből áll.</strong> Először a puszta <code>alerts.slack</code> webhook-URL kell (felhasználói lépés, kód-oldalon minden kész): enélkül sem a napi digest, sem a connector-heartbeat riasztása nem jut el senkihez. Csak utána érdemes a jóváhagyást is Slack-first-té tenni: 👍/👎 gyorsjóváhagyás a csatornában, egy kattintásos deep-review a teljes kontextussal, archiválás/halasztás — ma ez a dashboardon vagy CLI-ből történik, ami működik, csak lassabb. <strong>Javasolt megvalósítás (fejlesztői feladat):</strong> natív bővítés a meglévő Python-appban — a jóváhagyás kétirányú folyamat (Slack-kattintás → adatbázis-írás → visszajelzés Slackbe), és az app már úgyis beszél Slackkel, van saját adatbázisa, és a SalesOS-t is közvetlenül hívja. Konkrétan: (1) <code>notifier.py</code> bővítése Slack Block Kit gombokkal a draft-üzeneteken; (2) új Flask-route (pl. <code>/slack/actions</code>) a Slack-kattintás fogadására, aláírás-ellenőrzéssel; (3) egy DB-mező bővítés (<code>storage/db.py</code>) az approve/reject állapothoz. Előfeltétel: Zoltán létrehoz egy Slack App-ot a workspace-en (Bot Token + Signing Secret) — ezt csak workspace-admin teheti meg, a kódolás a fejlesztőé. <em>Megjegyzés: a korábban itt szereplő LinkedIn Apify-scraping a 2026-07-11-i audit alapján törölve — ütközik a „no LinkedIn scraping” elvvel. LinkedIn-jelenlét kizárólag kézi üzenetekkel és posztokkal.</em></p>
         </div>
-        <div class="phase-meta">2–3 nap<br>Fejlesztő</div>
+        <div class="phase-meta">Webhook: azonnal<br>Approve: 2–3 nap</div>
       </div>
     </div>
 
     <div class="callout">
       <div class="callout-label">Mit lehet azonnal indítani</div>
-      <p>A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet. A scraper éles teszteléséhez az 1. fázis (API-kulcsok) szükséges; ez Zoltán feladata, a kód oldala kész.</p>
+      <p>A közösség-figyelés már éles üzemben gyűjt és osztályoz, tehát nem vár semmire — de a kimenete ma csak a dashboardon látszik. A leggyorsabban megtérülő lépés a Slack-webhook beállítása: egyetlen URL, és a kész riasztási lánc azonnal működik. A waitlist oldal és az RB2B ingyenes csomag nem vár a teljes weboldal élesedésére: amint a /bridge aloldal él, mindkettő gyűjthet.</p>
     </div>
   </section>
 
@@ -733,7 +812,7 @@
     <p class="section-label">Sales pipeline</p>
     <h2>NODU Sales: automatikus routing (stage-mapping)</h2>
     <p>
-      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap” döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája még kialakítás alatt van — a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függ (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak.
+      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap” döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A score forrása 2026-07-19 óta a Pain Classifier severity-je: <strong>severity × 2 = score</strong> (severity 4–5 → 8–10, azaz Qualified; severity 3 → 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló). A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája még kialakítás alatt van — a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függ (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak.
     </p>
 
     <div class="table-wrap">
@@ -748,19 +827,25 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>Scraper, score ≥ 7</strong></td>
+            <td><strong>Jelzés, severity 4–5 (score 8–10)</strong></td>
             <td>Cég-match/létrehozás + Deal + Activity (forrás-URL-lel)</td>
             <td>Qualified</td>
-            <td>Slack-értesítés; válaszjavaslat jóváhagyásra</td>
+            <td>Válaszjavaslat jóváhagyásra; Slack-értesítés a webhook beállítása után</td>
           </tr>
           <tr>
-            <td><strong>Scraper, score 5–6</strong></td>
+            <td><strong>Jelzés, severity 3 (score 6)</strong></td>
             <td>Cég-match/létrehozás + Deal + Activity</td>
             <td>Lead</td>
-            <td>Slack-értesítés; megfigyelés, kézi minősítés</td>
+            <td>Megfigyelés, kézi minősítés</td>
           </tr>
           <tr>
-            <td><strong>Scraper, nyitott deales cégen</strong></td>
+            <td><strong>Jelzés, severity 1–2 (score 2–4)</strong></td>
+            <td>Nem kerül át: a monitor oldalán marad, jelzés-naplóban</td>
+            <td>—</td>
+            <td>A dashboard „Lehetőségek" fülén látszik, deal nem nyílik</td>
+          </tr>
+          <tr>
+            <td><strong>Jelzés, nyitott deales cégen</strong></td>
             <td>Csak Activity a meglévő dealre — nincs duplikált deal</td>
             <td>—</td>
             <td>A jelzés a cég-dossziéban és az AI Briefben látszik</td>
@@ -786,6 +871,11 @@
         </tbody>
       </table>
     </div>
+
+    <div class="callout">
+      <div class="callout-label">Amit egy pipeline-riport olvasása előtt tudni kell</div>
+      <p>A SalesOS-ben <strong>demo-rekordok is vannak</strong> (Zoltán 2026-07-24-i döntése szerint maradhatnak): 5 cég, 5 activity, 5 Bridge-ingest és 3 deal a „NODU MONITOR DEMO A–D” cégeken. A poszt, a forrás-URL és a fájdalom-összefoglaló ezekben valódi, <strong>a cég viszont kitalált</strong> (<code>.invalid</code> domain) — ezekkel lett élesben igazolva a stage-leképezés. A 3 demo-deal beleszámít a pipeline-riportokba, ezért egy éles pipeline-review előtt ki kell szűrni őket. Valós adat is van a rendszerben: a 2026-07-20-i importtal 12 tényleges célcég és 12 kontakt, Target státusszal.</p>
+    </div>
   </section>
 
   <!-- KÖVETKEZŐ TEENDŐK -->
@@ -795,59 +885,54 @@
 
     <div class="todo-list">
       <div class="todo-row">
-        <div class="todo-task">Reddit API-kulcs bekonfigurálása (reddit.com/prefs/apps → script app létrehozása)</div>
-        <div class="todo-who">Fejlesztő</div>
+        <div class="todo-task"><strong>Slack-webhook-URL létrehozása és beadása</strong> (<code>alerts.slack</code>) — a lánc egyetlen blokkoló tétele: enélkül sem a napi digest, sem a connector-riasztás nem jut el senkihez. Kód-oldalon minden kész</div>
+        <div class="todo-who">Zoltán</div>
         <div class="todo-when todo-now">Azonnal</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">Google CSE API-kulcs és keresőmotor-azonosító beállítása (console.cloud.google.com)</div>
-        <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
-      </div>
-      <div class="todo-row">
-        <div class="todo-task">Céges Anthropic (Claude) API-kulcs igénylése és bekötése — céges fiókkal, nem személyes kulccsal; a <code>claude_enabled: true</code> kapcsoló beállítása a config.yaml-ban</div>
-        <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">Azonnal</div>
-      </div>
-      <div class="todo-row">
-        <div class="todo-task"><code>pip install playwright &amp;&amp; playwright install chromium</code> futtatása</div>
-        <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
-      </div>
-      <div class="todo-row">
-        <div class="todo-task">NODU Sales hosting/tunnel döntés (a lokális app elérhetővé tétele az n8n felől) + adatbázis-mentés (pg_dump ütemezés)</div>
+        <div class="todo-task">NODU Sales tartós hosting vagy tunnel döntés (ma lokálisan fut, ezért az ingest is csak a gépen működik); az adatbázis-mentés már ütemezve van (napi 21:00)</div>
         <div class="todo-who">Zoltán + Fejlesztő</div>
         <div class="todo-when todo-now">Azonnal</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">n8n-instance elindítása (cloud vagy self-hosted döntés); BRIDGE_API_KEY átadása az n8n-nek</div>
+        <div class="todo-task">A monitor Windows-szolgáltatásként való futtatása — ma manuálisan indított konzolos processz, gépújraindításnál megszűnik. A <code>/health</code> végpont már kész egy külső watchdoghoz</div>
+        <div class="todo-who">Zoltán + Fejlesztő</div>
+        <div class="todo-when todo-dev">1. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Waitlist-oldal a nodu.build/bridge-en és a „Waitlist → NODU Sales” közvetlen bekötés (channel: waitlist, Registration lépcső)</div>
         <div class="todo-who">Fejlesztő</div>
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">n8n workflow átkötése a NODU Sales ingest-endpointra (POST /api/bridge/ingest) — a NODU Sales oldali adapter kész, tesztelve</div>
+        <div class="todo-task">RB2B ingyenes csomag aktiválása és a JS snippet beillesztése a /bridge oldalra</div>
         <div class="todo-who">Fejlesztő</div>
         <div class="todo-when todo-dev">1. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">Waitlist-oldal a nodu.build/bridge-en (waitlist-űrlap) és a „Waitlist → NODU Sales” n8n-workflow beállítása (channel: waitlist)</div>
-        <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-dev">1. sprint</div>
+        <div class="todo-task">Döntés: az OSArch-fájdalom túlnyomórészt Bonsai/FreeCAD/IfcOpenShell eszköz-fájdalom, nem közvetlen Archicad–Revit interop. Ez a Bridge célközönsége, vagy inkább a tágabb nodu.build-pozicionálás?</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-now">Azonnal</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">RB2B ingyenes csomag aktiválása és a JS snippet beillesztése a /bridge oldalra (Slack-értesítés)</div>
-        <div class="todo-who">Fejlesztő</div>
-        <div class="todo-when todo-now">1. sprint</div>
-      </div>
-      <div class="todo-row">
-        <div class="todo-task">Slack-approve workflow (7. fázis): 👍/👎 gyorsjóváhagyás a Flask UI kiváltására — a konverzió-lánc szűk keresztmetszete</div>
+        <div class="todo-task">A demo-rekordok kiszűrése a pipeline-riportokból az első éles pipeline-review előtt (3 demo-deal beleszámít a számokba)</div>
         <div class="todo-who">Fejlesztő</div>
         <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">Relevancia-pontozás A/B teszt (3-2-1 formula vs. LLM-reclassification); a küszöbök env-ben hangolhatók (BRIDGE_SCORE_QUALIFIED / BRIDGE_SCORE_LEAD) — Fejlesztő futtatja, Zoltán értékeli az eredményt</div>
+        <div class="todo-task">Slack-approve workflow: 👍/👎 gyorsjóváhagyás a csatornában, a dashboard-jóváhagyás kiváltására. Előfeltétel: Slack App a workspace-en (Bot Token + Signing Secret) — ezt csak workspace-admin hozhatja létre</div>
+        <div class="todo-who">Zoltán + Fejlesztő</div>
+        <div class="todo-when todo-soon">2. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">A severity-alapú pontozás kalibrálása éles adaton: a jelzések 99%-a a 3–4-es sávba esik, vagyis a Qualified/Lead vonal ma gyakorlatilag egyetlen severity-fokozaton dől el. A verziózott 0–100-as pontozómotor a 2. fázis</div>
         <div class="todo-who">Fejlesztő + Zoltán</div>
         <div class="todo-when todo-soon">2. sprint</div>
+      </div>
+      <div class="todo-row">
+        <div class="todo-task">Reddit API-kulcs: ha a platform-szabályzati jóváhagyás megjön, a <code>.env</code>-be kerül, és a 8 subredditre bővítés azonnal élesedik. Addig a Brave-keresés hidalja át</div>
+        <div class="todo-who">Zoltán</div>
+        <div class="todo-when todo-soon">Ha lehetséges</div>
       </div>
       <div class="todo-row">
         <div class="todo-task">RB2B Pro előfizetésre váltás (költség-döntés), a technikai bekötés a fejlesztőé</div>
@@ -874,7 +959,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-17 (konzisztencia-ellenőrzés: magyar idézőjelek javítva)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor 2026-07-19-i pivotja és a SalesOS 0.1/0.2 release-ei átvezetve, élő adatbázis-számokkal)<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>
