@@ -494,7 +494,7 @@
   <!-- PAGE HEADER -->
   <div class="page-header">
     <h1>NODU Bridge Licencmodell</h1>
-    <p>Parametrikus Archicad → Revit konverzió saját mapping sablonokkal · Freemium → Professional → Studio → Enterprise (az Enterprise tier terv szerint 2027 elejétől) · Élő szinkron és delta-szinkron: v2-től (2026. december 15.)</p>
+    <p>Parametrikus Archicad → Revit konverzió saját mapping sablonokkal · Freemium → Professional → Studio → Enterprise (az Enterprise nem önkiszolgáló: sales-vezérelt, egyedi ajánlat) · Élő szinkron és delta-szinkron: v2-től (2026. december 15.)</p>
   </div>
 
   <!-- TIER CARDS -->
@@ -516,7 +516,7 @@
       <div class="tier-label">Tier 0</div>
       <div class="tier-name">Community</div>
       <div class="tier-price">€0 <sub>/ hó</sub></div>
-      <div class="tier-billing">Egyéni próba · virális belépő</div>
+      <div class="tier-billing">Egyéni próba · virális belépő · v1/GA-tól (2026-09-15)</div>
       <div class="divider-line"></div>
       <ul class="feature-list">
         <li><span class="check">✓</span> <span class="highlight-feat">Archicad → Revit adatcsere</span> (batch konverzió, preset sablonokkal)</li>
@@ -528,7 +528,7 @@
         <li class="off"><span class="cross">✕</span> API hozzáférés</li>
         <li class="off"><span class="cross">✕</span> Support (csak fórum)</li>
       </ul>
-      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális (script engine + saját sablon).</div>
+      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális: saját mapping-sablon mentése (v1-től) és élő, inkrementális szinkron (v2-től).</div>
     </div>
 
     <!-- Professional -->
@@ -568,10 +568,10 @@
         <li><span class="check">✓</span> <span class="highlight-feat">5 egyidejűleg aktív projekt</span></li>
         <li><span class="check">✓</span> Közös sablonkönyvtár (Koordinátorok között megosztva)</li>
         <li><span class="check">✓</span> 1 éves projekt-előzmény + teljes analitika</li>
-        <li><span class="check">✓</span> REST API hozzáférés</li>
+        <li><span class="check">✓</span> REST API hozzáférés <em style="font-size:0.85em; color:var(--muted);">(v2-től, 2026. december)</em></li>
         <li><span class="check">✓</span> Alap audit napló</li>
-        <li><span class="check">✓</span> Webhook integráció</li>
-        <li><span class="check">✓</span> Google / Microsoft bejelentkezés (OAuth)</li>
+        <li><span class="check">✓</span> Webhook integráció <em style="font-size:0.85em; color:var(--muted);">(v2-től)</em></li>
+        <li><span class="check">✓</span> Google / Microsoft bejelentkezés (OAuth) <em style="font-size:0.85em; color:var(--muted);">(v2-től)</em></li>
         <li class="off"><span class="cross">✕</span> SAML / Active Directory / Okta</li>
         <li class="off"><span class="cross">✕</span> On-premise telepítés</li>
         <li><span class="check">✓</span> Priority support (24h SLA)</li>
@@ -581,10 +581,10 @@
 
     <!-- Enterprise -->
     <div class="tier-card">
-      <div class="tier-label">Tier 3: jövőbeli tier, terv szerint 2027 elejétől</div>
+      <div class="tier-label">Tier 3: nem önkiszolgáló · sales-vezérelt, egyedi ajánlat</div>
       <div class="tier-name">Enterprise</div>
       <div class="tier-price">Egyedi</div>
-      <div class="tier-billing">Min. €2,500 / hó · éves szerződés · induláskor nem indul, addig egyedi ajánlat</div>
+      <div class="tier-billing">Min. €2,500 / hó · éves szerződés · a termékesítés roadmap-függő (puha iránymutatás: 2027 eleje), addig minden ilyen igény egyedi tárgyalás</div>
       <div class="paywall-chip purple">③ Paywall · Governance</div>
       <ul class="feature-list">
         <li><span class="check">✓</span> Minden Studio funkció</li>
@@ -621,26 +621,26 @@
     <div class="paywall-items">
       <div class="paywall-item">
         <div class="pw-from-to">Community → Professional</div>
-        <div class="pw-title">A sablon mentési korlát + korlátozott konverziós keret</div>
-        <div class="pw-desc">Az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 konverziós kerete van. A következő projekten újra kellene felépítenie a leképezést. Ez az a fájdalompont, ami fizetővé tesz: a saját sablon idő-megtakarítás, a korlátlan konverzió pedig a napi munkafolyamat alapja.</div>
+        <div class="pw-title">Saját mapping-sablon mentése (v1-től) · élő, inkrementális szinkron (v2-től)</div>
+        <div class="pw-desc">Két elemből áll, és mindkettő mögött megerősített fejlesztési fedezet van. <strong>(1) V1/GA-tól (2026-09-15):</strong> az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 teljes modelles konverziós kerete van, elemszám-korlát nélkül. A következő projekten újra kellene felépítenie a leképezést. <strong>(2) V2-től (2026-12-15):</strong> az élő, inkrementális szinkron kizárólag fizetős funkció; az ingyenes réteg a batch/preset konverziónál marad. Az első fizetős vonal tehát már a GA-tól tartalmi fedezettel bír, és a v2-vel erősödik, nem eltolódik.</div>
         <div class="pw-trigger">„Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval.”</div>
       </div>
       <div class="paywall-item green-wall">
         <div class="pw-from-to">Professional → Studio</div>
-        <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit</div>
-        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade három helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak. A trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés.</div>
+        <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit · közös sablonkönyvtár · API</div>
+        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade öt helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak, (4) a Koordinátorok közötti közös sablonkönyvtárra van szükség, (5) API-, OAuth- (Google/Microsoft) vagy webhook-integrációt kérnek. Az első három trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés; az egyidejűleg aktív projektek száma a v2-es szinkron-motor állapotából (2026-12-15-től) olvasható ki automatikusan. Az API, az OAuth és a webhook Zoltán 2026-07-17-i megerősítése szerint a v2 hatókörébe tartozik.</div>
         <div class="pw-trigger green">„2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt”</div>
       </div>
       <div class="paywall-item purple-wall">
         <div class="pw-from-to">Studio → Enterprise</div>
-        <div class="pw-title">Adatszuverenitás · compliance</div>
-        <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez a paywall a tier megnyílásától (terv: 2027 eleje) él. Addig az ilyen igényű irodák egyedi ajánlatot kapnak.</div>
+        <div class="pw-title">Adatszuverenitás · compliance — nem önkiszolgáló, sales-vezérelt trigger</div>
+        <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez az egyetlen trigger, amelyhez nincs in-app upgrade-útvonal: az ilyen igényt Zoltán az első ügyfelektől kezdve személyesen, egyedi tárgyalás keretében kezeli. A tier termékesítése roadmap-függő: a „2027 eleje” mostantól puha iránymutatás (amikor a bővített roadmap megszületik, termékesíthető), nem terméktervezési határidő — ezért nem hiányosság, hogy a mérnöki terv (Alpha–v4) SSO-t, RBAC-ot vagy on-premise-t nem nevesít.</div>
         <div class="pw-trigger purple">„A projektek nem hagyhatják el a vállalati infrastruktúrát”</div>
       </div>
       <div class="paywall-item amber-wall">
         <div class="pw-from-to">Enterprise → Platform Core</div>
-        <div class="pw-title">BIG graph + gyártás szinkron</div>
-        <div class="pw-desc">A majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok a Build-fázisokkal elérhetővé válnak. A mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést.</div>
+        <div class="pw-title">BIG graph + gyártás szinkron (jelenleg nem napirenden)</div>
+        <div class="pw-desc">A Build-fázisokhoz kötött platform-vízió jelenleg nem napirenden (szüneteltetve, nem törölve): a csapat kizárólag a Bridge-re fókuszál. Ha a platform-fázis elindul, a majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok elérhetővé válnak; a mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést. Ez tehát hosszú távú irány, nem az indulási licencmodell eleme.</div>
         <div class="pw-trigger amber">„Integráljuk a gyártástervező rendszerrel”</div>
       </div>
     </div>
@@ -681,7 +681,7 @@
             <input type="number" class="val-input purple" id="entContractsVal" value="0" min="0" oninput="syncFromInput(this,'entContracts','purple'); calc()">
           </div>
           <input type="range" class="purple" id="entContracts" min="0" max="50" value="0" step="1" oninput="syncFromSlider(this,'entContractsVal','purple'); calc()">
-          <div class="input-hint">Jövőbeli tier, terv szerint 2027 elejétől · min. €2,500 / hó · induláskor 0 (egyedi ajánlatok)</div>
+          <div class="input-hint">Nem önkiszolgáló: sales-vezérelt, egyedi tárgyalás · min. €2,500 / hó · induláskor 0 (egyedi ajánlatok)</div>
         </div>
 
         <div class="section-divider-sm"></div>
@@ -1077,7 +1077,7 @@
             <span class="val-badge" id="entStartMonthVal">5. hó</span>
           </div>
           <input type="range" class="purple" id="entStartMonth" min="1" max="36" value="5" step="1" oninput="updateSlider(this,'purple'); calc()">
-          <div class="input-hint">A szimuláció 1. hónapja 2026. szeptember (GA); az alapértelmezett 5. hónap 2027. január. A megnyílásig nincs Enterprise-akvizíció és Enterprise-bevétel. A dátum feltételezi, hogy a governance-képességek (SSO, on-premise) addigra leszállnak: ez fejlesztési függőség, amelyet a roadmap fejlesztői listája jelenleg nem támaszt alá (SSO/on-premise a v1–v4 tételek között nem szerepel). Enterprise-bevétel emellett legkorábban a fizetés indulásától képződhet.</div>
+          <div class="input-hint">A szimuláció 1. hónapja 2026. szeptember (GA); az alapértelmezett 5. hónap 2027. január. A megnyílásig nincs Enterprise-akvizíció és Enterprise-bevétel. Ez modellezési feltevés, nem terméktervezési határidő: az Enterprise sales-vezérelt csatorna, amelyet Zoltán az első ügyfelektől kezdve személyesen, egyedi ajánlattal kezel — a csúszka azt állítja be, mikortól számolunk ezzel a bevétellel, nem azt, hogy mikor száll le az SSO vagy az on-premise.</div>
         </div>
 
         <div class="section-divider-sm"></div>
@@ -1315,12 +1315,12 @@
       <div class="decision-item">
         <div class="decision-item-label">Studio trigger</div>
         <h4>Második Koordinátor, User-plafon vagy aktív projekt-limit, nem csapatméret</h4>
-        <p>Az upgrade konkrét, mérhető kapacitás-eléréskor jön: második Koordinátor kell, betelik a 10 fős ingyenes User-keret, vagy egyszerre 3. projektet akarnak élő szinkronban futtatni a Professional 2-es limitje felett. Javasolt: mindhárom eseményre célzott in-app üzenet, nem elvont csapatméret-becslés.</p>
+        <p>Az upgrade konkrét, mérhető kapacitás-eléréskor jön: második Koordinátor kell, betelik a 10 fős ingyenes User-keret, vagy egyszerre 3. projektet akarnak élő szinkronban futtatni a Professional 2-es limitje felett (a projekt-egyidejűség a v2-es szinkron-motor állapotából mérhető). Emellé két funkcionális trigger tartozik: a közös sablonkönyvtár és az integrációs igény (API, OAuth, webhook — v2-es hatókör). Javasolt: minden eseményre célzott in-app üzenet, nem elvont csapatméret-becslés.</p>
       </div>
       <div class="decision-item">
         <div class="decision-item-label">Enterprise floor</div>
-        <h4>€2,500 / hó minimum, a tier megnyílásától</h4>
-        <p>Az Enterprise tier induláskor nem indul: tartalmi elemei (SSO, on-premise, Platform Core) nem v1-képességek. A floor a tier megnyílásakor (terv: 2027 eleje) lép életbe; addig a nagy irodák egyedi ajánlatot kapnak. Konzervatív ár: bevezetési díjjal az éves bevétel €32–46k, ha pedig BIG graph integráció is benne van, akkor €4–5k/hó reálisabb. Javasolt: €2,500 mint floor, felfelé egyedi tárgyalás.</p>
+        <h4>€2,500 / hó minimum, sales-vezérelt csatornán</h4>
+        <p>Az Enterprise nem önkiszolgáló tier: tartalmi elemei (SSO, on-premise, Platform Core) nem v1-képességek, ezért nincs listaáras, in-app megvásárolható konstrukció. A nagy, egyedi igényű irodák az első ügyféltől kezdve egyedi ajánlatot kapnak, amelyet Zoltán személyesen tárgyal; a floor ebben a tárgyalásban az alsó horgony. A termékesítés (sztenderd Enterprise-csomag listaárral) roadmap-függő, puha iránymutatás szerint 2027 eleje. Konzervatív ár: bevezetési díjjal az éves bevétel €32–46k, ha pedig BIG graph integráció is benne van, akkor €4–5k/hó reálisabb. Javasolt: €2,500 mint floor, felfelé egyedi tárgyalás.</p>
       </div>
       <div class="decision-item">
         <div class="decision-item-label">User/Koordinátor arány kalibrálás</div>

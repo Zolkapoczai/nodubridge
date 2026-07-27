@@ -719,7 +719,7 @@
         <div class="decision-body">
           <h3>A fizetős seat a funkciót követi, és a kétcéges valóságot is kezelnie kell</h3>
           <p>A fizetős Koordinátor-seat azé, aki a modellek összefésülését és a szinkron-sablonokat gondozza: nagyobb irodákban dedikált BIM-koordinátor, kisebbeknél hibrid szerepben egy építész. A vevő tehát mindenhol létezik, ahol a fájdalom létezik. (Belső kalibrációs megjegyzés: mivel a legtöbb irodában egyetlen ember végzi ezt a munkát, a Studio 2 seat-es értékajánlata önmagában a piac kisebbik részének releváns: a Studio-konverziós várakozásokat ehhez kell mérni.)</p>
-          <p>A Professional → Studio upgrade legerősebb, mérhető triggere a <strong>2 egyidejűleg aktív projektes limit kinövése</strong>: ez automatikus, a szoftver saját állapotából látható kapacitás-esemény. Másodlagos triggerek: a második koordinátor belépése, az API-integrációs igény, és az iroda-folytonosság (a koordinátor távozásakor a sablonkönyvtár átadhatósága), ez utóbbi valós félelem, de beszerzési döntést ritkán indít el önmagában.</p>
+          <p>A Professional → Studio upgrade legerősebb, mérhető triggere a <strong>2 egyidejűleg aktív projektes limit kinövése</strong>: ez automatikus, a szoftver saját állapotából látható kapacitás-esemény (a projekt-egyidejűség a v2-es szinkron-motor állapotából mérhető, 2026-12-15-től). Másodlagos triggerek: a második koordinátor belépése, a 10 fős User-keret betöltése, a Koordinátorok közötti közös sablonkönyvtár igénye, az integrációs igény (API, OAuth, webhook — Zoltán 2026-07-17-i megerősítése szerint v2-es hatókör), és az iroda-folytonosság (a koordinátor távozásakor a sablonkönyvtár átadhatósága), ez utóbbi valós félelem, de beszerzési döntést ritkán indít el önmagában.</p>
           <p><strong>Kétcéges alapelv (2026-07-06):</strong> egy közös Archicad–Revit projektben a két platform tipikusan két különböző cégnél van. A licencelv: <em>az fizet, akinek a két szoftver közötti adatcsere az érdeke</em>, jellemzően a koordinációt vivő (Archicad-oldali) iroda. A partneroldali résztvevők a fizető fél méltányos használati keretéből, cégen átnyúlóan kapnak ingyenes User-seatet, a konnektor telepítése ingyenes. A kapcsolódó részletkérdések (adattulajdon, felelősségi határok, megbízói CDE-előírások szerinti megfelelés) a 07. szekcióban nyitott kérdésként szerepelnek.</p>
         </div>
       </li>
@@ -727,9 +727,9 @@
       <li class="decision-item">
         <div class="decision-number">04</div>
         <div class="decision-body">
-          <h3>Governance az Enterprise szinten: jövőbeli tier, terv szerint 2027 elejétől</h3>
+          <h3>Governance az Enterprise szinten: nem önkiszolgáló tier, sales-vezérelt csatorna</h3>
           <p>Az Enterprise szinten a hub-platformok governance-logikája közvetlenül alkalmazható: SSO, RBAC, on-premise deployment, audit logging, SLA. Ezek nem funkciók, hanem szervezeti kontrollmechanizmusok. Az Enterprise vásárlási döntést nem funkcionális összehasonlítás vezérli, hanem jogi és compliance követelmények, IP-védelmi igények vagy nagyvállalati IT-biztonsági előírások. Az értékesítési mozgás alapvetően eltér a Professional/Studio szintektől: az Enterprise-egyezkedés IT-biztonságon, jogi osztályon és beszerzési osztályon keresztül zajlik, és az ár másodlagos szempont a megfelelőségi garanciákhoz képest.</p>
-          <p><strong>Időzítés (2026-07-06-i döntés):</strong> az Enterprise tier induláskor nem indul: a governance-képességek (SSO, on-premise) nem v1-képességek, a Platform Core pedig a Build-fázisokkal érkezik. A tier terv szerint 2027 elején nyílik meg; addig a nagy, egyedi igényű irodák egyedi ajánlatot kapnak. Ennek fontos következménye, hogy az az iroda, amelynek beszerzési feltétele az SSO vagy az on-premise futtatás, 2026-ban nem tud vásárolni: ezt a pipeline-ban explicit kezelni kell (mit tartalmaz az egyedi ajánlat, és mit nem ígérünk). A platform-hozzáférés a majdani Enterprise-értékajánlat része lesz, nem induláskori tény.</p>
+          <p><strong>Csatorna és időzítés (2026-07-17-i döntés):</strong> az Enterprise nem önkiszolgáló tier, és nem is naptárhoz kötött terméktétel: sales-vezérelt csatorna, amelyet Zoltán az első ügyfelektől kezdve személyesen, egyedi tárgyalás keretében kezel, egyedi ajánlattal. A governance-képességek (SSO, on-premise) nem v1-képességek, a Platform Core pedig a Build-fázisokkal érkezne, amely jelenleg nem napirenden. A korábbi „2027 eleje" céldátum mostantól puha iránymutatás — amikor a bővített roadmap megszületik, a tier termékesíthető —, nem terméktervezési határidő; ezért nem hiányosság, hogy a mérnöki terv (Alpha–v4) SSO-t, RBAC-ot, on-premise-t, BIG graph-ot vagy ERP-integrációt nem nevesít. A gyakorlati következmény változatlan: annak az irodának, amelynek beszerzési feltétele az SSO vagy az on-premise futtatás, egyedi konstrukciót kell adni, és a pipeline-ban explicit módon kezelni kell, hogy mit tartalmaz az ajánlat, és mit nem ígérünk. A platform-hozzáférés a majdani Enterprise-értékajánlat része lehet, nem induláskori tény.</p>
         </div>
       </li>
 
@@ -756,22 +756,22 @@
           <tr>
             <td><strong>Ingyenes</strong></td>
             <td>Konnektorok + alap geometria + közösségi hoszting</td>
-            <td>Alap geometria + preset scriptek (olvasás) + havonta 2 teljes modelles konverzió, elemszám-korlát nélkül</td>
+            <td>Batch/preset konverzió (alap geometria + preset scriptek olvasása) + havonta 2 teljes modelles konverzió, elemszám-korlát nélkül — v1/GA-tól (2026-09-15)</td>
           </tr>
           <tr class="row-highlight">
             <td><strong>1. Paywall</strong></td>
             <td style="color: var(--muted);">– (nincs intermediate tier)</td>
-            <td>Élő, inkrementális szinkron + saját sablon létrehozása/mentése (Professional, 199 EUR/Koordinátor/hó; a pontos határvonal a funkcionalitással együtt véglegesítendő)</td>
+            <td>Saját sablon létrehozása/mentése (v1/GA-tól) + élő, inkrementális szinkron (v2-től, 2026-12-15) — Professional, 199 EUR/Koordinátor/hó. Mindkét elem mögött megerősített roadmap-fedezet van.</td>
           </tr>
           <tr>
             <td><strong>2. Paywall</strong></td>
             <td style="color: var(--muted);">–</td>
-            <td>Második Koordinátor / User-plafon / aktív projekt-limit + közös sablonkönyvtár, API (Studio, 499 EUR/iroda/hó)</td>
+            <td>Második Koordinátor / User-plafon / aktív projekt-limit (a v2-es szinkron-motor állapotából mérve) + közös sablonkönyvtár + API, OAuth (Google/Microsoft), webhook — v2-es hatókör (Studio, 499 EUR/iroda/hó)</td>
           </tr>
           <tr>
-            <td><strong>Enterprise Paywall</strong> (jövőbeli tier, terv: 2027 eleje)</td>
+            <td><strong>Enterprise Paywall</strong> (nem önkiszolgáló, sales-vezérelt)</td>
             <td>SSO, RBAC, on-premise, SLA</td>
-            <td>SSO, RBAC, on-premise + BIG graph + ERP-integráció, SLA + NODU platform-belépés, a tier megnyílásától; induláskor egyedi ajánlat</td>
+            <td>SSO, RBAC, on-premise + BIG graph + ERP-integráció, SLA + NODU platform-belépés. Nincs in-app upgrade-útvonal: az első ügyfelektől kezdve egyedi tárgyalás és egyedi ajánlat; a termékesítés roadmap-függő (puha iránymutatás: 2027 eleje)</td>
           </tr>
           <tr>
             <td><strong>Value metric</strong></td>
@@ -788,7 +788,7 @@
     </div>
 
     <p>Az első paywall elhelyezkedése a modell legfontosabb architekturális döntése. Ha az első paywall túl korai (mielőtt a felhasználó megtapasztalja az igazi értéket), a konverzió alacsony, és az NPS negatív. Ha túl késői (miután a felhasználó már a teljes értéket megkapta ingyenesen), a fizetési hajlandóság csökken, mert nincs egyértelmű következő lépés.</p>
-    <p>A NODU Bridge esetében a munkahipotézis szerint a sablonmentés és az élő szinkron együtt adja a természetes határpontot: a felhasználó az ingyenes batch-konverzióval már tudja, mit kap, de a megszerzett tudást (a felépített mapping-logikát) csak előfizetéssel tarthatja meg, és a folyamatos szinkron-képességet is csak ott kapja meg. A szinkron pozicionálása (2026-07-06-i döntés): <strong>kontrollált koordinációs ciklus</strong>: a Koordinátor hagyja jóvá, mi és mikor megy át, nem felügyelet nélküli háttérfolyamat. Ez tudatosan illeszkedik az irodák minőségbiztosítási gyakorlatához (verzionált, ellenőrzött átadások, BCF-körök): a Bridge a mérföldkő-alapú cserét gyorsítja fel, és teszi veszteségmentessé, nem megkerüli azt. Egy fontos fenntartás áll fenn: a határvonal pontos meghúzása (mit tud a preset sablon, hol kezdődik a „saját" mapping) a végleges funkcionalitás ismerete nélkül nem zárható le, ez a licencmodell legfontosabb nyitott kérdése, a fejlesztéssel együtt véglegesítendő. A korábbi roadmap-kockázat — hogy az inkrementális szinkron a GA-ra elkészül-e — 2026-07-16-án lezárult: a megerősített feature-roadmap szerint a GA (2026-09-15) automatizált, batch jellegű konverziót nyújt, az élő szinkron és a delta-transzfer a Release v2 tétele (2026-12-15). A launch-közeli sales- és befektetői kommunikációban ennek megfelelően a GA-értékajánlat a teljes konverziós pipeline, az élő szinkron pedig v2-től ígérhető.</p>
+    <p>A NODU Bridge esetében a sablonmentés és az élő szinkron együtt adja a természetes határpontot: a felhasználó az ingyenes batch-konverzióval már tudja, mit kap, de a megszerzett tudást (a felépített mapping-logikát) csak előfizetéssel tarthatja meg, és a folyamatos szinkron-képességet is csak ott kapja meg. A 2026-07-17-i döntés ezt a szerkezetet véglegesítette, és a triggereket a megerősített feature-roadmaphez kötötte: a saját sablon a v1/GA-tól, az élő szinkron a v2-től fizetős funkció, tehát az első paywall mögött mindkét elemnél van mérnöki fedezet. A szinkron pozicionálása (2026-07-06-i döntés): <strong>kontrollált koordinációs ciklus</strong>: a Koordinátor hagyja jóvá, mi és mikor megy át, nem felügyelet nélküli háttérfolyamat. Ez tudatosan illeszkedik az irodák minőségbiztosítási gyakorlatához (verzionált, ellenőrzött átadások, BCF-körök): a Bridge a mérföldkő-alapú cserét gyorsítja fel, és teszi veszteségmentessé, nem megkerüli azt. Egy részletkérdés maradt nyitva, de ez már nem a paywall szerkezetét érinti, hanem annak kalibrálását: hogy pontosan mit tud a preset sablon, és hol kezdődik a „saját" mapping, a végleges funkcionalitás ismeretében véglegesítendő a fejlesztéssel együtt. A korábbi roadmap-kockázat — hogy az inkrementális szinkron a GA-ra elkészül-e — 2026-07-16-án lezárult: a megerősített feature-roadmap szerint a GA (2026-09-15) automatizált, batch jellegű konverziót nyújt, az élő szinkron és a delta-transzfer a Release v2 tétele (2026-12-15). A launch-közeli sales- és befektetői kommunikációban ennek megfelelően a GA-értékajánlat a teljes konverziós pipeline, az élő szinkron pedig v2-től ígérhető.</p>
   </section>
 
   <!-- SECTION 07 -->
@@ -836,8 +836,8 @@
       <li class="question-item">
         <div class="question-number">05</div>
         <div class="question-body">
-          <strong>Az Enterprise minimum (2 500 EUR/hó) piaci referencia nélkül meghatározott, és csak a tier 2027 eleji megnyílásakor lép életbe</strong>
-          <p>Nincs közvetlen összehasonlítható adatunk egy Archicad–Revit parametrikus bridge enterprise deploymentjének árára vonatkozóan. A 2 500 EUR-os alsó határ a piac ismert enterprise árkategóriájából van levezetve, SMB-adjacent irodák felé lefelé korrigálva. A 2026-07-06-i döntés szerint az Enterprise tier induláskor nem indul: a floor a tier megnyílásakor (terv: 2027 eleje) lép életbe, addig egyedi ajánlatok élnek. A tényleges fizetési hajlandóság Enterprise szinten ismeretlen az első szerződések megkötéséig. Az Enterprise-árképzés mindig tárgyaláson alapul, és az első három-öt deal fogja meghatározni az indokolt árkategóriát és a sztenderd konstrukciót.</p>
+          <strong>Az Enterprise minimum (2 500 EUR/hó) piaci referencia nélkül meghatározott, és egyedi tárgyalásban alsó horgonyként működik</strong>
+          <p>Nincs közvetlen összehasonlítható adatunk egy Archicad–Revit parametrikus bridge enterprise deploymentjének árára vonatkozóan. A 2 500 EUR-os alsó határ a piac ismert enterprise árkategóriájából van levezetve, SMB-adjacent irodák felé lefelé korrigálva. A 2026-07-17-i döntés szerint az Enterprise nem önkiszolgáló, listaáras tier, hanem sales-vezérelt csatorna: a floor nem egy megnyílási dátumtól „lép életbe", hanem az egyedi tárgyalás alsó horgonya az első ügyféltől kezdve. A tényleges fizetési hajlandóság Enterprise szinten ismeretlen az első szerződések megkötéséig. Az Enterprise-árképzés mindig tárgyaláson alapul, és az első három-öt deal fogja meghatározni az indokolt árkategóriát és a sztenderd konstrukciót.</p>
         </div>
       </li>
 
@@ -869,7 +869,7 @@
         <div class="question-number">09</div>
         <div class="question-body">
           <strong>Verziókövetés és futtatási környezet: a kategória történelmi buktatói</strong>
-          <p>Két kérdés, amelyet minden szkeptikus BIM-vezető fel fog tenni. (1) Verziókövetés: az Archicad és a Revit évente új verziót ad ki: mekkora az API-követési késés? A harmadik feles konverter-kategória korábbi szereplői jellemzően ezen véreztek el; a verziókövetési vállalás (pl. „az új verzió támogatása a megjelenéstől számított N héten belül") explicit ígéretté teendő. (2) Futtatási környezet: hol fut a szinkron: felhőben vagy lokálisan? Számos megbízói NDA tiltja a modell külső feltöltését, és az on-premise opció csak a 2027-es Enterprise-nyílással érkezik; addig tisztázandó, mit tudunk mondani az adatkezelésről (lokális feldolgozás, EU-s adattárolás, titkosítás).</p>
+          <p>Két kérdés, amelyet minden szkeptikus BIM-vezető fel fog tenni. (1) Verziókövetés: az Archicad és a Revit évente új verziót ad ki: mekkora az API-követési késés? A harmadik feles konverter-kategória korábbi szereplői jellemzően ezen véreztek el; a verziókövetési vállalás (pl. „az új verzió támogatása a megjelenéstől számított N héten belül") explicit ígéretté teendő. (2) Futtatási környezet: hol fut a szinkron: felhőben vagy lokálisan? Számos megbízói NDA tiltja a modell külső feltöltését, az on-premise opció pedig nem szerepel a megerősített mérnöki tervben (Alpha–v4), csak sales-vezérelt, egyedi Enterprise-konstrukcióban értelmezhető; ezért tisztázandó, mit tudunk mondani az adatkezelésről az önkiszolgáló tiereken (lokális feldolgozás, EU-s adattárolás, titkosítás).</p>
         </div>
       </li>
 
