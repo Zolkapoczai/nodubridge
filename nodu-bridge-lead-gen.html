@@ -114,7 +114,7 @@
     .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
     .pillar-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-      padding: 28px; display: flex; flex-direction: column; gap: 0;
+      padding: 28px; display: flex; flex-direction: column; gap: 0; min-width: 0;
     }
     .pillar-head {
       display: flex; align-items: flex-start; justify-content: space-between;
@@ -134,8 +134,8 @@
       font-size: 0.84rem; padding: 7px 0; border-top: 1px solid var(--border);
     }
     .source-row:first-child { border-top: none; }
-    .source-name { font-weight: 600; color: var(--text); white-space: nowrap; min-width: 140px; }
-    .source-note { color: var(--muted); }
+    .source-name { font-weight: 600; color: var(--text); white-space: nowrap; min-width: 140px; flex-shrink: 0; }
+    .source-note { color: var(--muted); flex: 1; min-width: 0; }
 
     /* FOLYAMATÁBRA */
     .flow-wrap {
@@ -316,7 +316,7 @@
     <div class="hero-meta">
       <div class="hero-meta-item">
         <strong>Státusz</strong>
-        <span>Éles üzemben: 8 aktív forrás, AI-osztályozás és Slack-riasztás fut</span>
+        <span>Éles üzemben: 7 aktív forrás, AI-osztályozás és Slack-riasztás fut</span>
       </div>
       <div class="hero-meta-item">
         <strong>Felelős</strong>
@@ -332,7 +332,7 @@
       </div>
       <div class="hero-meta-item">
         <strong>Dokumentum dátuma</strong>
-        <span>2026. június 30. · frissítve 2026-07-27 (Slack-riasztási lánc élesítve)</span>
+        <span>2026. június 30. · frissítve 2026-07-28 (rendszer-audit: Playwright-dedup javítva, számok korrigálva)</span>
       </div>
     </div>
   </div>
@@ -348,19 +348,19 @@
 
     <div class="metrics-grid">
       <div class="metric-card accent">
-        <div class="metric-value accent-v">8</div>
+        <div class="metric-value accent-v">7</div>
         <div class="metric-label">Aktív adatforrás</div>
-        <div class="metric-sub">Playwright (Graphisoft, Autodesk), Brave web-keresés, GitHub, OSArch, Discourse (buildingSMART, Speckle), Graphisoft support KB, YouTube, Stack Overflow</div>
+        <div class="metric-sub">Playwright (Graphisoft, Autodesk), Brave web-keresés, GitHub, OSArch, Discourse (buildingSMART, Speckle), Graphisoft support KB, YouTube — a Stack Overflow 2026-07-28-án kikapcsolva (0 fájdalom-jel egész élettartama alatt)</div>
       </div>
       <div class="metric-card green">
-        <div class="metric-value">305</div>
+        <div class="metric-value">128</div>
         <div class="metric-label">Valódi fájdalom-jelzés</div>
-        <div class="metric-sub">1 125 begyűjtött posztból 833 osztályozva, ebből 305 igazolt fájdalom (36,6%); 130 jelzés severity ≥ 4, 76-nál kimutatható vásárlási szándék (2026-07-27)</div>
+        <div class="metric-sub">446 begyűjtött posztból 317 osztályozva, ebből 128 igazolt fájdalom (40,4%); 71 jelzés severity ≥ 4. Korrigálva 2026-07-28-án: a Playwright-connector ID-hibája miatt a poszt-szám 39,7×-esen felfújt volt (1 692 → 446) — a korábbi 305-ös/36,6%-os érték erre a duplikált adatra épült, ne hivatkozz rá</div>
       </div>
       <div class="metric-card blue">
         <div class="metric-value">5 / 7</div>
         <div class="metric-label">Relevancia-küszöbök</div>
-        <div class="metric-sub">A severity (1–5) kétszerese adja a SalesOS score-t (0–10): ≥ 7 Qualified-deal, 5–6 Lead-deal. A régi 3-2-1 kulcsszó-formula már csak előszűrő</div>
+        <div class="metric-sub">A SalesOS score = severity × 2, 2026-07-28 óta ± 1 ponttal módosítva buying_intent / solved_internally jelért (0–10): ≥ 7 Qualified-deal, 5–6 Lead-deal. A kalibrálás szerint a severity önmagában NEM megbízható prioritási jelző (a jelek 99,6%-a sev3/4) — a valódi különbségtevő a buying_intent</div>
       </div>
       <div class="metric-card amber">
         <div class="metric-value">10</div>
@@ -393,10 +393,10 @@
           <strong>Mi ez:</strong> egy saját Python-alkalmazás, amely forrásonként külön ütemben (90 perctől 24 óráig) olvassa a BIM-közösségek nyilvános tartalmát, és duplikátum-szűréssel a saját SQLite adatbázisába menti. A kulcsszavas pontozás (elsődleges kifejezés 3 pont, fájdalompont-jelző 2, kontextus-szó 1) mára <strong>előszűrővé</strong> lépett vissza: az érdemi döntést a <strong>Pain Classifier</strong> hozza, egyetlen strukturált Gemini-hívással posztonként. Ez adja meg, hogy a bejegyzés valódi fájdalom-e (<code>is_pain</code>), milyen súlyos (<code>severity</code> 1–5), van-e mögötte vásárlási szándék, milyen szerepkörű az író, érintett-e az IFC, és említ-e versenytársat. A fájdalom-jelzésekhez ugyancsak Gemini ír válaszjavaslatot (70–80 szó, lista-tiltással), amit ember hagy jóvá, mielőtt kézzel kimegy. Az osztályozó tudatosan <strong>nincs</strong> az ütemezőben — kézi kapudöntéses fázisban vagyunk.
         </p>
         <div class="pillar-sources">
-          <div class="source-row"><span class="source-name">Playwright (Chromium)</span><span class="source-note">Graphisoft + Autodesk Community, a legnagyobb volumen (742 poszt)</span></div>
+          <div class="source-row"><span class="source-name">Playwright (Chromium)</span><span class="source-note">Graphisoft + Autodesk Community, 33 egyedi szál (2026-07-28-i dedup-javítás után — az ID-hiba miatt korábban 742-re volt felfújva)</span></div>
           <div class="source-row"><span class="source-name">Brave web-keresés</span><span class="source-note">A halott Google CSE pótlása; ezen jön a Reddit-tartalom is</span></div>
-          <div class="source-row"><span class="source-name">GitHub issue-k</span><span class="source-note">IfcOpenShell, speckle-server, xeokit — a legjobb jelminőség (84,1%)</span></div>
-          <div class="source-row"><span class="source-name">Fórum-API-k</span><span class="source-note">OSArch (Vanilla), buildingSMART + Speckle (Discourse), Stack Overflow</span></div>
+          <div class="source-row"><span class="source-name">GitHub issue-k</span><span class="source-note">IfcOpenShell, speckle-server, xeokit — a legjobb jelminőség (86,3%, 82 poszt)</span></div>
+          <div class="source-row"><span class="source-name">Fórum-API-k</span><span class="source-note">OSArch (Vanilla), buildingSMART + Speckle (Discourse) — a Stack Overflow 2026-07-28-tól kikapcsolva</span></div>
           <div class="source-row"><span class="source-name">YouTube + Graphisoft KB</span><span class="source-note">Kommentek (Data API v3) és support-cikkek: intelligencia, nem lead</span></div>
         </div>
       </div>
@@ -481,7 +481,7 @@
         <div class="phase-num">1</div>
         <div class="phase-content">
           <h4>A nodu-monitor begyűjt és előszűr</h4>
-          <p>Nyolc connector fut forrásonként külön ütemben: Playwright 90 perc, Stack Overflow és YouTube 180 perc, GitHub, OSArch és a Discourse-fórumok 240 perc, Graphisoft support KB 720 perc, Brave web-keresés napi egyszer. Minden új bejegyzés átmegy a kulcsszavas előszűrőn (3-2-1 pontozás), és poszt-ID-vel — hogy ne duplikálódjon — a saját SQLite adatbázisába kerül. A gyűjtés robots.txt-fegyelemmel megy: a Discourse-fórumokon a keresés tiltott, ezért csak a lapozott friss-listát olvassuk.</p>
+          <p>Hét connector fut forrásonként külön ütemben: Playwright 90 perc, YouTube 180 perc, GitHub, OSArch és a Discourse-fórumok 240 perc, Graphisoft support KB 720 perc, Brave web-keresés napi egyszer (a Stack Overflow 2026-07-28-án kikapcsolva, 0 fájdalom-jelet termelt egész élettartama alatt). Minden új bejegyzés átmegy a kulcsszavas előszűrőn (3-2-1 pontozás), és poszt-ID-vel kerül a saját SQLite adatbázisába — <strong>ez a Playwright-forrásnál 2026-07-28-ig ténylegesen nem működött</strong>: az azonosító a változó keresési URL-t is tartalmazta, ezért 1 309 „poszt" valójában 33 szál duplikátuma volt (39,7×-es felfújás). Kanonikus azonosítóval javítva; a gyűjtés emellett robots.txt-fegyelemmel megy: a Discourse-fórumokon a keresés tiltott, ezért csak a lapozott friss-listát olvassuk.</p>
         </div>
         <div class="phase-meta">nodu-monitor</div>
       </div>
@@ -489,7 +489,7 @@
         <div class="phase-num">2</div>
         <div class="phase-content">
           <h4>A Pain Classifier eldönti, valódi jelzés-e</h4>
-          <p>Ez a rendszer agya, és itt dől el, mi minősül leadnek. Posztonként egy strukturált Gemini-hívás adja meg, hogy a bejegyzés valódi fájdalom-e, milyen súlyos (severity 1–5), van-e mögötte vásárlási szándék, milyen szerepkörű az író, érintett-e az IFC, és említ-e versenytársat. A kulcsszó-egyezés önmagában nem elég: a 833 osztályozott posztból 305 lett igazolt fájdalom-jelzés (36,6%) — a többit a rendszer tudatosan eldobja. Az osztályozó szándékosan nincs az ütemezőben, kézzel indul: ez a kapudöntéses fázis.</p>
+          <p>Ez a rendszer agya, és itt dől el, mi minősül leadnek. Posztonként egy strukturált Gemini-hívás adja meg, hogy a bejegyzés valódi fájdalom-e, milyen súlyos (severity 1–5), van-e mögötte vásárlási szándék, milyen szerepkörű az író, érintett-e az IFC, és említ-e versenytársat. A kulcsszó-egyezés önmagában nem elég: a 317 osztályozott posztból 128 lett igazolt fájdalom-jelzés (40,4%, 2026-07-28-i, dedup-javítás utáni állapot) — a többit a rendszer tudatosan eldobja. Az osztályozó szándékosan nincs az ütemezőben, kézzel indul: ez a kapudöntéses fázis.</p>
         </div>
         <div class="phase-meta">Pain Classifier</div>
       </div>
@@ -497,7 +497,7 @@
         <div class="phase-num">3</div>
         <div class="phase-content">
           <h4>A monitor közvetlenül átadja a SalesOS-nak</h4>
-          <p>A <code>crm/salesos_client.py</code> a <code>POST /api/bridge/ingest</code> végpontot hívja, Bearer-kulcsos hitelesítéssel és egyedi <code>externalId</code>-vel az idempotenciáért — n8n nélkül (a korábbi tervben szereplő webhook végig kikapcsolt, placeholder URL-lel állt, ezért a köztes réteg kimaradt). A severity kétszerese adja a SalesOS score-t (0–10). <strong>Egy kézi mozzanat maradt:</strong> a SalesOS account-centrikus, cég-adat nélkül 422-t ad, ezért az átadás előtt a dashboard megkérdezi a cégnevet a felhasználótól — automatikus cégtalálgatás tudatosan nincs.</p>
+          <p>A <code>crm/salesos_client.py</code> a <code>POST /api/bridge/ingest</code> végpontot hívja, Bearer-kulcsos hitelesítéssel és egyedi <code>externalId</code>-vel az idempotenciáért — n8n nélkül (a korábbi tervben szereplő webhook végig kikapcsolt, placeholder URL-lel állt, ezért a köztes réteg kimaradt). A SalesOS score alapja a severity kétszerese, 2026-07-28 óta ± 1 ponttal módosítva a <code>buying_intent</code> és a <code>solved_internally</code> jelekért (0–10) — a kalibrálás ugyanis kimutatta, hogy a puszta severity nem megbízható prioritási kapcsoló. <strong>Egy kézi mozzanat maradt:</strong> a SalesOS account-centrikus, cég-adat nélkül 422-t ad, ezért az átadás előtt a dashboard megkérdezi a cégnevet a felhasználótól — automatikus cégtalálgatás tudatosan nincs.</p>
         </div>
         <div class="phase-meta">nodu-monitor</div>
       </div>
@@ -538,10 +538,10 @@
 
         <div class="flow-col">
           <div class="flow-col-label">Adatforrások</div>
-          <div class="flow-node">Graphisoft + Autodesk<sub>Playwright / Chromium · 742 poszt</sub></div>
+          <div class="flow-node">Graphisoft + Autodesk<sub>Playwright / Chromium · 33 szál (dedup után)</sub></div>
           <div class="flow-node">Brave web-keresés<sub>Reddit és egyéb tartalom · 127 poszt</sub></div>
-          <div class="flow-node">GitHub issue-k<sub>IfcOpenShell, Speckle, xeokit · 74 poszt</sub></div>
-          <div class="flow-node">Fórum-API-k<sub>OSArch, buildingSMART, Speckle, Stack Overflow</sub></div>
+          <div class="flow-node">GitHub issue-k<sub>IfcOpenShell, Speckle, xeokit · 82 poszt</sub></div>
+          <div class="flow-node">Fórum-API-k<sub>OSArch, buildingSMART, Speckle</sub></div>
           <div class="flow-node">YouTube + Graphisoft KB<sub>Intelligencia-források, nem lead</sub></div>
           <div class="flow-node accent-node">Beta-jelentkezés<sub>nodu.build/bridge, közvetlen ingest</sub></div>
           <div class="flow-node amber-node">RB2B<sub>Weboldal-látogató, ingyenes most</sub></div>
@@ -568,7 +568,7 @@
           <div class="flow-col-label">Automatizáció</div>
           <div class="flow-node blue-node">Közvetlen NODU Sales ingest<sub>POST /api/bridge/ingest · Bearer-kulcs · idempotens · n8n nélkül</sub></div>
           <div class="flow-node" style="margin-top:8px">Company-match<sub>házszám → email-domain → trigram → új cég · cégnév kézi megadással</sub></div>
-          <div class="flow-node">Deal<sub>severity × 2 = score · ≥ 7: Qualified · 5–6: Lead · nyitott dealre csak Activity</sub></div>
+          <div class="flow-node">Deal<sub>severity × 2 ± 1 (intent/solved) = score · ≥ 7: Qualified · 5–6: Lead · nyitott dealre csak Activity</sub></div>
           <div class="flow-node">Activity<sub>forrás-URL kötelező · source = BRIDGE</sub></div>
           <div class="flow-node green-node" style="margin-top:8px">Slack-értesítés<sub>#sales-leads · él, 2026-07-27-től</sub></div>
         </div>
@@ -600,7 +600,7 @@
     <h2>Melyik forrás, mit ad, mikor aktív</h2>
 
     <p>
-      A táblázat a 2026-07-27-i élő adatbázis-állapotot tükrözi. A „fájdalom-arány" azt mutatja, hogy az adott forrásból osztályozott posztok mekkora része lett igazolt fájdalom-jelzés — ez a forrás valódi minősége, a volumentől függetlenül. Jól látszik a kétféle érték: a Playwright-forrásoknak nagy a volumene, a GitHubnak és a Speckle-nek a jelminősége.
+      A táblázat a 2026-07-28-i élő adatbázis-állapotot tükrözi, a Playwright-connector aznap javított duplikáció-hibája után. A „fájdalom-arány" azt mutatja, hogy az adott forrásból osztályozott posztok mekkora része lett igazolt fájdalom-jelzés — ez a forrás valódi minősége, a volumentől függetlenül. A Playwright-forrás (Graphisoft + Autodesk) volumene a dedup-javítás előtt tévesen 742 posztnak látszott; a valódi szám 33 egyedi szál — a GitHubnak és a Speckle-nek változatlanul a jelminősége kiemelkedő, nem a volumene.
     </p>
 
     <div class="table-wrap">
@@ -615,20 +615,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-group-row"><td colspan="5">Közösség-figyelés — nodu-monitor (8 aktív connector)</td></tr>
+          <tr class="table-group-row"><td colspan="5">Közösség-figyelés — nodu-monitor (7 aktív connector, 2026-07-28-tól)</td></tr>
           <tr>
-            <td><strong>Autodesk Community</strong></td>
-            <td>forums.autodesk.com</td>
+            <td><strong>Autodesk + Graphisoft Community</strong></td>
+            <td>forums.autodesk.com · community.graphisoft.com</td>
             <td>Playwright Chromium, JS-alapú oldalak renderelése, 90 perc</td>
             <td><span class="badge badge-now">Éles</span></td>
-            <td class="td-mono">517 · 32,6%</td>
-          </tr>
-          <tr>
-            <td><strong>Graphisoft Community</strong></td>
-            <td>community.graphisoft.com</td>
-            <td>Playwright Chromium, JS-alapú oldalak renderelése, 90 perc</td>
-            <td><span class="badge badge-now">Éles</span></td>
-            <td class="td-mono">225 · 36,3%</td>
+            <td class="td-mono">33 · dedup után (arány nincs újramérve)</td>
           </tr>
           <tr>
             <td><strong>Brave web-keresés</strong></td>
@@ -642,7 +635,7 @@
             <td>IfcOpenShell, speckle-server, xeokit-sdk</td>
             <td>GitHub API, issue-keresés, 240 perc</td>
             <td><span class="badge badge-now">Éles</span></td>
-            <td class="td-mono">74 · 84,1%</td>
+            <td class="td-mono">82 · 86,3%</td>
           </tr>
           <tr>
             <td><strong>OSArch community</strong></td>
@@ -683,8 +676,8 @@
             <td><strong>Stack Overflow</strong></td>
             <td>stackoverflow.com</td>
             <td>Stack Exchange API, tag- és szöveges keresés, 180 perc</td>
-            <td><span class="badge badge-now">Éles</span></td>
-            <td class="td-mono">5 · nincs adat</td>
+            <td><span class="badge badge-sept">Kikapcsolva 07-28</span></td>
+            <td class="td-mono">élettartam: 1 887 nyers elem → 5 poszt → 0 jel</td>
           </tr>
           <tr>
             <td><strong>Reddit (PRAW)</strong></td>
@@ -726,6 +719,11 @@
       </table>
     </div>
 
+    <div class="callout" style="margin-top:24px">
+      <div class="callout-label">2026-07-28: a Playwright-forrás duplikálva volt</div>
+      <p>A napi rendszer-audit kiderítette, hogy a Playwright-connector (Autodesk + Graphisoft Community) poszt-azonosítója a változó keresési URL-t is tartalmazta, ezért a dedup-védelem sosem fogott: 1 309 „poszt" valójában ugyanannak a 33 szálnak volt átlagosan 39,7 másolata. Ez felfújta a rendszer minden totálját — a poszt-szám, a jelszám és az igazolt fájdalom-szám is ezt a torzítást hordozta. Kanonikus azonosítóval javítva (2026-07-28), migrációval kivezetve: <code>posts</code> 1 692 → 446, jelek 1 431 → 317, igazolt fájdalom 513 → 128. A korábbi arányokra a jövőben ne hivatkozzunk.</p>
+    </div>
+
     <div class="callout-green" style="margin-top:24px">
       <div class="callout-label">Két forrás tudatosan csak intelligencia, nem lead</div>
       <p>A <strong>Speckle community</strong> a legjobb jelminőségű fórumaink egyike (82,9%), de versenytárs fóruma: a poszt bejön, jelzésként látszik és számít a riportokban, <strong>válasz azonban nem készül rá</strong> — a kizárás két helyen zár, a batch-szelekcióban és a kézi „Válasz generálása" gombnál is. A <strong>Graphisoft support KB</strong> cikkeit a gyártó supportja írja, a kommentelés tiltott: nincs kit megszólítani. A 6,3%-os fájdalom-arány itt nem hiba, hanem a helyes viselkedés — amit ez a forrás ad, az piaci intelligencia arról, melyik interop-probléma fordul elő elégszer ahhoz, hogy KB-cikk szülessen róla.</p>
@@ -733,7 +731,7 @@
 
     <div class="callout">
       <div class="callout-label">Amit a jelzések tartalmáról tudunk</div>
-      <p>A 305 fájdalom-jelzés szerepkör-hipotézise szinte kivétel nélkül <strong>BIM-koordinátor, modellező vagy építész</strong> — vagyis pontosan az a persona, akire a Professional tier Koordinátor-seatje épül. A versenytárs-detektor 36 posztban azonosított Speckle-említést, ami messze a legtöbb; utána szórványosan Vectorworks, Tekla, Revizto, Qonic és a Graphisoft saját Archicad-to-Revit add-inje következik. A jelzések severity-je erősen a 3–4-es sávba tömörül (174 + 129), 5-es súlyosság alig fordul elő: a fájdalom valós és gyakori, de ritkán projekt-megállító.</p>
+      <p>A 128 fájdalom-jelzés szerepkör-hipotézise szinte kivétel nélkül <strong>BIM-koordinátor, modellező vagy építész</strong> — vagyis pontosan az a persona, akire a Professional tier Koordinátor-seatje épül. A versenytárs-detektor korábban Speckle-t találta messze a legtöbbször említettnek, utána szórványosan Vectorworks, Tekla, Revizto, Qonic és a Graphisoft saját Archicad-to-Revit add-inje — a pontos posztszám a Playwright-dedup javítása óta nincs újraszámolva, és a <code>competitor_name</code> mező 2026-07-28 óta idézet-ellenőrzéshez kötött (egy hallucinált versenytárs-találatot már ki is szűrt élesben). A jelzések severity-je erősen a 3–4-es sávba tömörül (57 + 70 a 128-ból), 5-ös súlyosság alig fordul elő (1 db): a fájdalom valós és gyakori, de ritkán projekt-megállító. <strong>Fontos árnyalat (2026-07-28-i kalibrálás):</strong> a severity emiatt nem alkalmas prioritási szűrőnek — a valódi különbségtevő a <code>buying_intent</code> (a jelek kb. 9%-a).</p>
     </div>
   </section>
 
@@ -755,7 +753,7 @@
         <div class="phase-num">2</div>
         <div class="phase-content">
           <h4>Connectorok és üzemeltetési védőháló</h4>
-          <p><strong>Kész, 8 aktív connector.</strong> A 2026-07-24/25-i lead-volumen audit kiderítette, hogy a hét connector közül négy néma hibával nullán állt, és semmi nem jelezte — a poszt-szám 28-ról 402-re állt vissza, ma 1 125. Ezért épült be a connector-heartbeat (6 óránként), a <code>/health</code> végpont (503, ha bármelyik connector hibás vagy „vak"), és a napi adatbázis-mentés hét napos rotációval. A <code>runs.items_seen</code> a nyers elemszámot rögzíti — ez választja el a „nincs új tartalom"-ot az „eltört connector"-tól.</p>
+          <p><strong>Kész, 7 aktív connector (a Stack Overflow 2026-07-28-án kikapcsolva).</strong> A 2026-07-24/25-i lead-volumen audit kiderítette, hogy a hét connector közül négy néma hibával nullán állt, és semmi nem jelezte — a poszt-szám 28-ról 402-re állt vissza. Egy második, 2026-07-28-i audit egy súlyosabb hibát is talált: a Playwright-connector poszt-azonosítója sosem védett a duplikációtól, ezért a poszt-szám tévesen 1 692-ig duzzadt; a javítás után a valódi, deduplikált szám <strong>446</strong>. Ezért épült be a connector-heartbeat (6 óránként), a <code>/health</code> végpont (503, ha bármelyik connector hibás vagy „vak"), és a napi adatbázis-mentés hét napos rotációval. A <code>runs.items_seen</code> a nyers elemszámot rögzíti — ez választja el a „nincs új tartalom"-ot az „eltört connector"-tól.</p>
         </div>
         <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
@@ -821,7 +819,7 @@
     <p class="section-label">Sales pipeline</p>
     <h2>NODU Sales: automatikus routing (stage-mapping)</h2>
     <p>
-      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap” döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A score forrása 2026-07-19 óta a Pain Classifier severity-je: <strong>severity × 2 = score</strong> (severity 4–5 → 8–10, azaz Qualified; severity 3 → 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló). A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája még kialakítás alatt van — a fejlesztés visszajelzéseitől és a leszállított funkcionalitástól függ (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban), a launch-kori ingyenes időszak feltételei egyelőre szintén nyitottak.
+      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap” döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A score forrása 2026-07-19 óta a Pain Classifier severity-je: <strong>severity × 2, 2026-07-28 óta ± 1 ponttal módosítva</strong> a <code>buying_intent</code> és a <code>solved_internally</code> jelekért (severity 4–5 → alapból 8–10, azaz Qualified; severity 3 → alapból 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló) — a kalibrálás szerint azonban a severity önmagában nem megbízható prioritási jelző, a <code>buying_intent</code> a valódi különbségtevő. A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája (Community/Professional/Studio/Enterprise) 2026-07-17-én véglegesült (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban) — a launch-kori ingyenes időszak lezárási feltételei (időtartam, landolási tier, grace-period) azonban egyelőre még nyitott döntések.
     </p>
 
     <div class="table-wrap">
@@ -836,19 +834,19 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>Jelzés, severity 4–5 (score 8–10)</strong></td>
+            <td><strong>Jelzés, score ≥ 7</strong> (severity 4–5 alapból, vagy severity 3 + buying_intent)</td>
             <td>Cég-match/létrehozás + Deal + Activity (forrás-URL-lel)</td>
             <td>Qualified</td>
             <td>Válaszjavaslat jóváhagyásra; Slack-értesítés a #sales-leads csatornára</td>
           </tr>
           <tr>
-            <td><strong>Jelzés, severity 3 (score 6)</strong></td>
+            <td><strong>Jelzés, score 5–6</strong> (jellemzően severity 3, buying_intent nélkül)</td>
             <td>Cég-match/létrehozás + Deal + Activity</td>
             <td>Lead</td>
             <td>Megfigyelés, kézi minősítés</td>
           </tr>
           <tr>
-            <td><strong>Jelzés, severity 1–2 (score 2–4)</strong></td>
+            <td><strong>Jelzés, score &lt; 5</strong> (severity 1–2)</td>
             <td>Nem kerül át: a monitor oldalán marad, jelzés-naplóban</td>
             <td>—</td>
             <td>A dashboard „Lehetőségek" fülén látszik, deal nem nyílik</td>
@@ -929,7 +927,7 @@
         <div class="todo-when todo-soon">2. sprint</div>
       </div>
       <div class="todo-row">
-        <div class="todo-task">A severity-alapú pontozás kalibrálása éles adaton: a jelzések 99%-a a 3–4-es sávba esik, vagyis a Qualified/Lead vonal ma gyakorlatilag egyetlen severity-fokozaton dől el. A verziózott 0–100-as pontozómotor a 2. fázis</div>
+        <div class="todo-task">Kész (2026-07-28): a severity-kalibrálás megtörtént, de nem oldotta meg a problémát — a severity de facto kétértékű marad (sev3/4), a valódi különbségtevő a buying_intent. Új teendő: a dashboard/riportok is buying_intent szerint rendezzenek, ne severity szerint; a verziózott 0–100-as pontozómotor a 2. fázis</div>
         <div class="todo-who">Fejlesztő + Zoltán</div>
         <div class="todo-when todo-soon">2. sprint</div>
       </div>
@@ -963,7 +961,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-27 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine, a waitlist → Beta-toborzás átállás és a Slack-riasztási lánc élesítése átvezetve)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-28 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine, a waitlist → Beta-toborzás átállás, a Slack-riasztási lánc élesítése, a 2026-07-28-i rendszer-audit — Playwright-dedup, severity-kalibrálás — és a licencmodell-véglegesítés ellentmondásának javítása átvezetve)<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>
