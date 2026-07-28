@@ -72,6 +72,7 @@
 
     /* DOKUMENTUMKÁRTYÁK */
     .doc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+    .doc-grid .exec-card:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
     .exec-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 26px 28px; display: flex; flex-direction: column; transition: box-shadow 0.18s, border-color 0.18s; }
     .exec-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); border-color: #D4D4D8; }
     .exec-card-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 8px; text-align: left; }
@@ -154,9 +155,9 @@
       <h1>NODU Bridge: a stratégiai kép egy oldalon</h1>
       <p class="hero-subtitle">A NODU Bridge automatizált, egyirányú Archicad→Revit modellkonverziót ad: a teljes modell batch-alapon, az elemek parametrikus logikájának megőrzésével kerül át. Az egyirányú fókusz keresletvezérelt döntés: az ügyfélmegbeszéléseken a kétirányú konverzió igénye nem merült fel. Az élő, delta-alapú szinkron a v2-ben érkezik (2026-12-15). Ez az oldal a teljes dokumentumrendszer vezetői kivonata: a stratégiai alapelvek, a kulcsszámok, oldalanként a legfontosabb megállapítások és a döntést igénylő nyitott pontok.</p>
       <div class="hero-meta">
-        <span>2026-07-16</span>
+        <span>2026-07-16 · frissítve 2026-07-28</span>
         <span>Belső vezetői anyag</span>
-        <span>6 dokumentum kivonata</span>
+        <span>7 dokumentum kivonata</span>
       </div>
     </div>
   </section>
@@ -306,6 +307,19 @@
           <a href="nodu-bridge-roadmap.html" class="doc-card-link">Megnyitás</a>
         </div>
 
+        <div class="exec-card">
+          <div class="exec-card-title">Lead Generation rendszer</div>
+          <p class="exec-card-desc">Élesben futó fájdalom-detektáló rendszer a nyilvános BIM-közösségekben, közvetlen CRM-integrációval.</p>
+          <div class="exec-card-figure">128</div>
+          <div class="exec-card-figure-label">igazolt fájdalom-jelzés (446 posztból, 7 aktív forrásból)</div>
+          <ul class="exec-card-bullets">
+            <li>2026-07-19-i pivot: kulcsszó-szűrésből AI-alapú (Gemini) fájdalom-osztályozóra, súlyossággal és vásárlási szándék-jelzéssel</li>
+            <li>Közvetlenül a saját NODU Sales CRM-be fut (n8n és Pipedrive nélkül); élő Slack-riasztási lánc 2026-07-27 óta</li>
+            <li>2026-07-28-i rendszer-audit duplikációs hibát javított (a korábbi poszt-szám ~40×-esen felfújt volt); cél: 10 fizetős ügyfél 2026-12-31-ig</li>
+          </ul>
+          <a href="nodu-bridge-lead-gen.html" class="doc-card-link">Megnyitás</a>
+        </div>
+
       </div>
     </section>
 
@@ -334,9 +348,10 @@
         <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
         <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
         <a href="nodu-bridge-roadmap.html">Roadmap</a>
+        <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
       </nav>
       <div class="footer-meta">
-        NODU Bridge · Stratégiai áttekintés · 2026-07-16<br />
+        NODU Bridge · Stratégiai áttekintés · 2026-07-16 · frissítve 2026-07-28<br />
         <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
       </div>
     </div>
