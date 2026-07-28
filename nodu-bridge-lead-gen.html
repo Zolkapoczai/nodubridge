@@ -311,7 +311,7 @@
     <p class="hero-label">Sales infrastruktúra, 2026</p>
     <h1>Célzott lead-generálás<br><em>Archicad–Revit</em> fájdalompontok alapján</h1>
     <p class="hero-subtitle">
-      Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja: figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A közösség-figyelés 2026-07-19-én <strong>pivotot kapott</strong>: a puszta kulcsszó-figyelőből AI-alapú fájdalom-osztályozó (buying signal detection) rendszer lett, amely nem azt méri, hogy egy poszt tartalmazza-e a keresett szavakat, hanem hogy valódi fájdalmat fejez-e ki, milyen súlyossággal és van-e mögötte vásárlási szándék. A leadek a NODU Sales CRM-be kerülnek (saját, account-centrikus rendszer — a Pipedrive kikerült a láncból), hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk.
+      Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja (egyirányú fókusz, keresletvezérelt: az ügyfelektől bidirekcionális igény nem érkezett, a fájdalompont tisztán az Archicad→Revit leszállítás): figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A közösség-figyelés 2026-07-19-én <strong>pivotot kapott</strong>: a puszta kulcsszó-figyelőből AI-alapú fájdalom-osztályozó (buying signal detection) rendszer lett, amely nem azt méri, hogy egy poszt tartalmazza-e a keresett szavakat, hanem hogy valódi fájdalmat fejez-e ki, milyen súlyossággal és van-e mögötte vásárlási szándék. A leadek a NODU Sales CRM-be kerülnek (saját, account-centrikus rendszer — a Pipedrive kikerült a láncból), hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd az ingyenes időszak lejárta után, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk.
     </p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -428,7 +428,7 @@
       A NODU Sales (fejlesztői munkanevén SalesOS) egy saját fejlesztésű, account-centrikus, AI-natív CRM — nem harmadik féltől vásárolt eszköz, mint a korábban használt Pipedrive, hanem kifejezetten a NODU sales-munkafolyamatára épített rendszer. Minden adat egy cég köré szerveződik (dosszié-nézet: kontaktok, activity-történet és dealek egy helyen), a felület billentyűzet-first (globális Ctrl+K kereső, gyorsbillentyűk minden listán), és beépített AI-copilot segít az összefoglalásban és a következő lépés javaslatában.
     </p>
     <p>
-      Állapot 2026-07-21-én: a <strong>Release 0.1 („Éles")</strong> és a <strong>Release 0.2 („Billentyű-sebesség")</strong> lezárult — napi adatbázis-mentés, aktivációs import, néma hibák megszüntetése, dashboard-integritás, Won-út integritása, megosztott primitívek, prioritizálás. Az AI-réteg 2026-07-19-én OpenAI-ról <strong>Google Geminire</strong> váltott (STRONG: gemini-2.5-pro, MINI: gemini-2.5-flash), ugyanazon a <code>callAI</code> felületen — vagyis a monitor és a CRM ma ugyanazt az AI-szolgáltatót használja. A cég-dosszié 2026-07-21-én editoriális layoutot kapott a NODU Bridge one-pager tipográfiája alapján, fabrikált mutatók nélkül: minden jelző szabály-alapú (elavult kapcsolat, lejárt teendő, MEDDIC-hézag). Éles adat is van benne: 2026-07-20-án <strong>12 valós célcég és 12 kontakt</strong> importálódott Target státusszal.
+      Éles rendszer, valós adattal: <strong>12 célcég és 12 kontakt</strong> fut benne Target státusszal. Az AI-réteg ugyanazt a <strong>Google Gemini</strong>-motort használja, mint a nodu-monitor, azonos felületen.
     </p>
 
     <div class="pillar-grid">
@@ -761,7 +761,7 @@
         <div class="phase-num">3</div>
         <div class="phase-content">
           <h4>AI-osztályozás és NODU Sales integráció</h4>
-          <p><strong>Kész, éles.</strong> A 2026-07-19-i pivot óta a Pain Classifier adja az érdemi szűrést, és a monitor <strong>közvetlenül</strong> hívja a <code>POST /api/bridge/ingest</code> végpontot (Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló) — az n8n kimaradt a láncból, mert egy egyirányú átadáshoz nem adott hozzá semmit. A fogadó oldalon a SalesOS a Release 0.1 és 0.2 kört lezárta: cégek/kontaktok, activity-timeline, teendők, pipeline-board, kampányok, globális keresés, AI-copilot, napi mentés, CI és zöld e2e. Valós kulcs mellett élesben verifikálva (valódi kulcs → 422 validáció, hamis → 401). Hátravan: a SalesOS tartós hostingja vagy tunnelje, hogy ne csak lokálisan legyen elérhető.</p>
+          <p><strong>Kész, éles.</strong> A Pain Classifier az érdemi szűrést végzi, a monitor <strong>közvetlenül</strong> hívja a <code>POST /api/bridge/ingest</code> végpontot (Bearer-kulcs, idempotencia, cég-match, stage-routing, audit-napló). Az n8n kimaradt a láncból. A SalesOS a fenti pillér-funkciókat élesben futtatja, valós kulcs mellett verifikálva. Hátravan: tartós hosting vagy tunnel a helyi-csak korlátnak.</p>
         </div>
         <div class="phase-meta">Kész<br>Fejlesztő</div>
       </div>
@@ -819,7 +819,7 @@
     <p class="section-label">Sales pipeline</p>
     <h2>NODU Sales: automatikus routing (stage-mapping)</h2>
     <p>
-      A 2026-07-11-i architektúra-döntés szerint <strong>a NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive kikerült a láncból („tiszta lap” döntés). A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A score forrása 2026-07-19 óta a Pain Classifier severity-je: <strong>severity × 2, 2026-07-28 óta ± 1 ponttal módosítva</strong> a <code>buying_intent</code> és a <code>solved_internally</code> jelekért (severity 4–5 → alapból 8–10, azaz Qualified; severity 3 → alapból 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló) — a kalibrálás szerint azonban a severity önmagában nem megbízható prioritási jelző, a <code>buying_intent</code> a valódi különbségtevő. A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája (Community/Professional/Studio/Enterprise) 2026-07-17-én véglegesült (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban) — a launch-kori ingyenes időszak lezárási feltételei (időtartam, landolási tier, grace-period) azonban egyelőre még nyitott döntések.
+      <strong>A NODU Sales az egyetlen igazságforrás</strong> — a Pipedrive nincs a láncban. A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A pontszám alapja a Pain Classifier severity-je: <strong>severity × 2, ± 1 ponttal módosítva</strong> a <code>buying_intent</code> és a <code>solved_internally</code> jelekért (severity 4–5 → alapból 8–10, azaz Qualified; severity 3 → alapból 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló) — a severity önmagában nem megbízható prioritási jelző, a <code>buying_intent</code> a valódi különbségtevő. A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong> — a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája (Community/Professional/Studio/Enterprise) véglegesült (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban) — a launch-kori ingyenes időszak lezárási feltételei (időtartam, landolási tier, grace-period) azonban egyelőre még nyitott döntések.
     </p>
 
     <div class="table-wrap">
@@ -945,7 +945,7 @@
 
     <div class="callout-blue" style="margin-top:32px">
       <div class="callout-label">2026 sales cél összefoglalva</div>
-      <p>A rendszer célja, hogy a Beta-fázisra (2026-08-18–09-15) 10 tesztelő irodát toborozzunk, majd a szeptemberi GA-indulás után, az ingyenes időszak lejártával, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a beta-jelentkezés („Bridge Waitlist” kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája és a paywall-trigger rendszer 2026-07-17-én véglegesült (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a Beta-kohorsz feltöltése, majd a GA utáni fizetőssé konvertálás.</p>
+      <p>A rendszer célja, hogy a Beta-fázisra (2026-08-18–09-15) 10 tesztelő irodát toborozzunk, majd a szeptemberi GA-indulás után, az ingyenes időszak lejártával, 2026. december 31-ig legalább 10 fizetős ügyfelet szerezzünk. Három belépő csatorna tölti folyamatosan a NODU Sales pipeline-ját: a közösség-figyelő scraper (Lead/Qualified deal), a beta-jelentkezés („Bridge Waitlist” kampány) és az RB2B látogató-azonosítás (cég-jelzés). A négytieres licencmodell struktúrája és a paywall-trigger rendszer véglegesült (részletek: <a href="nodu-bridge-license-calculator.html" style="color:#1D4ED8;">Licencmodell</a>); a jelenlegi fókusz a Beta-kohorsz feltöltése, majd a GA utáni fizetőssé konvertálás.</p>
     </div>
   </section>
 
@@ -961,7 +961,7 @@
       <span class="logo-text">NODU Bridge</span>
     </div>
     <div class="footer-meta">
-      Belső dokumentum, 2026. június 30. · frissítve 2026-07-28 (a nodu-monitor pivotja, a SalesOS release-ei, a LinkedIn Thought Leadership Engine, a waitlist → Beta-toborzás átállás, a Slack-riasztási lánc élesítése, a 2026-07-28-i rendszer-audit — Playwright-dedup, severity-kalibrálás — és a licencmodell-véglegesítés ellentmondásának javítása átvezetve)<br>
+      Belső dokumentum, 2026. június 30. · frissítve 2026-07-28<br>
       Bizalmas. Kizárólag belső használatra.
     </div>
   </div>
