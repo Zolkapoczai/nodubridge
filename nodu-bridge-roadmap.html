@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <title>NODU Bridge termék-roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,12 +52,13 @@
     .section p { margin-bottom: 16px; }
 
     /* CALLOUTS */
-    .callout { border-left: 3px solid var(--amber-border); background: var(--amber-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
-    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
-    .callout p { font-size: 0.93rem; color: #78350F; margin: 0; }
-    .callout-green { border-left: 3px solid var(--green-border); background: var(--green-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
-    .callout-green .callout-label { color: #14532D; }
-    .callout-green p { color: #166534; font-size: 0.93rem; margin: 0; }
+    /* Editorial callout: fehér kártya + 3px színes bal csík; a szín csak a csíkon. */
+    .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--amber-border); padding: 16px 20px; border-radius: 8px; margin: 28px 0; color: var(--text); }
+    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .callout p { font-size: 0.93rem; color: var(--text); margin: 0; }
+    .callout-green { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green-border); padding: 16px 20px; border-radius: 8px; margin: 28px 0; color: var(--text); }
+    .callout-green .callout-label { color: var(--muted); }
+    .callout-green p { color: var(--text); font-size: 0.93rem; margin: 0; }
 
     /* TIMELINE */
     .timeline-viz { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px 12px; margin-bottom: 28px; }
@@ -162,10 +164,10 @@
     <div class="hero-inner">
       <div class="hero-label">Belső / befektetői anyag</div>
       <h1>Termék-roadmap: NODU Bridge</h1>
-      <p class="hero-subtitle">A NODU Bridge önálló termék: egyirányú, Archicad→Revit modellkonverzió felhőszolgáltatásként. Az egyirányúság keresletvezérelt fókusz, nem korlát: az ügyfélmegbeszéléseken a kétirányú szinkron igénye nem merült fel, a validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a dokumentum a 2026-07-16-án megerősített mérföldkő-tervet rögzíti az Alpha-pilottól a Release v3-ig, valamint a dátum nélküli Release v4 jövőképet. A tágabb <code>nodu</code> platform-vízió jelenleg nem napirenden (lásd lentebb); a licenc- és árazási modell dokumentumai kizárólag a Bridge-re vonatkoznak, lásd a Licencmodell dokumentumot.</p>
+      <p class="hero-subtitle">A NODU Bridge önálló termék: egyirányú, Archicad→Revit modellkonverzió felhőszolgáltatásként. Az egyirányúság indulási hatókör-döntés, nem végleges korlát: a kétirányú szinkron igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható lesz. Induláskor a legsürgetőbb, validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a dokumentum a megerősített mérföldkő-tervet rögzíti az Alpha-pilottól a Release v3-ig, valamint a dátum nélküli Release v4 jövőképet. A tágabb <code>nodu</code> platform-vízió jelenleg nem napirenden (lásd lentebb); a licenc- és árazási modell dokumentumai kizárólag a Bridge-re vonatkoznak, lásd a Licencmodell dokumentumot.</p>
       <div class="hero-meta">
         <span>2026-07-03 · frissítve 2026-07-16</span>
-        <span>Megerősített feature-roadmap alapján (2026-07-16)</span>
+        <span>Megerősített feature-roadmap alapján</span>
         <span>Státusz: megerősített mérföldkő-terv</span>
         <span>Belső dokumentum</span>
       </div>
@@ -178,12 +180,12 @@
     <!-- STÁTUSZ -->
     <section class="section" style="margin-bottom: 48px;">
       <div class="callout-green" style="margin: 0 0 20px;">
-        <div class="callout-label">Státusz (2026-07-16): a mérföldkő-terv megerősített</div>
-        <p>A korábbi, kétrétegű forrásdokumentum (fejlesztői állapotlista + AI-generált fázisterv) ellentmondásai lezárultak: a 2026-07-06-án kiküldött tisztázó kérdéssor nyomán a csapat 2026-07-16-án végleges feature-roadmapet erősített meg. Az alábbi mérföldkő-terv (Alpha → Release v3, plusz a dátum nélküli Release v4 jövőkép) vállalt ütemtervként olvasandó; a stratégiai és árazási dokumentumok ehhez igazíthatók.</p>
+        <div class="callout-label">Státusz: a mérföldkő-terv megerősített</div>
+        <p>A korábbi, kétrétegű forrásdokumentum (fejlesztői állapotlista + AI-generált fázisterv) ellentmondásai lezárultak: a kiküldött tisztázó kérdéssor nyomán a csapat végleges feature-roadmapet erősített meg. Az alábbi mérföldkő-terv (Alpha → Release v3, plusz a dátum nélküli Release v4 jövőkép) vállalt ütemtervként olvasandó; a stratégiai és árazási dokumentumok ehhez igazíthatók.</p>
       </div>
       <div class="callout-green" style="margin: 0;">
-        <div class="callout-label">Lezárva (2026-07-16): a sync tartalma és időzítése</div>
-        <p>Az élő szinkron (live sync) a Release v2 tétele (2026-12-15), a delta fel- és letöltéssel együtt. A GA (2026-09-15) automatizált, teljes modelles, batch jellegű Archicad→Revit konverziót nyújt, Stripe-fizetéssel az első naptól. A launch-kommunikációban és a <a href="nodu-bridge-license-calculator.html" style="color:#166534;">Licencmodell</a> dokumentumban ennek megfelelően az élő, inkrementális szinkron v2-től ígérhető; a GA-értékajánlat a teljes, automatizált konverziós pipeline.</p>
+        <div class="callout-label">Lezárva: a sync tartalma és időzítése</div>
+        <p>Az élő szinkron (live sync) a Release v2 tétele (2026-12-15), a delta fel- és letöltéssel együtt. Az éles indulás (2026-09-15) automatizált, teljes modelles, batch jellegű Archicad→Revit konverziót nyújt. Fizetési rendszer induláskor még nincs: az is a v2 tétele. A launch-kommunikációban és a <a href="nodu-bridge-license-calculator.html" style="color:#166534;">Licencmodell</a> dokumentumban ennek megfelelően az élő, inkrementális szinkron v2-től ígérhető; az éles indulási értékajánlat a teljes, automatizált konverziós pipeline.</p>
       </div>
     </section>
 
@@ -191,8 +193,8 @@
     <section class="section">
       <div class="section-label">Fejlesztési valóság</div>
       <h2>Lezárt kérdések és fejlesztési állapot</h2>
-      <p>A konverzió iránya megerősítetten egyirányú: Archicad → Revit. Ez nem termékkorlát, hanem keresletvezérelt fókusz: az ügyfélmegbeszéléseken a kétirányú szinkron igénye nem merült fel, a validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a licencmodell fizető-fél logikájával is összefér: a Revit-leszállításra kötelezett, Archicad-oldali iroda a fizető fél.</p>
-      <p>A konverter elemtípusonként épül. A 2026-07-06-i fejlesztői állapot szerint a falak készen vannak, a kivágásokon dolgozik a csapat, ezt követik a födémek és a nyílászárók; az oszlopok, gerendák és függönyfalak a második, az MEP a harmadik elemkör-ütembe sorolt, utóbbi kérdőjellel. Az alábbi ütemjelölések a konverter elemkör-bővítési lépcsőire vonatkoznak, nem a kiadási mérföldkövekre.</p>
+      <p>A konverzió iránya az indulási termékkörben egyirányú: Archicad → Revit. Ez hatókör-döntés, nem végleges termékkorlát: a kétirányú szinkron igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható lesz — nem elvetett irány, csak nem v1-es tétel. Induláskor a legsürgetőbb, validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a licencmodell fizető-fél logikájával is összefér: a Revit-leszállításra kötelezett, Archicad-oldali iroda a fizető fél.</p>
+      <p>A konverter elemtípusonként épül. A fejlesztői állapot szerint a falak készen vannak, a kivágásokon dolgozik a csapat, ezt követik a födémek és a nyílászárók; az oszlopok, gerendák és függönyfalak a második, az MEP a harmadik elemkör-ütembe sorolt, utóbbi kérdőjellel. Az alábbi ütemjelölések a konverter elemkör-bővítési lépcsőire vonatkoznak, nem a kiadási mérföldkövekre.</p>
       <div class="elem-status">
         <div class="elem-chip done"><span>1. ütem · kész</span>Falak</div>
         <div class="elem-chip wip"><span>1. ütem · folyamatban</span>Kivágások</div>
@@ -201,51 +203,51 @@
         <div class="elem-chip"><span>2. ütem</span>Oszlopok, gerendák, függönyfalak</div>
         <div class="elem-chip"><span>3. ütem · kérdőjeles</span>MEP</div>
       </div>
-      <p>A 2026-07-06-án azonosított ellentmondások a fejlesztői állapotlista és a korábbi AI-fázisterv között a 2026-07-16-i megerősített roadmappel és a 2026-07-17-i licenc-döntésekkel lezárultak:</p>
+      <p>Az azonosított ellentmondások a fejlesztői állapotlista és a korábbi AI-fázisterv között a megerősített roadmappel és a licenc-döntésekkel lezárultak:</p>
       <div class="cmp-wrap">
         <table class="cmp-table">
           <thead>
             <tr>
               <th>Terület</th>
               <th>Korábbi nyitott pont</th>
-              <th>Lezárás (2026-07-16/17)</th>
+              <th>Lezárás</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Konverzió iránya</td>
               <td>Kétirányú „Archicad↔Revit" kommunikáció vs. egyirányú fejlesztési valóság</td>
-              <td>Egyirányú Archicad→Revit, keresletvezérelt fókuszként kommunikálva; a kétirányúság iránti igény a piacon nem igazolódott.</td>
+              <td>Egyirányú Archicad→Revit az indulási termékkörben, hatókör-döntésként. <strong>Pontosítás:</strong> a kétirányúság igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható — nem elvetett irány, csak nem v1-es tétel.</td>
             </tr>
             <tr>
               <td>Fizetési rendszer</td>
-              <td>v2-es tétel vs. „első bevétel a GA-nál"</td>
-              <td>A Stripe fizetési rendszer a Release v1 (GA, 2026-09-15) része: a bevételi képesség az indulástól adott.</td>
+              <td>v2-es tétel vs. „első bevétel az éles indulásnál"</td>
+              <td><strong>Újranyitva és lezárva:</strong> a fizetési rendszer nem a v1 része. A korábbi roadmap ezt tévesen sorolta az éles indulásba; visszaáll a v2-es tétel. Az éles indulástól a v2-ig a fizetős funkciók fejlesztés alatt állnak, egyedi igényre kézi számlázással.</td>
             </tr>
             <tr>
               <td>Felhő-hosting</td>
               <td>Digital Ocean a v2-ben vs. Kubernetes „az első naptól"</td>
-              <td>Managed Kubernetes a Scaleway-en, a Beta-fázisban (2026-08-18-tól) áll üzembe.</td>
+              <td>Managed Kubernetes a Scaleway-en, a Beta-fázisban áll üzembe.</td>
             </tr>
             <tr>
               <td>Élő szinkron, delta</td>
               <td>Csak az AI-fázistervben szerepelt, fejlesztői megerősítés nélkül</td>
-              <td>Megerősítve a Release v2 tételeként (2026-12-15): live sync és delta fel-/letöltés.</td>
+              <td>Megerősítve a Release v2 tételeként: live sync és delta fel-/letöltés.</td>
             </tr>
             <tr>
               <td>Task management, status engine</td>
               <td>Fejlesztői lista: v3 vs. AI-terv: Phase 2</td>
-              <td>Release v3 tétel (2027-02-01), n8n-integrációval és automatizálásokkal együtt.</td>
+              <td>Release v3 tétel, n8n-integrációval és automatizálásokkal együtt.</td>
             </tr>
             <tr>
               <td>API / OAuth / webhook</td>
               <td>A formális fejlesztői roadmap nem nevesíti külön tételként, a licencmodell viszont Studio-funkcióként hivatkozik rá</td>
-              <td>Zoltán 2026-07-17-i megerősítése: a Release v2 (2026-12-15) hatókörébe tartozik. Dokumentáció-szinkronizálási tétel: a formális feature-roadmap még nem nevesíti, ezt a fejlesztésnek vissza kell jelezni.</td>
+              <td>Megerősítve: a Release v2 hatókörébe tartozik. Dokumentáció-szinkronizálási tétel: a formális feature-roadmap még nem nevesíti, ezt a fejlesztésnek vissza kell jelezni.</td>
             </tr>
             <tr>
               <td>SSO / on-premise</td>
               <td>Egyik rétegben sem szerepelt</td>
-              <td>Továbbra sem szerepel a megerősített tervben (Alpha–v4), és ez a 2026-07-17-i döntés után nem hiányosság: az Enterprise nem önkiszolgáló tier, hanem sales-vezérelt, egyedi tárgyaláson alapuló csatorna, a termékesítése roadmap-függő (puha iránymutatás: 2027 eleje).</td>
+              <td>Továbbra sem szerepel a megerősített tervben (Alpha–v4), és ez nem hiányosság: az Enterprise nem önkiszolgáló tier, hanem sales-vezérelt, egyedi tárgyaláson alapuló csatorna, a termékesítése roadmap-függő (puha iránymutatás: 2027 eleje).</td>
             </tr>
           </tbody>
         </table>
@@ -257,13 +259,13 @@
       <div class="section-label">Termékfejlesztés</div>
       <h2>A megerősített mérföldkő-terv</h2>
 
-      <p style="font-size:0.91rem; color:var(--muted);">Az alábbi hat mérföldkő a 2026-07-16-án megerősített feature-roadmapból származik, és a Bridge-re korlátozódik: a tágabb platform-vízió (lásd a Release v4 utáni megjegyzést) jelenleg nem napirenden.</p>
+      <p style="font-size:0.91rem; color:var(--muted);">Az alábbi hat mérföldkő a megerősített feature-roadmapból származik, és a Bridge-re korlátozódik: a tágabb platform-vízió (lásd a Release v4 utáni megjegyzést) jelenleg nem napirenden.</p>
 
       <div class="timeline-viz">
         <svg viewBox="0 0 700 148" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mérföldkövek idővonala: Alpha 2026 augusztustól Release v3 2027 februárig">
-          <!-- GA jelölő -->
+          <!-- Éles indulás jelölő -->
           <line x1="200" y1="28" x2="200" y2="92" stroke="#F04E23" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <text x="200" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#F04E23">GA · 2026-09-15</text>
+          <text x="200" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#F04E23">Éles indulás · 2026-09-15</text>
           <!-- v4 jelölő -->
           <text x="680" y="18" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#71717A">v4 · jövőkép</text>
           <!-- Mérföldkő-sávok -->
@@ -281,7 +283,7 @@
           <!-- Deliverable-ek -->
           <text x="74" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#71717A">3 cég</text>
           <text x="153" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#71717A">10 cég</text>
-          <text x="200" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#F04E23" font-weight="700">v1 GA</text>
+          <text x="200" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#F04E23" font-weight="700">Indulás</text>
           <text x="276" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">viewer + élő szinkron</text>
           <text x="403" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">operations</text>
           <text x="570" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#71717A">séma + AI-family</text>
@@ -293,7 +295,7 @@
           <text x="403" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">2027-02-01</text>
           <text x="680" y="138" text-anchor="end" font-family="Inter, sans-serif" font-size="10.5" fill="#A1A1AA">dátum nélkül</text>
         </svg>
-        <div class="timeline-viz-caption">A sávok hossza a naptári időtartammal arányos, a Release v4 sáv halványabb jelölése a dátum nélküli, „jövőkép" státuszt jelzi. Az élő szinkron és a delta-transzfer a Release v2 sávban érkezik, 3 hónappal a GA után.</div>
+        <div class="timeline-viz-caption">A sávok hossza a naptári időtartammal arányos, a Release v4 sáv halványabb jelölése a dátum nélküli, „jövőkép" státuszt jelzi. Az élő szinkron és a delta-transzfer a Release v2 sávban érkezik, 3 hónappal az éles indulás után.</div>
       </div>
 
       <div class="phase-list">
@@ -320,7 +322,7 @@
         <div class="phase-card phase-2">
           <div class="phase-head">
             <span class="phase-name">Beta: teljes cloud-architektúra</span>
-            <span class="phase-dates">2026-08-18 – 09-15</span>
+            <span class="phase-dates">2026-08-17 – 09-15</span>
           </div>
           <div class="phase-deliverable">10 cég · világszerte</div>
           <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">A teljes cloud-architektúra és hosting üzembe áll. Felhasználói telemetria a termék sikerének méréséhez, strukturált visszajelzési csatorna (képernyőkép + komment).</p>
@@ -342,17 +344,16 @@
         <div class="phase-card phase-3">
           <div class="phase-head">
             <span class="phase-name">Release v1: első kereskedelmi kiadás</span>
-            <span class="phase-dates">2026-09-15 · GA</span>
+            <span class="phase-dates">2026-09-15 · Éles indulás</span>
           </div>
           <div class="phase-deliverable">Általános elérhetőség</div>
-          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">Önkiszolgáló regisztráció, automatizált teljes konverziós pipeline (batch jellegű, teljes modell, egyirányú Archicad → Revit), és a fizetős/ingyenes tier-struktúra alapja.</p>
+          <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">Önkiszolgáló regisztráció és automatizált teljes konverziós pipeline (batch jellegű, teljes modell, egyirányú Archicad → Revit). Fizetési rendszer még nincs benne: a tier-struktúra ekkor még nem érvényesíthető automatikusan.</p>
           <div class="phase-block-label">Funkciók</div>
           <ul class="phase-features">
             <li>Landing page, regisztráció, onboarding</li>
             <li>Konnektor-letöltések (Archicad + Revit)</li>
             <li>Automatizált séma-konverzió (teljes pipeline)</li>
             <li>Workspace-ek, felhasználókezelés, telemetria</li>
-            <li>Stripe fizetési rendszer — a licencmodell alapja</li>
           </ul>
         </div>
 
@@ -362,13 +363,14 @@
             <span class="phase-name">Release v2: Viewer &amp; Sync</span>
             <span class="phase-dates">2026-12-15</span>
           </div>
-          <div class="phase-deliverable">Élő szinkron + delta-transzfer</div>
+          <div class="phase-deliverable">Élő szinkron + delta-transzfer + fizetés</div>
           <p style="font-size:0.91rem; color:#3F3F46; margin-bottom:14px;">Web modellnéző a rendszeren átfolyó modellek vizsgálatához. Élő szinkron és delta-transzfer, hogy csak a változott elemek menjenek át a pipeline-on.</p>
           <div class="phase-block-label">Funkciók</div>
           <ul class="phase-features">
             <li>Web modellnéző</li>
             <li>Élő szinkron (aktív modell frissítése igény szerint)</li>
             <li>Delta fel-/letöltés (csak a változott elemek)</li>
+            <li>Stripe fizetési rendszer — innentől érvényesíthető a licencmodell</li>
           </ul>
         </div>
 
@@ -402,7 +404,7 @@
             <li>Konverziós séma szerkesztése / bővítése</li>
             <li>Custom family / GDL objektum → AI nodu parametrikus elem → feltöltés Revitbe</li>
           </ul>
-          <p style="font-size:0.88rem; color:#71717A; margin-top:14px; padding-top:12px; border-top:1px solid var(--border, #E4E4E7);">A korábbi, „Phase 4: The CAD Revolution" névvel jelölt, €25M-os befektetési körhöz kötött <code>nodu.build</code> CAD-platform vízió (teljes VSE-kiadás, <code>nodu.ParametricFamily</code>, épületszerkezet-generátorok, AI rendering, harmadik féltől származó plugin-ökoszisztéma) 2026-07-16-án Zoltán megerősítése szerint jelenleg nem napirenden — a csapat kizárólag a Bridge-funkcionalitással foglalkozik. A vízió nem törölve, csak szüneteltetve. Ezzel párhuzamos, önálló kezdeményezés a NODU Creator (Content Engine): knowledge-graph-alapú termékadat-motor a gyártói szegmensre, saját blueprint-tel (2026-06-11, v2.0) és saját ütemtervvel — ennek kidolgozása is későbbre ütemezett.</p>
+          <p style="font-size:0.88rem; color:#71717A; margin-top:14px; padding-top:12px; border-top:1px solid var(--border, #E4E4E7);">A korábbi, „Phase 4: The CAD Revolution" névvel jelölt, befektetési körhöz kötött <code>nodu.build</code> CAD-platform vízió (teljes VSE-kiadás, <code>nodu.ParametricFamily</code>, épületszerkezet-generátorok, AI rendering, harmadik féltől származó plugin-ökoszisztéma) Zoltán megerősítése szerint jelenleg nem napirenden — a csapat kizárólag a Bridge-funkcionalitással foglalkozik. A vízió nem törölve, csak szüneteltetve. Ezzel párhuzamos, önálló kezdeményezés a NODU Creator (Content Engine): knowledge-graph-alapú termékadat-motor a gyártói szegmensre, saját blueprinttel és saját ütemtervvel — ennek kidolgozása is későbbre ütemezett.</p>
         </div>
 
       </div>
@@ -419,16 +421,16 @@
         </div>
         <div class="eng-card">
           <div class="eng-card-title">Infrastruktúra-stratégia</div>
-          <p>Managed Kubernetes a Scaleway-en, üzembe állítva a Beta-fázistól (2026-08-18), biztosítja, hogy a platform elbírja a séma-konverzió és a jövőbeli generatív AI-funkciók compute-igényes terhelését, anélkül hogy korán belezárna a nagy hyperscalerek magasabb költségszintjébe.</p>
+          <p>Managed Kubernetes a Scaleway-en, üzembe állítva a Beta-fázistól, biztosítja, hogy a platform elbírja a séma-konverzió és a jövőbeli generatív AI-funkciók compute-igényes terhelését, anélkül hogy korán belezárna a nagy hyperscalerek magasabb költségszintjébe.</p>
         </div>
         <div class="eng-card">
           <div class="eng-card-title">Kiadási protokoll</div>
-          <p>Alpha (3 cég) és Beta (10 cég) pilot-validáció előzi meg a GA-t (2026-09-15): ez biztosítja, hogy a launch stabil és a Stripe-fizetéssel az első naptól bevétel-kész legyen.</p>
+          <p>Alpha (3 cég) és Beta (10 cég) pilot-validáció előzi meg az éles indulást: ez biztosítja, hogy a launch stabil legyen. Automatikus bevétel-képesség viszont csak a v2-től van, a fizetési rendszerrel együtt.</p>
         </div>
       </div>
       <div class="callout-green" style="margin-top: 24px;">
-        <div class="callout-label">Megerősítve (2026-07-16)</div>
-        <p>A fenti három állítás a 2026-07-16-án megerősített feature-roadmap alapján immár lezárt tényként kezelhető: a Kubernetes/Scaleway a Beta-fázisban áll üzembe (nem v2-ben), a Stripe fizetés a GA részeként érkezik, a kiadási protokoll pedig az Alpha/Beta pilot-lépcsőt követi.</p>
+        <div class="callout-label">Megerősítve</div>
+        <p>A fenti három állítás a megerősített feature-roadmap alapján immár lezárt tényként kezelhető: a Kubernetes/Scaleway a Beta-fázisban áll üzembe (nem v2-ben), a kiadási protokoll pedig az Alpha/Beta pilot-lépcsőt követi. <strong>Egy pont azóta megváltozott:</strong> a fizetési rendszert a korábbi roadmap tévesen sorolta az éles indulásba — pontosítás szerint a v2 tétele.</p>
       </div>
     </section>
 

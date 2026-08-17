@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <title>NODU Bridge Licencmodell & Bevételkalkulátor</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -325,19 +326,28 @@
   .decision-item h4 { font-size: 17px; font-weight: 600; margin-bottom: 6px; text-align: left; }
   .decision-item p { font-size: 16px; color: var(--muted); line-height: 1.5; }
 
+  /* NYITOTT KÉRDÉSEK: kérdés látható, részletezés kibontható */
+  details.decision-item summary { cursor: pointer; list-style: none; }
+  details.decision-item summary::-webkit-details-marker { display: none; }
+  details.decision-item summary h4 { display: inline; }
+  details.decision-item summary h4::after { content: " ›"; color: var(--orange); font-weight: 700; }
+  details.decision-item[open] summary h4::after { content: " ⌄"; }
+  details.decision-item p:first-of-type { margin-top: 14px; }
+
   /* ALT MODEL SECTION */
   .alt-section { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 40px; }
   .alt-section h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: left; }
   .alt-intro { font-size: 17px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
 
   /* CALLOUT */
-  .callout-amber { background: var(--amber-bg); border: 1px solid #FDE68A; border-left: 4px solid var(--amber); border-radius: 8px; padding: 16px 20px; margin-top: 24px; }
-  .callout-amber-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--amber); margin-bottom: 6px; text-align: left; }
-  .callout-amber p { font-size: 16px; color: #92400E; line-height: 1.6; }
+  /* Editorial callout: fehér kártya + 3px színes bal csík; a szín csak a csíkon. */
+  .callout-amber { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 8px; padding: 16px 20px; margin-top: 24px; color: var(--text); }
+  .callout-amber-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; text-align: left; }
+  .callout-amber p { font-size: 16px; color: var(--text); line-height: 1.6; }
 
-  .callout-green { background: var(--green-bg); border: 1px solid #BBF7D0; border-left: 4px solid var(--green); border-radius: 8px; padding: 16px 20px; margin-top: 20px; margin-bottom: 4px; }
-  .callout-green-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green); margin-bottom: 6px; text-align: left; }
-  .callout-green p { font-size: 16px; color: #14532D; line-height: 1.6; }
+  .callout-green { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 8px; padding: 16px 20px; margin-top: 20px; margin-bottom: 4px; color: var(--text); }
+  .callout-green-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; text-align: left; }
+  .callout-green p { font-size: 16px; color: var(--text); line-height: 1.6; }
   .callout-green p + p { margin-top: 8px; }
 
   .fair-use-note { font-size: 14px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); text-align: left; line-height: 1.5; }
@@ -353,11 +363,11 @@
   .sim-intro { font-size: 16px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
 
   /* RESEARCH BASIS BOX */
-  .research-box { background: var(--blue-bg); border: 1px solid #BFDBFE; border-left: 4px solid var(--blue); border-radius: 8px; padding: 18px 22px; margin-top: 24px; }
-  .research-box-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); margin-bottom: 8px; text-align: left; }
-  .research-box p { font-size: 15px; color: #1E3A8A; line-height: 1.6; margin-bottom: 10px; }
+  .research-box { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 8px; padding: 18px 22px; margin-top: 24px; color: var(--text); }
+  .research-box-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 8px; text-align: left; }
+  .research-box p { font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 10px; }
   .research-box ul { list-style: none; margin: 10px 0; }
-  .research-box li { font-size: 15px; color: #1E3A8A; line-height: 1.55; padding: 5px 0 5px 16px; position: relative; text-align: left; }
+  .research-box li { font-size: 15px; color: var(--text); line-height: 1.55; padding: 5px 0 5px 16px; position: relative; text-align: left; }
   .research-box li::before { content: "-"; position: absolute; left: 0; color: var(--blue); }
   .research-box a { color: var(--blue); text-decoration: underline; }
   .research-box .caveat { font-size: 14px; color: var(--muted); font-style: italic; margin-top: 10px; }
@@ -452,6 +462,150 @@
   /* FOOTER */
   .footer { border-top: 1px solid var(--border); padding-top: 20px; text-align: center; color: var(--muted2); font-size: 14px; }
 
+  /* ==========================================================================
+     LICENC-SZINTEK: fejléc-kártyák + egyesített képesség-mátrix
+     A korábbi négy párhuzamos ✓/✕ checklista helyett: a fejlécek adják az
+     identitást és az árat, a mátrix pedig egyetlen, sorra igazított
+     összehasonlítást. Így a szintek közti DELTA látszik, nem négy külön lista,
+     és a számok (1/2/5 seat, 2/5/15 projekt) egymás alatt olvashatók.
+     ========================================================================== */
+  .ptiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .ptier {
+    position: relative; background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 22px; display: flex; flex-direction: column;
+  }
+  .ptier-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-align: left; }
+  .ptier-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 9px 0 0; text-align: left; }
+  .ptier-price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+  .ptier-amount { font-size: 31px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; font-variant-numeric: tabular-nums; }
+  .ptier-unit { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .ptier-billing { font-size: 12.5px; color: var(--muted2); line-height: 1.5; margin-top: 8px; text-align: left; }
+  .ptier-pitch { font-size: 13px; color: #3F3F46; line-height: 1.55; margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--border); text-align: left; flex: 1; }
+  .ptier-gate { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 14px; text-align: left; }
+  .ptier-gate i {
+    flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; color: #fff;
+    font-size: 10px; font-weight: 800; font-style: normal;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .ptier-gate.g1 i { background: var(--orange); }
+  .ptier-gate.g2 i { background: var(--green); }
+  .ptier-gate.g3 i { background: var(--purple); }
+
+  /* Összecsukható részletező mátrix: a keret és a lekerekítés a <details>-en van,
+     a belső wrap csak a vízszintes görgetést adja. */
+  .pmatrix-details { border: 1px solid var(--border); border-radius: 14px; background: var(--white); overflow: hidden; }
+  .pmatrix-details > summary {
+    list-style: none; cursor: pointer; padding: 15px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 600; color: var(--text);
+    transition: background 0.15s;
+  }
+  .pmatrix-details > summary::-webkit-details-marker { display: none; }
+  .pmatrix-details > summary::marker { content: ""; }
+  .pmatrix-details > summary:hover { background: var(--bg); }
+  .pmatrix-details > summary:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+  .pmatrix-details[open] > summary { border-bottom: 1px solid var(--border); }
+  /* a forgatás a <span>-en van, nem az <svg>-n: SVG-elemen a CSS transform
+     böngészőnként eltérően viselkedik, span-on mindenhol megbízható */
+  .pmatrix-chev { display: inline-flex; flex-shrink: 0; color: var(--muted2); transition: transform 0.2s; }
+  .pmatrix-details[open] .pmatrix-chev { transform: rotate(90deg); }
+  .pmatrix-sum-note { margin-left: auto; font-weight: 400; font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .pmatrix-wrap { background: var(--white); overflow-x: auto; }
+  .pmatrix { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }
+  .pmatrix thead th {
+    background: var(--bg); font-size: 11px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--muted); padding: 13px 16px; text-align: center;
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  .pmatrix thead th:first-child { text-align: left; }
+  .pmatrix tbody th {
+    font-size: 14px; font-weight: 500; color: #3F3F46; text-align: left; padding: 11px 16px;
+    border-bottom: 1px solid var(--border); width: 32%;
+    /* ragadós első oszlop: vízszintes görgetéskor a sor neve látszik */
+    position: sticky; left: 0; background: var(--white);
+    hyphens: none; -webkit-hyphens: none;
+    /* a megosztott design-system.css csupasz `th` szabálya nagybetűsít és nowrap-ol
+       minden fejcellát; ezek viszont SOR-fejcellák, nem oszlopfejek. */
+    text-transform: none; white-space: normal; letter-spacing: normal;
+  }
+  .pmatrix tbody td {
+    padding: 11px 16px; text-align: center; color: var(--text); line-height: 1.4;
+    border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums;
+    hyphens: none; -webkit-hyphens: none;
+  }
+  .pmatrix .grp th {
+    position: static; background: #F7F7F8; font-size: 10.5px; font-weight: 800;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+    padding: 9px 16px; text-align: left; width: auto;
+  }
+  .pmatrix tbody tr:last-child th,
+  .pmatrix tbody tr:last-child td { border-bottom: none; }
+  .pm-yes { color: var(--green); font-weight: 700; font-size: 15px; }
+  .pm-no { color: #D4D4D8; }
+  .pm-soft { font-size: 12.5px; color: var(--muted); }
+  .pmatrix-note { font-size: 12.5px; color: var(--muted); margin-top: 12px; line-height: 1.6; text-align: left; }
+
+  @media (max-width: 1040px) { .ptiers { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px)  { .ptiers { grid-template-columns: 1fr; } }
+
+  /* ---- 1. FIZETŐS VONALAK LÉPCSŐJE ---- */
+  .stairs { display: flex; align-items: flex-end; gap: 0; margin: 4px 0 22px; }
+  .stair {
+    flex: 1; position: relative; background: var(--white);
+    border: 1px solid var(--border); border-top-width: 3px; border-radius: 8px 8px 0 0;
+    padding: 14px 16px 16px; min-width: 0;
+  }
+  .stair + .stair { margin-left: 22px; }
+  .stair.s0 { border-top-color: var(--muted2); min-height: 108px; }
+  .stair.s1 { border-top-color: var(--orange); min-height: 146px; }
+  .stair.s2 { border-top-color: var(--green);  min-height: 184px; }
+  .stair.s3 { border-top-color: var(--purple); min-height: 222px; }
+  .stair-badge {
+    position: absolute; top: 50%; left: -33px; width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .stair.s1 .stair-badge { background: var(--orange); }
+  .stair.s2 .stair-badge { background: var(--green); }
+  .stair.s3 .stair-badge { background: var(--purple); }
+  .stair-name  { font-size: 0.95rem; font-weight: 700; color: var(--text); text-align: left; }
+  .stair-price { font-size: 0.8rem; color: var(--muted); margin-top: 2px; text-align: left; }
+  .stair-note  { font-size: 0.78rem; color: var(--muted); margin-top: 10px; line-height: 1.45; text-align: left; }
+  .stair-walls { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
+  .stair-wall { display: flex; gap: 10px; font-size: 0.85rem; line-height: 1.5; text-align: left; }
+  .stair-wall b { flex-shrink: 0; width: 18px; font-weight: 700; }
+  .stair-wall.w1 b { color: var(--orange); }
+  .stair-wall.w2 b { color: var(--green); }
+  .stair-wall.w3 b { color: var(--purple); }
+
+  /* ---- 2. KÉT TENGELY DIAGRAM ---- */
+  .axis-plot { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px 14px; margin: 20px 0; }
+  .axis-plot svg { display: block; width: 100%; height: auto; }
+  .axis-plot-cap { font-size: 0.78rem; color: var(--muted); margin-top: 10px; text-align: left; }
+
+  /* ---- 3. KIADÁSI IDŐVONAL ---- */
+  .release-line { display: flex; gap: 0; align-items: stretch; margin: 4px 0 24px; }
+  .release-ms { flex: 1; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .release-ms + .release-ms { margin-left: 20px; }
+  .release-dot { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .release-dot i { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .release-ms.now  .release-dot i { background: var(--orange); }
+  .release-ms.next .release-dot i { background: var(--blue); }
+  .release-when { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+  .release-what { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 8px; text-align: left; }
+  .release-list { list-style: none; margin: 0; }
+  .release-list li { font-size: 0.85rem; color: #3F3F46; line-height: 1.5; padding: 3px 0 3px 14px; position: relative; text-align: left; }
+  .release-list li::before { content: "–"; position: absolute; left: 0; color: var(--muted2); }
+
+  @media (max-width: 780px) {
+    .stairs { flex-direction: column; align-items: stretch; }
+    .stair, .stair.s0, .stair.s1, .stair.s2, .stair.s3 { min-height: 0; border-radius: 8px; }
+    .stair + .stair { margin-left: 0; margin-top: 30px; }
+    .stair-badge { top: -14px; left: 16px; }
+    .release-line { flex-direction: column; }
+    .release-ms + .release-ms { margin-left: 0; margin-top: 12px; }
+  }
+
   @media (max-width: 960px) {
     .tiers { grid-template-columns: repeat(2, 1fr); }
     .tiers-alt { grid-template-columns: repeat(2, 1fr); }
@@ -494,7 +648,7 @@
   <!-- PAGE HEADER -->
   <div class="page-header">
     <h1>NODU Bridge Licencmodell</h1>
-    <p>Parametrikus Archicad → Revit konverzió saját mapping sablonokkal · Freemium → Professional → Studio → Enterprise (az Enterprise nem önkiszolgáló: sales-vezérelt, egyedi ajánlat) · Élő szinkron és delta-szinkron: v2-től (2026. december 15.)</p>
+    <p>Négy szint: Community → Professional → Studio → Enterprise. Az első három online megvásárolható, az Enterprise egyedi ajánlat. Az élő szinkron és a fizetési rendszer egyaránt a v2-ben érkezik (2026. december 15.). Ez a négy szint a Bridge belépő szintjének licencmodellje: a NODU platform hosszú távú, hibrid seat+usage árazását és a bidirekcionalitásból adódó, iránypáronként bővülő kosárértéket a „Nyitott döntési pontok" fejezet utolsó tétele tárgyalja.</p>
   </div>
 
   <!-- TIER CARDS -->
@@ -504,111 +658,282 @@
   </div>
 
   <div class="callout-green" style="margin-top: 0; margin-bottom: 24px;">
-    <div class="callout-green-title">2026-07-02 végleges irány: szerepkör + kapacitás tengely</div>
-    <p>A 2026-06-30-i Partnerhálózat-javaslatot (árazás aktív partner-kapcsolatok száma alapján) 2026-07-02-én elvetettük: az „aktív kapcsolat” önbevallással nem tartható fenn megbízhatóan, a telemetria-alapú kikényszerítés pedig irreális a mai desktop-plugin scope-ban. A Bridge launch-kori fő funkciója a <strong>parametrikus Archicad→Revit konverzió saját mapping sablonokkal</strong> (script engine): a konverzió nem statikus geometriát, hanem parametrikus logikát visz át. Az élő szinkron és a delta fel-/letöltés a v2-ben (2026. december 15.) érkezik.</p>
-    <p>Helyette két, egymástól független, <strong>lokálisan kikényszeríthető</strong> tengely váltja fel: (1) <strong>szerepkör-tengely</strong>: Koordinátor (fizetős, sablon-alkotó) és User (ingyenes, de Koordinátor-számhoz kötött, limitált keretű), és (2) <strong>kapacitás-tengely</strong>: hány aktív projekt futhat egyidejűleg. Mindkettő a szoftver saját, amúgy is szükséges állapotából mérhető, nem igényel külön nyilvántartást vagy viselkedésmegfigyelést. A projektméret-limit ezektől elkülönülő, tisztán fair-use védelmi korlát marad.</p>
+    <div class="callout-green-title">Mi alapján árazunk</div>
+    <p>Két dolgot mérünk, és mindkettőt maga a szoftver látja: nincs szükség külön nyilvántartásra vagy a felhasználók megfigyelésére:</p>
+    <p><strong>1. Ki készít sablont.</strong> A mapping-sablonokat a Koordinátor hozza létre és szerkeszti: az ő helye a fizetős. Az iroda többi tagja ingyenes User seatet kap: a kész sablonokat elindíthatja, de nem módosíthatja.</p>
+    <p><strong>2. Hány projekt fut egyszerre.</strong> Minden szint adott számú egyidejűleg aktív projektet enged.</p>
+    <p>A projekt mérete ettől független: az csak egy nagyvonalú fair-use korlát az infrastruktúra védelmére, nem árazási eszköz.</p>
+    <p style="font-size:0.9em; color:var(--muted);">Előzmény: az aktív partner-kapcsolatok száma alapján árazó javaslatot elvetettük: az „aktív kapcsolat” önbevallásból nem ellenőrizhető megbízhatóan.</p>
   </div>
 
-  <div class="tiers">
+  <div class="ptiers">
 
-    <!-- Community -->
-    <div class="tier-card">
-      <div class="tier-label">Tier 0</div>
-      <div class="tier-name">Community</div>
-      <div class="tier-price">€0 <sub>/ hó</sub></div>
-      <div class="tier-billing">Egyéni próba · virális belépő · v1/GA-tól (2026-09-15)</div>
-      <div class="divider-line"></div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> <span class="highlight-feat">Archicad → Revit adatcsere</span> (batch konverzió, preset sablonokkal)</li>
-        <li><span class="check">✓</span> Havonta 2 teljes modelles konverzió, elemszám-korlát nélkül</li>
-        <li><span class="check">✓</span> 3 mentett projekt</li>
-        <li><span class="check">✓</span> 30 napos projekt-előzmény</li>
-        <li class="off"><span class="cross">✕</span> Élő szinkron <em style="font-size:0.85em; color:var(--muted);">(v2-től, 2026. december)</em></li>
-        <li class="off"><span class="cross">✕</span> Saját sablon létrehozása/mentése <span class="seat-tag author">Koordinátor</span></li>
-        <li class="off"><span class="cross">✕</span> API hozzáférés</li>
-        <li class="off"><span class="cross">✕</span> Support (csak fórum)</li>
-      </ul>
-      <div class="fair-use-note">Az adatcsere-alapélmény (teljes modell, korlátozás nélkül) itt is teljes értékű az eseti cserét futtató irodáknak (C réteg, 3–6 havonta egy IFC-átadás). A havi 2 konverzió a gyakoriság-alapú fair-use határ, nem az adatmennyiség; a fizetős határvonal tisztán funkcionális: saját mapping-sablon mentése (v1-től) és élő, inkrementális szinkron (v2-től).</div>
+    <div class="ptier">
+      <div class="ptier-eyebrow">Tier 0</div>
+      <div class="ptier-name">Community</div>
+      <div class="ptier-price"><span class="ptier-amount">&euro;0</span><span class="ptier-unit">/ h&oacute;</span></div>
+      <div class="ptier-billing">Ingyenes bel&eacute;p&#337; &middot; az &eacute;les indul&aacute;st&oacute;l</div>
+      <div class="ptier-pitch">Aki 3&ndash;6 havonta ad &aacute;t egy modellt, ezzel elboldogul: a teljes modell &aacute;tmegy, elemsz&aacute;m-korl&aacute;t n&eacute;lk&uuml;l. A havi 2 alkalom a gyakoris&aacute;got korl&aacute;tozza, nem az adatmennyis&eacute;get.</div>
     </div>
 
-    <!-- Professional -->
-    <div class="tier-card recommended">
-      <div class="tier-label">Tier 1 · Ajánlott</div>
-      <div class="tier-name">Professional</div>
-      <div class="tier-price">€199 <sub>/ Koordinátor / hó</sub></div>
-      <div class="tier-billing">€1,990 / Koordinátor / év (2 hó ingyen)</div>
-      <div class="paywall-chip orange">① Paywall · Script engine</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> <span class="highlight-feat">1 Koordinátor seat</span> <span class="seat-tag author">Author</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">10 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">Parametrikus Archicad→Revit konverzió</span> (logika-megőrző, nem statikus geometria)</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">Script engine</span> (saját mapping sablon létrehozás/szerkesztés/mentés)</li>
-        <li><span class="check">✓</span> Batch/egyszeri konverzió korlátlan számú futtatással</li>
-        <li class="off"><span class="cross">✕</span> Élő, inkrementális szinkron <em style="font-size:0.85em; color:var(--muted);">(Release v2-ben érkezik, 2026-12-15 – meglévő előfizetők automatikusan megkapják)</em></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">2 egyidejűleg aktív projekt</span></li>
-        <li><span class="check">✓</span> 90 napos projekt-előzmény + alap analitika</li>
-        <li class="off"><span class="cross">✕</span> Közös sablonkönyvtár</li>
-        <li class="off"><span class="cross">✕</span> API hozzáférés</li>
-        <li><span class="check">✓</span> E-mail support (48h SLA)</li>
-      </ul>
-      <div class="fair-use-note">Projektméret: nagyvonalú fair-use korlát (a limit felett throttling, nem leállás): infrastruktúra-védelem, nem árazási csapda.</div>
+    <div class="ptier">
+      <div class="ptier-eyebrow">Tier 1</div>
+      <div class="ptier-name">Professional</div>
+      <div class="ptier-price"><span class="ptier-amount">&euro;199</span><span class="ptier-unit">/ Koordin&aacute;tor / h&oacute;</span></div>
+      <div class="ptier-billing">&euro;1&nbsp;990 / Koordin&aacute;tor / &eacute;v &mdash; 2 h&oacute;nap ingyen</div>
+      <div class="ptier-pitch">Az egy koordin&aacute;toros iroda alapszintje: saj&aacute;t mapping-logika, ami projektr&#337;l projektre &uacute;jrahaszno&shy;s&iacute;that&oacute;.</div>
+      <div class="ptier-gate g1"><i>1</i><span>Itt van az els&#337; fizet&#337;s vonal: saj&aacute;t sablon ment&eacute;se (v1-t&#337;l), &eacute;l&#337; szinkron (v2-t&#337;l).</span></div>
     </div>
 
-    <!-- Studio -->
-    <div class="tier-card">
-      <div class="tier-label">Tier 2</div>
-      <div class="tier-name">Studio</div>
-      <div class="tier-price">€499 <sub>/ iroda / hó</sub></div>
-      <div class="tier-billing">€4,990 / év</div>
-      <div class="paywall-chip green">② Paywall · Iroda-folytonosság</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> Minden Professional funkció</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">2 Koordinátor seat</span> <span class="seat-tag author">Author</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">20 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">5 egyidejűleg aktív projekt</span></li>
-        <li><span class="check">✓</span> Közös sablonkönyvtár (Koordinátorok között megosztva)</li>
-        <li><span class="check">✓</span> 1 éves projekt-előzmény + teljes analitika</li>
-        <li><span class="check">✓</span> REST API hozzáférés <em style="font-size:0.85em; color:var(--muted);">(v2-től, 2026. december)</em></li>
-        <li><span class="check">✓</span> Alap audit napló</li>
-        <li><span class="check">✓</span> Webhook integráció <em style="font-size:0.85em; color:var(--muted);">(v2-től)</em></li>
-        <li><span class="check">✓</span> Google / Microsoft bejelentkezés (OAuth) <em style="font-size:0.85em; color:var(--muted);">(v2-től)</em></li>
-        <li class="off"><span class="cross">✕</span> SAML / Active Directory / Okta</li>
-        <li class="off"><span class="cross">✕</span> On-premise telepítés</li>
-        <li><span class="check">✓</span> Priority support (24h SLA)</li>
-      </ul>
-      <div class="fair-use-note">Projektméret: nagyvonalú fair-use korlát (throttling, nem leállás): infrastruktúra-védelem, nem árazási csapda.</div>
+    <div class="ptier">
+      <div class="ptier-eyebrow">Tier 2</div>
+      <div class="ptier-name">Studio</div>
+      <div class="ptier-price"><span class="ptier-amount">&euro;499</span><span class="ptier-unit">/ iroda / h&oacute;</span></div>
+      <div class="ptier-billing">&euro;4&nbsp;990 / &eacute;v</div>
+      <div class="ptier-pitch">Iroda-szint&#369; licenc: k&eacute;t Koordin&aacute;tor k&ouml;z&ouml;s sablonk&ouml;nyvt&aacute;rral, t&ouml;bb p&aacute;rhuzamos projekt, integr&aacute;ci&oacute;k.</div>
+      <div class="ptier-gate g2"><i>2</i><span>M&aacute;sodik Koordin&aacute;tor, betelt User-keret, 3. projekt, k&ouml;z&ouml;s k&ouml;nyvt&aacute;r vagy API.</span></div>
     </div>
 
-    <!-- Enterprise -->
-    <div class="tier-card">
-      <div class="tier-label">Tier 3: nem önkiszolgáló · sales-vezérelt, egyedi ajánlat</div>
-      <div class="tier-name">Enterprise</div>
-      <div class="tier-price">Egyedi</div>
-      <div class="tier-billing">Min. €2,500 / hó · éves szerződés · a termékesítés roadmap-függő (puha iránymutatás: 2027 eleje), addig minden ilyen igény egyedi tárgyalás</div>
-      <div class="paywall-chip purple">③ Paywall · Governance</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> Minden Studio funkció</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">5 Koordinátor seat</span> <span class="seat-tag author">Author</span> (egyedi igény szerint bővíthető)</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">50 ingyenes User seat</span> <span class="seat-tag contributor">Contributor</span></li>
-        <li><span class="check">✓</span> <span class="highlight-feat">15 egyidejűleg aktív projekt</span> (bővíthető)</li>
-        <li><span class="check">✓</span> Korlátlan projekt-előzmény + teljes analitika + iparági benchmark (opt-in)</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">On-premise / dedikált felhő</span></li>
-        <li><span class="check">✓</span> SAML SSO (Active Directory, Okta, SCIM)</li>
-        <li><span class="check">✓</span> RBAC szerepkör-alapú jogok</li>
-        <li><span class="check">✓</span> Teljes audit napló (ISO 27001)</li>
-        <li><span class="check">✓</span> <span class="highlight-feat">Platform Core hozzáférés (BIG graph + ERP integráció)</span></li>
-        <li><span class="check">✓</span> Custom node fejlesztés</li>
-        <li><span class="check">✓</span> Onboarding csomag (€2–8k)</li>
-        <li><span class="check">✓</span> SLA + 24/7 mérnöki support</li>
-      </ul>
-      <div class="fair-use-note">Projektméret: on-premise futtatás esetén a terhelés nem a NODU infrastruktúráján jelentkezik, ezért fair-use limit itt nem indokolt.</div>
+    <div class="ptier">
+      <div class="ptier-eyebrow">Tier 3</div>
+      <div class="ptier-name">Enterprise</div>
+      <div class="ptier-price"><span class="ptier-amount">Egyedi</span><span class="ptier-unit">min. &euro;2&nbsp;500 / h&oacute;</span></div>
+      <div class="ptier-billing">&Eacute;ves szerz&#337;d&eacute;s &middot; nincs online v&aacute;s&aacute;rl&aacute;s, minden &uuml;gylet egyedi t&aacute;rgyal&aacute;s. Sztenderd csomag: 2027 eleje k&ouml;r&uuml;l.</div>
+      <div class="ptier-pitch">Akinek az IT vagy a jogi oszt&aacute;lya nem engedi felh&#337;be az adatot: on-premise futtat&aacute;s, SSO, teljes audit&aacute;lhat&oacute;s&aacute;g.</div>
+      <div class="ptier-gate g3"><i>3</i><span>Adatszuverenit&aacute;s &eacute;s megfelel&eacute;s &mdash; erre nincs in-app upgrade-&uacute;tvonal.</span></div>
     </div>
 
   </div>
 
-  <div class="callout-green" style="margin-top: -16px;">
-    <div class="callout-green-title">Megerősítve (2026-07-16): az élő szinkron Release v2-ben érkezik, nem launch-funkció</div>
-    <p>Az élő szinkron és a delta-transzfer a Release v2 tétele (2026-12-15), 3 hónappal a GA után. A launch-kori (GA, 2026-09-15) értékajánlat az <strong>automatizált, egyirányú Archicad→Revit konverziós pipeline + a parametrikus script engine és saját mapping sablonok</strong>: a konverzió nem statikus geometriát, hanem parametrikus logikát (kapcsolatok, osztályozások, egyedi paraméterek) visz át – ez különbözteti meg az IFC-alapú munkafolyamatoktól. Az élő szinkron a meglévő Professional és Studio előfizetők számára automatikus frissítésként érkezik a Release v2-vel. A v1 konnektor elemtípusonként épül (falak kész, kivágások folyamatban, födémek és nyílászárók hátravannak); részletek: <a href="nodu-bridge-roadmap.html">Termék-roadmap</a>.</p>
+  <details class="pmatrix-details">
+    <summary>
+      <span class="pmatrix-chev"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+      R&eacute;szletes k&eacute;pess&eacute;g-m&aacute;trix
+      <span class="pmatrix-sum-note">24 sor &middot; 4 csoport</span>
+    </summary>
+    <div class="pmatrix-wrap">
+    <table class="pmatrix">
+      <thead>
+        <tr>
+          <th>K&eacute;pess&eacute;g</th>
+          <th>Community</th>
+          <th>Professional</th>
+          <th>Studio</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="grp"><th colspan="5">Konverzi&oacute;</th></tr>
+        <tr>
+          <th>Parametrikus Archicad &rarr; Revit konverzi&oacute;</th>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Teljes modell, elemsz&aacute;m-korl&aacute;t n&eacute;lk&uuml;l</th>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Konverzi&oacute; / h&oacute;nap</th>
+          <td>2</td>
+          <td>korl&aacute;tlan</td>
+          <td>korl&aacute;tlan</td>
+          <td>korl&aacute;tlan</td>
+        </tr>
+        <tr>
+          <th>K&eacute;sz (preset) sablonok</th>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Saj&aacute;t mapping-sablon k&eacute;sz&iacute;t&eacute;se &eacute;s ment&eacute;se</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>&Eacute;l&#337;, inkrement&aacute;lis szinkron <span class="pm-soft">(v2-t&#337;l)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Mentett projekt</th>
+          <td>3</td>
+          <td>korl&aacute;tlan</td>
+          <td>korl&aacute;tlan</td>
+          <td>korl&aacute;tlan</td>
+        </tr>
+        <tr class="grp"><th colspan="5">Seatek &eacute;s kapacit&aacute;s</th></tr>
+        <tr>
+          <th>Koordin&aacute;tor seat <span class="pm-soft">(fizet&#337;s, sablont k&eacute;sz&iacute;t)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>1</td>
+          <td>2</td>
+          <td>5 <span class="pm-soft">b&#337;v&iacute;thet&#337;</span></td>
+        </tr>
+        <tr>
+          <th>User seat <span class="pm-soft">(ingyenes, sablont futtat)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>10</td>
+          <td>20</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <th>Egyidej&#369;leg akt&iacute;v projekt</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>2</td>
+          <td>5</td>
+          <td>15 <span class="pm-soft">b&#337;v&iacute;thet&#337;</span></td>
+        </tr>
+        <tr>
+          <th>K&ouml;z&ouml;s sablonk&ouml;nyvt&aacute;r a Koordin&aacute;torok k&ouml;z&ouml;tt</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr class="grp"><th colspan="5">Adat, integr&aacute;ci&oacute;, megfelel&eacute;s</th></tr>
+        <tr>
+          <th>Projekt-el&#337;zm&eacute;ny</th>
+          <td><span class="pm-soft">csak az utols&oacute; &aacute;llapot</span></td>
+          <td>30 nap</td>
+          <td>1 &eacute;v</td>
+          <td>korl&aacute;tlan</td>
+        </tr>
+        <tr>
+          <th>Analitika</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>alap</td>
+          <td>teljes</td>
+          <td>teljes + ipar&aacute;gi benchmark</td>
+        </tr>
+        <tr>
+          <th>REST API &eacute;s webhook <span class="pm-soft">(v2-t&#337;l)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Google / Microsoft bejelentkez&eacute;s <span class="pm-soft">(v2-t&#337;l)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Audit napl&oacute;</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>alap</td>
+          <td>teljes <span class="pm-soft">(ISO 27001)</span></td>
+        </tr>
+        <tr>
+          <th>SAML SSO <span class="pm-soft">(Active Directory, Okta, SCIM)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Szerepk&ouml;r-alap&uacute; jogosults&aacute;gok (RBAC)</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>On-premise / dedik&aacute;lt felh&#337;</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Platform Core <span class="pm-soft">(BIG graph + ERP; nem napirenden)</span></th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr>
+          <th>Custom node fejleszt&eacute;s</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-yes">&#10003;</span></td>
+        </tr>
+        <tr class="grp"><th colspan="5">T&aacute;mogat&aacute;s &eacute;s korl&aacute;tok</th></tr>
+        <tr>
+          <th>Support</th>
+          <td>f&oacute;rum</td>
+          <td>e-mail, 48 h</td>
+          <td>priority, 24 h</td>
+          <td>SLA + 24/7 m&eacute;rn&ouml;ki</td>
+        </tr>
+        <tr>
+          <th>Onboarding</th>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td><span class="pm-no">&ndash;</span></td>
+          <td>csomag, &euro;2&ndash;8k</td>
+        </tr>
+        <tr>
+          <th>Projektm&eacute;ret <span class="pm-soft">(fair use)</span></th>
+          <td><span class="pm-soft">a havi 2 konverzi&oacute; a korl&aacute;t</span></td>
+          <td><span class="pm-soft">nagyvonal&uacute;</span></td>
+          <td><span class="pm-soft">nagyvonal&uacute;</span></td>
+          <td><span class="pm-soft">nincs limit</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="pmatrix-note" style="padding: 0 20px 16px;">A magasabb szint tartalmazza az alacsonyabb minden k&eacute;pess&eacute;g&eacute;t; a &bdquo;&ndash;&rdquo; azt jelenti, hogy az adott szinten nem el&eacute;rhet&#337;. A Community-ben nincs Koordin&aacute;tor-szerepk&ouml;r, ez&eacute;rt a seat- &eacute;s kapacit&aacute;s-sorok ott nem &eacute;rtelmezettek. A fizet&#337;s szinteken a projektm&eacute;ret nagyvonal&uacute; fair-use korl&aacute;t: a limit felett lass&iacute;tunk, nem &aacute;ll&iacute;tunk le &mdash; infrastrukt&uacute;ra-v&eacute;delem, nem &aacute;raz&aacute;si csapda. Enterprise-n&aacute;l on-premise futtat&aacute;sn&aacute;l a terhel&eacute;s nem a NODU infrastrukt&uacute;r&aacute;j&aacute;t &eacute;rinti, ez&eacute;rt ott nincs ilyen korl&aacute;t.</p>
+  </details>
+
+  <div class="section-header" style="margin-top: 8px;">
+    <h2>Mi mikor élesedik</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="release-line">
+    <div class="release-ms now">
+      <div class="release-dot"><i></i><span class="release-when">v1 · Éles indulás · 2026-09-15</span></div>
+      <div class="release-what">Indulás</div>
+      <ul class="release-list">
+        <li>Automatikus Archicad → Revit konverzió (teljes modell)</li>
+        <li>Saját mapping-sablonok készítése és mentése</li>
+        <li>Community: havi 2 konverzió kész sablonokkal</li>
+        <li><em>Fizetési rendszer még nincs</em>: a fizetős funkciók fejlesztés alatt, egyedi igényre kézi számlázás</li>
+      </ul>
+    </div>
+    <div class="release-ms next">
+      <div class="release-dot"><i></i><span class="release-when">v2 · 2026-12-15</span></div>
+      <div class="release-what">3 hónappal később</div>
+      <ul class="release-list">
+        <li>Élő szinkron és delta-transzfer (csak a változott elemek)</li>
+        <li>Web modellnéző</li>
+        <li>REST API és webhook (Studio)</li>
+        <li>Google / Microsoft bejelentkezés (Studio)</li>
+        <li>Stripe fizetés: innentől érvényesíthető a licencmodell</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout-green" style="margin-top: -4px;">
+    <div class="callout-green-title">Az élő szinkron Release v2-ben érkezik, nem launch-funkció</div>
+    <p>Az induláskor ezt kapja az ügyfél: <strong>automatikus, egyirányú Archicad→Revit konverzió és saját mapping-sablonok</strong>. A konverzió nem statikus geometriát visz át, hanem a parametrikus logikát is: kapcsolatokat, osztályozásokat, egyedi paramétereket. Ez a különbség az IFC-alapú munkamenethez képest.</p>
+    <p>Az élő szinkron és a delta-transzfer 3 hónappal később, a v2-ben érkezik, és a meglévő Professional és Studio előfizetők automatikusan megkapják. A v1 konnektor elemtípusonként épül: a falak készen vannak, a kivágásokon dolgozunk, a födémek és nyílászárók hátravannak: részletek a <a href="nodu-bridge-roadmap.html">Termék-roadmapen</a>.</p>
   </div>
 
   <!-- PAYWALL LOGIKA -->
@@ -618,29 +943,62 @@
   </div>
 
   <div class="paywall-section">
+
+    <div class="stairs">
+      <div class="stair s0">
+        <div class="stair-name">Community</div>
+        <div class="stair-price">€0</div>
+        <div class="stair-note">Kész sablonok, havi 2 konverzió</div>
+      </div>
+      <div class="stair s1">
+        <div class="stair-badge">①</div>
+        <div class="stair-name">Professional</div>
+        <div class="stair-price">€199 / Koordinátor / hó</div>
+        <div class="stair-note">Saját sablonok · 1 Koordinátor · 2 projekt</div>
+      </div>
+      <div class="stair s2">
+        <div class="stair-badge">②</div>
+        <div class="stair-name">Studio</div>
+        <div class="stair-price">€499 / iroda / hó</div>
+        <div class="stair-note">2 Koordinátor · 5 projekt · közös könyvtár · API</div>
+      </div>
+      <div class="stair s3">
+        <div class="stair-badge">③</div>
+        <div class="stair-name">Enterprise</div>
+        <div class="stair-price">Egyedi · min. €2 500 / hó</div>
+        <div class="stair-note">SSO · on-premise · 5 Koordinátor · 15 projekt</div>
+      </div>
+    </div>
+
+    <div class="stair-walls">
+      <div class="stair-wall w1"><b>①</b><span>Menteni akarja a saját mapping-sablonját (v1-től), vagy élő szinkront szeretne (v2-től).</span></div>
+      <div class="stair-wall w2"><b>②</b><span>Bejön a második Koordinátor, betelik a 10 fős User-keret, kell a 3. egyidejű projekt, közös sablonkönyvtár vagy API.</span></div>
+      <div class="stair-wall w3"><b>③</b><span>Az IT vagy a jogi osztály nem engedi felhőbe az adatot: SSO, on-premise. Erre nincs online vásárlás, csak egyedi tárgyalás.</span></div>
+    </div>
+
     <div class="paywall-items">
       <div class="paywall-item">
         <div class="pw-from-to">Community → Professional</div>
         <div class="pw-title">Saját mapping-sablon mentése (v1-től) · élő, inkrementális szinkron (v2-től)</div>
-        <div class="pw-desc">Két elemből áll, és mindkettő mögött megerősített fejlesztési fedezet van. <strong>(1) V1/GA-tól (2026-09-15):</strong> az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 teljes modelles konverziós kerete van, elemszám-korlát nélkül. A következő projekten újra kellene felépítenie a leképezést. <strong>(2) V2-től (2026-12-15):</strong> az élő, inkrementális szinkron kizárólag fizetős funkció; az ingyenes réteg a batch/preset konverziónál marad. Az első fizetős vonal tehát már a GA-tól tartalmi fedezettel bír, és a v2-vel erősödik, nem eltolódik.</div>
+        <div class="pw-desc">Két elemből áll, a szerkezetük lezárt. <strong>(1) Az éles indulástól:</strong> az ügyfél elvégzi az első konverziót preset sablonnal, de nem hozhat létre/menthet saját mappinget (Koordinátor-jog hiánya), és havonta 2 teljes modelles konverziós kerete van, elemszám-korlát nélkül. A következő projekten újra kellene felépítenie a leképezést. <strong>(2) A v2-től:</strong> az élő, inkrementális szinkron kizárólag fizetős funkció; az ingyenes réteg a batch/preset konverziónál marad. <strong>Időzítési korlát:</strong> a vonal induláskor még nem érvényesíthető. A sablon-funkció ott lesz a v1-ben, de fizetési rendszer nélkül nem lehet érte díjat kérni: az is a v2 tétele. Vagyis az első fizetős vonal gyakorlatilag a v2-vel élesedik; a köztes ~3 hónapban a fizetős funkciók fejlesztés alatt állnak, egyedi igényre kézi számlázással.</div>
         <div class="pw-trigger">„Szeretnéd menteni és újra felhasználni a mapping-sablonokat? Válts Professional-ra a korlátlan konverzióval.”</div>
       </div>
       <div class="paywall-item green-wall">
         <div class="pw-from-to">Professional → Studio</div>
         <div class="pw-title">Második Koordinátor · User-plafon · aktív projekt-limit · közös sablonkönyvtár · API</div>
-        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade öt helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak, (4) a Koordinátorok közötti közös sablonkönyvtárra van szükség, (5) API-, OAuth- (Google/Microsoft) vagy webhook-integrációt kérnek. Az első három trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés; az egyidejűleg aktív projektek száma a v2-es szinkron-motor állapotából (2026-12-15-től) olvasható ki automatikusan. Az API, az OAuth és a webhook Zoltán 2026-07-17-i megerősítése szerint a v2 hatókörébe tartozik.</div>
+        <div class="pw-desc">A Professional tier 1 Koordinátort, 10 ingyenes Usert és 2 egyidejűleg aktív projektet enged. Az upgrade öt helyzetből fakad: (1) bejön egy második Koordinátor, (2) az iroda betölti a 10 fős User-keretet, (3) egyszerre 3. projektet is futtatni akarnak, (4) a Koordinátorok közötti közös sablonkönyvtárra van szükség, (5) API-, OAuth- (Google/Microsoft) vagy webhook-integrációt kérnek. Az első három trigger konkrét, mérhető kapacitás-elérés, nem elvont csapatméret-becslés; az egyidejűleg aktív projektek száma a v2-es szinkron-motor állapotából olvasható ki automatikusan. Az API, az OAuth és a webhook a v2 hatókörébe tartozik.</div>
         <div class="pw-trigger green">„2/2 aktív projekt betelt: új projekt indításához válts Studio-ra, vagy zárj le/archiválj egy meglévőt”</div>
       </div>
       <div class="paywall-item purple-wall">
         <div class="pw-from-to">Studio → Enterprise</div>
-        <div class="pw-title">Adatszuverenitás · compliance — nem önkiszolgáló, sales-vezérelt trigger</div>
-        <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez az egyetlen trigger, amelyhez nincs in-app upgrade-útvonal: az ilyen igényt Zoltán az első ügyfelektől kezdve személyesen, egyedi tárgyalás keretében kezeli. A tier termékesítése roadmap-függő: a „2027 eleje” mostantól puha iránymutatás (amikor a bővített roadmap megszületik, termékesíthető), nem terméktervezési határidő — ezért nem hiányosság, hogy a mérnöki terv (Alpha–v4) SSO-t, RBAC-ot vagy on-premise-t nem nevesít.</div>
+        <div class="pw-title">Adatszuverenitás · compliance: nem önkiszolgáló, sales-vezérelt trigger</div>
+        <div class="pw-desc">Nagyobb irodáknál az IT/legal tiltja a külső felhős adatátvitelt. Az SSO, az RBAC és az audit naplók nem a szoftver értékéről szólnak, hanem a vállalati infrastruktúra megfelelőségéről. Ez az egyetlen trigger, amelyhez nincs in-app upgrade-útvonal: az ilyen igényt Zoltán az első ügyfelektől kezdve személyesen, egyedi tárgyalás keretében kezeli. A tier termékesítése roadmap-függő: a „2027 eleje” mostantól puha iránymutatás (amikor a bővített roadmap megszületik, termékesíthető), nem terméktervezési határidő: ezért nem hiányosság, hogy a mérnöki terv (Alpha–v4) SSO-t, RBAC-ot vagy on-premise-t nem nevesít.</div>
         <div class="pw-trigger purple">„A projektek nem hagyhatják el a vállalati infrastruktúrát”</div>
       </div>
       <div class="paywall-item amber-wall">
         <div class="pw-from-to">Enterprise → Platform Core</div>
         <div class="pw-title">BIG graph + gyártás szinkron (jelenleg nem napirenden)</div>
-        <div class="pw-desc">A Build-fázisokhoz kötött platform-vízió jelenleg nem napirenden (szüneteltetve, nem törölve): a csapat kizárólag a Bridge-re fókuszál. Ha a platform-fázis elindul, a majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok elérhetővé válnak; a mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést. Ez tehát hosszú távú irány, nem az indulási licencmodell eleme.</div>
+        <div class="pw-desc">A Build-fázisokhoz kötött platform-vízió jelenleg nem napirenden (szüneteltetve, nem törölve): a csapat kizárólag a Bridge-re fókuszál. Ha a platform-fázis elindul, a majdani Enterprise Bridge-előfizető hozzáfér a NODU platform alap-funkcióihoz, ahogy azok elérhetővé válnak; a mélyebb platform-integráció (BIG constraint optimizer, gyártástervező szinkron, ERP kapcsolat) adja majd a valódi 800h → 150h projektidő-csökkentést. Ez tehát hosszú távú irány, nem az indulási licencmodell eleme. A Bridge maga csak a belépő szint: a platform-szakaszban a Koordinátor-seat mellé usage-alapú bevételi komponens is társul. Egy további, ugyancsak jövőbeli (2027-től releváns) árazási tényező a bidirekcionalitás: ha egynél több irány/szoftverpár között lehet parametrikusan adatot cserélni, az előfizető iránypáronként fizet elő, és a jelenlegi 199/499 eurós szintek mátrixszerűen, folyosónként bővülő kosárértékké válhatnak (részletek: <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás, 02. szekció</a>).</div>
         <div class="pw-trigger amber">„Integráljuk a gyártástervező rendszerrel”</div>
       </div>
     </div>
@@ -660,18 +1018,18 @@
         <div class="input-group">
           <div class="input-label">
             <span style="color: var(--orange);">Professional Koordinátorok száma</span>
-            <input type="number" class="val-input orange" id="proUsersVal" value="20" min="0" oninput="syncFromInput(this,'proUsers','orange'); calc()">
+            <input type="number" class="val-input orange" id="proUsersVal" value="100" min="0" oninput="syncFromInput(this,'proUsers','orange'); calc()">
           </div>
-          <input type="range" class="orange" id="proUsers" min="0" max="500" value="20" step="1" oninput="syncFromSlider(this,'proUsersVal','orange'); calc()">
+          <input type="range" class="orange" id="proUsers" min="0" max="500" value="100" step="1" oninput="syncFromSlider(this,'proUsersVal','orange'); calc()">
           <div class="input-hint">€199 / Koordinátor / hó &nbsp;·&nbsp; a hozzájuk tartozó ingyenes User seat (10×) nem árazási tényező</div>
         </div>
 
         <div class="input-group">
           <div class="input-label">
             <span style="color: var(--green);">Studio csapatok száma</span>
-            <input type="number" class="val-input green" id="studioTeamsVal" value="8" min="0" oninput="syncFromInput(this,'studioTeams','green'); calc()">
+            <input type="number" class="val-input green" id="studioTeamsVal" value="30" min="0" oninput="syncFromInput(this,'studioTeams','green'); calc()">
           </div>
-          <input type="range" class="green" id="studioTeams" min="0" max="200" value="8" step="1" oninput="syncFromSlider(this,'studioTeamsVal','green'); calc()">
+          <input type="range" class="green" id="studioTeams" min="0" max="200" value="30" step="1" oninput="syncFromSlider(this,'studioTeamsVal','green'); calc()">
           <div class="input-hint">€499 / iroda / hó &nbsp;·&nbsp; 2 Koordinátor + 20 ingyenes User seat</div>
         </div>
 
@@ -1022,11 +1380,12 @@
   </div>
 
   <div class="calc-wrap">
-    <div class="sim-intro">A tervezés jelen szakaszában kizárólag a bevétel-oldal és a havi marketing büdzsé releváns, a csapat- és fix költségek egyelőre nem részei a modellnek. A szimuláció a fenti ügyfélszámokat veszi kiindulópontnak, és havi bontásban vetíti előre a bevétel (MRR) alakulását, figyelembe véve a marketingköltségből finanszírozott új ügyfélszerzést, az organikus növekedést, a lemorzsolódást (churn) és a Professional → Studio upgrade-mozgást (az egyszerűsített modell átlagosan 3 Professional Koordinátorból számol 1 Studio csapatot az upgrade pillanatában). A szimuláció 1. hónapja a GA hónapja (2026. szeptember), bevétel azonban csak a fizetés indulásától képződik: az addig felépülő bázis ingyenes felhasználókból áll.</div>
+    <div class="sim-intro">A tervezés jelen szakaszában kizárólag a bevétel-oldal és a havi marketing büdzsé releváns, a csapat- és fix költségek egyelőre nem részei a modellnek. A szimuláció a fenti ügyfélszámokat veszi kiindulópontnak, és havi bontásban vetíti előre a bevétel (MRR) alakulását, figyelembe véve a marketingköltségből finanszírozott új ügyfélszerzést, az organikus növekedést, a lemorzsolódást (churn) és a Professional → Studio upgrade-mozgást (az egyszerűsített modell átlagosan 3 Professional Koordinátorból számol 1 Studio csapatot az upgrade pillanatában). A szimuláció 1. hónapja az éles indulás hónapja (2026. szeptember), bevétel azonban csak a fizetés indulásától képződik: az addig felépülő bázis ingyenes felhasználókból áll.</div>
 
     <div class="callout-amber" style="margin-top: 16px; margin-bottom: 20px;">
-      <div class="callout-amber-title">Megerősítve (2026-07-16): a Stripe fizetési rendszer már a Release v1-ben (GA) elérhető</div>
-      <p>A fejlesztői roadmap a Stripe fizetési integrációt a Release v1-be (GA, 2026-09-15) sorolja, tehát a számlázási képesség már a launch pillanatától adott, nem a v2-től. A szimuláció ennek ellenére megőrzi a „Fizetés indulása” csúszkát: az esetleges kezdeti ingyenes időszak nem technikai korlát, hanem tudatos, tesztelhető felhasználószerzési stratégia (ez a launch-stratégia része, nem kényszerű mellékhatás), a fizetés élesítésekor pedig az addig felépült ingyenes bázisnak csak egy becsült része vált fizetőre. A csúszkával az azonnali (1. hótól induló) és a késleltetett élesítés hatása egyaránt tesztelhető.</p>
+      <div class="callout-amber-title">A fizetési rendszer a v2-ben érkezik, nem induláskor</div>
+      <p>A korábbi roadmap tévesen sorolta a Stripe-integrációt a Release v1-be. A helyes állás: a fizetési rendszer a <strong>Release v2 tétele</strong>: a szimulációban ez a 4. hónap. Az éles indulás és a v2 között tehát nincs önkiszolgáló számlázás: a fizetős funkciók ekkor még fejlesztés alatt állnak, és aki egyedi igénnyel jelentkezik, annak kézi számlát tudunk kiállítani.</p>
+      <p style="margin-top:8px;">Ez a korábbi megfogalmazás egyik állítását megfordítja: a kezdeti ingyenes időszak <strong>nem tisztán stratégiai döntés</strong>, hanem részben technikai adottság. A „Fizetés indulása” csúszka megmarad, mert a lezárás pontos hónapja és a lejárat utáni konverzió továbbra is nyitott kérdés; de 4. hónap alá állítva olyan állapotot modellez, amire jelenleg nincs mérnöki fedezet.</p>
     </div>
 
     <div class="scenario-bar">
@@ -1056,10 +1415,10 @@
         <div class="input-group">
           <div class="input-label">
             <span style="color: var(--amber);">Fizetés indulása (payment rendszer)</span>
-            <span class="val-badge" id="payStartMonthVal">3. hó</span>
+            <span class="val-badge" id="payStartMonthVal">4. hó</span>
           </div>
-          <input type="range" class="neutral" id="payStartMonth" min="1" max="12" value="3" step="1" oninput="updateSlider(this,'neutral'); calc()">
-          <div class="input-hint">A Stripe fizetési rendszer már a Release v1-ben (GA, 2026-09-15) elérhető, a számlázás technikailag az 1. hónaptól indulhatna. A csúszka alapértéke egy illusztratív, tesztelhető felhasználószerzési késleltetést mutat, nem technikai korlátot; a csúszkával mind az azonnali, mind a késleltetett élesítés hatása tesztelhető.</div>
+          <input type="range" class="neutral" id="payStartMonth" min="1" max="12" value="4" step="1" oninput="updateSlider(this,'neutral'); calc()">
+          <div class="input-hint">A fizetési rendszer a Release v2 tétele, ez a szimuláció 4. hónapja, ezért ez az alapérték. Ennél korábbra állítva olyan bevételt modellezel, amire nincs mérnöki fedezet. Későbbre állítva hosszabb ingyenes időszakot tesztelsz.</div>
         </div>
 
         <div class="input-group">
@@ -1077,7 +1436,7 @@
             <span class="val-badge" id="entStartMonthVal">5. hó</span>
           </div>
           <input type="range" class="purple" id="entStartMonth" min="1" max="36" value="5" step="1" oninput="updateSlider(this,'purple'); calc()">
-          <div class="input-hint">A szimuláció 1. hónapja 2026. szeptember (GA); az alapértelmezett 5. hónap 2027. január. A megnyílásig nincs Enterprise-akvizíció és Enterprise-bevétel. Ez modellezési feltevés, nem terméktervezési határidő: az Enterprise sales-vezérelt csatorna, amelyet Zoltán az első ügyfelektől kezdve személyesen, egyedi ajánlattal kezel — a csúszka azt állítja be, mikortól számolunk ezzel a bevétellel, nem azt, hogy mikor száll le az SSO vagy az on-premise.</div>
+          <div class="input-hint">A szimuláció 1. hónapja 2026. szeptember (éles indulás); az alapértelmezett 5. hónap 2027. január. A megnyílásig nincs Enterprise-akvizíció és Enterprise-bevétel. Ez modellezési feltevés, nem terméktervezési határidő: az Enterprise sales-vezérelt csatorna, amelyet Zoltán az első ügyfelektől kezdve személyesen, egyedi ajánlattal kezel: a csúszka azt állítja be, mikortól számolunk ezzel a bevétellel, nem azt, hogy mikor száll le az SSO vagy az on-premise.</div>
         </div>
 
         <div class="section-divider-sm"></div>
@@ -1242,6 +1601,51 @@
       <p><strong>2. Kapacitás-tengely: aktív projektek száma.</strong> A tier egy adott számú, egyidejűleg élő szinkronban lévő projektet enged. Egy projekt automatikusan inaktívvá válik (felszabadítva a helyet, a konfiguráció megmarad), ha 60 napig egyetlen modell-pár sem produkál szinkron-eseményt; a Koordinátor bármikor kifejezetten is archiválhatja. Limit-elérésnél kemény blokk: új aktív projekt csak hely felszabadulása vagy tier-váltás után indítható. Ez egy value-capture trigger, ezért szigorúbb, mint a projektméret fair-use throttlingja.</p>
     </div>
 
+    <div class="axis-plot">
+      <svg viewBox="0 0 620 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A négy tier elhelyezkedése a két árazási tengelyen">
+        <!-- rácsvonalak -->
+        <g stroke="#E4E4E7" stroke-width="1">
+          <line x1="70" y1="30" x2="70" y2="205"/>
+          <line x1="70" y1="205" x2="560" y2="205"/>
+        </g>
+        <g stroke="#F1F1F3" stroke-width="1" stroke-dasharray="3 4">
+          <line x1="70" y1="170" x2="560" y2="170"/>
+          <line x1="70" y1="136" x2="560" y2="136"/>
+          <line x1="70" y1="62"  x2="560" y2="62"/>
+        </g>
+        <!-- tengelyfeliratok -->
+        <text x="70" y="240" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#71717A">Egyidejűleg aktív projekt →</text>
+        <text x="16" y="30" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#71717A" transform="rotate(-90 16 30)" text-anchor="end">Koordinátor seat (fizetős) →</text>
+        <!-- y skála -->
+        <g font-family="Inter, sans-serif" font-size="11" fill="#A1A1AA" text-anchor="end">
+          <text x="62" y="209">0</text><text x="62" y="174">1</text><text x="62" y="140">2</text><text x="62" y="66">5</text>
+        </g>
+        <!-- x skála -->
+        <g font-family="Inter, sans-serif" font-size="11" fill="#A1A1AA" text-anchor="middle">
+          <text x="70" y="222">0</text><text x="131" y="222">2</text><text x="222" y="222">5</text><text x="527" y="222">15</text>
+        </g>
+        <!-- pontok -->
+        <circle cx="70"  cy="205" r="7" fill="#A1A1AA"/>
+        <circle cx="131" cy="170" r="7" fill="#F04E23"/>
+        <circle cx="222" cy="136" r="7" fill="#16A34A"/>
+        <circle cx="527" cy="62"  r="7" fill="#7C3AED"/>
+        <!-- címkék -->
+        <g font-family="Inter, sans-serif" font-size="12.5" font-weight="700" fill="#18181B">
+          <text x="84" y="203">Community</text>
+          <text x="145" y="168">Professional</text>
+          <text x="236" y="134">Studio</text>
+          <text x="519" y="46" text-anchor="end">Enterprise</text>
+        </g>
+        <g font-family="Inter, sans-serif" font-size="11" fill="#71717A">
+          <text x="84" y="217">€0 · nincs Koordinátor</text>
+          <text x="145" y="182">€199 · 10 User</text>
+          <text x="236" y="148">€499 · 20 User</text>
+          <text x="519" y="60" text-anchor="end">egyedi · 50 User</text>
+        </g>
+      </svg>
+      <div class="axis-plot-cap">A két tengely egymástól függetlenül mozog: a magasabb tier egyszerre ad több fizetős Koordinátor-helyet és több egyidejű projektet. A Community a nullponton ül: ott nincs Koordinátor-szerepkör, és élő szinkron híján egyidejű projekt sem értelmezett.</div>
+    </div>
+
     <!-- ÖSSZEFOGLALÓ TÁBLA -->
     <div class="comp-table-wrap">
       <table>
@@ -1284,7 +1688,7 @@
 
     <div class="callout-amber">
       <div class="callout-amber-title">Miért nem a Partnerhálózat-modell, és mi maradt nyitva</div>
-      <p>2026-07-02: a Partnerhálózat-modellt (aktív adatcsere-kapcsolatok száma) elvetettük, mert az „aktív kapcsolat” fogalma önbevallással nem tartható fenn megbízhatóan, telemetria-alapú kikényszerítése pedig irreális a mai desktop-plugin scope-ban. A szerepkör- és kapacitás-tengely ugyanazt a célt szolgálja (árazás a tényleges használathoz kötve, miközben a teljes iroda hozzáférhet), de mindkettő a sync-motor saját, amúgy is szükséges állapotából mérhető.</p>
+      <p>A Partnerhálózat-modellt (aktív adatcsere-kapcsolatok száma) elvetettük, mert az „aktív kapcsolat” fogalma önbevallással nem tartható fenn megbízhatóan, telemetria-alapú kikényszerítése pedig irreális a mai desktop-plugin scope-ban. A szerepkör- és kapacitás-tengely ugyanazt a célt szolgálja (árazás a tényleges használathoz kötve, miközben a teljes iroda hozzáférhet), de mindkettő a sync-motor saját, amúgy is szükséges állapotából mérhető.</p>
       <p>Nyitva maradt, az első fizető ügyfelek adatai alapján kalibrálandó: a fenti táblázat számai (Koordinátor/User arány, aktív projekt-limitek) illusztratív kiindulópontok, nem véglegesek; a 60 napos dormancy-időablak szintén finomítható a tényleges projektritmus ismeretében. A projektméret-limit logikája (fair-use, throttling, nem value-capture) változatlan marad, és továbbra sem keveredik a fenti két tengellyel.</p>
     </div>
   </div>
@@ -1296,42 +1700,78 @@
   </div>
 
   <div class="decision-wrap">
+    <p style="font-size:14px; color:var(--muted); margin-bottom:4px;">Kattints egy kérdésre a részletezés kibontásához. A lezárt pontok (Free tier kalibrálás, Studio trigger) kikerültek a listából, mert azokban már nincs döntendő elem.</p>
     <div class="decision-grid">
-      <div class="decision-item">
-        <div class="decision-item-label">Community → Professional határvonal (SZERKEZET LEZÁRVA 2026-07-17)</div>
-        <h4>Saját mapping-sablon (v1/GA) + élő szinkron (v2)</h4>
-        <p>A Community-ben az Archicad→Revit adatcsere-alapélménynek teljes értékűnek kell lennie, enélkül nincs virális belépő. A 2026-07-17-i döntés a trigger szerkezetét lezárta: a fizetős vonal a saját mapping-sablon létrehozása/mentése (v1/GA-tól, 2026-09-15) és az élő, inkrementális szinkron (v2-től, 2026-12-15); a batch-konverzió preset sablonokkal ingyenes marad. Mindkét elem mögött megerősített roadmap-fedezet van. Egyetlen kalibrációs részletkérdés maradt, ami már nem a paywall szerkezetét érinti, hanem annak kalibrálását: hogy pontosan mit tud a preset sablon, és hol kezdődik a „saját” mapping — ez a végleges funkcionalitás ismeretében, a fejlesztéssel együtt véglegesítendő.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">Free tier kalibrálás (LEZÁRVA 2026-07-06)</div>
-        <h4>Havonta 2 teljes modelles konverzió, elemszám-korlát helyett</h4>
-        <p>A korábbi 500 elemes korlátot a 2026-07-06-i szakértői felülvizsgálat nagyságrenddel alacsonynak találta: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, tehát az 500 elem valójában részmodell-demó volt, nem „pilot homlokzati projekt”. Az új szabály gyakoriság-alapú: teljes modell, elemszám-korlát nélkül, havonta 2 alkalommal. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás, fájdalom-intenzitás szerinti rétegzés) számára ad teljes értékű, ingyenes kiszolgálást, így a Community tier végre betölti deklarált szerepét (valódi érték, virális belépő), miközben aki gyakrabban cserélne, az definíció szerint a B/A rétegbe, tehát a fizetős tierekbe tartozik. A differenciátor (saját sablon, élő szinkron) változatlanul fizetős marad.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">Professional ár</div>
-        <h4>€99 vs. €199 / Koordinátor / hó</h4>
-        <p>A €99 gyorsabb free-paid konverziót hozna, a €199 viszont komolyabb szűrőként működne. Az AEC piacon az alacsony ár olykor gyanút kelt. Javasolt: €199 - magabiztosabb pozicionálás, magasabb LTV. Az indulási termékkör (élő, inkrementális szinkron + sablon-alapú konverzió) értékajánlatához ez az ár illik; a végleges kalibrálás az első 50 fizető ügyfél konverziós adatai alapján dönthető el.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">Studio trigger</div>
-        <h4>Második Koordinátor, User-plafon vagy aktív projekt-limit, nem csapatméret</h4>
-        <p>Az upgrade konkrét, mérhető kapacitás-eléréskor jön: második Koordinátor kell, betelik a 10 fős ingyenes User-keret, vagy egyszerre 3. projektet akarnak élő szinkronban futtatni a Professional 2-es limitje felett (a projekt-egyidejűség a v2-es szinkron-motor állapotából mérhető). Emellé két funkcionális trigger tartozik: a közös sablonkönyvtár és az integrációs igény (API, OAuth, webhook — v2-es hatókör). Javasolt: minden eseményre célzott in-app üzenet, nem elvont csapatméret-becslés.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">Enterprise floor</div>
-        <h4>€2,500 / hó minimum, sales-vezérelt csatornán</h4>
-        <p>Az Enterprise nem önkiszolgáló tier: tartalmi elemei (SSO, on-premise, Platform Core) nem v1-képességek, ezért nincs listaáras, in-app megvásárolható konstrukció. A nagy, egyedi igényű irodák az első ügyféltől kezdve egyedi ajánlatot kapnak, amelyet Zoltán személyesen tárgyal; a floor ebben a tárgyalásban az alsó horgony. A termékesítés (sztenderd Enterprise-csomag listaárral) roadmap-függő, puha iránymutatás szerint 2027 eleje. Konzervatív ár: bevezetési díjjal az éves bevétel €32–46k, ha pedig BIG graph integráció is benne van, akkor €4–5k/hó reálisabb. Javasolt: €2,500 mint floor, felfelé egyedi tárgyalás.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">User/Koordinátor arány kalibrálás</div>
-        <h4>1:10 arány, illusztratív kiindulópont</h4>
-        <p>A rögzített 1 Koordinátor : 10 User arány (és a tierenkénti 1/2/5 Koordinátor, 2/5/15 aktív projekt szám) egyelőre becslés, nem az első ügyfelek tényleges használati adatából származik. Javasolt: az első 50 fizető ügyfél tényleges User-kihasználtsága és projekt-egyidejűsége alapján felülvizsgálni, mielőtt a limitek kemény blokkot váltanának ki a gyakorlatban.</p>
-      </div>
-      <div class="decision-item">
-        <div class="decision-item-label">Dormancy-időablak kalibrálás</div>
-        <h4>60 nap, óvatos alapérték</h4>
-        <p>A 60 napos inaktivitási időzítő (ami után egy projekt automatikusan felszabadítja a helyét az aktív projekt-limitben) szándékosan hosszú, hogy elkerülje a hamis-pozitív kizárást (aktív projekt téves inaktívvá minősítése egy csendesebb projektfázisban). Javasolt: a tényleges AEC-projektritmus ismeretében rövidíthető, ha az adat azt mutatja, hogy a limitek emiatt ritkán telnek be reálisan.</p>
-      </div>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Community → Professional átmenet</div>
+          <h4>Hogyan kommunikáljuk a decemberi élesítést, és hol húzzuk meg a preset vs. „saját” mapping határát?</h4>
+        </summary>
+        <p>A fizetős vonal szerkezete lezárt (saját mapping-sablon mentése + élő szinkron fizetős, a preset-alapú batch-konverzió ingyenes), de az érvényesítése a v2-re csúszik: az induláskori kohorsz fizetés nélkül épít szokásokat, ezért a decemberi élesítés elvonásként hathat, ha nem kommunikáljuk kifejezetten bevezető időszakként az első naptól.</p>
+        <p style="margin-top:8px;">Nyitva marad az is, pontosan mit tud a preset sablon, és hol kezdődik a „saját” mapping: ezt a végleges funkcionalitás ismeretében kell lezárni a fejlesztéssel együtt.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Professional ár</div>
+          <h4>€99 vagy €199 legyen a Professional / Koordinátor / hó ár?</h4>
+        </summary>
+        <p>A €99 gyorsabb free-paid konverziót hozna, a €199 komolyabb szűrőként működne, és az AEC piacon az alacsony ár olykor gyanút kelt. Jelenlegi javaslat: €199, magabiztosabb pozicionálással és magasabb LTV-vel. A végleges kalibrálás az első 50 fizető ügyfél konverziós adatai alapján dönthető el.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Enterprise floor</div>
+          <h4>Mennyi legyen az Enterprise induló ár (floor), piaci referencia hiányában?</h4>
+        </summary>
+        <p>Az Enterprise nem önkiszolgáló tier: a floor egyedi tárgyalásban alsó horgonyként működik, listaáras konstrukció nélkül. Jelenlegi javaslat: €2 500/hó mint floor, felfelé egyedi tárgyalással. A tényleges fizetési hajlandóság az első három-öt szerződés megkötéséig ismeretlen marad.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">User/Koordinátor arány</div>
+          <h4>Megfelelő-e az 1:10 Koordinátor:User arány, és a tierenkénti 1/2/5 Koordinátor, 2/5/15 aktív projekt szám?</h4>
+        </summary>
+        <p>Ez egyelőre becslés, nem az első ügyfelek tényleges használati adatából származik. Az első 50 fizető ügyfél tényleges User-kihasználtsága és projekt-egyidejűsége alapján felülvizsgálandó, mielőtt a limitek kemény blokkot váltanának ki a gyakorlatban.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Dormancy-időablak</div>
+          <h4>Megfelelő-e a 60 napos dormancy-időablak?</h4>
+        </summary>
+        <p>Az időzítő szándékosan hosszú, hogy elkerülje a hamis-pozitív kizárást (egy csendesebb projektfázisban lévő aktív projekt téves inaktívvá minősítését). A tényleges AEC-projektritmus ismeretében rövidíthető, ha az adat azt mutatja, hogy a limitek emiatt ritkán telnek be reálisan.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Hosszú távú árazási skálázás (2027+, nem sürgős)</div>
+          <h4>Mikor és hogyan vezetjük be a platform-szakasz hibrid seat+usage számlázását és a bidirekcionális iránypár-árazást?</h4>
+        </summary>
+        <p>A fenti négy tier (Community–Enterprise) a Bridge önmagában is teljes értékű, önállóan eladható belépő szintjének licencmodellje, nem a NODU stratégia végpontja. A platform-szakaszban (jelenleg nem napirenden, lásd Enterprise → Platform Core paywall) a Koordinátor-seat mellé usage-alapú bevételi komponens társul, összhangban azzal, amit a szélesebb SaaS-piac 2026-ban egyre inkább követ: a tisztán seat-alapú modellek visszaszorulóban, a hibrid seat+usage konstrukció válik normává.</p>
+        <p style="margin-top:8px;">Egy második, ugyancsak jövőbeli tényező a bidirekcionalitás: ha a Revit↔Revit parametrikus adatcsere különböző verziók között, majd hosszabb távon több szoftverpár között (pl. Archicad↔Tekla, Archicad↔SketchUp) is megvalósul, az előfizető konkrét iránypárra fizet elő, nem egy statikus csomagra. A jelenlegi €199 (Professional) / €499 (Studio) árszintek ma egyetlen irány (Archicad→Revit, majd Archicad↔Revit) árát tükrözik; amint a kezelhető szoftverpárok köre bővül, az átlagos kosárérték (ARPA) a választott folyosók számával, mátrixszerűen skálázódhat felfelé: ez lényegesen jobban skálázódó bevételi görbét adhat, mint egy hagyományos seat- vagy tier-alapú upsell, és minden újabb folyosó tovább mélyíti a lock-int. Ez a licencmodell számításait (fenti tierek, bevételkalkulátor, MRR-szimuláció) jelenleg nem befolyásolja: legkorábban 2027-től válhat ténylegesen árazási tényezővé, a platform-fázis elindulásának függvényében. Részletek: <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás, 02. szekció</a>.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- LEZÁRT DÖNTÉSEK (REFERENCIA) -->
+  <div class="section-header">
+    <h2>Lezárt döntések (referencia)</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="decision-wrap">
+    <p style="font-size:14px; color:var(--muted); margin-bottom:4px;">Ezekben már nincs döntendő elem: a fenti nyitott kérdések listájából ezért kerültek ki. Itt csak referenciaként maradnak.</p>
+    <div class="decision-grid">
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Free tier kalibrálás (LEZÁRVA)</div>
+          <h4>Havonta 2 teljes modelles konverzió, elemszám-korlát helyett</h4>
+        </summary>
+        <p>A korábbi 500 elemes korlátot a szakértői felülvizsgálat nagyságrenddel alacsonynak találta: egy tipikus közepes Archicad épületmodell 30 000–150 000+ elem, tehát az 500 elem valójában részmodell-demó volt, nem „pilot homlokzati projekt”. Az új szabály gyakoriság-alapú: teljes modell, elemszám-korlát nélkül, havonta 2 alkalommal. Ez pontosan a C réteg (3–6 havonta egy IFC-átadás, fájdalom-intenzitás szerinti rétegzés) számára ad teljes értékű, ingyenes kiszolgálást, így a Community tier végre betölti deklarált szerepét (valódi érték, virális belépő), miközben aki gyakrabban cserélne, az definíció szerint a B/A rétegbe, tehát a fizetős tierekbe tartozik. A differenciátor (saját sablon, élő szinkron) változatlanul fizetős marad.</p>
+      </details>
+      <details class="decision-item">
+        <summary>
+          <div class="decision-item-label">Studio trigger (LEZÁRVA)</div>
+          <h4>Második Koordinátor, User-plafon vagy aktív projekt-limit, nem csapatméret</h4>
+        </summary>
+        <p>Az upgrade konkrét, mérhető kapacitás-eléréskor jön: második Koordinátor kell, betelik a 10 fős ingyenes User-keret, vagy egyszerre 3. projektet akarnak élő szinkronban futtatni a Professional 2-es limitje felett (a projekt-egyidejűség a v2-es szinkron-motor állapotából mérhető). Emellé két funkcionális trigger tartozik: a közös sablonkönyvtár és az integrációs igény (API, OAuth, webhook, v2-es hatókör). Minden eseményhez célzott in-app üzenet tartozik, nem elvont csapatméret-becslés.</p>
+      </details>
     </div>
   </div>
 
@@ -1384,7 +1824,7 @@
   let horizonMonths = 24;
   let funnelHorizon = 24;
 
-  // A szimuláció 1. hónapja a GA hónapja: 2026. szeptember
+  // A szimuláció 1. hónapja az éles indulás hónapja: 2026. szeptember
   function simMonthLabel(m) {
     const names = ['jan.', 'febr.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'];
     const total = 8 + (m - 1); // 8 = szeptember indexe
@@ -1563,8 +2003,8 @@
     const entStartMonth = Math.max(1, Math.round(+document.getElementById('entStartMonth').value || 1));
     document.getElementById('entStartMonthVal').textContent = entStartMonth + '. hó (' + simMonthLabel(entStartMonth) + ')';
 
-    // A fizetési rendszer (Stripe) a Release v1-ben (GA, 2026-09-15) már elérhető; a payStartMonth csúszka
-    // egy illusztratív, tesztelhető felhasználószerzési késleltetést modellez, nem technikai korlátot.
+    // A fizetési rendszer (Stripe) a Release v2 tétele (2026-12-15) = a szimuláció 4. hónapja.
+    // A payStartMonth ennél korábbi értéke mérnöki fedezet nélküli bevételt modellez.
     // Előtte a pro/studio számok INGYENES aktív felhasználókat jelentenek, bevétel nem képződik;
     // az élesítéskor az ingyenes bázisnak csak freeConvPct hányada vált fizetőre.
     const payStartMonth = Math.max(1, Math.round(+document.getElementById('payStartMonth').value || 1));

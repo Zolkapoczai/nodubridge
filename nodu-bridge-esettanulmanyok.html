@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <title>NODU Bridge Enterprise esettanulmányok</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -218,12 +219,15 @@
   }
 
   /* CALLOUT */
+  /* Editorial callout: fehér kártya + 3px színes bal csík; a szín csak a csíkon. */
   .callout {
+    background: var(--card);
+    border: 1px solid var(--border);
     border-left: 3px solid var(--amber-border);
-    background: var(--amber-bg);
     padding: 18px 22px;
-    border-radius: 0 6px 6px 0;
+    border-radius: 8px;
     margin: 36px 0;
+    color: var(--text);
   }
 
   .callout-label {
@@ -231,14 +235,14 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #92400E;
+    color: var(--muted);
     margin-bottom: 8px;
     text-align: left;
   }
 
   .callout p {
     font-size: 0.95rem;
-    color: #78350F;
+    color: var(--text);
     line-height: 1.65;
     margin: 0;
   }
@@ -676,7 +680,7 @@
     <p>Az Enterprise Bridge-előfizető a jövőben hozzáférhetne a NODU platform-funkcióihoz (BIG graph, ERP integráció, constraint optimizer) — ez a Platform Core kör jelenleg nem napirenden, nem v1-képesség, csak jövőkép. Azok az irodák, amelyek már a Bridge-et intenzíven használják és komplex mapping script könyvtárat építenek, egy ilyen kör megnyílása esetén természetes lépésként mélyíthetnék a platform-kapcsolatot. Ez a trigger lassan alakulna ki az iroda platform-befektetésével arányosan, de strukturálisan a legmagasabb LTV-t eredményezné.</p>
 
     <h3>Egy lehetséges ötödik trigger, jövőbeli irány: a saját parametrikus tartalomkönyvtár mint IP-eszköz</h3>
-    <p>A fenti négy trigger az indulási termékkörre vonatkozik. A VSE-alapú parametrikus tartalomkészítés egy későbbi fejlesztési irány: ha egyszer elérhetővé válik, egy ötödik trigger is kialakulhat. Az iroda, amely saját parametrikus tartalomkönyvtárat épít fel, szellemi vagyont halmozna fel hasonlóan a mapping script könyvtárhoz, de egy dimenzióval mélyebben: a könyvtár az iroda parametrikus tervezési tartalmát tárolja, és mivel a képesség a 2026-07-06-i pontosítás szerint többformátumú, ugyanaz a definíció Revit Family-ként, Archicad-, IFC- vagy más formátumban is kiadható, licencelhető, értékesíthető vagy partnereknek kiosztható. Az egyetlen definícióból sok formátum elv az IP-érvet erősíti: a felhalmozott tartalom értéke nem egy célszoftverhez kötött. Ez strukturálisan erős Enterprise trigger lehetne, különösen a homlokzat-specialista és dizájnintenzív irodáknál. Mindez azonban nem része az indulási termékkörnek, és a jelenlegi számítások nem kalkulálnak vele.</p>
+    <p>A fenti négy trigger az indulási termékkörre vonatkozik. A VSE-alapú parametrikus tartalomkészítés egy későbbi fejlesztési irány: ha egyszer elérhetővé válik, egy ötödik trigger is kialakulhat. Az iroda, amely saját parametrikus tartalomkönyvtárat épít fel, szellemi vagyont halmozna fel hasonlóan a mapping script könyvtárhoz, de egy dimenzióval mélyebben: a könyvtár az iroda parametrikus tervezési tartalmát tárolja, és mivel a képesség többformátumú, ugyanaz a definíció Revit Family-ként, Archicad-, IFC- vagy más formátumban is kiadható, licencelhető, értékesíthető vagy partnereknek kiosztható. Az egyetlen definícióból sok formátum elv az IP-érvet erősíti: a felhalmozott tartalom értéke nem egy célszoftverhez kötött. Ez strukturálisan erős Enterprise trigger lehetne, különösen a homlokzat-specialista és dizájnintenzív irodáknál. Mindez azonban nem része az indulási termékkörnek, és a jelenlegi számítások nem kalkulálnak vele.</p>
   </section>
 
   <!-- SECTION 05 -->
@@ -709,7 +713,7 @@
         <div class="question-number">03</div>
         <div class="question-body">
           <strong>A Community-ból Professional frissítési kiváltó elegendő-e, vagy az Enterprise trigger az első éles korlát?</strong>
-          <p>Az esettanulmányok mind Enterprise-szintű konverziókat mutatnak, az intermediate tier dinamikájáról a nyilvános esetekből sincs adatunk. Kérdés: a KKV-piacon az első éles fizetési korlát a Professional tier lesz-e (induláskor sablonmentés; az élő szinkron a v2-vel, 2026-12-15-től egészíti ki a szintet), vagy egyes ügyfelek a Community-ból közvetlenül Enterprise-ra ugranak, ha a compliance trigger elég erős?</p>
+          <p>Az esettanulmányok mind Enterprise-szintű konverziókat mutatnak, az intermediate tier dinamikájáról a nyilvános esetekből sincs adatunk. Kérdés: a KKV-piacon az első éles fizetési korlát a Professional tier lesz-e (induláskor sablonmentés; az élő szinkron a v2-vel egészíti ki a szintet), vagy egyes ügyfelek a Community-ból közvetlenül Enterprise-ra ugranak, ha a compliance trigger elég erős?</p>
         </div>
       </li>
 
@@ -725,7 +729,7 @@
         <div class="question-number">05</div>
         <div class="question-body">
           <strong>A gyártói szegmens go-to-market logikája: a kérdésre már van kidolgozott válasz-vázlat</strong>
-          <p>Ez a kérdés a 2026-06-11-i NODU Creator (Content Engine) blueprint v2.0-val részben megválaszolódott: a gyártói szegmens nem a Bridge licencstruktúrájára illesztendő, hanem önálló termékpályát kap: knowledge-graph-alapú termékadat-motor, saját árazással (Starter/Growth/Enterprise, €3–50k/év platform fee + generálási díj), sales-vezérelt pilot-GTM-mel, és többformátumú kimenettel (a Revit Family csak egy export a sok közül). A vezetőség az irányt támogatja, a részletes kidolgozás későbbre ütemezett. Ami nyitott marad: a Bridge-en belüli VSE-tartalomkészítés (iroda-oldali képesség) és a Creator (gyártói termék) közös generálási magjának határvonala, vagyis hogy mely komponens él melyik termékben, és hogyan kerülik el a kettős fejlesztést.</p>
+          <p>Ez a kérdés a NODU Creator (Content Engine) blueprinttel részben megválaszolódott: a gyártói szegmens nem a Bridge licencstruktúrájára illesztendő, hanem önálló termékpályát kap: knowledge-graph-alapú termékadat-motor, saját árazással (Starter/Growth/Enterprise, €3–50k/év platform fee + generálási díj), sales-vezérelt pilot-GTM-mel, és többformátumú kimenettel (a Revit Family csak egy export a sok közül). A vezetőség az irányt támogatja, a részletes kidolgozás későbbre ütemezett. Ami nyitott marad: a Bridge-en belüli VSE-tartalomkészítés (iroda-oldali képesség) és a Creator (gyártói termék) közös generálási magjának határvonala, vagyis hogy mely komponens él melyik termékben, és hogyan kerülik el a kettős fejlesztést.</p>
         </div>
       </li>
 

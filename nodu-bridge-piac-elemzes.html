@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <title>NODU Bridge Piaci igényelemzés</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -242,22 +243,21 @@
     }
 
     /* REGION TABLE (01) */
-    .region-table { table-layout: fixed; }
     .region-table col.col-region { width: 18%; }
     .region-table col.col-share  { width: 18%; }
     .region-table col.col-trend  { width: 14%; }
     .region-table col.col-note   { width: 32%; }
 
     /* GEO TABLE (05) */
-    .geo-table { table-layout: fixed; }
     .geo-table col.col-geo-region { width: 28%; }
     .geo-table col.col-geo-num    { width: 16%; }
     .geo-table col.col-geo-prio   { width: 16%; }
-    .geo-table td:first-child { white-space: nowrap; }
-    .geo-table .td-prio { white-space: nowrap; }
+    /* Nincs nowrap: a régiónevek nowrap-pal 819px-re tolták a 794px-es sávban lévő
+       táblát (vízszintes görgetés). Törjenek szóhatáron, ha kell. */
+    .geo-table td:first-child { white-space: normal; }
+    .geo-table .td-prio { white-space: normal; }
 
     /* FILTER TABLE (02) – 4 oszlopos */
-    .filter-table { table-layout: fixed; }
     .filter-table col.col-filter-step  { width: 36%; }
     .filter-table col.col-filter-ratio { width: 12%; }
     .filter-table col.col-filter-count { width: 18%; }
@@ -270,7 +270,6 @@
     }
 
     /* FILTER TABLE – 5 oszlopos variáns (fájdalom-intenzitás) */
-    .filter-table-5 { table-layout: fixed; }
     .filter-table-5 col:nth-child(1) { width: 14%; }
     .filter-table-5 col:nth-child(2) { width: 30%; }
     .filter-table-5 col:nth-child(3) { width: 16%; }
@@ -326,7 +325,10 @@
       color: var(--muted);
       background: #F4F4F5;
       border-bottom: 1px solid var(--border);
-      word-break: break-word;
+      /* overflow-wrap (nem word-break): csak valódi túlcsorduláskor tör, és nem
+         csökkenti a min-content szélességet, így az oszlop nem nyomható szó közepéig. */
+      word-break: normal;
+      overflow-wrap: break-word;
       white-space: normal;
     }
 
@@ -339,11 +341,14 @@
       vertical-align: top;
       line-height: 1.65;
       font-variant-numeric: tabular-nums;
-      word-break: break-word;
+      word-break: normal;
+      overflow-wrap: break-word;
       text-align: left;
       hyphens: none;
       -webkit-hyphens: none;
     }
+    /* A rétegzés-tábla első oszlopa rövid címke ("A: folyamatos"): ne törjön. */
+    .filter-table-5 td:first-child { white-space: nowrap; }
 
     tbody tr:nth-child(even) td {
       background: #FBFBFC;
@@ -384,17 +389,19 @@
 
     /* CALLOUTS */
     .callout-amber {
-      background: var(--amber-bg);
-      border: 1px solid var(--amber-border);
-      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber-border);
+      border-radius: 8px;
       padding: 1.25rem 1.5rem;
       margin: 1.75rem 0;
       font-size: 0.92rem;
+      color: var(--text);
     }
 
     .callout-amber > strong:first-of-type {
       display: block;
-      color: #92400E;
+      color: var(--muted);
       font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -403,21 +410,23 @@
     }
 
     .callout-amber strong {
-      color: #92400E;
+      color: var(--text);
     }
 
     .callout-green {
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
-      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green-border);
+      border-radius: 8px;
       padding: 1.25rem 1.5rem;
       margin: 1.75rem 0;
       font-size: 0.92rem;
+      color: var(--text);
     }
 
     .callout-green > strong:first-of-type {
       display: block;
-      color: #14532D;
+      color: var(--muted);
       font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -426,7 +435,7 @@
     }
 
     .callout-green strong {
-      color: #14532D;
+      color: var(--text);
     }
 
     /* METRIC CARDS */
@@ -479,6 +488,58 @@
     .funnel-viz { margin: 8px 0 24px; }
     .funnel-viz svg { display: block; width: 100%; height: auto; }
     .funnel-viz-caption { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 8px; }
+
+    /* SZOFTVER-PENETRÁCIÓ infografika (01) */
+    .share-viz { border: 1px solid var(--border); border-radius: 10px; background: var(--card); padding: 20px 24px; margin: 1.5rem 0; }
+    .share-legend { display: flex; gap: 20px; font-size: 0.78rem; color: var(--muted); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .share-legend span { display: flex; align-items: center; gap: 7px; }
+    .share-key { width: 11px; height: 11px; border-radius: 3px; }
+    .share-key.revit { background: #64748B; }
+    .share-key.acad  { background: var(--accent); }
+    .share-row { display: grid; grid-template-columns: 190px 1fr; gap: 8px 20px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: center; }
+    .share-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .share-name { font-size: 0.9rem; font-weight: 600; color: var(--text); text-align: left; line-height: 1.35; }
+    .share-note { font-size: 0.76rem; color: var(--muted); font-weight: 400; margin-top: 3px; line-height: 1.4; }
+    .share-bars { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .share-bar { display: flex; align-items: center; gap: 10px; }
+    .share-track { flex: 1; height: 16px; background: #F4F4F5; border-radius: 3px; overflow: hidden; min-width: 0; }
+    .share-fill { height: 100%; border-radius: 3px; }
+    .share-fill.revit { background: #64748B; }
+    .share-fill.acad  { background: var(--accent); }
+    .share-val { font-size: 0.79rem; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; width: 118px; flex-shrink: 0; text-align: left; }
+
+    /* Lenyitható részletblokk (02) */
+    .detail-block { border: 1px solid var(--border); border-radius: 8px; background: var(--card); margin: 14px 0; }
+    .detail-block > summary {
+      cursor: pointer; padding: 13px 18px; font-size: 0.9rem; font-weight: 600; color: var(--text);
+      list-style: none; display: flex; align-items: center; gap: 10px;
+    }
+    .detail-block > summary::-webkit-details-marker { display: none; }
+    .detail-block > summary::before { content: "+"; color: var(--accent); font-weight: 700; font-size: 1rem; line-height: 1; width: 12px; }
+    .detail-block[open] > summary::before { content: "−"; }
+    .detail-block > summary:hover { background: var(--bg); border-radius: 7px; }
+    .detail-block > summary .detail-hint { font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+    .detail-body { padding: 0 18px 16px; }
+    .detail-body .table-wrap { margin-top: 8px; }
+    .detail-body > p { font-size: 0.9rem; margin-bottom: 0; }
+
+    .funnel-diagram { display: flex; align-items: stretch; gap: 28px; margin-bottom: 8px; }
+    .funnel-shape { flex-shrink: 0; width: 190px; display: flex; flex-direction: column; }
+    .funnel-seg { flex: 1; }
+    .funnel-seg.tam { background: #E2E8F0; clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
+    .funnel-seg.mid { background: #FDE68A; clip-path: polygon(10% 0%, 90% 0%, 77.5% 100%, 22.5% 100%); }
+    .funnel-seg.sam { background: #FBBF24; clip-path: polygon(22.5% 0%, 77.5% 0%, 66% 100%, 34% 100%); }
+    .funnel-seg.som { background: var(--accent); clip-path: polygon(34% 0%, 66% 0%, 57% 100%, 43% 100%); }
+    .funnel-rows { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+    .funnel-row { display: flex; gap: 10px; align-items: flex-start; }
+    .funnel-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .funnel-dot.tam { background: #64748B; }
+    .funnel-dot.mid { background: #B45309; }
+    .funnel-dot.sam { background: #92400E; }
+    .funnel-dot.som { background: var(--accent); }
+    .funnel-row-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .funnel-row-value { font-size: 1rem; font-weight: 700; color: var(--text); margin: 1px 0; }
+    .funnel-row-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
 
     .chart-viz { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px 14px; margin: 24px 0; }
     .chart-viz svg { display: block; width: 100%; height: auto; }
@@ -683,11 +744,52 @@
       .metric-grid { grid-template-columns: repeat(2, 1fr); }
       .hero h1 { font-size: 1.5rem; }
       .main { padding: 2rem 1.25rem 4rem; }
+      .funnel-diagram { flex-direction: column; align-items: center; }
+      .funnel-shape { width: 140px; }
+      .share-viz { padding: 16px 16px; }
+      .share-row { grid-template-columns: 1fr; }
+      .share-val { width: 105px; font-size: 0.74rem; }
     }
   </style>
   <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
   <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
   <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+  <style>
+    /* Lokális felülírás: a megosztott design-system.css .intro-box szabálya (azonos
+       specificitás, később töltődik be) felülírná a fenti inline stílust: ez a blokk
+       tartja meg ebben a fájlban az editoriális, nem pasztell-hátterű megjelenést. */
+    .intro-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue-border);
+      border-radius: 8px;
+      color: var(--text);
+    }
+    .intro-box strong { color: var(--muted); }
+    /* .callout-green: a design-system.css-ben is van egy bare .callout-green szabály
+       (a border-left "callout" család része), ami ugyanígy felülírná a lokális stílust. */
+    .callout-green {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green-border);
+      border-radius: 8px;
+      color: var(--text);
+    }
+    .callout-green .callout-green-title,
+    .callout-green > strong:first-of-type { color: var(--muted); }
+    .callout-green strong,
+    .callout-green p { color: var(--text); }
+    /* .metric-grid: a design-system.css auto-fit szabálya 3 oszlopot ad 4 kártyára
+       (a nagy, nowrap számok minimum-szélessége miatt), ezért marad egy árva kártya
+       a második sorban; fix 2×2 rács ezt rendezi, és elég helyet ad a feliratoknak. */
+    .metric-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .metric-grid .metric-card { hyphens: none; -webkit-hyphens: none; }
+    .metric-grid .metric-label { line-height: 1.45; }
+    .metric-grid .metric-sub { line-height: 1.5; margin-top: 0.45rem; }
+    @media (max-width: 640px) {
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
     <script src="_auth.js"></script>
@@ -756,12 +858,12 @@
     <p><strong>Mi az értékesítési út.</strong> A BIM koordinátor a beachhead. Ő vezeti be az eszközt, ő dokumentálja az időmegtakarítást, és ő viszi az irodát a Professional-ról a Studio tierre. Hosszú távon ugyanez az út vezethet tovább az Enterprise tier, és ha a jelenleg nem napirenden lévő platform-irány egyszer megnyílik, a NODU platform-ökoszisztéma felé.</p>
 
    <h3>Egy lehetséges második profil: jövőbeli irány</h3>
-   <p>Az induláskor a célfelhasználó egységesen a BIM koordinátor: az adatcserét végző szakember. A platform későbbi, VSE-alapú parametrikus tartalom-készítési képessége egyszer megnyithat egy második profilt: a parametrikus tartalom-alkotót, aki nem meglévő Archicad modellt konvertál, hanem új parametrikus tartalmat hoz létre, amely a 2026-07-06-i pontosítás szerint többformátumú kimenetre készül: Revit Family mellett további CAD- és gyártói formátumokra is. Ez a profil nem része az indulási termékkörnek, és az alábbi piaci számítások nem kalkulálnak vele. Szándékosan nyitva hagyott, későbbi kérdés.</p>
+   <p>Az induláskor a célfelhasználó egységesen a BIM koordinátor: az adatcserét végző szakember. A platform későbbi, VSE-alapú parametrikus tartalom-készítési képessége egyszer megnyithat egy második profilt: a parametrikus tartalom-alkotót, aki nem meglévő Archicad modellt konvertál, hanem új parametrikus tartalmat hoz létre, amely többformátumú kimenetre készül: Revit Family mellett további CAD- és gyártói formátumokra is. Ez a profil nem része az indulási termékkörnek, és az alábbi piaci számítások nem kalkulálnak vele. Szándékosan nyitva hagyott, későbbi kérdés.</p>
   </section>
 
   <div class="callout-amber">
-     <strong>A gyártói szegmens mint önálló piac: kidolgozott blueprint, jövőbeli irány</strong>
-     A gyártói szegmensre 2026-06-11 óta önálló, döntés-előkészítő anyag létezik: a <strong>NODU Creator (Content Engine) blueprint v2.0</strong>. Ennek lényege, hogy a gyártói tartalom-előállítás nem „Revit Family generátor", hanem knowledge-graph-alapú termékadat-motor, amelyből a Revit Family csak egy a sok export közül (IFC, Archicad, SketchUp, COBie, carbon/DPP, cost); a védhető eszköz a termék-tudásgráf, nem a formátum-szám. A blueprint saját piacszámokkal dolgozik (niche-TAM ~0,3–2 Mrd USD; EU SAM ~1 500–3 500 számla; 3 éves SOM 20–50 fizető ügyfél, ~€400–600k ARR), saját árazással (Starter/Growth/Enterprise, €3–50k/év) és sales-vezérelt, pilot-alapú GTM-mel, vagyis termékvonal-szintű B2B-üzlet, alapvetően eltérő logikával, mint a Bridge iroda-szintű, önkiszolgáló modellje. A vezetőség az irányt támogatja, a részletes kidolgozás későbbre ütemezett; elképzelhető önálló termékként is, miközben a generálási mag a Bridge-platformon is jelen lenne. A fenti Bridge-piacméret-becslések ezt a szegmenst változatlanul nem tartalmazzák.
+     <strong>A gyártói szegmens: saját blueprint, jövőbeli irány</strong>
+     A gyártói szegmenshez külön terv létezik: a <strong>NODU Creator (Content Engine) blueprint</strong>. Nem Revit Family-generátor, hanem termékadat-motor: a gyártói adatokat egy tudásgráfban tárolja, amiből sokféle formátum exportálható: Revit Family, IFC, Archicad, SketchUp, COBie, karbon- és költségadat is. Az érték a tudásgráfban van, nem az exportok számában. A Creator más üzlet, mint a Bridge: saját árazás (Starter/Growth/Enterprise, €3–50k/év), sales-vezérelt eladás, nem önkiszolgáló. Saját becslése: niche-piac ~0,3–2 Mrd USD, európai kör ~1 500–3 500 cég, 3 év alatt 20–50 fizető ügyfél (~€400–600k árbevétel). A vezetőség támogatja az irányt, a kidolgozás később jön; lehet önálló termék is. A fenti Bridge-számok ezt a szegmenst nem tartalmazzák.
   </div>
 
   <hr class="divider">
@@ -777,80 +879,66 @@
 
     <h3>Szoftver-penetráció regionálisan</h3>
 
-    <div class="table-wrap">
-      <table class="region-table">
-        <colgroup>
-          <col class="col-region">
-          <col class="col-share">
-          <col class="col-share">
-          <col class="col-trend">
-          <col class="col-note">
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Régió</th>
-            <th>Revit részesedés (BIM)</th>
-            <th>Archicad részesedés (BIM)</th>
-            <th>Archicad trend</th>
-            <th>Megjegyzés</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-strong">Európa (átlag)</td>
-            <td>~45%</td>
-            <td>~33%</td>
-            <td>Stabil</td>
-            <td>USP Research felmérés, 2024</td>
-          </tr>
-          <tr>
-            <td class="td-strong">Németország</td>
-            <td>~30–35%</td>
-            <td>~27–30%</td>
-            <td>Stabil</td>
-            <td>Nemetschek csoport is jelen; háromirányú verseny</td>
-          </tr>
-          <tr>
-            <td class="td-strong">UK</td>
-            <td>~27% (2020) → ~49% (2026 proj.)</td>
-            <td>~15–20%</td>
-            <td>Csökken</td>
-            <td>Erős kormányzati BIM-mandátum hajtja Revit felé</td>
-          </tr>
-          <tr>
-            <td class="td-strong">DACH (AT, CH)</td>
-            <td>~35–40%</td>
-            <td>~30–35%</td>
-            <td>Stabil</td>
-            <td>Graphisoft erős hagyományos jelenléte</td>
-          </tr>
-          <tr>
-            <td class="td-strong">Kelet-Közép-Európa</td>
-            <td>~40–50%</td>
-            <td>~25–35%</td>
-            <td>Stabil–enyhe csökk.</td>
-            <td>Archicad erős magyar, cseh, lengyel piacon</td>
-          </tr>
-          <tr>
-            <td class="td-strong">USA</td>
-            <td>~63.5%</td>
-            <td>~7–10%</td>
-            <td>Gyenge</td>
-            <td>Revit de facto standard; AIA 2024 felmérés</td>
-          </tr>
-          <tr>
-            <td class="td-strong">Ausztrália</td>
-            <td>~40–45%</td>
-            <td>~25–30%</td>
-            <td>Stabil</td>
-            <td>Archicad erős jelenlét, design-fókuszú piac</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="share-viz">
+      <div class="share-legend">
+        <span><i class="share-key revit"></i>Revit</span>
+        <span><i class="share-key acad"></i>Archicad</span>
+        <span>A sávok a BIM-en belüli részesedést mutatják, sávok esetén a középértékkel</span>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Európa (átlag)<div class="share-note">USP Research, 2024 · Archicad stabil</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~45%</span><div class="share-track"><div class="share-fill revit" style="width:45%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~33%</span><div class="share-track"><div class="share-fill acad" style="width:33%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Németország<div class="share-note">Nemetschek is jelen; háromirányú verseny</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~30–35%</span><div class="share-track"><div class="share-fill revit" style="width:32.5%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~27–30%</span><div class="share-track"><div class="share-fill acad" style="width:28.5%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">UK<div class="share-note">Kormányzati BIM-mandátum Revit felé; Archicad csökken</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~49% (2026 proj.)</span><div class="share-track"><div class="share-fill revit" style="width:49%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~15–20%</span><div class="share-track"><div class="share-fill acad" style="width:17.5%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">DACH (AT, CH)<div class="share-note">Graphisoft erős hagyományos jelenléte</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~35–40%</span><div class="share-track"><div class="share-fill revit" style="width:37.5%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~30–35%</span><div class="share-track"><div class="share-fill acad" style="width:32.5%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Kelet-Közép-Európa<div class="share-note">Archicad erős magyar, cseh, lengyel piacon</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~40–50%</span><div class="share-track"><div class="share-fill revit" style="width:45%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~25–35%</span><div class="share-track"><div class="share-fill acad" style="width:30%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">USA<div class="share-note">Revit de facto standard; Archicad gyenge</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~63,5%</span><div class="share-track"><div class="share-fill revit" style="width:63.5%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~7–10%</span><div class="share-track"><div class="share-fill acad" style="width:8.5%"></div></div></div>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Ausztrália<div class="share-note">Archicad erős, design-fókuszú piac</div></div>
+        <div class="share-bars">
+          <div class="share-bar"><span class="share-val">Revit ~40–45%</span><div class="share-track"><div class="share-fill revit" style="width:42.5%"></div></div></div>
+          <div class="share-bar"><span class="share-val">Archicad ~25–30%</span><div class="share-track"><div class="share-fill acad" style="width:27.5%"></div></div></div>
+        </div>
+      </div>
     </div>
+
     <p class="source-note">Források: USP Research European BIM Survey, AIA 2024 Firm Survey, bimheroes.com Revit migration analysis, Graphisoft Community adatok.</p>
 
-    <p>Az adatokból kiolvasható alaphelyzet: Európában az Archicad-es irodák döntő többsége Revit-es partnerekkel dolgozik nemcsak alkalmanként, hanem rendszeresen. Az USA-ban az Archicad-es irodák szinte minden projekten Revit-es környezetbe ütköznek, hiszen az ökoszisztémájuk 63,5%-a Revitre épül.</p>
+    <p>Az adatokból kiolvasható alaphelyzet: Európában az Archicad-es irodák döntő többségének van Revit-es projektpartnere. Hogy ez heti rendszerességű adatcserét vagy félévente egy IFC-átadást jelent, az ezekből az adatokból nem derül ki: ez a megoszlás a piacméret legérzékenyebb bemenete (lásd 05. és 07/01.). Az USA-ban az Archicad-es irodák szinte minden projekten Revit-es környezetbe ütköznek, hiszen az ökoszisztémájuk 63,5%-a Revitre épül.</p>
   </section>
 
   <hr class="divider">
@@ -860,9 +948,36 @@
     <div class="section-label">02 Felhasználóbázis-becslés</div>
     <h2>Hány iroda él meg aktívan Archicad–Revit kollaborációs súrlódást?</h2>
 
-    <p>A célpiac méretét nem lehet közvetlenül mérni: nincs nyilvánosan elérhető adat arról, hogy hány Archicad-es iroda dolgozik rendszeresen Revit-es partnerekkel. A becslés szűrési láncon keresztül közelíthető meg. Minden szűrőnél megadjuk a bizonytalanság szintjét.</p>
+    <p>A célpiac méretét nem lehet közvetlenül mérni: nincs nyilvánosan elérhető adat arról, hogy hány Archicad-es iroda dolgozik Revit-es projektpartnerekkel. A becslés szűrési láncon keresztül közelíthető meg. Minden szűrőnél megadjuk a bizonytalanság szintjét. A lánc a partner-kapcsolat <em>létére</em> szűr, nem az adatcsere gyakoriságára: a gyakoriság szándékosan nem szerepel itt, azt az 05. szekció fájdalom-intenzitás rétegzése vezeti be külön dimenzióként.</p>
 
-    <h3>Európa</h3>
+    <h3>Globális összesítés</h3>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Archicad-es irodák globálisan</div>
+        <div class="metric-value">25 000–45 000</div>
+        <div class="metric-sub">Európa + USA + Ausztrália + egyéb</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Revit-partneres alapállomány (5+ fős, multidiszciplináris)</div>
+        <div class="metric-value">5 000–10 000</div>
+        <div class="metric-sub">Szűrt: méret, projekt-komplexitás, partner-struktúra; csere-gyakoriság szerinti bontása az 05. szekcióban</div>
+      </div>
+      <div class="metric-card accent">
+        <div class="metric-label">Konzervatív SAM-mag (tervezési alap)</div>
+        <div class="metric-value">900–2 800</div>
+        <div class="metric-sub">Parametrikus érettség + vásárlási hajlandóság szűrővel; a bevétel-tervezés erre a számra épül</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Enlyft detektált cégek (alulbecsült)</div>
+        <div class="metric-value">7 227</div>
+        <div class="metric-sub">Digitálisan felismerhető nagyvállalatok; KKV-k nincsenek benne</div>
+      </div>
+    </div>
+
+    <details class="detail-block">
+      <summary>Európa: a részletes szűrési lánc <span class="detail-hint">580 000 építésztől 800–2 500 irodáig</span></summary>
+      <div class="detail-body">
 
     <div class="table-wrap">
       <table class="filter-table">
@@ -912,7 +1027,7 @@
             <td class="td-muted">Közepes–magas</td>
           </tr>
           <tr>
-            <td>Rendszeresen Revit-es partnerekkel dolgozó irodák</td>
+            <td>Revit-es projektpartnerrel dolgozó irodák (csere-gyakoriságtól függetlenül)</td>
             <td>~55–65%</td>
             <td class="td-strong">4 000–8 500 iroda</td>
             <td class="td-muted">Magas: nincs direkt adat</td>
@@ -927,7 +1042,12 @@
       </table>
     </div>
 
-    <h3>USA</h3>
+      </div>
+    </details>
+
+    <details class="detail-block">
+      <summary>USA: a részletes szűrési lánc <span class="detail-hint">19 000 irodától 90–255 irodáig</span></summary>
+      <div class="detail-body">
 
     <p>Az USA az Archicad szempontjából másodlagos, de stratégiailag érdekes piac. Az AIA 2024 felmérés szerint több mint 19 000 építész iroda működik az USA-ban, és ezek 75%-ának 10 főnél kevesebb alkalmazottja van. A Revit dominanciája (~63,5%) miatt az Archicad-es irodák különösen intenzív kollaborációs súrlódást tapasztalnak, hiszen partnereik szinte mindegyike Revit-en dolgozik.</p>
 
@@ -967,7 +1087,7 @@
             <td class="td-muted">Közepes</td>
           </tr>
           <tr>
-            <td>Rendszeresen Revit-es partnerekkel dolgozó irodák</td>
+            <td>Revit-es projektpartnerrel dolgozó irodák (csere-gyakoriságtól függetlenül)</td>
             <td>~75–85%</td>
             <td class="td-strong">350–725 iroda</td>
             <td class="td-muted">Alacsony: Revit dominancia miatt szinte biztos</td>
@@ -982,34 +1102,12 @@
       </table>
     </div>
 
-    <h3>Globális összesítés</h3>
-
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-label">Archicad-es irodák globálisan</div>
-        <div class="metric-value">25 000–45 000</div>
-        <div class="metric-sub">Európa + USA + Ausztrália + egyéb</div>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">Aktív Revit-kollaborációs igény</div>
-        <div class="metric-value">5 000–10 000</div>
-        <div class="metric-sub">Szűrt: méret, projekt-komplexitás, partner-struktúra</div>
-      </div>
-      <div class="metric-card accent">
-        <div class="metric-label">Konzervatív SAM-mag (tervezési alap)</div>
-        <div class="metric-value">900–2 800</div>
-        <div class="metric-sub">Parametrikus érettség + vásárlási hajlandóság szűrővel; a bevétel-tervezés erre a számra épül</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Enlyft detektált cégek (alulbecsült)</div>
-        <div class="metric-value">7 227</div>
-        <div class="metric-sub">Digitálisan felismerhető nagyvállalatok; KKV-k nincsenek benne</div>
-      </div>
-    </div>
+    </details>
 
     <div class="callout-amber">
       <strong>A legkritikusabb bizonytalanság és hogyan kezeljük</strong>
-      A szűrési lánc leggyengébb láncszeme az „aktívan Revit-es partnerrel dolgozó" szűrő. Nincs iparági felmérés arról, hogy az európai Archicad-es irodák hány százaléka tapasztal heti rendszerességű Revit-kollaborációs súrlódást azokkal szemben, ahol a csere 3–6 havonta egyszeri IFC-átadással megoldható. Ez a különbség akár 3–4-szeres tényezőként befolyásolja a valós SAM-ot. A 05. szekció ezért erre a tengelyre építi a SAM szerkezetét: az állomány fájdalom-intenzitás szerinti A/B/C rétegzése ezt a bizonytalanságot explicit, design partnerrel validálható rétegarányokká alakítja.
+      A szűrési lánc leggyengébb láncszeme nem a fenti táblában van: a lánc csak azt szűri, hogy az irodának <em>van-e</em> Revit-es projektpartnere, azt nem, hogy milyen gyakran cserél vele adatot. Nincs iparági felmérés arról, hogy az így kapott 5 000–10 000 irodából hány százalék tapasztal heti rendszerességű Revit-kollaborációs súrlódást azokkal szemben, ahol a csere 3–6 havonta egyszeri IFC-átadással megoldható. Ez a megoszlás akár <strong>3–4-szeres tényezőként</strong> befolyásolja a valós, fizetőképes SAM-ot: a dokumentum egységesen ezt a szorzót használja erre a kockázatra. A 05. szekció ezért erre a tengelyre építi a SAM szerkezetét: az alapállomány fájdalom-intenzitás (csere-gyakoriság) szerinti A/B/C rétegzése ezt a bizonytalanságot explicit, design partnerrel validálható rétegarányokká alakítja.
     </div>
   </section>
 
@@ -1230,7 +1328,7 @@
 
     <div class="callout-green">
       <strong>A Platform mint jövőbeli végpont</strong>
-      A fenti ROI tisztán a Bridge önálló értékén (a megspórolt IFC-munkaidőn) alapul; platform-értéket nem tartalmaz. A platform-irány jelenleg nem napirenden: a 2026-07-16-i végleges roadmap a Bridge v1–v3 kiadásokra fókuszál, a platform-vízió dátum nélküli jövőkép. Ha egyszer napirendre kerül, a koordinációs, verziókezelési és adatszinkronizációs funkciók a majdani Enterprise tier részeként ezen felül adhatnak további értéket. A számítások ezt változatlanul nem tartalmazzák: minden esetleges platform-érték felfelé mutató tartalék.
+      A fenti ROI tisztán a Bridge önálló értékén (a megspórolt IFC-munkaidőn) alapul; platform-értéket nem tartalmaz. A platform-irány jelenleg nem napirenden: a végleges roadmap a Bridge v1–v3 kiadásokra fókuszál, a platform-vízió dátum nélküli jövőkép. Ha egyszer napirendre kerül, a koordinációs, verziókezelési és adatszinkronizációs funkciók a majdani Enterprise tier részeként ezen felül adhatnak további értéket. A számítások ezt változatlanul nem tartalmazzák: minden esetleges platform-érték felfelé mutató tartalék.
     </div>
   </section>
 
@@ -1246,41 +1344,60 @@
     <p>A becsült bevétel/iroda tudatosan emelkedik TAM→SAM→SOM felé (€3 500 → €4 500 → €5 000): minden szűkítési lépés nemcsak a darabszámot csökkenti, hanem egyre jobb illeszkedésű irodákra szűr (aktívabb fájdalom, meglévő vásárlási hajlandóság, végül ténylegesen megnyert ügyfél), ami magasabb átlagos ügyfélértéket valószínűsít. A lenti fájdalom-intenzitás rétegzés ezt a progressziót levezethetővé teszi: a rétegek természetes tier-besorolása (A→Studio €5 988/év, B→Professional €2 388/év) adja az átlagérték szerkezeti alapját, a konkrét súlyozás azonban továbbra is belső feltevés, nem mért adat.</p>
 
     <div class="funnel-viz">
-      <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TAM SAM SOM tölcsér fájdalom-intenzitás rétegzéssel">
-        <!-- TAM -->
-        <polygon points="20,10 560,10 480,78 100,78" fill="#E2E8F0"/>
-        <text x="290" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="14.5" font-weight="700" fill="#475569">TAM · 12 000–20 000 iroda</text>
-        <text x="290" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#64748B">€42M–€70M/év bevételi potenciál</text>
-        <!-- Rétegzett fizetőképes piac (A + B/2) -->
-        <polygon points="100,88 480,88 410,156 170,156" fill="#FEF3C7"/>
-        <text x="290" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#92400E">Fizetőképes fájdalmú piac · 1 600–4 700 iroda</text>
-        <text x="290" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#A16207">A réteg + B réteg fele · intenzitás-alapú, belső becslés</text>
-        <!-- SAM konzervatív mag -->
-        <polygon points="170,166 410,166 355,234 225,234" fill="#FDE68A"/>
-        <text x="290" y="192" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#92400E">SAM-mag · 900–2 800 iroda</text>
-        <text x="290" y="214" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#A16207">tervezési alap · ~55–60% realizmus-diszkonttal</text>
-        <!-- SOM -->
-        <polygon points="225,244 355,244 315,312 265,312" fill="#F04E23"/>
-        <text x="290" y="272" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">SOM · 90–400 iroda</text>
-        <text x="290" y="293" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#FFE4DC">€200K (2027) → €500K (2028) → ~€800–1.2M (2029)</text>
-        <!-- C réteg: nem SAM, külön sáv -->
-        <rect x="578" y="88" width="118" height="146" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5" stroke-dasharray="5 4"/>
-        <text x="637" y="112" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" fill="#166534">C réteg</text>
-        <text x="637" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#166534">1 500–5 000 iroda</text>
-        <text x="637" y="154" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">eseti IFC-csere</text>
-        <text x="637" y="172" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">nem SAM:</text>
-        <text x="637" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">Community-bázis,</text>
-        <text x="637" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">hosszú távú</text>
-        <text x="637" y="226" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#15803D">konverziós tartály</text>
-      </svg>
-      <div class="funnel-viz-caption">A sávszélességek illusztratívak (logaritmikus arányúak); a valódi szűkülés ennél meredekebb: a SOM a TAM ~2%-a. A C réteg (szaggatott keret) nem része a tölcsérnek: az eseti cserével dolgozó irodák az ingyenes Community tier célközönsége.</div>
+      <div class="funnel-diagram">
+        <div class="funnel-shape">
+          <div class="funnel-seg tam"></div>
+          <div class="funnel-seg mid"></div>
+          <div class="funnel-seg sam"></div>
+          <div class="funnel-seg som"></div>
+        </div>
+        <div class="funnel-rows">
+          <div class="funnel-row">
+            <span class="funnel-dot tam"></span>
+            <div>
+              <div class="funnel-row-label">TAM</div>
+              <div class="funnel-row-value">10 000–18 000 iroda</div>
+              <div class="funnel-row-sub">€35M–€63M/év bevételi potenciál · a regionális bontás (lásd lent) bottom-up összege</div>
+            </div>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-dot mid"></span>
+            <div>
+              <div class="funnel-row-label">Fizetőképes fájdalmú piac</div>
+              <div class="funnel-row-value">1 600–4 700 iroda</div>
+              <div class="funnel-row-sub">A réteg + B réteg fele · intenzitás-alapú, belső becslés</div>
+            </div>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-dot sam"></span>
+            <div>
+              <div class="funnel-row-label">SAM-mag</div>
+              <div class="funnel-row-value">900–2 800 iroda</div>
+              <div class="funnel-row-sub">tervezési alap · ~55–60% realizmus-diszkonttal</div>
+            </div>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-dot som"></span>
+            <div>
+              <div class="funnel-row-label">SOM</div>
+              <div class="funnel-row-value">90–400 iroda</div>
+              <div class="funnel-row-sub">€200K (2027) → €500K (2028) → ~€800K–1,2M (2029)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout-green" style="margin-top: 18px;">
+        <strong>C réteg: nem része a tölcsérnek</strong>
+        1 500–5 000 iroda, eseti IFC-cserével: ez a Community tier célközönsége, hosszú távú konverziós tartály, nem a fizetőképes SAM/SOM számítás része.
+      </div>
+      <div class="funnel-viz-caption">A sávok arányosak a tölcsér szűküléséhez, nem pixelpontosak; a SOM a TAM ~2%-a.</div>
     </div>
 
     <div class="funnel-grid">
       <div class="funnel-card tam">
         <div class="funnel-tier">TAM Teljes elérhető piac</div>
-        <div class="funnel-value">12 000–20 000 iroda</div>
-        <div class="funnel-desc">Minden Archicad-es iroda globálisan, amelynek rendszeres Revit-es projektpartnere van. Bevételi potenciál: <strong>€42M–€70M/év</strong> (avg. €3 500/iroda/év). Belső becslés, független forrás nem támasztja alá közvetlenül.</div>
+        <div class="funnel-value">10 000–18 000 iroda</div>
+        <div class="funnel-desc">Minden Archicad-es iroda globálisan, amelynek Revit-es projektpartnere van, irodaméret-szűrő nélkül, ezért szélesebb, mint a 02. szekció 5+ fős, multidiszciplináris alapállománya (5 000–10 000). A szám nem önálló becslés: pontosan megegyezik a lenti regionális bontás TAM-oszlopának bottom-up összegével (5 000–8 000 + 2 000–4 000 + 1 000–2 000 + 900–1 500 + 1 000–2 500). Bevételi potenciál: <strong>€35M–€63M/év</strong> (avg. €3 500/iroda/év).</div>
       </div>
       <div class="funnel-card sam">
         <div class="funnel-tier">SAM Kiszolgálható piac</div>
@@ -1294,11 +1411,19 @@
       </div>
     </div>
 
+    <div class="callout-amber">
+      <strong>Bemenetek ellenőrizve, 2026-08</strong>
+      A számláncot tápláló alapadatok frissen visszaellenőrizve: 580 000 európai építész (<a href="https://ace-cae.eu/publication/ace-2024-sector-study/" target="_blank" rel="noopener">ACE 2024</a>), &gt;19 000 USA-beli iroda (<a href="https://www.aia.org/resource-center/aia-firm-survey-report-2024" target="_blank" rel="noopener">AIA 2024</a>), 7 227 Enlyft-detektált Archicad-cég (<a href="https://enlyft.com/tech/products/graphisoft-archicad" target="_blank" rel="noopener">Enlyft</a>) és az Archicad európai, körülbelül egyharmados részesedése (<a href="https://www.usp-research.com/insights/news/market-overview-of-bim-and-cad-software-usage-of-european-architects/" target="_blank" rel="noopener">USP Research</a>) mind tartják magukat. Egy hiba közben javítva: a TAM korábban (12 000–20 000) nem volt levezetve a dokumentum saját szűrési láncából; most pontosan a regionális bottom-up összeggel egyezik (10 000–18 000, lásd lent). Fontos korlát: a régiós Revit/Archicad %-arányok (itt és az 01. szekcióban) élő piaci-intelligencia eszközök (6sense, Enlyft) pillanatfelvételei, nem rögzített statisztikák: ugyanarra a kategóriára a lekérdezéseink között 34% és 41,5% között szórt a Revit globális BIM-kategóriás részesedése; irányukban stabilak, tizedesjegyre nem pontosak.
+    </div>
+
     <h3>Fájdalom-intenzitás szerinti rétegzés: a SAM szerkezete</h3>
-    <p>A rétegzés alapja az <strong>egyidejű közös aktív projektek száma</strong>: ugyanaz a mérhető változó, amelyen a licencmodell kapacitás-tengelye is vált (2/5/15 aktív projekt). Így a piaci réteg és a tier-besorolás egyetlen közös metrikán függ, a piacméret és a bevételi modell mechanikusan összekapcsolódik. A rétegzés a „rendszeresen Revit-es partnerrel dolgozó" állományra épül (globálisan 5 000–10 000 iroda, a 02. szekció szűrési láncából).</p>
+    <p>A rétegzés alapja az <strong>egyidejű közös aktív projektek száma</strong>: ugyanaz a mérhető változó, amelyen a licencmodell kapacitás-tengelye is vált (2/5/15 aktív projekt). Így a piaci réteg és a tier-besorolás egyetlen közös metrikán függ, a piacméret és a bevételi modell mechanikusan összekapcsolódik. A rétegzés a 02. szekció Revit-partneres alapállományára épül (globálisan 5 000–10 000 iroda), és <strong>ez a rétegzés vezeti be a csere-gyakoriságot</strong>: a 02-es szűrési lánc a partner-kapcsolat létére szűrt, a ritmusára nem. Ezért tartozik ide a ritkán cserélő C réteg is: a gyakoriság nem szűrő, hanem bontási dimenzió.</p>
 
     <div class="table-wrap">
-      <table class="filter-table">
+      <table class="filter-table-5">
+        <colgroup>
+          <col><col><col><col><col>
+        </colgroup>
         <thead>
           <tr>
             <th>Réteg</th>
@@ -1331,8 +1456,14 @@
             <td>Community (ingyenes)</td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="td-muted"><strong>Σ a pontbecslésekkel:</strong> 20% + 40% + 40% = 100%, azaz a teljes 5 000–10 000 irodás alapállomány.</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
+    <p class="source-note">A három arány <strong>egymástól független bizonytalansági sáv</strong>, nem egyszerre felvehető értékek: a sávok alsó vége összesen 80%-ot, a felső 120%-ot adna. A megoszlást a fenti pontbecslések rögzítik; a sávok azt mutatják, mennyit mozdíthat el egy-egy réteget a validáció. Az irodaszám-oszlop minden rétegnél a saját sávjával számol, ezért a rétegek szélső értékei sem adódnak össze az alapállományra.</p>
 
     <p>A számítás lépései: <strong>fizetőképes fájdalmú piac</strong> = A réteg + B réteg fele = ~1 600–4 700 iroda; <strong>konzervatív SAM-mag (tervezési alap)</strong> = ennek ~55–60%-a = 900–2 800 iroda. A diszkont a validálatlan konverziós realizmust (bizonyítatlan fizetési hajlandóság, elérési korlátok) képviseli: explicit, felülvizsgálható tényezőként, nem a szűrési láncba rejtve. A korábbi, attitűd-alapú levezetés ("parametrikus érettség + vásárlási hajlandóság", 02. szekció) ugyanebbe a 900–2 800-as sávba fut: a két független út konvergenciája erősíti a becslést, de mindkettő belső becslés marad.</p>
 
@@ -1491,11 +1622,11 @@
     <ul class="oq-list">
       <li>
         <span class="oq-num">01</span>
-        <span class="oq-text"><strong>A kollaborációs sűrűség kérdése.</strong> Az elemzés nem tudja mérni, hogy az Archicad-es irodák milyen arányban dolgoznak heti rendszeres Revit-adatcserével a negyedévente egyszeri IFC-átadással szemben. Ez a legkritikusabb ismeretlen: ha a „heti rendszeres" szegmens az irodáknak csak 10%-a, nem 55–65%-a, a SAM egy nagyságrenddel kisebb.</span>
+        <span class="oq-text"><strong>A kollaborációs sűrűség kérdése.</strong> Az elemzés nem tudja mérni, hogy a Revit-partneres alapállományon belül (5 000–10 000 iroda) milyen a csere-gyakoriság megoszlása: heti rendszeres szinkron, mérföldkő-alapú csere, vagy 3–6 havonta egy IFC-átadás. Ez a legkritikusabb ismeretlen, mert a fizetőképes piacot közvetlenül a heti rendszeres (A) és a mérföldkő-alapú (B) réteg aránya adja. Az 05. szekció pontbecslése A = 20%, B = 40%; ha ez érdemben lejjebb tolódik, a fizetőképes fájdalmú piac <strong>3–4-szeresen</strong> zsugorodik. A 02. szekció szűrője (55–65%) nem erre a kérdésre válaszol: az csak a Revit-partner <em>létét</em> méri, a ritmusát nem; a kettő nem hasonlítható össze.</span>
       </li>
       <li>
         <span class="oq-num">02</span>
-        <span class="oq-text"><strong>Graphisoft saját fejlesztési iránya.</strong> A Graphisoft 2025-ös roadmap-ja mikrokernel-architektúrát és megerősített OpenBIM-kompatibilitást ígér. Ha a natív Archicad–Revit interop minősége 2–3 éven belül érdemi javulást mutat, a NODU Bridge értékajánlatának egy részét a platform szintjén lehet majd megoldani. Ennek valószínűsége és üteme nem ismert.</span>
+        <span class="oq-text"><strong>Graphisoft saját fejlesztési iránya, ellenőrizve 2026-08.</strong> A korábbi „mikrokernel-architektúra” hivatkozás nyilvános forrásból nem igazolható, ezért törölve. A tényleges 2025–2026-os mozgások: natív Autodesk Construction Cloud-konnektor és Archicad–Autodesk Forma összekapcsolás (<a href="https://architosh.com/2025/06/aia25-graphisoft-unveiled-design-intelligence-strategy-at-aia-boston/" target="_blank" rel="noopener">AIA 2025</a>), valamint a Project Aurora nevű, korai tervezési fázisra szánt felhő-natív platform (alfa: 2025 Q3, béta: 2026; <a href="https://aecmag.com/bim/graphisoft-ignite-2025/" target="_blank" rel="noopener">Ignite 2025</a>), amely egy kísérleti, egységes Nemetschek-csoportos séma/adatbázis-formátum felé is mutat, dátum nélkül. Ezek közül egyik sem natív, parametrikus Revit-exportot céloz: az interop-fókusz a felhő/ACC/IFC rétegre esik, nem a Bridge által megoldott problémára. A nyilvános roadmap alapján a kockázat, hogy a Graphisoft 2–3 éven belül maga oldja meg ezt, alacsonynak tűnik; a nem publikus belső tervek ettől függetlenül továbbra sem ismertek.</span>
       </li>
       <li>
         <span class="oq-num">03</span>
@@ -1511,7 +1642,7 @@
       </li>
       <li>
         <span class="oq-num">06</span>
-        <span class="oq-text"><strong>A Speckle V3 Archicad connector jövője.</strong> Ha a Speckle következő fejlesztési ciklusa az Archicad parametrikus adatmegőrzésére fókuszál (ami eddig nem volt prioritás), egy ingyenes, community-supported alternatíva csökkenti a NODU Bridge differenciációját. A Speckle-sharp legacy repo 2026 május archív státusza erre utalhat, de a V3 connector fejlesztési priorizációja nem ismert.</span>
+        <span class="oq-text"><strong>A Speckle V3 Archicad connector, ellenőrizve 2026-08: nem 3 éves jövőbeli kockázat, hanem élő tény.</strong> A Speckle V3 (Next-Gen) konnektorai 2025. június 1. óta alapértelmezettek, a V2-höz tartozó legacy kifutása 2026. január 1-én lezárult (<a href="https://www.speckle.systems/blog/guide-how-to-switch-to-next-gen-connectors" target="_blank" rel="noopener">Speckle blog</a>); a korábban idézett, 2026 májusi <a href="https://github.com/specklesystems/speckle-sharp" target="_blank" rel="noopener">speckle-sharp</a> archiválás ezt a migrációt zárja le, nem az Archicad-támogatás megszűnését jelzi. A V3 Archicad connector létezik és karbantartott, de még érik: 2025 októberében a 3.0.6-os verzió csak Archicad 27–28-at támogatta, az Archicad 29-kompatibilitást a közösség akkor még csak kérte (<a href="https://speckle.community/t/archicad-29-v3-connector/20644" target="_blank" rel="noopener">Speckle Community</a>), és 2026-ban is futnak stabilitási hibajegyek (<a href="https://speckle.community/t/archicad-speckle-3-0-connector-crash/18318" target="_blank" rel="noopener">connector crash-jegy</a>). Vagyis az „ingyenes, community-supported alternatíva” nem egy 2–3 éves horizontú kockázat, hanem ma is tesztelhető versenytárs. Az érdemi nyitott kérdés emiatt átalakul: nem az, hogy *létrejön-e* a V3 connector, hanem hogy megoldja-e a Pozicionálás dokumentumban katalogizált parametrikus adatvesztési hibákat (GDL→Family logika, koordináta-torzulás, Story/Level-konfliktus). Erre nyilvános forrásból nincs bizonyíték: kézi teszttel validálandó, ideális esetben még a launch előtt.</span>
       </li>
       <li>
         <span class="oq-num">07</span>

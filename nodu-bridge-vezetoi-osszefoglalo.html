@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <title>NODU Bridge: Stratégiai áttekintés</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,9 +58,57 @@
     .principle-card p { font-size: 0.91rem; color: #3F3F46; margin: 0; line-height: 1.65; }
 
     /* CALLOUTS */
-    .callout { border-left: 3px solid var(--amber-border); background: var(--amber-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 28px 0; }
-    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
-    .callout p { font-size: 0.93rem; color: #78350F; margin: 0; }
+    /* Editorial callout: fehér kártya + 3px színes bal csík; a szín csak a csíkon. */
+    .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--amber-border); padding: 16px 20px; border-radius: 8px; margin: 28px 0; color: var(--text); }
+    .callout-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .callout p { font-size: 0.93rem; color: var(--text); margin: 0; }
+
+    /* FÁZIS-IDŐVONAL — hol állunk most */
+    .phaseline { display: flex; align-items: stretch; gap: 0; margin-top: 8px; }
+    .ph {
+      flex: 1; position: relative; background: var(--card);
+      border: 1px solid var(--border); border-top: 3px solid var(--border);
+      border-radius: 0 0 8px 8px; padding: 16px 18px 18px; min-width: 0;
+    }
+    .ph + .ph { margin-left: 12px; }
+    .ph.done    { border-top-color: var(--muted2); }
+    .ph.current { border-top-color: var(--accent); background: #FFFAF9; box-shadow: 0 2px 12px rgba(240,78,35,0.10); }
+    .ph.next    { border-top-color: var(--blue); }
+    .ph.later   { border-top-color: var(--purple); }
+    .ph-now {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #fff; background: var(--accent);
+      border-radius: 4px; padding: 2px 7px; margin-bottom: 8px;
+    }
+    .ph-when { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .ph-name { font-size: 1rem; font-weight: 700; color: var(--text); margin: 3px 0 6px; text-align: left; }
+    .ph-note { font-size: 0.8rem; color: #52525B; line-height: 1.45; text-align: left; }
+    .ph-status { font-size: 0.72rem; font-weight: 600; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+
+    /* Tooltip a fázis-kártyán (hover + fókusz, hogy tapintásra/klaviatúrával is előjöjjön) */
+    .ph.has-tip { cursor: help; }
+    .ph-tip {
+      position: absolute; bottom: calc(100% + 9px); left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      width: max-content; max-width: 250px;
+      background: var(--topbar); color: #fff;
+      font-size: 0.78rem; font-weight: 500; line-height: 1.45;
+      padding: 9px 12px; border-radius: 6px; text-align: left;
+      opacity: 0; visibility: hidden; pointer-events: none; z-index: 20;
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      hyphens: none; -webkit-hyphens: none;
+    }
+    .ph-tip::after {
+      content: ""; position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: var(--topbar);
+    }
+    .ph.has-tip:hover .ph-tip,
+    .ph.has-tip:focus .ph-tip,
+    .ph.has-tip:focus-within .ph-tip {
+      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+    }
 
     /* METRIKA KÁRTYÁK */
     .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
@@ -87,8 +136,8 @@
 
     /* NYITOTT PONTOK */
     .open-points { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: open-point; }
-    .open-points li { border-left: 3px solid var(--amber-border); background: var(--amber-bg); padding: 16px 20px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 0.93rem; color: #78350F; line-height: 1.65; text-align: left; }
-    .open-points li strong { display: block; color: #92400E; margin-bottom: 4px; }
+    .open-points li { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--amber-border); padding: 16px 20px; border-radius: 8px; margin-bottom: 16px; font-size: 0.93rem; color: var(--text); line-height: 1.65; text-align: left; }
+    .open-points li strong { display: block; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
 
     /* FOOTER */
     .footer { background: var(--topbar); border-top: 1px solid #2A2A2D; padding: 36px 32px; }
@@ -106,6 +155,15 @@
     }
     @media (max-width: 740px) {
       .doc-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1000px) {
+      .phaseline { flex-wrap: wrap; }
+      .ph { flex: 1 1 45%; margin-bottom: 12px; }
+      .ph + .ph { margin-left: 0; }
+      .phaseline .ph:nth-child(even) { margin-left: 12px; }
+    }
+    @media (max-width: 640px) {
+      .ph, .phaseline .ph:nth-child(even) { flex: 1 1 100%; margin-left: 0; }
     }
     @media (max-width: 640px) {
       .hero-inner { padding: 0 20px; }
@@ -153,9 +211,9 @@
     <div class="hero-inner">
       <div class="hero-label">Stratégiai áttekintés</div>
       <h1>NODU Bridge: a stratégiai kép egy oldalon</h1>
-      <p class="hero-subtitle">A NODU Bridge automatizált, egyirányú Archicad→Revit modellkonverziót ad: a teljes modell batch-alapon, az elemek parametrikus logikájának megőrzésével kerül át. Az egyirányú fókusz keresletvezérelt döntés: az ügyfélmegbeszéléseken a kétirányú konverzió igénye nem merült fel. Az élő, delta-alapú szinkron a v2-ben érkezik (2026-12-15). Ez az oldal a teljes dokumentumrendszer vezetői kivonata: a stratégiai alapelvek, a kulcsszámok, oldalanként a legfontosabb megállapítások és a döntést igénylő nyitott pontok.</p>
+      <p class="hero-subtitle">A NODU Bridge automatizált, egyirányú Archicad→Revit konverziót ad: a teljes modell batch-alapon kerül át, az elemek parametrikus logikájának megőrzésével. Az egyirányúság indulási hatókör-döntés, nem végleges korlát: a kétirányú átvitel igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható lesz. Az élő szinkron <em>és a fizetési rendszer is</em> a v2-ben érkezik. Ez a lap a hét dokumentum vezetői kivonata: alapelvek, kulcsszámok, oldalankénti megállapítások és a döntést igénylő nyitott pontok.</p>
       <div class="hero-meta">
-        <span>2026-07-16 · frissítve 2026-07-28</span>
+        <span>2026-07-16 · frissítve 2026-08-17</span>
         <span>Belső vezetői anyag</span>
         <span>7 dokumentum kivonata</span>
       </div>
@@ -164,6 +222,46 @@
 
   <!-- MAIN -->
   <main class="main">
+
+    <!-- HOL ÁLLUNK MOST -->
+    <section class="section">
+      <div class="section-label">Hol állunk most</div>
+      <h2>A termék útja az indulásig és utána</h2>
+      <div class="phaseline">
+        <div class="ph done">
+          <div class="ph-status">Lezárva</div>
+          <div class="ph-when">2026-08-01 – 08-14</div>
+          <div class="ph-name">Alpha</div>
+          <div class="ph-note">3 cég: FDB + 2 magyar iroda. A konverziós pipeline validálása valós projekteken.</div>
+        </div>
+        <div class="ph current has-tip" tabindex="0">
+          <div class="ph-tip">A béta-jelentkezést 25 jelentkezővel zártuk — közülük választottuk ki a 10 tesztelő irodát.</div>
+          <div class="ph-now">Most itt</div>
+          <div class="ph-when">2026-08-17 – 09-15</div>
+          <div class="ph-name">Béta</div>
+          <div class="ph-note">10 iroda világszerte, éles projekteken. Teljes cloud-architektúra, telemetria, strukturált visszajelzés.</div>
+        </div>
+        <div class="ph next">
+          <div class="ph-status">Következő</div>
+          <div class="ph-when">2026-09-15</div>
+          <div class="ph-name">v1 · Éles indulás</div>
+          <div class="ph-note">Önkiszolgáló regisztráció, automatizált batch-konverzió. Fizetési rendszer még nincs.</div>
+        </div>
+        <div class="ph next">
+          <div class="ph-status">Bevétel innentől</div>
+          <div class="ph-when">2026-12-15</div>
+          <div class="ph-name">v2</div>
+          <div class="ph-note">Élő szinkron, delta-transzfer, web modellnéző — és a Stripe-fizetés: innentől érvényesíthető a licencmodell.</div>
+        </div>
+        <div class="ph later">
+          <div class="ph-status">Tervezett</div>
+          <div class="ph-when">2027-02-01</div>
+          <div class="ph-name">v3</div>
+          <div class="ph-note">Operations és automatizálások: feladatkezelés, státuszmotor, n8n-integráció.</div>
+        </div>
+      </div>
+      <p style="font-size:0.8rem; color:var(--muted); margin-top:12px;">A v4 dátum nélküli jövőkép (séma-szerkesztés, AI-asszisztált family-konverzió). Részletek: <a href="nodu-bridge-roadmap.html" style="color:var(--accent);">Termék-roadmap</a>.</p>
+    </section>
 
     <!-- STRATÉGIAI ALAPOK -->
     <section class="section">
@@ -177,11 +275,11 @@
       <h2 style="margin-top:44px;">Jövőbeli irányok (nem indulási scope)</h2>
       <div class="callout" style="margin-top:8px;">
         <div class="callout-label">A Bridge mint platform-belépési kapu</div>
-        <p>A Bridge hosszú távon a NODU platform belépési kapuja lehet: az irodák a Bridge-en keresztül ismerik meg a NODU-t, és ha a platform-funkciók a jövőben elérhetővé válnak, a meglévő ügyfélbázis kész upsell-úttá válik. A nodu.build CAD-platform vízió ugyanakkor jelenleg nem napirenden (szüneteltetve, nem törölve): a csapat kizárólag a Bridge-re fókuszál. A Bridge önállóan is megáll: az értéke maga a konverzió és a v2-től érkező szinkron. A jelenlegi piaci, árazási és bevételi számítások platform-bevételt nem tartalmaznak, minden későbbi platform-bevétel efölötti tartalék.</p>
+        <p>A Bridge hosszú távon a NODU platform belépési kapuja lehet: az irodák a Bridge-en keresztül ismerik meg a NODU-t, és ha a platform-funkciók a jövőben elérhetővé válnak, a meglévő ügyfélbázis kész upsell-úttá válik. A nodu.build CAD-platform vízió — és a hozzá kötött befektetési kör — ugyanakkor jelenleg nem napirenden (szüneteltetve, nem törölve): a csapat kizárólag a Bridge-re fókuszál. A Bridge önállóan is megáll: az értéke maga a konverzió és a v2-től érkező szinkron. A jelenlegi piaci, árazási és bevételi számítások platform-bevételt nem tartalmaznak, minden későbbi platform-bevétel efölötti tartalék.</p>
       </div>
       <div class="callout" style="margin-top:16px;">
         <div class="callout-label">VSE-alapú parametrikus tartalom-készítés + NODU Creator</div>
-        <p>A VSE-alapú parametrikus tartalomkészítés a platform egyik tervezett, későbbi fejlesztési iránya, a 2026-07-06-i pontosítás szerint többformátumú képességként: nem csak Revit Family, hanem további CAD- és gyártói formátumok előállítására is. Ezzel párhuzamos, átfedő kezdeményezés a <strong>NODU Creator (Content Engine)</strong>: knowledge-graph-alapú termékadat-motor, amely önálló termékként a gyártói szegmenst célozná meg B2B-úton (saját blueprint: 2026-06-11, v2.0), miközben a generálási mag a Bridge-platformon is jelen lenne. A vezetőség támogatja az irányt, a részletes kidolgozás későbbre ütemezett; a platform-irány a jelenlegi fókuszban nem szerepel. Egyik sem része az induláskor szállított termékkörnek, és a jelenlegi piaci, árazási és bevételi számítások egyikkel sem kalkulálnak.</p>
+        <p>A VSE-alapú parametrikus tartalomkészítés a platform egyik tervezett, későbbi fejlesztési iránya, többformátumú képességként: nem csak Revit Family, hanem további CAD- és gyártói formátumok előállítására is. Ezzel párhuzamos, átfedő kezdeményezés a <strong>NODU Creator (Content Engine)</strong>: knowledge-graph-alapú termékadat-motor, amely önálló termékként a gyártói szegmenst célozná meg B2B-úton (saját blueprint), miközben a generálási mag a Bridge-platformon is jelen lenne. A vezetőség támogatja az irányt, a részletes kidolgozás későbbre ütemezett; a platform-irány a jelenlegi fókuszban nem szerepel. Egyik sem része az induláskor szállított termékkörnek, és a jelenlegi piaci, árazási és bevételi számítások egyikkel sem kalkulálnak.</p>
       </div>
     </section>
 
@@ -203,12 +301,12 @@
         <div class="metric-card">
           <div class="metric-value">€199 / Koordinátor / hó</div>
           <div class="metric-label">Professional belépőár</div>
-          <p class="metric-sub">Studio €499/iroda/hó · Enterprise nem önkiszolgáló, sales-vezérelt, egyedi ajánlat az első ügyféltől</p>
+          <p class="metric-sub">Studio €499/iroda/hó · Enterprise: nincs listaár és nincs online vásárlás — minden ügylet egyedi tárgyalás, már a legelső ügyfélnél is (min. €2 500/hó)</p>
         </div>
         <div class="metric-card">
           <div class="metric-value">2026-09-15</div>
-          <div class="metric-label">nodu.bridge v1 GA</div>
-          <p class="metric-sub">Egyirányú Archicad→Revit batch-konverzió, Stripe-fizetés már v1-ben · Alpha: 3 cég (aug. 1–14) · Béta: 10 cég világszerte (aug. 18 – szept. 15)</p>
+          <div class="metric-label">nodu.bridge v1 · Éles indulás</div>
+          <p class="metric-sub">Egyirányú Archicad→Revit batch-konverzió, önkiszolgáló regisztrációval. Fizetési rendszer csak a v2-ben</p>
         </div>
         <div class="metric-card">
           <div class="metric-value">€200K (2027) → €500K (2028)</div>
@@ -216,9 +314,9 @@
           <p class="metric-sub">Konzervatív számítás, első kohorszokkal kalibrálandó</p>
         </div>
         <div class="metric-card">
-          <div class="metric-value">€25M</div>
-          <div class="metric-label">Tervezett befektetési kör</div>
-          <p class="metric-sub">A nodu.build CAD-platform vízióhoz kötött; jelenleg nem napirenden (szüneteltetve), a csapat kizárólag a Bridge-re fókuszál</p>
+          <div class="metric-value">10 iroda</div>
+          <div class="metric-label">Béta-kohorsz · fut 2026-08-17-től</div>
+          <p class="metric-sub">Éles projekteken tesztelnek az éles indulásig (szept. 15); az első tesztelő Portugáliából</p>
         </div>
       </div>
     </section>
@@ -262,8 +360,8 @@
           <div class="exec-card-figure-label">/ Koordinátor / hó (Professional)</div>
           <ul class="exec-card-bullets">
             <li>Két lokálisan kikényszeríthető tengely: szerepkör (fizetős Koordinátor + ingyenes User, 1:10) és kapacitás (2 / 5 / 15 egyidejűleg aktív projekt)</li>
-            <li>Community ingyenes (batch-konverzió preset sablonokkal, havonta 2 teljes modell, elemszám-korlát nélkül): a fizetős vonal a script engine + saját sablonok</li>
-            <li>A launch elején ingyenes Studio-időszak tervezett (stratégiai döntés, a Stripe-fizetési rendszer már a v1 része), paraméterei még nyitottak. Az élő szinkron a v2-ben érkezik (2026-12-15), meglévő előfizetők automatikusan megkapják</li>
+            <li>Community ingyenes (batch-konverzió preset sablonokkal, havonta 2 teljes modell, elemszám-korlát nélkül): a fizetős vonal a saját mapping-sablonok</li>
+            <li>Az éles indulás és a v2 között nincs önkiszolgáló számlázás: a fizetési rendszer is v2-es tétel, addig csak egyedi, kézi számlázás. Az ingyenes időszak tehát részben technikai adottság, nem tisztán stratégia</li>
           </ul>
           <a href="nodu-bridge-license-calculator.html" class="doc-card-link">Megnyitás</a>
         </div>
@@ -271,11 +369,11 @@
         <div class="exec-card">
           <div class="exec-card-title">Pozicionálás és modell-tanulságok</div>
           <p class="exec-card-desc">Árazási minták a versenykörnyezetből és a technológiai buktatók, amelyekre a Bridge épül.</p>
-          <div class="exec-card-figure">5</div>
-          <div class="exec-card-figure-label">dokumentált konverziós hibaosztály, amit a piac ma nem old meg</div>
+          <div class="exec-card-figure">11</div>
+          <div class="exec-card-figure-label">dokumentált konverziós hibaosztály, amit a piac ma nem old meg (5 nyilvános esetből + 6 a szakértői felülvizsgálatból)</div>
           <ul class="exec-card-bullets">
             <li>Átalánydíj-logika: a tranzakció-alapú árazást az AEC-vásárlók elutasítják (Autodesk APS negatív minta)</li>
-            <li>Az első paywall tudatosan korai: a parametrikus engine az IP, nem a governance</li>
+            <li>Az első paywall tudatosan korai: a parametrikus engine az IP, nem a governance — érvényesíteni viszont csak a v2-től lehet</li>
             <li>Lock-in: a mapping-sablonkönyvtár + a v2-től az élő szinkron a napi workflow-ban</li>
           </ul>
           <a href="nodu-bridge-speckle-tanulsagok.html" class="doc-card-link">Megnyitás</a>
@@ -298,10 +396,10 @@
           <div class="exec-card-title">Termék-roadmap</div>
           <p class="exec-card-desc">Négy verzió a v1 egyirányú Archicad→Revit konverziótól a hosszú távú jövőképig.</p>
           <div class="exec-card-figure">4 verzió</div>
-          <div class="exec-card-figure-label">v1 GA 2026-09-15 → v3 2027-02-01</div>
+          <div class="exec-card-figure-label">v1 · Éles indulás 2026-09-15 → v3 2027-02-01</div>
           <ul class="exec-card-bullets">
-            <li>v1 (GA, 2026-09-15): automatizált teljes modelles batch-konverzió, egyirányú Archicad→Revit, Stripe-fizetés</li>
-            <li>v2 (2026-12-15): web modellnéző, élő szinkron, delta-transzfer · v3 (2027-02-01): operations és automatizálások (task management, status engine, n8n)</li>
+            <li>v1 (2026-09-15): automatizált teljes modelles batch-konverzió, egyirányú Archicad→Revit — fizetési rendszer még nincs</li>
+            <li>v2 (2026-12-15): web modellnéző, élő szinkron, delta-transzfer, Stripe-fizetés · v3 (2027-02-01): operations és automatizálások (task management, status engine, n8n)</li>
             <li>v4: jövőkép, dátum nélkül; a nodu.build platform-vízió jelenleg nem napirenden</li>
           </ul>
           <a href="nodu-bridge-roadmap.html" class="doc-card-link">Megnyitás</a>
@@ -310,12 +408,13 @@
         <div class="exec-card">
           <div class="exec-card-title">Lead Generation rendszer</div>
           <p class="exec-card-desc">Élesben futó fájdalom-detektáló rendszer a nyilvános BIM-közösségekben, közvetlen CRM-integrációval.</p>
-          <div class="exec-card-figure">128</div>
-          <div class="exec-card-figure-label">igazolt fájdalom-jelzés (446 posztból, 7 aktív forrásból)</div>
+          <div class="exec-card-figure">263</div>
+          <div class="exec-card-figure-label">igazolt fájdalom-jelzés · 678 posztból, 7 aktív forrásból (2026-08-17-i állapot)</div>
           <ul class="exec-card-bullets">
-            <li>2026-07-19-i pivot: kulcsszó-szűrésből AI-alapú (Gemini) fájdalom-osztályozóra, súlyossággal és vásárlási szándék-jelzéssel</li>
-            <li>Közvetlenül a saját NODU Sales CRM-be fut (n8n és Pipedrive nélkül); élő Slack-riasztási lánc 2026-07-27 óta</li>
-            <li>2026-07-28-i rendszer-audit duplikációs hibát javított (a korábbi poszt-szám ~40×-esen felfújt volt); cél: 10 fizetős ügyfél 2026-12-31-ig</li>
+            <li>Pivot: kulcsszó-szűrésből AI-alapú (Gemini) fájdalom-osztályozóra, súlyossággal és vásárlási szándék-jelzéssel</li>
+            <li>Közvetlenül a saját NODU Sales CRM-be fut (n8n és Pipedrive nélkül); élő Slack-riasztási lánc</li>
+            <li>644 osztályozott posztból 263 igazolt fájdalom (40,8%), ebből 188 súlyos (severity ≥ 4) és 54 vásárlási szándék-jelzéssel — a jelzés-állomány három hét alatt megduplázódott</li>
+            <li>Cél: 10 fizető ügyfél 2026-12-31-ig — a weboldali fizetés korábbi élesítése nélkül nem teljesíthető</li>
           </ul>
           <a href="nodu-bridge-lead-gen.html" class="doc-card-link">Megnyitás</a>
         </div>
@@ -332,6 +431,7 @@
         <li><strong>Ingyenes Studio-időszak paraméterei</strong>Az időtartam, a lejárat utáni fizetési kötelezettség és a pontos funkciókör még nyitott; a cégdoménhez kötött egyszeri beváltás már eldöntve.</li>
         <li><strong>Marketing-tevékenységek költsége nincs kalkulálva</strong>A kalkulátor havi büdzsé-inputtal számol, de a roadmap GTM-tevékenységeihez (PR-kampány, demóvideók, influencer-partnerségek, konferencia-részvétel) nincs tevékenység-szintű költségterv. Ezt a launch előtt el kell készíteni.</li>
         <li><strong>Tier-limitek kalibrálatlanok</strong>Az 1:10 User-arány, a 2/5/15 projekt-limit és a 60 napos inaktivitási ablak illusztratív kiindulópont, amelyet az első fizető ügyfelek adataival felül kell vizsgálni.</li>
+        <li><strong>Előrehozható-e a weboldali fizetés?</strong>A fizetési rendszer jelenleg v2-es tétel, így az éles indulástól ~3 hónapig nincs önkiszolgáló számlázás. Ez közvetlenül veszélyezteti a sales célt: <em>10 fizető ügyfél 2026-12-31-ig</em> két hét számlázási ablakkal gyakorlatilag elérhetetlen. Egyedi szerződéssel addig is lehet fizető ügyfelet szerezni — erre lesz is lehetőség —, de kézi úton tízig nem skálázódik. Eldöntendő: (1) előrehozható-e a weboldali fizetés az éles induláshoz közelebb, akár szűkített funkcionalitással; (2) ha nem, a célszám vagy a határidő módosul; (3) hogyan kommunikáljuk a kohorsznak, hogy ez bevezető időszak, nem ingyenes termék; (4) a €200K (2027) ARR-mérföldkő újraszámolandó.</li>
       </ol>
     </section>
 
