@@ -156,10 +156,20 @@ function main() {
     }
   }
 
-  const outPath = path.join(dir, '..', 'assets', 'js', 'search-index.json');
-  fs.writeFileSync(outPath, JSON.stringify(outIndex, null, 0), 'utf8');
+  const json = JSON.stringify(outIndex, null, 0);
+
+  // JSON: hasznos referenciának / eszközöknek.
+  const jsonPath = path.join(dir, '..', 'assets', 'js', 'search-index.json');
+  fs.writeFileSync(jsonPath, json, 'utf8');
+
+  // JS: ezt tolti be a bongeszo <script>-kent. A statikus HTML-oldalak
+  // gyakran file:// protokollon nyilnak meg (nincs szerver), ahol a fetch()
+  // a JSON-ra CORS-hiba miatt elbukna - a <script> tag viszont file://-on is mukodik.
+  const jsPath = path.join(dir, '..', 'assets', 'js', 'search-index.js');
+  fs.writeFileSync(jsPath, `window.NODU_SEARCH_INDEX = ${json};\n`, 'utf8');
+
   console.log(`\n${outIndex.length} szekcio indexelve, ${CONTENT_FILES.length} dokumentumbol.`);
-  console.log(`Kiirva: ${path.relative(dir, outPath)}`);
+  console.log(`Kiirva: ${path.relative(dir, jsonPath)}, ${path.relative(dir, jsPath)}`);
 }
 
 main();
