@@ -293,6 +293,8 @@
     <span class="logo-text">NODU Bridge</span>
   </a>
   <nav class="topbar-nav">
+    <a href="nodu-bridge-kereso.html">Kereső</a>
+    <div class="nav-divider"></div>
     <a href="nodu-bridge-dashboard.html">Áttekintés</a>
     <div class="nav-divider"></div>
     <a href="nodu-bridge-vezetoi-osszefoglalo.html">Összefoglaló</a>
@@ -318,7 +320,7 @@
 <section class="hero">
   <div class="hero-inner">
     <p class="hero-label">Sales infrastruktúra, 2026</p>
-    <h1>Célzott lead-generálás<br><em>Archicad–Revit</em> fájdalompontok alapján</h1>
+    <h1 id="celzott-lead-generalas-archicad-revit-fajdalompontok-alapjan">Célzott lead-generálás<br><em>Archicad–Revit</em> fájdalompontok alapján</h1>
     <p class="hero-subtitle">
       Egy rendszer, amely két irányból azonosítja azokat a BIM-szakembereket, akiknek gondot okoz az Archicad-modellek Revitbe történő parametrikus migrációja (egyirányú fókusz az induláskor: a legsürgetőbb fájdalompont az Archicad→Revit leszállítás; a kétirányúság igénye azóta többször felmerült, és később megvalósítható lesz): figyeli a nyilvános szakmai közösségeket, és a nodu.build/bridge oldalon közvetlenül is gyűjti az érdeklődőket. A közösség-figyelő rendszer átállt: nem csak kulcsszavakat keres, hanem <strong>AI-alapú osztályozóval</strong> méri, hogy a posztok valódi fájdalmat fejeznek-e ki, milyen súlyossággal és van-e mögötte vásárlási szándék. A leadek a NODU Sales CRM-be kerülnek (saját, account-centrikus rendszer, a Pipedrive kikerült a láncból), hogy 2026 végéig minél több lehetséges NODU Bridge-felhasználót érjünk el, majd 2026. december 31-ig legalább 10 fizető ügyfelet szerezzünk. Ez a cél a weboldali fizetés indulásán áll vagy bukik: ha az csak a v2-vel élesedik, két hét marad rá.
     </p>
@@ -353,7 +355,7 @@
   <!-- MUTATÓK -->
   <section class="section">
     <p class="section-label">Rendszer áttekintés</p>
-    <h2>A lead-generálás négy fő mutatója</h2>
+    <h2 id="a-lead-generalas-negy-fo-mutatoja">A lead-generálás négy fő mutatója</h2>
 
     <div class="metrics-grid">
       <div class="metric-card accent">
@@ -387,7 +389,7 @@
   <!-- KÉT PILLÉR -->
   <section class="section">
     <p class="section-label">Stratégia</p>
-    <h2>A rendszer két forráscsatornája</h2>
+    <h2 id="a-rendszer-ket-forrascsatornaja">A rendszer két forráscsatornája</h2>
     <p>
       A BIM-szakemberek kétféleképpen jelennek meg a látóterünkben: aktívan kérdeznek egy szakmai fórumon, vagy a nodu.build/bridge oldalunkon járnak. Az első csoportot a <strong>nodu-monitor</strong> találja meg: egy saját Python-alkalmazás (Flask + APScheduler, egyprocesszes szerver), amely nyolc nyilvános forrást figyel, és minden begyűjtött bejegyzést AI-osztályozáson vezet át; a másodikat a weboldal: önkéntes waitlist-feliratkozással vagy az RB2B látogató-azonosítással.
     </p>
@@ -432,7 +434,7 @@
   <!-- SALESOS -->
   <section class="section">
     <p class="section-label">A célrendszer</p>
-    <h2>SalesOS: a NODU Sales CRM, ami fogadja és kezeli a leadeket</h2>
+    <h2 id="salesos-a-nodu-sales-crm-ami-fogadja-es-kezeli-a-leadeket">SalesOS: a NODU Sales CRM, ami fogadja és kezeli a leadeket</h2>
     <p>
       A NODU Sales (fejlesztői munkanevén SalesOS) egy saját fejlesztésű, account-centrikus, AI-natív CRM: nem harmadik féltől vásárolt eszköz, mint a korábban használt Pipedrive, hanem kifejezetten a NODU sales-munkafolyamatára épített rendszer. Minden adat egy cég köré szerveződik (dosszié-nézet: kontaktok, activity-történet és dealek egy helyen), a felület billentyűzet-first (globális Ctrl+K kereső, gyorsbillentyűk minden listán), és beépített AI-copilot segít az összefoglalásban és a következő lépés javaslatában.
     </p>
@@ -480,7 +482,7 @@
   <!-- FOLYAMAT: NODU-MONITOR -> SALESOS -->
   <section class="section">
     <p class="section-label">Folyamat</p>
-    <h2>Hogyan jut el egy jelzés a nodu-monitortól a SalesOS-ig</h2>
+    <h2 id="hogyan-jut-el-egy-jelzes-a-nodu-monitortol-a-salesos-ig">Hogyan jut el egy jelzés a nodu-monitortól a SalesOS-ig</h2>
     <p>
       A nodu-monitor (a fenti közösség-figyelő alkalmazás) nem közvetlenül ír a SalesOS adatbázisába: egy jól elhatárolt, auditálható folyamaton megy át minden jelzés. <strong>A lánc 2026 júliusában egyszerűbb lett:</strong> a korábban tervezett n8n-köztes réteg kimaradt, a monitor saját kliense hívja a SalesOS ingest-végpontját.
     </p>
@@ -540,7 +542,7 @@
   <!-- FOLYAMATÁBRA -->
   <section class="section">
     <p class="section-label">Architektúra</p>
-    <h2>Adatfolyam a scrapertől a NODU Salesig</h2>
+    <h2 id="adatfolyam-a-scrapertol-a-nodu-salesig">Adatfolyam a scrapertől a NODU Salesig</h2>
 
     <div class="flow-wrap">
       <div class="flow">
@@ -606,7 +608,7 @@
   <!-- ADATFORRÁSOK TÁBLÁZAT -->
   <section class="section">
     <p class="section-label">Adatforrások részletesen</p>
-    <h2>Melyik forrás, mit ad, mikor aktív</h2>
+    <h2 id="melyik-forras-mit-ad-mikor-aktiv">Melyik forrás, mit ad, mikor aktív</h2>
 
     <p>
       A táblázat a 2026-07-28-i élő adatbázis-állapotot tükrözi, a Playwright-connector aznap javított duplikáció-hibája után. A „fájdalom-arány" azt mutatja, hogy az adott forrásból osztályozott posztok mekkora része lett igazolt fájdalom-jelzés: ez a forrás valódi minősége, a volumentől függetlenül. A Playwright-forrás (Graphisoft + Autodesk) volumene a dedup-javítás előtt tévesen 742 posztnak látszott; a valódi szám 33 egyedi szál; a GitHubnak és a Speckle-nek változatlanul a jelminősége kiemelkedő, nem a volumene.
@@ -747,7 +749,7 @@
   <!-- FÁZISOK -->
   <section class="section">
     <p class="section-label">Implementáció</p>
-    <h2>A megvalósítás fázisai</h2>
+    <h2 id="a-megvalositas-fazisai">A megvalósítás fázisai</h2>
 
     <div class="phase-list">
       <div class="phase-row">
@@ -826,7 +828,7 @@
   <!-- NODU SALES ROUTING -->
   <section class="section">
     <p class="section-label">Sales pipeline</p>
-    <h2>NODU Sales: automatikus routing (stage-mapping)</h2>
+    <h2 id="nodu-sales-automatikus-routing-stage-mapping">NODU Sales: automatikus routing (stage-mapping)</h2>
     <p>
       <strong>A NODU Sales az egyetlen igazságforrás</strong>: a Pipedrive nincs a láncban. A Bridge-jelzések a <code>POST /api/bridge/ingest</code> endpointon érkeznek, közvetlenül a monitorból (Bearer-kulcs, <code>externalId</code>-idempotencia, kötelező forrás-URL, auditált BridgeIngest-napló), és az alábbi szabályok szerint landolnak. A pontszám alapja a Pain Classifier severity-je: <strong>severity × 2, ± 1 ponttal módosítva</strong> a <code>buying_intent</code> és a <code>solved_internally</code> jelekért (severity 4–5 → alapból 8–10, azaz Qualified; severity 3 → alapból 6, azaz Lead; severity 1–2 → nincs Deal, csak jelzés-napló); a severity önmagában nem megbízható prioritási jelző, a <code>buying_intent</code> a valódi különbségtevő. A verziózott, 0–100-as pontozómotor a 2. fázis terve. A deal-pipeline a NODU Salesben: <strong>Lead → Qualified → Meeting → Demo → Proposal → Won/Lost</strong>; a belépő stage automatikus, minden további léptetés kézi, a boardon. A négytieres licencmodell struktúrája (Community/Professional/Studio/Enterprise) véglegesült (a jelenlegi állás a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban); a launch-kori ingyenes időszak lezárási feltételei (időtartam, landolási tier, grace-period) azonban egyelőre még nyitott döntések.
     </p>
@@ -897,7 +899,7 @@
   <!-- KÖVETKEZŐ TEENDŐK -->
   <section class="section">
     <p class="section-label">Teendők</p>
-    <h2>Azonnali következő lépések</h2>
+    <h2 id="azonnali-kovetkezo-lepesek">Azonnali következő lépések</h2>
 
     <div class="todo-list">
       <div class="todo-row">
@@ -961,6 +963,9 @@
 </main>
 
 <script src="../assets/js/nodu-tokens.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/search-highlight.js"></script>
+<script src="../assets/js/search-overlay.js"></script>
 
 <!-- FOOTER -->
 <footer class="footer">

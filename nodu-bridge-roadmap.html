@@ -143,6 +143,8 @@
       <span class="logo-text">NODU Bridge</span>
     </a>
     <nav class="topbar-nav">
+      <a href="nodu-bridge-kereso.html">Kereső</a>
+      <div class="nav-divider"></div>
       <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
       <div class="nav-divider"></div>
       <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
@@ -163,7 +165,7 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-label">Belső / befektetői anyag</div>
-      <h1>Termék-roadmap: NODU Bridge</h1>
+      <h1 id="termek-roadmap-nodu-bridge">Termék-roadmap: NODU Bridge</h1>
       <p class="hero-subtitle">A NODU Bridge önálló termék: egyirányú, Archicad→Revit modellkonverzió felhőszolgáltatásként. Az egyirányúság indulási hatókör-döntés, nem végleges korlát: a kétirányú szinkron igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható lesz. Induláskor a legsürgetőbb, validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a dokumentum a megerősített mérföldkő-tervet rögzíti az Alpha-pilottól a Release v3-ig, valamint a dátum nélküli Release v4 jövőképet. A tágabb <code>nodu</code> platform-vízió jelenleg nem napirenden (lásd lentebb); a licenc- és árazási modell dokumentumai kizárólag a Bridge-re vonatkoznak, lásd a Licencmodell dokumentumot.</p>
       <div class="hero-meta">
         <span>2026-07-03 · frissítve 2026-07-16</span>
@@ -192,7 +194,7 @@
     <!-- FEJLESZTŐI STÁTUSZ -->
     <section class="section">
       <div class="section-label">Fejlesztési valóság</div>
-      <h2>Lezárt kérdések és fejlesztési állapot</h2>
+      <h2 id="lezart-kerdesek-es-fejlesztesi-allapot">Lezárt kérdések és fejlesztési állapot</h2>
       <p>A konverzió iránya az indulási termékkörben egyirányú: Archicad → Revit. Ez hatókör-döntés, nem végleges termékkorlát: a kétirányú szinkron igénye azóta többször felmerült, és a fejlesztés jelzése szerint később megvalósítható lesz — nem elvetett irány, csak nem v1-es tétel. Induláskor a legsürgetőbb, validált fájdalompont az Archicadben készülő modellek Revit-formátumú leszállítása. Ez a licencmodell fizető-fél logikájával is összefér: a Revit-leszállításra kötelezett, Archicad-oldali iroda a fizető fél.</p>
       <p>A konverter elemtípusonként épül. A fejlesztői állapot szerint a falak készen vannak, a kivágásokon dolgozik a csapat, ezt követik a födémek és a nyílászárók; az oszlopok, gerendák és függönyfalak a második, az MEP a harmadik elemkör-ütembe sorolt, utóbbi kérdőjellel. Az alábbi ütemjelölések a konverter elemkör-bővítési lépcsőire vonatkoznak, nem a kiadási mérföldkövekre.</p>
       <div class="elem-status">
@@ -257,7 +259,7 @@
     <!-- MÉRFÖLDKÖVEK -->
     <section class="section">
       <div class="section-label">Termékfejlesztés</div>
-      <h2>A megerősített mérföldkő-terv</h2>
+      <h2 id="a-megerositett-merfoldko-terv">A megerősített mérföldkő-terv</h2>
 
       <p style="font-size:0.91rem; color:var(--muted);">Az alábbi hat mérföldkő a megerősített feature-roadmapból származik, és a Bridge-re korlátozódik: a tágabb platform-vízió (lásd a Release v4 utáni megjegyzést) jelenleg nem napirenden.</p>
 
@@ -413,7 +415,7 @@
     <!-- MÉRNÖKI REALITÁS -->
     <section class="section">
       <div class="section-label">Végrehajtási alap</div>
-      <h2>Mérnöki realitás &amp; infrastruktúra</h2>
+      <h2 id="mernoki-realitas-infrastruktura">Mérnöki realitás &amp; infrastruktúra</h2>
       <div class="eng-grid">
         <div class="eng-card">
           <div class="eng-card-title">Technikai adósság</div>
@@ -455,5 +457,8 @@
   </footer>
 
   <script src="../assets/js/nodu-tokens.js"></script>
+  <script src="../assets/js/search.js"></script>
+  <script src="../assets/js/search-highlight.js"></script>
+  <script src="../assets/js/search-overlay.js"></script>
 </body>
 </html>

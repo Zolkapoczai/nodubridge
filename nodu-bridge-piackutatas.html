@@ -208,6 +208,8 @@
     </div>
   </a>
   <div class="topbar-nav">
+    <a href="nodu-bridge-kereso.html">Kereső</a>
+    <span class="topbar-sep">|</span>
     <a href="nodu-bridge-vezetoi-osszefoglalo.html">&Aacute;ttekint&eacute;s</a>
     <span class="topbar-sep">|</span>
     <a href="nodu-bridge-piac-elemzes.html">Piaci elemz&eacute;s</a>
@@ -230,7 +232,7 @@
 <header class="hero">
   <div class="hero-inner">
     <span class="hero-label">Bels&#337; tervez&eacute;si dokumentum</span>
-    <h1>Piackutat&aacute;s a bev&eacute;telkalkul&aacute;tor konverzi&oacute;s &eacute;s piacm&eacute;ret-felt&eacute;telez&eacute;seinek bizony&iacute;t&eacute;knapl&oacute;ja</h1>
+    <h1 id="piackutat-aacute-s-a-bev-eacute-telkalkul-aacute-tor-konverzi-oacute-s-eacute-s-piacm-eacute-ret-felt-eacute-telez-eacute-seinek-bizony-iacute-t-eacute-knapl-oacute-ja">Piackutat&aacute;s a bev&eacute;telkalkul&aacute;tor konverzi&oacute;s &eacute;s piacm&eacute;ret-felt&eacute;telez&eacute;seinek bizony&iacute;t&eacute;knapl&oacute;ja</h1>
     <div class="hero-meta">F&uuml;ggetlen, 2024&ndash;2026-os forr&aacute;sokkal al&aacute;t&aacute;masztva &middot; v1.1 &middot; 2026-07-01, friss&iacute;tve 2026-07-17 &middot; poczai@nodu.build</div>
   </div>
 </header>
@@ -248,7 +250,7 @@
   <!-- SECTION 01 -->
   <div class="section">
     <div class="section-label">01: A probléma</div>
-    <h2>Az interoperabilitási fájdalom valós és számszerűsíthető</h2>
+    <h2 id="az-interoperabilitasi-fajdalom-valos-es-szamszerusitheto">Az interoperabilitási fájdalom valós és számszerűsíthető</h2>
 
     <p>Az Archicad és a Revit közötti adatcsere ma jellemzően IFC-n keresztül történik. Az IFC statikus geometriát visz át, de elveszíti a parametrikus szerkeszthetőséget, ezért minden tervezési változásnál a fogadó csapatnak újra kell modelleznie vagy jelentősen át kell dolgoznia az elemeket. Ennek a problémának a költsége jól dokumentált iparági szinten.</p>
 
@@ -266,10 +268,10 @@
       </table>
     </div>
 
-    <h3>Az IFC oda-vissza konverzió mindkét irányban veszteséges</h3>
+    <h3 id="az-ifc-oda-vissza-konverzio-mindket-iranyban-veszteseges">Az IFC oda-vissza konverzió mindkét irányban veszteséges</h3>
     <p>A falak, födémek és tetők gyakran generikus objektumként vagy In-Place családként érkeznek meg, és eközben elveszítik a parametrikus intelligenciát. A Revit→Archicad utat a hivatalos Graphisoft fórum egyik threadje egyenesen <a href="https://community.graphisoft.com/t5/Collaboration-with-other/Revit-IFC-to-Archicad-is-fundamentally-flawed/td-p/589713" target="_blank" rel="noopener">„fundamentally flawed”</a> (alapjaiban hibás) megnevezéssel illeti. Akadémiai elemzések (MDPI, ResearchGate) öt éven át tartó vizsgálatban is megerősítik, hogy az IFC-verziók fejlődése ellenére az adat- és geometriaveszteség tartós marad.</p>
 
-    <h3>A kereslet valós, de kielégítetlen</h3>
+    <h3 id="a-kereslet-valos-de-kielegitetlen">A kereslet valós, de kielégítetlen</h3>
     <p>Nincs gyártói roadmap natív parametrikus Archicad↔Revit átvitelre. A létező részmegoldások (IFC, RFA/RVT geometria-export, Speckle, Rhino.Inside) vagy csak geometriát visznek át, vagy más eszközfilozófiát követnek. A gyakorló mérnökök több éven át, több fórumon (Graphisoft Community, Autodesk Community, OSArch) ismétlik ugyanazt a panaszt.</p>
 
     <div class="callout amber">
@@ -293,7 +295,7 @@
   <!-- SECTION 02 -->
   <div class="section">
     <div class="section-label">02: A piac</div>
-    <h2>A piac súlypontja: Európa, nem Amerika</h2>
+    <h2 id="a-piac-sulypontja-europa-nem-amerika">A piac súlypontja: Európa, nem Amerika</h2>
 
     <p>A NODU Bridge célpiaca azoknak a cégeknek a metszete, amelyek mind Archicadet, mind Revitet használnak, vagy a kettő között kénytelenek modellt átadni. A bottom-up becslés régiónként:</p>
 
@@ -318,7 +320,7 @@
       <p>A go-to-market elsődleges piaca Európa, nem az USA, ezért a kalkulátor alapértelmezett régiója is Európa. Az amerikai niche kicsi és prémium, a magasabb konverzió mellett 2–3 év alatt telítődik, míg Európa 5–7-szer nagyobb futásteret ad. Egy más módszertanú, független elemzés (lásd Piaci elemzés) is ugyanerre a következtetésre jut: DACH+CEE elsődleges, USA prémium szegmens. Két független becslés ugyanoda jut.</p>
     </div>
 
-    <h3>Fizetési hajlandóság (WTP) benchmark</h3>
+    <h3 id="fizetesi-hajlandosag-wtp-benchmark">Fizetési hajlandóság (WTP) benchmark</h3>
     <p>Az összehasonlítható eszközkategória (interop, modell-QA, koordináció: BIMcollab, Speckle, Solibri) árazása alátámasztja a jelenlegi €199/Koordinátor/hó Professional pozíciót: ez a commodity BCF/issue-eszközök felett, a prémium modell-ellenőrzők sávjában helyezkedik el. Fontos, hogy a Bridge nem a szerzői szoftvereket (Revit, Archicad) váltja ki - azok ára csak költségvetési kontextus, nem viszonyítási alap. A teljes árazási tábla a <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a> 03. szakaszában található.</p>
 
     <div class="sources">
@@ -338,7 +340,7 @@
   <!-- SECTION 03 -->
   <div class="section">
     <div class="section-label">03: A konverzió</div>
-    <h2>Konverziós benchmarkok sales-asszisztált painkiller termékekre</h2>
+    <h2 id="konverzios-benchmarkok-sales-asszisztalt-painkiller-termekekre">Konverziós benchmarkok sales-asszisztált painkiller termékekre</h2>
 
     <p>A független 2024–2026-os benchmarkok szerint a konverziós ráta erősen függ a motiontól (az értékesítési mechanizmustól):</p>
 
@@ -359,7 +361,7 @@
 
     <p>Egy sales-asszisztált, painkiller-jellegű terméknél a védhető demó→ügyfél sáv <strong>~30–45%</strong>: a GrowthSpree 55%-os mediánja a legoptimistább forrásból származik, más benchmarkok (ADV.me 28–42%, egyéb 15–30%) lényegesen alacsonyabbak; a szórás a „sales-asszisztált” eltérő definícióiból fakad. A kalkulátor a 30%-ot használja alapértelmezettként (a sáv konzervatív vége), a felső tartomány (45%-ig) csúszkával elérhető.</p>
 
-    <h3>Painkiller vs. vitamin: a szorzó realitása</h3>
+    <h3 id="painkiller-vs-vitamin-a-szorzo-realitasa">Painkiller vs. vitamin: a szorzó realitása</h3>
     <p>A „painkiller” (akut fájdalmat oldó) termékek konverziója jellemzően magasabb, mint a „vitaminoké” (jó, de nem sürgető). A mobilalkalmazás-piacon ez a különbség akár 9-szeres is lehet (37% vs. 4%), de ez mobilapp-adat. <strong>B2B-ben a reális szorzó 3–5×</strong>, mert az értékesítési ciklus és a több döntéshozó kiegyenlíti a különbséget. A szűk vertikumú (niche ICP) szoftverek a generikus átlag 2–3-szorosát hozzák, és jobban megtartják az ügyfeleket (91% vs. 78–85% bruttó retenció).</p>
 
     <div class="callout amber">
@@ -384,7 +386,7 @@
   <!-- SECTION 04 -->
   <div class="section">
     <div class="section-label">04: A kalkulátor kalibrációja</div>
-    <h2>A kalkulátor konverziós és piaci kalibrációja</h2>
+    <h2 id="a-kalkulator-konverzios-es-piaci-kalibracioja">A kalkulátor konverziós és piaci kalibrációja</h2>
 
     <ul class="body-list">
       <li><strong>Önkiszolgáló konverzió:</strong> 8% alapértelmezett a Professional/Studio ügyfelekre, sales-közreműködés nélkül; ez az 5–8%-os Free→Paid benchmark felső határa (a legjobb vertikális SaaS-benchmarkok plafonja is csak 5–6% körül van).</li>
@@ -404,7 +406,7 @@
   <!-- SECTION 05 -->
   <div class="section">
     <div class="section-label">05: Korlátok</div>
-    <h2>Őszinte adathiányok és a következő validációs lépések</h2>
+    <h2 id="oszinte-adathianyok-es-a-kovetkezo-validacios-lepesek">Őszinte adathiányok és a következő validációs lépések</h2>
 
     <p>A konzervatív hangnem megtartása érdekében kimondjuk, mit nem tudunk megbízhatóan:</p>
     <ul class="body-list">
@@ -424,5 +426,8 @@
 </main>
 
 <script src="../assets/js/nodu-tokens.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/search-highlight.js"></script>
+<script src="../assets/js/search-overlay.js"></script>
 </body>
 </html>

@@ -19,6 +19,17 @@ Ez a repository a NODU Bridge projekt tartalmi oldalait és dokumentációját t
 - **nodu-bridge-speckle-tanulsagok.html** — Speckle tanulságok
 - **nodu-bridge-lead-gen.html** — Lead generation oldal
 - **bridge-waitlist.html** — Waitlist oldal
+- **nodu-bridge-kereso.html** — Dokumentumkereső (jelszóval védett, kliens-oldali keresés a fenti oldalak tartalmában)
+
+## Keresőindex frissítése
+
+A kereső a `../assets/js/search-index.json` fájlból dolgozik. Ha bármelyik dokumentum tartalma változik, futtasd újra:
+
+```
+node build-search-index.js
+```
+
+Ez újraindexeli a szekciókat, és — ha új címsor került be — automatikusan `id`-t ad neki a mélylinkeléshez.
 
 ## Hozzáférés
 
