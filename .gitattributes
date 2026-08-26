@@ -1,0 +1,4 @@
+# A keresőindexet a build-search-index.js LF sorvégződéssel írja ki. A globális
+# core.autocrlf=true checkout-kor CRLF-re váltaná, így egy klónban az első
+# újraépítés fantom diffet csinálna a fájlon. Itt LF marad mindkét oldalon.
+assets/js/search-index.js text eol=lf
