@@ -1,0 +1,192 @@
+/* ==========================================================================
+   NODU Bridge — Design Tokens
+   Extracted from: nodu-bridge-dashboard.html, nodu-bridge-piac-elemzes.html,
+   nodu-bridge-license-calculator.html, nodu-bridge-speckle-tanulsagok.html,
+   nodu-bridge-esettanulmanyok.html (OUTPUTS/index/)
+   Conservative extraction only — no visual changes to source HTML.
+   ========================================================================== */
+
+:root {
+  /* -- Core surface & structure -------------------------------------- */
+  --bg:           #FAFAFA;   /* page background */
+  --card:         #FFFFFF;   /* card/panel surface (also referenced as --white) */
+  --white:        #FFFFFF;   /* alias used in license-calculator */
+  --topbar:       #17171A;   /* topbar / hero / footer dark surface (also --sidebar) */
+  --sidebar:      #17171A;   /* alias used in license-calculator */
+
+  /* -- Brand accent ----------------------------------------------------- */
+  --accent:       #F04E23;   /* NODU orange — primary brand color */
+  --orange:       #F04E23;   /* alias used in license-calculator */
+  --orange-h:     #D94216;   /* orange hover/active state */
+
+  /* -- Borders & text ----------------------------------------------------- */
+  --border:       #E4E4E7;   /* default hairline border */
+  --border2:      #D1D5DB;   /* secondary/stronger border (slider hover, license-calc) */
+  --text:         #18181B;   /* primary text color */
+  --muted:        #71717A;   /* secondary/muted text */
+  --muted2:       #A1A1AA;   /* tertiary muted text (license-calc), also topbar-nav idle link color */
+
+  /* -- Semantic status colors -------------------------------------------- */
+  /* Amber / warning */
+  --amber:        #D97706;
+  --amber-bg:     #FFFBEB;
+  --amber-border: #F59E0B;
+  --amber-text:   #92400E;   /* callout-amber label/heading text */
+  --amber-text-2: #78350F;   /* callout-amber body text */
+
+  /* Green / positive */
+  --green:        #16A34A;
+  --green-bg:     #F0FDF4;
+  --green-border: #22C55E;
+  --green-text:   #14532D;   /* callout-green label/heading text */
+  --green-text-2: #166534;   /* callout-green body text */
+
+  /* Blue / informational */
+  --blue:         #2563EB;
+  --blue-bg:      #EFF6FF;
+  --blue-border:  #3B82F6;
+  --blue-text:    #1E3A5F;   /* intro-box body text */
+  --blue-text-2:  #1E3A8A;   /* research-box body text */
+
+  /* Purple / enterprise-tier accent */
+  --purple:       #7C3AED;
+  --purple-bg:    #F5F3FF;
+
+  /* Orange tint variants (license-calculator paywall chips, charts) */
+  --orange-bg:    #FFF3F0;
+  --orange-lt:    #FEE8E2;
+
+  /* -- Dark-surface (topbar/hero/footer) supporting tones ---------------- */
+  --dark-border:      #2A2A2D;  /* topbar/hero/footer hairline on dark bg */
+  --dark-border-hover:#3A3A3D;  /* topbar nav link hover border */
+  --dark-text:        #FFFFFF;  /* headings on dark surface */
+  --dark-text-muted:  #A1A1AA;  /* subtitle/nav text on dark surface */
+  --dark-text-meta:   #71717A;  /* meta text on dark surface */
+  --dark-text-faint:  #52525B;  /* faintest text on dark surface (footer meta) */
+
+  /* -- Table zebra / hover tints ------------------------------------------ */
+  --table-header-bg:  #F4F4F5;  /* thead background */
+  --table-zebra-bg:   #FBFBFC;  /* even row background */
+  --table-hover-bg:   #F3F4F6;  /* row hover background */
+
+  /* -- Phase / status badges (dashboard timeline) ------------------------- */
+  --phase-early-bg:      #FFF3F0;
+  --phase-early-text:    #C2410C;
+  --phase-growth-bg:     #EFF6FF;
+  --phase-growth-text:   #1D4ED8;
+  --phase-enterprise-bg: #F5F3FF;
+  --phase-enterprise-text: #6D28D9;
+
+  /* -- Funnel/TAM-SAM-SOM chart tones (SVG fills, piac-elemzes) ----------- */
+  --funnel-tam-bar:   #E2E8F0;
+  --funnel-tam-text:  #475569;
+  --funnel-tam-text-2:#64748B;
+  --funnel-sam-bar:   #FDE68A;
+  --funnel-sam-text:  #92400E;
+  --funnel-sam-text-2:#A16207;
+  --funnel-som-bar:   var(--accent);
+  --funnel-som-text-2:#FFE4DC;
+
+  /* ---------------------------------------------------------------------
+     Typography
+     --------------------------------------------------------------------- */
+  --font-family-base: 'Inter', system-ui, sans-serif;
+
+  --font-size-root: 17px;      /* html { font-size } base */
+
+  /* Body copy scale (as used across pages; not a strict modular scale —
+     documented as observed) */
+  --font-size-xs:   11px;      /* section-label, hero-label, badges */
+  --font-size-sm:   12px;      /* topbar-meta, hero-meta, source-note */
+  --font-size-sm2:  13px;      /* topbar-nav links */
+  --font-size-base-14: 14px;   /* callout titles, input labels */
+  --font-size-base-15: 15px;   /* feature-list items, ltv-table */
+  --font-size-base-16: 16px;   /* license-calculator body copy */
+  --font-size-base-17: 17px;   /* body base (matches html root) */
+  --font-size-md:   0.9rem;    /* table body text */
+  --font-size-md2:  0.92rem;   /* callouts, table text (piac-elemzes) */
+  --font-size-md3:  0.95rem;   /* section p, hero-subtitle-ish text */
+  --font-size-lg:   1rem;      /* section h3 */
+  --font-size-lg2:  1.05rem;   /* hero-subtitle */
+  --font-size-xl:   1.5rem;    /* section h2 (dashboard) */
+  --font-size-xl2:  1.55rem;   /* section h2 (pozicionálás, esettanulmányok) */
+  --font-size-xl3:  1.6rem;    /* section h2 (piac-elemzes) */
+  --font-size-2xl:  2.1rem;    /* hero h1 (dashboard, piac-elemzes) */
+  --font-size-2xl2: 2.2rem;    /* hero h1 (pozicionálás, esettanulmányok) */
+  --font-size-3xl:  31px;      /* page-header h1 (license-calculator) */
+
+  /* Font weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+  --font-weight-extrabold:800;
+
+  /* Letter spacing */
+  --tracking-tight:   -0.03em;  /* hero h1 */
+  --tracking-tight-2: -0.025em; /* section h2 */
+  --tracking-tight-3: -0.02em;  /* metric-value */
+  --tracking-wide:    0.06em;   /* uppercase labels */
+  --tracking-wide-2:  0.08em;   /* uppercase labels, larger */
+  --tracking-wide-3:  0.1em;    /* uppercase section-label, callout-label */
+  --tracking-wide-4:  0.12em;   /* hero-label, section-label (dashboard) */
+
+  /* Line heights */
+  --leading-tight:  1.2;
+  --leading-snug:   1.25;   /* hero h1 */
+  --leading-normal: 1.3;    /* section h2 */
+  --leading-relaxed:1.55;   /* table cell text */
+  --leading-loose:  1.6;    /* general body copy */
+  --leading-loose-2:1.65;   /* hero-subtitle, callout body */
+  --leading-loose-3:1.7;    /* body line-height (dashboard, pozicionálás) */
+  --leading-loose-4:1.75;   /* body line-height (piac-elemzes) */
+
+  /* ---------------------------------------------------------------------
+     Spacing (as observed; 8px-ish rhythm but not perfectly modular)
+     --------------------------------------------------------------------- */
+  --space-1:  4px;
+  --space-2:  6px;
+  --space-3:  8px;
+  --space-4:  10px;
+  --space-5:  12px;
+  --space-6:  14px;
+  --space-7:  16px;
+  --space-8:  18px;
+  --space-9:  20px;
+  --space-10: 22px;
+  --space-11: 24px;
+  --space-12: 28px;
+  --space-13: 32px;
+  --space-14: 36px;
+  --space-15: 40px;
+  --space-16: 56px;   /* topbar height */
+  --space-17: 64px;
+  --space-18: 72px;
+  --space-19: 80px;
+  --space-20: 88px;
+  --space-21: 96px;
+
+  /* Container widths */
+  --container-narrow: 860px;   /* piac-elemzes, pozicionálás, esettanulmányok main/hero-inner */
+  --container-base:   880px;   /* dashboard main/hero-inner */
+  --container-wide:   1160px;  /* license-calculator .page */
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg:  8px;
+  --radius-xl:  9px;   /* table corner radius (inner, to match 10px outer wrap minus 1px border) */
+  --radius-2xl: 10px;
+  --radius-3xl: 12px;
+
+  /* Shadows */
+  --shadow-card-hover: 0 4px 18px rgba(0, 0, 0, 0.09);
+
+  /* Transitions */
+  --transition-fast: 0.15s;
+  --transition-base: 0.18s;
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index */
+  --z-sticky: 100;
+}

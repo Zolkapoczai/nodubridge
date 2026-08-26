@@ -1,0 +1,185 @@
+/* ==========================================================================
+   NODU Bridge — Utility classes
+   Requires: nodu-tokens.css loaded first.
+   Small, single-purpose helpers not tied to a specific component, useful for
+   composing new pages consistently with the existing 7 HTML files.
+   ========================================================================== */
+
+/* -- Display -------------------------------------------------------------- */
+.u-block         { display: block; }
+.u-inline-block  { display: inline-block; }
+.u-inline        { display: inline; }
+.u-flex          { display: flex; }
+.u-inline-flex   { display: inline-flex; }
+.u-grid          { display: grid; }
+.u-hidden        { display: none; }
+
+/* -- Flex utilities --------------------------------------------------------- */
+.u-flex-row       { flex-direction: row; }
+.u-flex-col       { flex-direction: column; }
+.u-items-start    { align-items: flex-start; }
+.u-items-center   { align-items: center; }
+.u-items-baseline { align-items: baseline; }
+.u-items-end      { align-items: flex-end; }
+.u-justify-start   { justify-content: flex-start; }
+.u-justify-center  { justify-content: center; }
+.u-justify-between { justify-content: space-between; }
+.u-justify-end     { justify-content: flex-end; }
+.u-flex-wrap      { flex-wrap: wrap; }
+.u-flex-nowrap    { flex-wrap: nowrap; }
+.u-flex-1         { flex: 1; }
+.u-flex-shrink-0  { flex-shrink: 0; }
+
+/* -- Gap (matches the spacing scale in nodu-tokens.css) -------------------- */
+.u-gap-1  { gap: var(--space-1); }
+.u-gap-2  { gap: var(--space-2); }
+.u-gap-3  { gap: var(--space-3); }
+.u-gap-4  { gap: var(--space-4); }
+.u-gap-5  { gap: var(--space-5); }
+.u-gap-6  { gap: var(--space-6); }
+.u-gap-7  { gap: var(--space-7); }
+.u-gap-8  { gap: var(--space-8); }
+.u-gap-9  { gap: var(--space-9); }
+.u-gap-10 { gap: var(--space-10); }
+.u-gap-11 { gap: var(--space-11); }
+.u-gap-12 { gap: var(--space-12); }
+
+/* -- Grid columns ----------------------------------------------------------- */
+.u-grid-cols-1 { grid-template-columns: 1fr; }
+.u-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.u-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.u-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* -- Spacing: margin ---------------------------------------------------------
+   Scale keys align with --space-* tokens in nodu-tokens.css (px values shown
+   in comments for quick reference). */
+.u-m-0  { margin: 0; }
+.u-mt-0 { margin-top: 0; }
+.u-mb-0 { margin-bottom: 0; }
+
+.u-mt-1  { margin-top: var(--space-1); }   /* 4px */
+.u-mt-3  { margin-top: var(--space-3); }   /* 8px */
+.u-mt-5  { margin-top: var(--space-5); }   /* 12px */
+.u-mt-7  { margin-top: var(--space-7); }   /* 16px */
+.u-mt-9  { margin-top: var(--space-9); }   /* 20px */
+.u-mt-11 { margin-top: var(--space-11); }  /* 24px */
+.u-mt-13 { margin-top: var(--space-13); }  /* 32px */
+
+.u-mb-1  { margin-bottom: var(--space-1); }
+.u-mb-3  { margin-bottom: var(--space-3); }
+.u-mb-5  { margin-bottom: var(--space-5); }
+.u-mb-7  { margin-bottom: var(--space-7); }
+.u-mb-9  { margin-bottom: var(--space-9); }
+.u-mb-11 { margin-bottom: var(--space-11); }
+.u-mb-13 { margin-bottom: var(--space-13); }
+
+.u-mx-auto { margin-left: auto; margin-right: auto; }
+.u-ml-auto { margin-left: auto; }
+.u-mr-auto { margin-right: auto; }
+
+/* -- Spacing: padding --------------------------------------------------------- */
+.u-p-0  { padding: 0; }
+.u-p-3  { padding: var(--space-3); }
+.u-p-5  { padding: var(--space-5); }
+.u-p-7  { padding: var(--space-7); }
+.u-p-9  { padding: var(--space-9); }
+.u-p-11 { padding: var(--space-11); }
+.u-p-13 { padding: var(--space-13); }
+
+.u-px-3  { padding-left: var(--space-3); padding-right: var(--space-3); }
+.u-px-7  { padding-left: var(--space-7); padding-right: var(--space-7); }
+.u-px-11 { padding-left: var(--space-11); padding-right: var(--space-11); }
+.u-py-3  { padding-top: var(--space-3); padding-bottom: var(--space-3); }
+.u-py-7  { padding-top: var(--space-7); padding-bottom: var(--space-7); }
+.u-py-11 { padding-top: var(--space-11); padding-bottom: var(--space-11); }
+
+/* -- Typography --------------------------------------------------------------- */
+.u-text-left    { text-align: left; }
+.u-text-center  { text-align: center; }
+.u-text-right   { text-align: right; }
+.u-text-justify { text-align: justify; }
+
+.u-font-regular   { font-weight: var(--font-weight-regular); }
+.u-font-medium    { font-weight: var(--font-weight-medium); }
+.u-font-semibold  { font-weight: var(--font-weight-semibold); }
+.u-font-bold      { font-weight: var(--font-weight-bold); }
+.u-font-extrabold { font-weight: var(--font-weight-extrabold); }
+
+.u-text-xs  { font-size: var(--font-size-xs); }
+.u-text-sm  { font-size: var(--font-size-sm2); }
+.u-text-base{ font-size: var(--font-size-base-17); }
+.u-text-md  { font-size: var(--font-size-md); }
+.u-text-lg  { font-size: var(--font-size-lg); }
+.u-text-xl  { font-size: var(--font-size-xl); }
+
+.u-uppercase   { text-transform: uppercase; }
+.u-lowercase   { text-transform: lowercase; }
+.u-capitalize  { text-transform: capitalize; }
+.u-tracking-wide  { letter-spacing: var(--tracking-wide-3); }
+.u-tracking-tight { letter-spacing: var(--tracking-tight); }
+
+.u-nowrap      { white-space: nowrap; }
+.u-tabular-nums{ font-variant-numeric: tabular-nums; }
+.u-italic      { font-style: italic; }
+
+/* -- Color (text) --------------------------------------------------------------- */
+.u-text-accent  { color: var(--accent); }
+.u-text-muted   { color: var(--muted); }
+.u-text-muted2  { color: var(--muted2); }
+.u-text-default { color: var(--text); }
+.u-text-white   { color: #FFFFFF; }
+.u-text-green   { color: var(--green); }
+.u-text-blue    { color: var(--blue); }
+.u-text-purple  { color: var(--purple); }
+.u-text-amber   { color: var(--amber); }
+
+/* -- Color (background) ----------------------------------------------------------- */
+.u-bg-page    { background: var(--bg); }
+.u-bg-card    { background: var(--card); }
+.u-bg-topbar  { background: var(--topbar); }
+.u-bg-accent  { background: var(--accent); }
+.u-bg-amber   { background: var(--amber-bg); }
+.u-bg-green   { background: var(--green-bg); }
+.u-bg-blue    { background: var(--blue-bg); }
+.u-bg-purple  { background: var(--purple-bg); }
+.u-bg-orange-tint { background: var(--orange-bg); }
+
+/* -- Borders & radius ----------------------------------------------------------------- */
+.u-border       { border: 1px solid var(--border); }
+.u-border-top   { border-top: 1px solid var(--border); }
+.u-border-bottom{ border-bottom: 1px solid var(--border); }
+.u-border-none  { border: none; }
+
+.u-rounded-sm  { border-radius: var(--radius-sm); }
+.u-rounded-md  { border-radius: var(--radius-md); }
+.u-rounded-lg  { border-radius: var(--radius-lg); }
+.u-rounded-xl  { border-radius: var(--radius-2xl); }
+.u-rounded-2xl { border-radius: var(--radius-3xl); }
+.u-rounded-full{ border-radius: 99px; }
+
+/* -- Sizing ------------------------------------------------------------------------------ */
+.u-w-full  { width: 100%; }
+.u-h-full  { height: 100%; }
+.u-max-w-narrow { max-width: var(--container-narrow); }
+.u-max-w-base   { max-width: var(--container-base); }
+.u-max-w-wide   { max-width: var(--container-wide); }
+
+/* -- Position / z-index --------------------------------------------------------------------- */
+.u-relative { position: relative; }
+.u-sticky   { position: sticky; top: 0; z-index: var(--z-sticky); }
+
+/* -- Misc ------------------------------------------------------------------------------------ */
+.u-overflow-x-auto { overflow-x: auto; }
+.u-shadow-card-hover:hover { box-shadow: var(--shadow-card-hover); }
+.u-transition { transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast); }
+
+/* -- Responsive helpers (mirrors the 3 breakpoints used across pages) ------------------------- */
+@media (max-width: 960px) {
+  .u-md\:grid-cols-1 { grid-template-columns: 1fr; }
+  .u-md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .u-sm\:grid-cols-1 { grid-template-columns: 1fr; }
+  .u-sm\:hidden      { display: none; }
+  .u-sm\:text-left   { text-align: left; }
+}

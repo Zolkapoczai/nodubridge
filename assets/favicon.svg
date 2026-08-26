@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="NODU">
+  <!-- NODU favicon: a logó narancs saroktámasz-jele a márka sötét alapján.
+       Vízszintes felső él + függőleges jobb él, a bal-alsó sarok felől befelé
+       görbülő (konkáv) ívvel. A "NODU" szóvédjegy 16px-en olvashatatlan lenne,
+       ezért csak a jel szerepel. -->
+  <rect width="32" height="32" rx="7" fill="#17171A"/>
+  <path d="M4 4 L28 4 L28 28 A24 24 0 0 0 4 4 Z" fill="#F04E23"/>
+</svg>

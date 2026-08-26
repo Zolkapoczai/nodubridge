@@ -23,7 +23,7 @@ Ez a repository a NODU Bridge projekt tartalmi oldalait és dokumentációját t
 
 ## Keresőindex frissítése
 
-A kereső a `../assets/js/search-index.json` fájlból dolgozik. Ha bármelyik dokumentum tartalma változik, futtasd újra:
+A kereső az `assets/js/search-index.js` fájlból dolgozik (script tagen keresztül, hogy `file://` protokollon is működjön; a `.json` változat csak referencia, nincs verziókövetve). Ha bármelyik dokumentum tartalma változik, futtasd újra:
 
 ```
 node build-search-index.js

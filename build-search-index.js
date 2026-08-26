@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Beindexeli a NODU Bridge HTML dokumentumokat kereséshez.
 // - Beszúr egy stabil id-t minden h1/h2/h3 címsorra, ha még nincs neki (mentés vissza a fájlba).
-// - Kiírja a szekció-szintű szöveges indexet: ../assets/js/search-index.json
+// - Kiírja a szekció-szintű szöveges indexet: assets/js/search-index.js (+ .json, gitignore-olt)
 //
 // Futtatás: node build-search-index.js   (tartalom-frissítés után újra kell futtatni)
 
@@ -160,13 +160,13 @@ function main() {
   const json = JSON.stringify(outIndex, null, 0);
 
   // JSON: hasznos referenciának / eszközöknek.
-  const jsonPath = path.join(dir, '..', 'assets', 'js', 'search-index.json');
+  const jsonPath = path.join(dir, 'assets', 'js', 'search-index.json');
   fs.writeFileSync(jsonPath, json, 'utf8');
 
   // JS: ezt tolti be a bongeszo <script>-kent. A statikus HTML-oldalak
   // gyakran file:// protokollon nyilnak meg (nincs szerver), ahol a fetch()
   // a JSON-ra CORS-hiba miatt elbukna - a <script> tag viszont file://-on is mukodik.
-  const jsPath = path.join(dir, '..', 'assets', 'js', 'search-index.js');
+  const jsPath = path.join(dir, 'assets', 'js', 'search-index.js');
   fs.writeFileSync(jsPath, `window.NODU_SEARCH_INDEX = ${json};\n`, 'utf8');
 
   console.log(`\n${outIndex.length} szekcio indexelve, ${CONTENT_FILES.length} dokumentumbol.`);

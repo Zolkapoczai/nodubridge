@@ -1,0 +1,6 @@
+# A keresőindex JSON változata: bájtra ugyanaz a tartalom, mint a
+# search-index.js, csak window.NODU_SEARCH_INDEX értékadás nélkül.
+# A böngésző kizárólag a .js-t tölti (script tag, hogy file:// protokollon
+# is működjön), ezért a .json csak lokális referencia — a build szkript
+# minden futáskor újragenerálja.
+assets/js/search-index.json
