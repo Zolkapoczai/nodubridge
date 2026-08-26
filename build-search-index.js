@@ -17,6 +17,7 @@ const CONTENT_FILES = [
   'nodu-bridge-piackutatas.html',
   'nodu-bridge-roadmap.html',
   'nodu-bridge-speckle-tanulsagok.html',
+  'nodu-bridge-strategiai-tanulmany.html',
   'nodu-bridge-vezetoi-osszefoglalo.html',
 ];
 

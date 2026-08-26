@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <title>NODU Bridge Stratégiai piackutatás</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/nodu-tokens.css">
+  <link rel="stylesheet" href="../assets/css/nodu-design-system.css">
+  <link rel="stylesheet" href="../assets/css/nodu-utilities.css">
+  <style>
+    /* Lokális felülírás: editoriális intro-box (nem pasztell háttér), egységesen
+       a Piaci elemzés dokumentummal. */
+    .intro-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue-border);
+      border-radius: 8px;
+      color: var(--text);
+    }
+    .intro-box strong:first-of-type { color: var(--muted); }
+
+    .callout-green {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green-border);
+      border-radius: 8px;
+      color: var(--text);
+    }
+    .callout-green > strong:first-of-type { color: var(--muted); }
+    .callout-green strong, .callout-green p { color: var(--text); }
+
+    /* Evidencia-jelölések (FACT / ESTIMATE / MODEL / …) */
+    .ev {
+      display: inline-block;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.42rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      vertical-align: 0.06em;
+      border: 1px solid transparent;
+    }
+    .ev-fact     { background: #F0FDF4; border-color: #22C55E; color: #14532D; }
+    .ev-estimate { background: #FFFBEB; border-color: #F59E0B; color: #92400E; }
+    .ev-model    { background: #EFF6FF; border-color: #3B82F6; color: #1E3A5F; }
+    .ev-inference{ background: #F5F3FF; border-color: #7C3AED; color: #4C1D95; }
+    .ev-signal   { background: #F4F4F5; border-color: #A1A1AA; color: #3F3F46; }
+    .ev-unknown  { background: #FEF2F2; border-color: #EF4444; color: #7F1D1D; }
+    .ev-internal { background: #FFF3F0; border-color: var(--accent); color: #9A2C0F; }
+
+    .ev-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 0.9rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: left;
+    }
+    .ev-legend span.item { display: flex; align-items: center; gap: 6px; }
+
+    /* Táblázat-elrendezések */
+    .t-fixed { table-layout: fixed; }
+    .t-recon { min-width: 1020px; }
+    .t-recon col:nth-child(1) { width: 15%; }
+    .t-recon col:nth-child(7) { width: 13%; }
+    .t-range col:nth-child(1) { width: 40%; }
+    .t-range col:nth-child(2),
+    .t-range col:nth-child(3),
+    .t-range col:nth-child(4) { width: 13%; }
+    .t-range col:nth-child(5) { width: 21%; }
+    .t-range td:nth-child(2),
+    .t-range td:nth-child(3),
+    .t-range td:nth-child(4) { text-align: right; white-space: nowrap; }
+    .t-3 col:nth-child(1) { width: 30%; }
+    .t-3 col:nth-child(2) { width: 22%; }
+    .t-3 col:nth-child(3) { width: 48%; }
+    .t-4 col:nth-child(1) { width: 22%; }
+    .t-4 col:nth-child(2) { width: 26%; }
+    .t-4 col:nth-child(3) { width: 26%; }
+    .t-4 col:nth-child(4) { width: 26%; }
+    .t-level col:nth-child(1) { width: 34%; }
+    .t-level col:nth-child(2) { width: 10%; }
+    .t-level col:nth-child(3) { width: 56%; }
+    .t-level td:nth-child(2) { text-align: center; font-weight: 700; }
+    .t-cand col:nth-child(1) { width: 7%; }
+    .t-cand col:nth-child(2) { width: 24%; }
+    .t-cand col:nth-child(3) { width: 9%; }
+    .t-cand col:nth-child(4) { width: 42%; }
+    .t-cand col:nth-child(5) { width: 18%; }
+    .t-cand td:nth-child(1),
+    .t-cand td:nth-child(3) { text-align: right; white-space: nowrap; }
+    .t-som col:nth-child(1) { width: 40%; }
+    .t-som td:nth-child(2),
+    .t-som td:nth-child(3),
+    .t-som td:nth-child(4) { text-align: right; white-space: nowrap; }
+
+    /* Q&A blokk (befektetői teszt) */
+    .qa-list { list-style: none; margin: 1rem 0 0; padding: 0; }
+    .qa-list li {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    .qa-list li:last-child { border-bottom: none; }
+    .qa-q {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+      text-align: left;
+    }
+    .qa-a { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+    .qa-a strong { color: var(--text); }
+
+    /* Egyszerű, kötőjel nélküli listák */
+    .plain-list { margin: 1rem 0 1.1rem; padding-left: 1.2rem; }
+    .plain-list li { margin-bottom: 0.55rem; line-height: 1.7; }
+
+    /* Verdikt-blokk */
+    .verdict {
+      background: var(--topbar);
+      color: #fff;
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+    }
+    .verdict .verdict-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      text-align: left;
+    }
+    .verdict .verdict-value {
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+      text-align: left;
+    }
+    .verdict p { color: #D4D4D8; font-size: 0.92rem; margin: 0; }
+
+    .metric-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .metric-grid .metric-card { hyphens: none; -webkit-hyphens: none; }
+    .metric-grid .metric-value { white-space: normal; }
+
+    @media (max-width: 900px) {
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+    <script src="_auth.js"></script>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="nodu-bridge-vezetoi-osszefoglalo.html" class="topbar-logo">
+    <div class="topbar-icon">N</div>
+    <div>
+      <div class="topbar-title">NODU Bridge</div>
+      <div class="topbar-subtitle">Stratégiai piackutatás</div>
+    </div>
+  </a>
+  <div class="topbar-nav">
+    <a href="nodu-bridge-kereso.html">Kereső</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-strategiai-tanulmany.html">Stratégiai tanulmány</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-roadmap.html">Roadmap</a>
+    <span class="topbar-sep">|</span>
+    <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">Befektetői színvonalú piackutatás</span>
+    <h1 id="globalis-revit-piac-bim-interoperabilitas-es-terjeszkedesi-strategia">Globális Revit piac, BIM interoperabilitás és terjeszkedési stratégia</h1>
+    <div class="hero-meta">Készült: 2026-08-26 · revideálva 2026-08-26 (technikai és csatorna-frissítés) · 32 fejezet · forrás: <code>NODU_Strategic_Market_Study_HU.md</code></div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- INTRO / MÓDSZERTAN -->
+  <div class="intro-box">
+    <strong>Evidencia-jelölés és módszertan</strong>
+    Ez a fejezet a teljes stratégiai piackutatást tartalmazza. Minden állítás mellett szerepel a bizonyíték szintje, és a tanulmány kimondja, hol nincs bizonyíték, ahelyett hogy számot találna ki. A teljes hivatkozásjegyzék a 31. szakaszban.
+    <div class="ev-legend">
+      <span class="item"><span class="ev ev-fact">FACT</span> igazolt, elsődleges/hivatalos forrás</span>
+      <span class="item"><span class="ev ev-estimate">ESTIMATE</span> harmadik féltől származó becslés</span>
+      <span class="item"><span class="ev ev-model">MODEL</span> triangulációval levezetett tartomány</span>
+      <span class="item"><span class="ev ev-inference">INFERENCE</span> szomszédos tényekből levont következtetés</span>
+      <span class="item"><span class="ev ev-signal">USER SIGNAL</span> közösségi/fórum-bizonyíték, nem méret</span>
+      <span class="item"><span class="ev ev-unknown">UNKNOWN</span> nincs megbízható bizonyíték</span>
+      <span class="item"><span class="ev ev-internal">INTERNAL ENG.</span> NODU belső, dátumozott mérnöki dokumentáció</span>
+    </div>
+  </div>
+
+  <div class="callout-amber">
+    <strong>Revíziós megjegyzés (2026-08-26)</strong>
+    A jelentés beépíti a NODU belső mérnöki nyilvántartását (45–54. ciklus, 2026. március–augusztus), a megerősített aktív viszonteladói kapcsolatokat öt piacon a DACH-on túl (24. szakasz), és a közvetlen megerősítést, hogy az Archicad→Revit konnektor valódi, szerkeszthető natív Revit-objektumokat hoz létre (13.1 szakasz). Ez <strong>nem változtatja meg a piacméretezési számokat</strong> — csökkenti a technológiai kockázatot, és a terjeszkedési-piaci kérdést (30. szakasz) hagyja fő nyitott tételként.
+  </div>
+
+  <hr class="divider">
+
+  <!-- 01 VEZETŐI ÖSSZEFOGLALÓ -->
+  <section class="section">
+    <div class="section-label">01 Vezetői összefoglaló</div>
+    <h2 id="hol-tartunk-ma">Hol tartunk ma</h2>
+
+    <p>Ez az összefoglaló a NODU saját vezetésének íródott — a tulajdonosnak és a Termék-/Fejlesztési vezetőnek — mint a teljes tanulmány számokra fókuszáló nézete. Minden szám részletezése, forrása és fenntartása a következő szakaszokban található.</p>
+
+    <div class="metric-grid">
+      <div class="metric-card accent">
+        <div class="metric-label">Ma megszólítható piac (SAM)</div>
+        <div class="metric-value">57 M€/év</div>
+        <div class="metric-sub">Azok az Archicad-szervezetek, amelyek már együttműködnek Revit-felhasználókkal, leszűrve azokra, akik ténylegesen fizetnének. A Graphisoft auditált pénzügyeiből épül, nem Revit-felhasználói létszám-becslésből.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Reálisan elérhető ügyfélkör</div>
+        <div class="metric-value">3 400–4 300 szervezet</div>
+        <div class="metric-sub">A világ ~100 000 Archicad-licencéből és ~33 000 Archicad-szervezetéből.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Hosszú távú plafon</div>
+        <div class="metric-value">500 M€ – 2,3 Md€</div>
+        <div class="metric-sub">Ha a Teklát vagy a Vectorworksöt sikerül második ökoszisztémaként megnyerni, és folytatjuk a verzióhidalás fejlesztését. Felfelé mutató eset, nem az idei terv.</div>
+      </div>
+    </div>
+
+    <div class="chart-viz">
+      <div class="chart-viz-title">NODU piacméretezés — alapeset (M€)</div>
+      <svg viewBox="0 0 820 236" role="img" aria-label="NODU piacméretezés alapeset">
+        <g font-family="Inter, sans-serif" font-size="13" fill="#3F3F46">
+          <text x="0" y="24">Jelenlegi összes TAM</text>
+          <text x="0" y="70">Archicad↔Revit TAM</text>
+          <text x="0" y="116">Verzióhidalás TAM</text>
+          <text x="0" y="162">Jelenlegi SAM</text>
+          <text x="0" y="208">3. év SOM (ARR)</text>
+        </g>
+        <g>
+          <rect x="210" y="8"   width="498" height="22" rx="3" fill="#94A3B8"/>
+          <rect x="210" y="54"  width="360" height="22" rx="3" fill="#64748B"/>
+          <rect x="210" y="100" width="138" height="22" rx="3" fill="#FBBF24"/>
+          <rect x="210" y="146" width="57"  height="22" rx="3" fill="#F59E0B"/>
+          <rect x="210" y="192" width="14"  height="22" rx="3" fill="#F04E23"/>
+        </g>
+        <g font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#18181B">
+          <text x="718" y="24">498</text>
+          <text x="580" y="70">360</text>
+          <text x="358" y="116">138</text>
+          <text x="277" y="162">57</text>
+          <text x="234" y="208">1,8</text>
+        </g>
+      </svg>
+      <div class="chart-viz-caption">A sávok az alapeset-értékek, nem előrejelzések. A Verzióhidalás komponens dominálja a bizonytalansági tartományt (19.2 szakasz) — a 498 M€ irányjelző középérték.</div>
+    </div>
+
+    <h3 id="a-technologia-igazoltan-mukodik">A technológia — igazoltan működik</h3>
+
+    <div class="callout-green">
+      <strong>Megerősített tény, nem hipotézis</strong>
+      Az Archicad→Revit konnektor által létrehozott Revit-oldali elemek <strong>az importálás után is teljesen szerkeszthetők maradnak</strong>. Egy konvertált tető valódi natív Revit „Basic Roof” objektumként landol, működő Rafter Cut, Fascia Depth és Slope paraméterekkel — nem néma referenciablokként, ami minden versenytársnál (Autodesk Data Exchange, IFC, Speckle) ragad. Ez a termék valódi differenciátora, és valós.
+    </div>
+
+    <h3 id="ami-meg-nyitott-es-mit-kell-tenni-vele">Ami még nyitott, és mit kell tenni vele</h3>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-3">
+        <colgroup><col><col><col></colgroup>
+        <thead>
+          <tr><th>Nyitott kérdés</th><th>Státusz</th><th>Következő lépés</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A konnektor független, harmadik féltől való igazolása</td>
+            <td>A termék működik; külső fél még nem tesztelte</td>
+            <td>Vegyünk rá egy semleges BIM-tanácsadót, hogy tesztelje és adja írásban — a legjobb egyetlen lépés befektetői megkeresés előtt</td>
+          </tr>
+          <tr>
+            <td>Revit → Archicad (fordított irány)</td>
+            <td>Ütemterv, még nincs kész</td>
+            <td>Közeljövőbeli fejlesztés — ugyanazok az ügyfelek, nincs szükség új értékesítési mozdulatra</td>
+          </tr>
+          <tr>
+            <td>Folyamatos/élő szinkronizáció (mindkét oldal automatikusan frissül)</td>
+            <td>Ütemterv, még nincs kész — minden versenytársra is igaz</td>
+            <td>A hosszú távú moat-játék; építsük meg, ha a mag-terméknek már van volumene</td>
+          </tr>
+          <tr>
+            <td>Verzióhidalás kereslete (eltérő Revit-évjáratú fájlok)</td>
+            <td>Valós fájdalom, nincs még árazási/gyakorisági adat</td>
+            <td>Egy rövid ügyfélfelmérés — olcsón lezárható</td>
+          </tr>
+          <tr>
+            <td>Tekla/Vectorworks általánosíthatóság</td>
+            <td>Még nem tesztelt</td>
+            <td>Egy valódi pilot kell hozzá, hogy tudjuk, átvihető-e a technológia</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="beveteli-palya">Bevételi pálya</h3>
+
+    <div class="chart-viz">
+      <div class="chart-viz-title">ARR-pálya és a hozzá szükséges feltételek</div>
+      <svg viewBox="0 -22 820 222" role="img" aria-label="NODU ARR pálya">
+        <g font-family="Inter, sans-serif" font-size="12" fill="#71717A">
+          <text x="0" y="196">3. év</text>
+          <text x="255" y="196">5. év</text>
+          <text x="510" y="196">7. év (konzervatív)</text>
+          <text x="700" y="196">7. év (agresszív)</text>
+        </g>
+        <g>
+          <rect x="0"   y="167" width="150" height="13" rx="3" fill="#FBBF24"/>
+          <rect x="255" y="118" width="150" height="62" rx="3" fill="#F59E0B"/>
+          <rect x="510" y="86"  width="150" height="94" rx="3" fill="#F04E23"/>
+          <rect x="700" y="0"   width="110" height="180" rx="3" fill="#FEE8E2"/>
+        </g>
+        <g font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#18181B">
+          <text x="0" y="158">≈1,8 M€</text>
+          <text x="255" y="109">≈8,5 M€</text>
+          <text x="510" y="77">≈12–13 M€</text>
+          <text x="700" y="-6">≈25 M€</text>
+        </g>
+      </svg>
+      <div class="chart-viz-caption">A 21. szakasz alulról építkező SOM-modellje. A tanulmány a 7. évre a konzervatív ≈12–13 M€-t ajánlja horgonyként, nem a ≈25 M€-os alapesetet.</div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="t-fixed">
+        <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+        <thead><tr><th>ARR cél</th><th>Mi kell hozzá</th></tr></thead>
+        <tbody>
+          <tr><td class="td-strong">10 M€</td><td>~20% a mai 57 M€-os piacból — elérhető önmagában az Archicad↔Revit irányból</td></tr>
+          <tr><td class="td-strong">25 M€</td><td>Kell, hogy a Tekla (vagy hasonló) valós bevételt hozzon</td></tr>
+          <tr><td class="td-strong">50 M€</td><td>Kell, hogy a Verzióhidalás árazott, szállított termék legyen, plusz egy második terjeszkedési ökoszisztéma</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Piacra vitel, már mozgásban:</strong> a DACH (Németország/Svájc/Ausztria) az egyértelmű #1 célpont. Aktív viszonteladói kapcsolatok már léteznek Észak-Európában, Olaszországban, Spanyolországban, Szerbiában és Indiában, közös webináriumok tervezésével — valós disztribúció a mag-piacon túl, a tervezettnél gyorsabban.</p>
+
+    <div class="callout-green">
+      <strong>Lényeg</strong>
+      A jelenlegi ék valós, árazott és finanszírozható 57 M€-os SAM / 5–10 M€-os ARR-plafon mellett. Az 500 M€+ nagyobb történet abban a pillanatban válik ténnyé pitch helyett, amint egy külső tanácsadó megerősíti a technológiát és egy Tekla-üzlet lezárul. Mindkettő elérhető közelségben van idén.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 02 BEFEKTETÉSI TÉZIS -->
+  <section class="section">
+    <div class="section-label">02 Befektetési tézis</div>
+    <h2 id="beagyazodas-a-kategoriaba">Beágyazódás a kategóriába</h2>
+    <p>A NODU egy <strong>beágyazódás-a-kategóriába</strong> tézis: belépés a legfájdalmasabb, legjobban alátámasztott, auditált adatokkal leginkább védhető szegmensen keresztül (Archicad-szervezetek, amelyeknek strukturális Revit-együttműködési kitettségük van, DACH/észak-európai koncentrációval), egy valós és jelenleg kiszolgálatlan hűségi rés monetizálása (egyetlen versenytárs sem épít újra élő, natív, szerkeszthető Family/Type objektumokat ennél a konkrét párosításnál — 13. szakasz), majd terjeszkedés két alátámasztott tengely mentén: verzióhidalás ugyanazon ügyfélbázison belül (kereskedelmileg nem bizonyított, 10. szakasz) és horizontális terjeszkedés strukturálisan hasonló BIM-szerzői ökoszisztémákba (Tekla, Vectorworks — 12. szakasz).</p>
+    <p>A tézis <strong>nem</strong> a Revit teljes telepített bázisának méretén nyugszik, amelyet a tanulmány kifejezetten elutasít TAM-proxyként (6. szakasz) — egy szűkebb, auditált, szervezeti szintű populáción és egy konkrét technikai differenciálási állításon alapul.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 03 STRATÉGIAI KÉRDÉS -->
+  <section class="section">
+    <div class="section-label">03 Stratégiai kérdés</div>
+    <h2 id="niche-konverzios-problema-vagy-kategoria">Niche konverziós probléma vagy kategória?</h2>
+
+    <div class="callout-amber">
+      <strong>A tanulmány központi kérdése</strong>
+      A NODU alapvetően egy niche Archicad↔Revit konverziós problémát old meg, vagy szélesebb, nagy hűségű BIM interoperabilitási kategóriává válhat, amely a Revit-ökoszisztéma köré épül?
+    </div>
+
+    <p><strong>Válasz, bizonyíték-vezérelt:</strong> Ma a NODU egy niche problémát old meg — valós, ha igazolt akkor védhető, és ARR-ben kifejezve 5–10 M€-t érő. Van egy koherens, bizonyítékokkal konzisztens <em>útja</em> a szélesebb kategóriává váláshoz (25. szakasz ütemterve, 19. szakasz hosszú távú TAM-ja), de ez az út legalább egy nem igazolt technikai állításon és legalább két kereskedelmileg nem bizonyított terjeszkedési piacon vezet keresztül.</p>
+
+    <p><strong>A jelenleg helyes válasz az, hogy „niche probléma hiteles, bizonyíték-konzisztens terjeszkedési tézissel” — még nem „szélesebb kategória.”</strong> A formális verdiktet lásd a 32. szakaszban.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 04 EVIDENCIA-BÁZIS -->
+  <section class="section">
+    <div class="section-label">04 Evidencia-bázis</div>
+    <h2 id="mire-epul-a-tanulmany">Mire épül a tanulmány</h2>
+
+    <p>A tanulmány <strong>12 belső kutatási dokumentumra</strong> épül — 5 az Archicad/Graphisoft felhasználói számokról, 7 a Revit/NODU Bridge piacról (EN/HU párokkal) —, valamint <strong>5 auditált Graphisoft SE pénzügyi beszámolóra</strong> (FY2023–2025 éves jelentések, könyvvizsgálói jelentés, részvényesi határozat). A 2026-os független webes kutatás kiterjedt az Autodesk SEC-bejelentéseire és eredményközlő hívásaira, a Nemetschek/Graphisoft befektetői közleményeire, a buildingSMART/IFC dokumentációra, a Graphisoft/Autodesk termékdokumentációra, technográfiai szolgáltatókra (Enlyft, 6sense, Datanyze), valamint közösségi/szakmai fórumokra (AUGI, RevitForum, RevitCity, Autodesk Community, Graphisoft Community, McNeel Discourse), 2024. január–2026 között publikált forrásokat előnyben részesítve.</p>
+
+    <div class="callout-green">
+      <strong>A teljes evidencia-bázis legerősebb bizonyítéka</strong>
+      A Graphisoft SE auditált FY2025 árbevételének <strong>vak kinyerése (HUF 58 752 710 ezer ≈ 147,7 M€)</strong> kerekítési pontossággal megegyezett a belső Archicad telepítettbázis-tanulmány függetlenül levezetett 147,7 M€ nettó árbevétel adatával. Ez az oka annak, hogy a tanulmány Archicad-oldali számai lényegesen magasabb megbízhatóságúak, mint a Revit-oldaliak — az Autodesk egyetlen áttekintett bejelentésben sem közöl Revit-specifikus felhasználói, licencszám- vagy árbevétel-adatot.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 05 ÖSSZEEGYEZTETÉS -->
+  <section class="section">
+    <div class="section-label">05 Összeegyeztetés</div>
+    <h2 id="a-belso-kutatasi-tanulmanyok-osszeegyeztetese">A belső kutatási tanulmányok összeegyeztetése</h2>
+
+    <p class="source-note">Módszertan: metrikánként a 3 legmegbízhatóbb/legfüggetlenebb forrás, nem mechanikus átlagolás. „Legmegbízhatóbb” = auditált-pénzügyekhez-kötött &gt; hivatalos-FACT-hivatkozott &gt; technográfiai/crawl-alapú &gt; forrás nélküli MODEL.</p>
+
+    <div class="table-wrap">
+      <table class="t-recon">
+        <colgroup><col><col><col><col><col><col><col></colgroup>
+        <thead>
+          <tr><th>Metrika</th><th>1. forrás</th><th>2. forrás</th><th>3. forrás</th><th>Külső bizonyíték</th><th>Preferált becslés</th><th>Megbízhatóság</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Globális professzionális Revit-felhasználók</td>
+            <td>Gemini-átfutás: 2,41–3,55 M (MODEL, alap 3,15 M)</td>
+            <td>Perplexity-átfutás: 2,0–3,5 M (MODEL)</td>
+            <td>ChatGPT-átfutás: nem modellezi</td>
+            <td>Autodesk AECO árbevétel 2,937 Mrd$ FY2025 <span class="ev ev-fact">FACT</span> mindkét modell inputja mögött — módszertani konvergencia, nem független adat</td>
+            <td class="td-strong">2,0–3,55 M, közép ≈2,8 M</td>
+            <td>KÖZEPES</td>
+          </tr>
+          <tr>
+            <td>Revit szervezetek (globálisan)</td>
+            <td>ChatGPT-átfutás: 150E/250E/400E forgatókönyv (MODEL)</td>
+            <td>Perplexity-átfutás: 59 012 „verified organizations” (technográfiai)</td>
+            <td>6sense: ~30 470 vállalat (technográfiai)</td>
+            <td>Enlyft: 38 297 vállalat — függetlenül megerősíti a nagyságrendet</td>
+            <td class="td-strong">Technográfiai alsó becslés ≈30–59E felfedezett; valós populáció ALACSONY 150E / ALAP 250E / MAGAS 400E</td>
+            <td>KÖZEPES</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Archicad fizetős licencek (globálisan)</td>
+            <td>v2 EN tanulmány: 75 000–130 000 (alap 100 000) — auditált árbevételhez kötve</td>
+            <td>Gemini-átfutás: 175 000–215 000</td>
+            <td>ChatGPT-átfutás: 250 000–350 000</td>
+            <td>Egy harmadik fél 0,5–1,0 M-os adatát a v2 tanulmányra hivatkozó downstream revíziós memo kifejezetten cáfolja és lefelé korrigálja</td>
+            <td class="td-strong">75 000–130 000, alap 100 000</td>
+            <td class="td-strong">MAGAS — az egyetlen auditált Graphisoft SE pénzügyekhez kötött és azokkal keresztvalidált szám; 600 000 licenc azt igényelné, hogy a Graphisoft a teljes Nemetschek Design szegmens 183%-a legyen</td>
+          </tr>
+          <tr>
+            <td>Archicad szervezetek (globálisan)</td>
+            <td>v2 EN tanulmány: 25 000–43 000 (alap 33 000)</td>
+            <td>Gemini-átfutás: 42 000–52 000</td>
+            <td>Licencia-kutatás dok.: 230 000–270 000 (kiugró érték)</td>
+            <td>6sense/Enlyft: 6 890 felfedezett vállalat</td>
+            <td class="td-strong">25 000–43 000, alap 33 000</td>
+            <td>MAGAS</td>
+          </tr>
+          <tr>
+            <td>Földrajzi eloszlás (Archicad)</td>
+            <td>v2 EN tanulmány: Európa 67% (DACH 27,6%, észak-európai 10,4%)</td>
+            <td>Országmátrix-dok.: kvalitatív, konzisztens rangsorral</td>
+            <td>—</td>
+            <td>A technográfiai adatok USA-túlsúlyos mintázata webes-crawl torzítást tükröz a nagy/angol-nyelvű cégek felé, nem a valós telepített bázist</td>
+            <td class="td-strong">Európa ≈67%, DACH ≈27,6%, észak-európai ≈10,4%</td>
+            <td>MAGAS</td>
+          </tr>
+          <tr>
+            <td>Archicad→Revit TAM (nyers ellentmondás, a 6. szakaszban feloldva)</td>
+            <td>Gemini-átfutás: 250 M€ / 484 M€ alap / 960 M€ (Revit-felhasználói kaszkád)</td>
+            <td>v2-vonal: 26–105 M€, alap ≈57 M€ (Archicad-telepítettbázis-alapú)</td>
+            <td>ChatGPT-átfutás: nem nevez meg TAM-ot erre a szegmensre</td>
+            <td>—</td>
+            <td class="td-strong">Nincs vegyítve — a feloldást lásd a 6. szakaszban</td>
+            <td>ALACSONY feloldás előtt; KÖZEPES feloldás után</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note">A teljes, 14-soros összeegyeztetési táblázat az 1. fázis checkpointban (<code>01_evidence_base.md</code> §4) található; a fenti a döntés-releváns részhalmaz.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 06 PIACDEFINÍCIÓ -->
+  <section class="section">
+    <div class="section-label">06 Piacdefiníció</div>
+    <h2 id="harom-piac-kulon-tartva">Három piac, külön tartva</h2>
+
+    <p>A tanulmány kifejezetten elutasítja a NODU lehetőségének <code>Revit-felhasználók × feltételezett ár</code> alapú méretezését. Három piacot modellez és tart külön minden szakaszban, és csak egyszer, kifejezetten összegez a 19.3 szakaszban:</p>
+
+    <ul class="plain-list">
+      <li><strong>Jelenlegi piac (Archicad↔Revit):</strong> Archicad kereskedelmi bázis → Revit-együttműködési kitettség szűrő (~70–75%) → visszatérő gyakoriság szűrő (~40–60%) → fizetési hajlandóság szűrő (~50–65%) → kiszolgálható szervezetek → szervezetenkénti ACV → SAM → SOM.</li>
+      <li><strong>Második piac (Revit Verzióhidalás):</strong> Revit szervezetek → többverziós környezet előfordulása → epizodikus hidalási esemény gyakorisága → eseményenkénti ár → kiszolgálható kereslet. <strong>Kifejezetten másképp árazva és modellezve, mint az első piac</strong> (eseményalapú, nem előfizetéses), mert a bizonyítékok szerint ez az igény epizodikus, nem folyamatos.</li>
+      <li><strong>Terjeszkedési piac (jövőbeli ökoszisztémák):</strong> Forrás-ökoszisztéma (Tekla, Vectorworks, mások) → strukturális hasonlóság → populáció → megvalósíthatóság → terjeszkedési SAM. <strong>Soha nem adódik hozzá a jelenlegi TAM-hoz</strong> (19.4 szakasz).</li>
+    </ul>
+
+    <p><strong>A módszertani döntés és indoklása:</strong> ahol a belső tanulmányok 5–30x eltéréssel nem értettek egyet az Archicad→Revit TAM/SAM-ban, a tanulmány az <strong>Archicad-telepítettbázis, szervezeti szintű ACV módszertant</strong> fogadja el irányadóként, mert (1) ez az egyetlen vonal, amely auditált pénzügyekhez kötött, függetlenül keresztvalidálva (4. szakasz); (2) a NODU valós vevője egy Archicad-oldali szervezet, nem egy differenciálatlan Revit-felhasználó; (3) egy Revit-populációs kaszkád pontosan az „inkompatibilis populációk összevonásának” hibáját kockáztatja.</p>
+
+    <p>Az elutasított módszertan saját TAM-száma (484 M€ alap) megmaradt keresztellenőrzésként, nem eldobva — és ugyanabba a nagyságrendbe konvergál, mint a tanulmány saját TAM-száma (nem SAM-száma), ha konzisztens ACV-t alkalmazunk konzisztensen definiált plafon-populációra (19.1 szakasz). Az eredeti 5–30x eltérés abban koncentrálódott, amit az egyes forrásaik „SAM”-nak neveztek, nem a „TAM”-ban.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 07 GLOBÁLIS REVIT PIAC -->
+  <section class="section">
+    <div class="section-label">07 Globális Revit piac</div>
+    <h2 id="1-tablazat-globalis-revit-piac">1. táblázat — Globális Revit piac</h2>
+
+    <p>Az Autodesk egyetlen áttekintett bejelentésben (FY2025 10-K, több FY2025/FY2026 eredményközlő hívás átirata) sem tesz közzé Revit-specifikus számokat — ez <strong>megerősített hiány, nem kutatási rés</strong>. Az alábbi számok mind MODEL kimenetek.</p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-range">
+        <colgroup><col><col><col><col><col></colgroup>
+        <thead><tr><th>Metrika</th><th>Alacsony</th><th>Alap</th><th>Magas</th><th>Jelölés</th></tr></thead>
+        <tbody>
+          <tr><td>Összes Revit-felhasználó (oktatási/alkalmi is)</td><td>4,0 M</td><td class="td-strong">6,0 M</td><td>8,0 M</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Professzionális Revit-felhasználók</td><td>2,0 M</td><td class="td-strong">2,8 M</td><td>3,55 M</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Fizetős/professzionális licencek</td><td>1,8 M</td><td class="td-strong">2,36 M</td><td>2,66 M</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Aktív felhasználók (havi gyakoriság)</td><td>3,0 M</td><td class="td-strong">4,5 M</td><td>6,0 M</td><td><span class="ev ev-model">MODEL</span> <span class="ev ev-estimate">ESTIMATE</span><div class="td-muted">Napi gyakoriságú számok 1,26–1,86 M külön jelentve, nem összehasonlítható</div></td></tr>
+          <tr><td>Szervezetek (globálisan)</td><td>150 000</td><td class="td-strong">250 000</td><td>400 000</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Technográfiai alsó becsléssel konzisztens</div></td></tr>
+          <tr><td>Nagyvállalati szervezetek</td><td colspan="3" class="td-muted">Nincs méret szerinti bontást adó forrás</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+          <tr><td>KKV szervezetek</td><td colspan="3" class="td-muted">Nincs méret szerinti bontást adó forrás</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Globális méretezési kontextus</strong> (nem Revit-specifikus TAM-input, csak makro-alátámasztás): az Autodesk FY2025 teljes nettó árbevétele 6,13 Mrd$ (+12% éves), az AECO szegmens 2,937 Mrd$ (a teljes 47,9%-a, +14% éves) — a Revit árbevétele nincs elkülönítve ebben a számban <span class="ev ev-fact">FACT</span> [Autodesk 10-K FY2025, SEC EDGAR, 2025]. Az Autodesk összes termékre vonatkozó előfizetése: 7,79 M (korrigálva 7,18 M) — nem használható Revit licencszámként <span class="ev ev-fact">FACT</span>.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 08 ARCHICAD TELEPÍTETT BÁZIS -->
+  <section class="section">
+    <div class="section-label">08 Archicad telepített bázis</div>
+    <h2 id="2-tablazat-archicad-telepitett-bazis">2. táblázat — Archicad telepített bázis</h2>
+
+    <p>A tanulmány egyetlen méretezési táblázata, amely elsődleges auditált pénzügyi kimutatásokhoz kötött.</p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-range">
+        <colgroup><col><col><col><col><col></colgroup>
+        <thead><tr><th>Metrika</th><th>Alacsony</th><th>Alap</th><th>Magas</th><th>Jelölés</th></tr></thead>
+        <tbody>
+          <tr><td>Fizetős licencek (globálisan)</td><td>75 000</td><td class="td-strong">100 000</td><td>130 000</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">KÖZEPES–MAGAS megbízhatóság</div></td></tr>
+          <tr><td>Aktív professzionális felhasználók</td><td>125 000</td><td class="td-strong">175 000</td><td>240 000</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Szervezetek (≥1 fizetős licenccel)</td><td>25 000</td><td class="td-strong">33 000</td><td>43 000</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Graphisoft SE auditált nettó árbevétele (FY2025)</td><td>—</td><td class="td-strong">HUF 58 752 710 e ≈ 147,7 M€</td><td>—</td><td><span class="ev ev-fact">FACT</span></td></tr>
+          <tr><td>— ebből Archicadhez köthető</td><td>—</td><td class="td-strong">≈127,0 M€ (86,0%)</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Auditálthoz kötve</div></td></tr>
+          <tr><td>Listaár (globálisan súlyozva)</td><td>—</td><td class="td-strong">≈2 300 €/licenc/év</td><td>—</td><td><span class="ev ev-fact">FACT</span> (lista) / <span class="ev ev-model">MODEL</span> (súlyozás)</td></tr>
+          <tr><td>Realizált ár (kedvezmény/csatorna után)</td><td>1 450 €</td><td class="td-strong">1 650 €</td><td>1 900 €</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">A magyarországi auditált 0,75–0,88-as realizációs aránnyal keresztvalidálva</div></td></tr>
+          <tr><td>DACH részesedés a globális licencekből</td><td>—</td><td class="td-strong">27,6%</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Németország 17,5E, Svájc 6,5E, Ausztria 3,6E · MAGAS</div></td></tr>
+          <tr><td>Észak-európai részesedés</td><td>—</td><td class="td-strong">10,4%</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">MAGAS megbízhatóság</div></td></tr>
+          <tr><td>Európa összes részesedése</td><td>—</td><td class="td-strong">67%</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">MAGAS megbízhatóság</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Csatornastruktúra:</strong> A Graphisoft/Nemetschek átmenetben van a viszonteladó-központú modellből a közvetlen értékesítés felé — Ausztrália/Új-Zéland közvetlenné vált 2026 februárjában (SPA aláírva, zárás 2026 márciusa végén) <span class="ev ev-fact">FACT</span> [Nemetschek AR 2025, 226. o.]; a top-10 partner árbevétel-koncentrációja csökken: 66%→58%→60%, FY2023–25 <span class="ev ev-fact">FACT</span>. Megmaradt független forgalmazók: IDC AG (Svájc), Nordic BIM Group, KUBUS (Hollandia), WSC (Lengyelország) — ~23 M€ FY2025 forgalom ≈ ~19 000 licenc (~19% a globális bázisból).</p>
+
+    <div class="callout-amber">
+      <strong>Elutasított/felülírt korábbi belső becslések</strong>
+      450E–800E (alap 600E), 250E–350E (alap 300E) és 175E–215E licenc (alap 195E) — mindegyik bizonyítottan összeegyeztethetetlen az auditált Graphisoft SE árbevétellel bármely reális árpont mellett.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 09 ARCHICAD ↔ REVIT LEHETŐSÉG -->
+  <section class="section">
+    <div class="section-label">09 Archicad ↔ Revit lehetőség</div>
+    <h2 id="iranyok-tolcser-es-fajdalom-dimenziok">Irányok, tölcsér és fájdalom-dimenziók</h2>
+
+    <h3 id="a-irany-archicad-revit">A irány (Archicad→Revit)</h3>
+    <p>Az elsődleges kiváltó ok az Archicad-alapú irodák, amelyek szerkezeti/gépészeti tanácsadói natívan Revitben dolgoznak, DACH Generalplaner-struktúrákra koncentrálódva — ezt megerősíti a <strong>liNear GmbH</strong>, egy valós német gépészeti (TGA) platform, amelyet kifejezetten Revitre építettek az Archicad IFC-adatok fogadására <span class="ev ev-fact">FACT</span> [linear.eu]. A csereütem heti/kétheti aktív koordináció idején, nem egyszeri esemény <span class="ev ev-signal">USER SIGNAL</span> [Graphisoft Community, 2024]. A ma domináló megoldás: „linkeld, ne modellezd újra” — az IFC-fájlok nem szerkeszthető referenciaként való fogadása, mert „a heti frissülő gépészeti modellek fogadása gyakorlatilag lehetetlenné teszi a teljes újramodellezést” <span class="ev ev-signal">USER SIGNAL</span>. Szakmai becslés: a migrációs erőfeszítés ~90%-a konverzió utáni manuális tisztítás <span class="ev ev-estimate">ESTIMATE</span> [BIM Heroes, 2025, egyetlen forrás]. Egyetlen gyártótól — még magától a Graphisofttól sem — létezik nem-IFC-alapú, közvetlen fordító a mainstream gyakorlatban.</p>
+
+    <h3 id="b-irany-revit-archicad">B irány (Revit→Archicad)</h3>
+    <p>Valós, de aszimmetrikus és kisebb <em>piaci</em> szinten — a Speckle egy dedikált, külön elnevezett „Revit to Archicad” munkafolyamatot hirdet, de a Speckle saját dokumentációja elismeri, hogy Archicad-fogadó konnektora „még nem éri el a Revit-képességek szintjét” <span class="ev ev-fact">FACT</span> [speckle.systems/DeepWiki].</p>
+
+    <div class="callout-amber">
+      <strong>NODU-specifikus státusz (operátor által megerősítve, 2026-08-26)</strong>
+      A NODU jelenlegi terméke <strong>kizárólag az Archicad→Revit irányt támogatja</strong>. A Revit→Archicad még nem épült meg, és ütemterv-elem marad — a tanulmány minden technikai bizonyítéka (mérnöki naplók, operátori megerősítés, termékképernyőképek, 13.1 szakasz) kifejezetten az előremenő irányra vonatkozik. A fenti piaci szintű elemzés az általános versenytárs-környezetet írja le (mit kínál a Speckle és a Graphisoft), nem a NODU saját jelenlegi képességét. Miután megépül, legjobban terméksor-bővítésként értelmezhető ugyanazon Archicad-oldali ügyfeleken belül, nem önálló, külön méretezett piacként.
+    </div>
+
+    <h3 id="c-irany-ketiranyu">C irány (kétirányú)</h3>
+    <p>Egyetlen versenytárs sem kínál ma valódi, folyamatosan szinkronizált, oda-vissza cserét — minden vizsgált eszköz egyirányú, egyszeri, minden lépésben veszteséges. Ez a tanulmány legvilágosabban megerősített piaci rése (26. szakasz).</p>
+
+    <h3 id="4-tablazat-piaci-tolcser-archicad-revit-irany">4. táblázat — Piaci tölcsér (Archicad→Revit irány)</h3>
+    <div class="table-wrap">
+      <table class="t-fixed t-4">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th>Szakasz</th><th>Eredő populáció</th><th>Szűrő</th><th>Jelölés</th></tr></thead>
+        <tbody>
+          <tr><td>1. Összes fizetős Archicad licenc</td><td>100 000 (75E–130E)</td><td>—</td><td><span class="ev ev-fact">FACT</span> <span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>2. …akiknek Revit-együttműködési kitettségük van</td><td>~70 000–75 000</td><td>~70–75% Revit-nyomás szűrő</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>3. …akiknek visszatérő (heti ütemű) cserekényszerük van</td><td>28 000–45 000 licenc (közép ≈36 000)</td><td>40–60% gyakorisági szűrő</td><td><span class="ev ev-estimate">ESTIMATE</span></td></tr>
+          <tr><td>4. …hajlandók fizetni egy dedikált eszközért az ingyenes alternatívák helyett</td><td>~15 000–27 000 licenc / ~1 200–2 200 szervezet</td><td>50–65% fizetési hajlandósági szűrő</td><td><span class="ev ev-estimate">ESTIMATE</span> <span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td class="td-strong">5. Kiszolgálható rövid távú célpont</td><td class="td-strong">~3 400–4 300 szervezet</td><td>Megerősíti a 11. táblázat függetlenül levezetett SAM-populációját</td><td><span class="ev ev-model">MODEL</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Fájdalom-dimenziónkénti összefoglaló:</strong> a tervezői szándék, a szerkeszthetőség és a frissítés-propagáció a legkövetkezetesebben és legsúlyosabban dokumentált veszteségek minden forrásban (fórum, blog és gyártói dokumentáció egyaránt); a geometria és az alapvető tulajdonságok viszonylag jól megmaradnak IFC-n keresztül; az egyedi GDL paraméterek és a gazdakapcsolatok (ajtók/ablakok leválása a falaktól) minden vizsgált eszközben bizonyítottan elvesznek.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 10 REVIT VERZIÓHIDALÁS -->
+  <section class="section">
+    <div class="section-label">10 Revit verzióhidalás</div>
+    <h2 id="valos-fajdalom-nem-bizonyitott-kereskedelmi-eset">Valós fájdalom, nem bizonyított kereskedelmi eset</h2>
+
+    <p><strong>Kiadási ütem:</strong> A Revit évente jelenik meg; a Revit 2027 2026. április 7-én jelent meg <span class="ev ev-fact">FACT</span> [Autodesk Blogs]. Általános támogatási ablak: jelenlegi + 3 korábbi verzió (2024–2027). Egy korábban nem jelzett árnyalat: <strong>a felhőben tárolt (ACC/BIM 360) modellek szélesebb, külön hozzáférési ablakkal rendelkeznek (jelenlegi + 5 verzió, 2022–2027)</strong> — az Autodesk egyszerre két különböző verziótámogatási politikát alkalmaz <span class="ev ev-fact">FACT</span> [Graitec, 2026. ápr.].</p>
+
+    <p><strong>A visszafelé mentés hivatalosan lehetetlen</strong>, amit az Autodesk termékvezetése is megerősít, évi ~3000+ strukturális fájlformátum-változásra hivatkozva <span class="ev ev-fact">FACT</span>. Az egyetlen jóváhagyott megoldás (IFC-be exportálás, majd újraimportálás) kifejezetten veszteséges — a geometria megmarad, de nem-paraméteressé válik, „gyakorlatilag már nem szerkeszthető” <span class="ev ev-fact">FACT</span>.</p>
+
+    <div class="callout-amber">
+      <strong>Kitölthető volt-e a keresletméretezési rés? Részben.</strong>
+      Valós, hivatkozható bizonyíték létezik a <em>mechanizmusra</em> (hivatalos Autodesk KB-cikkek kifejezetten a központi modell/linkelt modell verzió-inkompatibilitási hibáira; egy több éves, több fórumon átívelő, a family-konverzió szintjén koncentrálódó fájdalom-történet). <strong>Sehol nem található forrás — sem az Autodesk, sem technográfiai szolgáltatók, sem iparági felmérések — amely felhasználószámot, konverziós gyakoriságot vagy piacméretet közölne erre a keresletre.</strong> Valódi, feltárt fizetési-hajlandósági árpadló viszont létezik: a manuális family-konverziós szolgáltatási piac <strong>50–150 $ (egyszerű), 200–500 $ (közepes), 500–1500 $+ (komplex/gépészeti)</strong> áron dolgozza fel ezt family-enként <span class="ev ev-estimate">ESTIMATE</span> [gyártói árlisták, 2025–2026].
+    </div>
+
+    <h3 id="5-tablazat-revit-verziohidalasi-al-piac">5. táblázat — Revit verzióhidalási al-piac</h3>
+    <div class="table-wrap">
+      <table class="t-fixed t-range">
+        <colgroup><col><col><col><col><col></colgroup>
+        <thead><tr><th>Al-piac</th><th>Alacsony</th><th>Alap</th><th>Magas</th><th>Jelölés</th></tr></thead>
+        <tbody>
+          <tr><td>Family/könyvtár-konverzió <div class="td-muted">A legvonzóbb kereskedelmileg — legerősebb bizonyítéki nyom, önmagában lehatárolt kör</div></td><td>5%</td><td class="td-strong">15%</td><td>35%</td><td><span class="ev ev-inference">INFERENCE</span><div class="td-muted">A Revit-szervezetek évi arányából</div></td></tr>
+          <tr><td>Teljes projekt-konverzió <div class="td-muted">Legmagasabb fájdalom, legmagasabb kockázat</div></td><td>3%</td><td class="td-strong">10%</td><td>25%</td><td><span class="ev ev-inference">INFERENCE</span></td></tr>
+          <tr><td>Egyedi modell, egyszeri konverzió</td><td>2%</td><td class="td-strong">8%</td><td>20%</td><td><span class="ev ev-inference">INFERENCE</span></td></tr>
+          <tr><td>Sablon/szabvány-konverzió</td><td colspan="3" class="td-muted">Nincs bizonyíték visszafelé irányuló keresletre</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+          <tr><td>Visszatérő/folyamatos hidalási szolgáltatás</td><td colspan="3" class="td-muted">Nincs bizonyíték artikulált, visszatérő szinkronizációs keresleti mintára</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Minden nem-UNKNOWN szám fentebb INFERENCE, nem mért statisztika</strong> — ez a teljes tanulmány legfontosabb evidencia-rése; az ajánlott következő lépés (itt nem elvégzett) egy közvetlen BIM-menedzseri felmérés.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 11 FORDÍTOTT IRÁNYOK -->
+  <section class="section">
+    <div class="section-label">11 Fordított irányok</div>
+    <h2 id="7-tablazat-revit-forras-okoszisztema">7. táblázat — Revit → forrás-ökoszisztéma</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-4">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th>Irány</th><th>Keresleti bizonyíték</th><th>Kereskedelmi érték</th><th>NODU relevancia</th></tr></thead>
+        <tbody>
+          <tr><td class="td-strong">Revit → Archicad</td><td>Valós: Speckle elnevezett munkafolyamata, Graphisoft Improved IFC Import funkciója, DACH Generalplaner strukturális hajtóerő</td><td>Valós, de valószínűleg kisebb, mint az előremenő irány; nincs ACV-adat</td><td><strong>A legjobban alátámasztott fordított irány</strong> — terméksor-bővítésként kezelendő meglévő ügyfeleken belül</td></tr>
+          <tr><td class="td-strong">Revit → Rhino/Grasshopper</td><td>Nagyon erős (Rhino.Inside.Revit, érett, 2024/2025 AU-featured)</td><td>Erős kereslet, de kategorikusan más probléma (élő co-residency automatizálás, nem BIM-hűségi rekonstrukció)</td><td><strong>NODU alapkörén kívül</strong></td></tr>
+          <tr><td class="td-strong">Revit → Tekla</td><td>Gyenge ebben a konkrét irányban — a domináns valós áramlás a Tekla→Revit</td><td><span class="ev ev-unknown">UNKNOWN</span></td><td>Ne feltételezzük a szimmetriát az előremenő (Tekla→Revit) iránnyal, amely valódi terjeszkedési jelölt</td></tr>
+          <tr><td class="td-strong">Revit → Allplan</td><td>Valós: az Allplan natív Revit-importot támogat 2021 óta; korlátozott az IFC4 Design Transfer View nem-támogatása miatt</td><td>Plauzibilis DACH földrajzi közelség; nem számszerűsített</td><td>Valós technikai útvonal, keresletmérete <span class="ev ev-unknown">UNKNOWN</span></td></tr>
+          <tr><td class="td-strong">Revit → Vectorworks</td><td>Valós, tájépítészetre/multidiszciplináris butik-gyakorlatra koncentrálódva</td><td>Valós niche érték, strukturálisan kisebb, mint az Archicad hasonló méretű bázisa</td><td>Niche, nem számszerűsített</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Következtetés:</strong> Egyetlen fordított irányt sem szabad az előremenő párja méretezett tükörképeként modellezni. A Revit→Archicad a legjobban alátámasztott, de még mindig nem önállóan méretezett; a többi vagy alapkörön kívüli (Rhino), vagy túl vékony bizonyítékú a méretezéshez.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 12 SZOFTVER → REVIT -->
+  <section class="section">
+    <div class="section-label">12 Globális szoftver → Revit</div>
+    <h2 id="6-tablazat-forras-eszkoz-revit-hid-jeloltek-0-100">6. táblázat — Forrás-eszköz → Revit híd jelöltek (0–100)</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-cand">
+        <colgroup><col><col><col><col><col></colgroup>
+        <thead><tr><th>Rang</th><th>Forrás-eszköz</th><th>Pont</th><th>Kulcsmegállapítás</th><th>Prioritás</th></tr></thead>
+        <tbody>
+          <tr><td>—</td><td class="td-strong">Archicad <div class="td-muted">alapvonal, nem terjeszkedési jelölt</div></td><td>87</td><td>Megerősíti az Archicad státuszát mint helyes beachhead a bizonyítékok alapján, nem csak mint meglévő termék</td><td class="td-strong">CORE</td></tr>
+          <tr><td>1</td><td class="td-strong">Tekla Structures</td><td>61</td><td>Natív <code>.rvt</code> export 2019 óta; kapcsolati/gyártási részletvesztés valószínű <span class="ev ev-inference">INFERENCE</span>; a Trimble aktívan befektet</td><td class="td-strong">EXPANSION — élen álló jelölt</td></tr>
+          <tr><td>2</td><td class="td-strong">Bentley OpenBuildings</td><td>60</td><td>A kevésbé nyilvánvaló jelölt versenyképesen szerepel a Teklával; „több hiba és adatvesztés” dokumentált a tipikus IFC-cseréhez képest</td><td>FUTURE (evidencia-hiányos)</td></tr>
+          <tr><td>3</td><td class="td-strong">Vectorworks</td><td>59</td><td>Az Archicad legközelebbi technikai analógja (valódi paraméteres BIM↔BIM); saját dokumentációjuk elismeri, hogy az RVT-export kevesebb adatot hordoz, mint az IFC</td><td>EXPANSION</td></tr>
+          <tr><td>4</td><td>Gyártási/kivitelezési eszközök (SDS/2, StruM.I.S, Vertex BD)</td><td>56</td><td>Fragmentált, több UNKNOWN ökoszisztéma-méret input</td><td>Csak irányjelző</td></tr>
+          <tr><td>5</td><td>Rhino/Grasshopper (Rhino.Inside.Revit)</td><td>51</td><td><strong>Kategória-eltérés</strong> — mesh/NURBS kernel, nem paraméteres BIM objektummodell; már ingyenes, érett, elsődleges gyártói</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>6</td><td>Allplan</td><td>50</td><td>Több UNKNOWN — kutatási rés, nem negatív megállapítás</td><td>FUTURE</td></tr>
+          <tr><td>7</td><td>ETABS (CSI)</td><td>47</td><td>Belső analitikai-vs-fizikai objektummodell-eltérés — más probléma, nem javítható hiba</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>7</td><td>SketchUp</td><td>47</td><td>Nincs paraméteres BIM objektummodell; már kereskedelmileg kiszolgálva egy 349 $/év plugin által (Skema)</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>9</td><td>RISA</td><td>44</td><td>Ugyanaz az FEA-területi probléma, mint az ETABS-nál</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>9</td><td>SAP2000 (CSI)</td><td>44</td><td>Ugyanaz, mint az ETABS</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>11</td><td>MEP platformok</td><td>37</td><td>A kategória nagyrészt feloldódik — vagy azonos gyártó, mint a Revit, vagy már Revit-natív</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>12</td><td>Civil/Infrastruktúra</td><td>36</td><td>Kategória-eltérés — a civil objektumoknak nincs natív Revit paraméteres megfelelőjük</td><td>DEPRIORITIZE</td></tr>
+          <tr><td>13</td><td>Robot Structural Analysis (Autodesk)</td><td>33</td><td>Az Autodesk mindkét véget birtokolja, ingyenes/bundle-elt — nincs tér harmadik fél számára</td><td>DEPRIORITIZE</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Kulcsmegállapítás:</strong> a bizonyítékok nem támasztják alá azt a feltételezést, hogy az Archicadhez közeli eszközök alapértelmezetten az élen állnak (a Bentley OpenBuildings versenyképesen szerepel a Teklával annak ellenére, hogy kevésbé nyilvánvaló jelölt) — de erősen alátámasztják, hogy <strong>ne</strong> kövessük a strukturális elemzőeszközöket, a civil/infrastruktúra kategóriát vagy a Rhino/Grasshopper-t.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 13 ÉRETTSÉGI MODELL -->
+  <section class="section">
+    <div class="section-label">13 Interoperabilitási érettségi modell</div>
+    <h2 id="0-6-os-husegi-skala">0–6-os hűségi skála</h2>
+
+    <p>Egy egyszerű skála arra, mennyire jól viszi át egy eszköz az adatot Archicad és Revit között:</p>
+
+    <p class="source-note"><code>0 Nincs csere → 1 Csak geometria → 2 Geometria + alap infó → 3 Strukturált BIM-adat → 4 Szemantikus adat, de nem szerkeszthető → 5 Natív, szerkeszthető objektumok → 6 Élő, kétirányú szinkronizáció</code></p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-level">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>Technológia</th><th>Szint</th><th>Miért</th></tr></thead>
+        <tbody>
+          <tr><td>Autodesk Data Exchange</td><td>4</td><td>Referenciageometriát ad, nem szerkeszthető objektumot. Egyáltalán nincs Archicad-konnektora.</td></tr>
+          <tr><td>IFC (szokásos használat)</td><td>3</td><td>Elveszti az egyedi paramétereket és szabályokat a nem leképezett kategóriáknál.</td></tr>
+          <tr><td>IFC (legjobb eset)</td><td>4</td><td>Még tökéletesen kivitelezve sincs módja élő képletek tárolására — ez a formátum korlátja, nem hiba.</td></tr>
+          <tr><td>Rhino.Inside.Revit</td><td>5*</td><td>Valóban élő, de csak egy közös folyamaton belül, és számítógépes tervezést old meg, nem BIM-átadást (más probléma).</td></tr>
+          <tr><td>Speckle</td><td>3–4</td><td>Ugyanaz a referenciageometria-plafon; saját csapatuk mondja, hogy az Archicad-oldal gyengébb, mint a Revit-oldal.</td></tr>
+          <tr><td>Közvetlen fájlfordítók (a Graphisoft sajátját is beleértve)</td><td>3–4</td><td>Egyetlen gyártó, a Graphisoftot is beleértve, nem szállított nem-IFC-alapú közvetlen fordítót.</td></tr>
+          <tr><td>Kézi újramodellezés</td><td>5 / 0</td><td>Kézzel elérhető a teljes hűség elemenként — de nulla automatizálással, és teljes költséggel minden változtatásnál.</td></tr>
+          <tr><td class="td-strong">NODU — Archicad → Revit</td><td class="td-strong">5</td><td><strong>Megerősítve.</strong> Az elemek valódi, natív, szerkeszthető Revit-objektumként landolnak — egy konvertált tető valódi „Basic Roof”, működő Rafter Cut, Fascia Depth és Slope paraméterekkel, nem statikus blokk. A folyamatos élő szinkronizáció (6-os szint) még nincs kész.</td></tr>
+          <tr><td class="td-strong">NODU — Revit → Archicad</td><td>0</td><td>Még nincs kész. Ütemterv-elem.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-green">
+      <strong>A rés, amit minden versenytárs megoszt</strong>
+      A Data Exchange, az IFC és a Speckle is referenciageometriát ad, soha nem élő szerkeszthető objektumot — szándékos architekturális korlát mindegyiknél, nem valami, amit egy jövőbeli frissítés megold. A NODU Archicad→Revit konnektora az egyetlen eszköz ebben az összehasonlításban, amely átjut ezen a falon.
+    </div>
+
+    <h3 id="13-1-a-bizonyitek-emogott">13.1 A bizonyíték emögött</h3>
+
+    <p>A belső mérnöki nyilvántartás fokozatos, becsületes fejlődést mutat: az első működő paraméteres fal-konverzió 2026 áprilisában (a tulajdonságok akkor még nem szerepeltek — ismert hiányosságként naplózva), teljes tulajdonság- és anyag-támogatás falakra, födémekre, oszlopokra, ajtókra, ablakokra és tetőkre júliusra, és egy gyártásszintű konnektor, amely augusztusra béta-felhasználókat fogad. <span class="ev ev-internal">INTERNAL ENG.</span></p>
+
+    <p>A mérnöki naplókon túl közvetlen, elsőkezes megerősítés is van: egy élő termékbemutató, egy képernyőkép egy Revit 2026.4-be konvertált tetőről, amely valódi natív „Basic Roof” paramétereket mutat (Rafter Cut, Fascia Depth, Slope — olyan mezők, amelyek kizárólag valódi Revit-objektumokon léteznek, referenciageometrián soha), és megnevezett felhasználók, akik tesztelték: <strong>Szivák Béla</strong> (Paulinyi and Partners), <strong>Mezei Tamás</strong> (Finta Stúdió), <strong>Ed Seiber</strong> (Seiber Design), <strong>Erik Björnhage</strong> (Mood Group).</p>
+
+    <p><strong>Lényeg: a technológia működik</strong> — a konnektor által létrehozott Revit-oldali elemek az importálás után is teljesen szerkeszthetők maradnak. Ez megerősített tény, nem hipotézis.</p>
+
+    <div class="callout-amber">
+      <strong>Egy dolgot érdemes megtenni bármilyen külső forrásbevonási beszélgetés előtt</strong>
+      Vegyünk rá egy semleges BIM-tanácsadót, akinek nincs kapcsolata a NODU-val, hogy futtassa le a saját tesztjét, és erősítse meg ezt írásban. Nem azért, mert kétség lenne a termékkel kapcsolatban — nincs —, hanem mert a befektetők egy aláírt külső levelet többre értékelnek, mint bármilyen belső beszámolót.
+    </div>
+
+    <h3 id="ket-masik-dolog-amit-erdemes-tudni">Két másik dolog, amit érdemes tudni</h3>
+    <ul class="plain-list">
+      <li><strong>Architektúra:</strong> a NODU gráfként ábrázolja a modellt — az elemek csomópontok, a kapcsolatok élek —, amit a NODU „Building Information Graph”-nak nevez, összhangban egy publikált akadémiai munkával (Wang és Sacks, 2025). Ez teszi lehetővé egyáltalán a natív, kapcsolat-megőrző újraépítést.</li>
+      <li><strong>Valós eredmény:</strong> a SEW-Graben homlokzati projekt a NODU élő konnektorát használta, hogy a tervváltozásokat közvetlenül a költség- és beszerzési adatokba vigye — <strong>15%-os projekt-megtakarítás</strong>, és az első eset egy valódi ügyféllel és egy mért számmal a háttérben.</li>
+    </ul>
+
+    <p class="source-note">Külön érdemes megjegyezni: az Autodesk 2026 júniusában saját MCP-szervert adott a Revit 2027-hez — valós, megerősített funkció, de más dolog (AI-ágens hozzáférés a Revit-adatokhoz), nem versengő interoperabilitási megoldás.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 14 PARAMÉTERES ADATMEGŐRZÉS -->
+  <section class="section">
+    <div class="section-label">14 Paraméteres adatmegőrzés</div>
+    <h2 id="ot-tulajdonsag-amit-soha-nem-szabad-osszemosni">Öt tulajdonság, amit soha nem szabad összemosni</h2>
+
+    <ul class="plain-list">
+      <li><strong>Adatmegőrzés</strong> — megmarad-e a nyers geometria/tulajdonságérték a csere során? (Általában igen, a legtöbb vizsgált eszköznél.)</li>
+      <li><strong>Szemantikai megőrzés</strong> — megőrzi-e az objektum a helyes típus/kategória-azonosságát? (Közepes, implementációfüggő — a nem leképezett IFC-kategóriák rendszeresen generikus proxyba omlanak.)</li>
+      <li><strong>Paraméteres viselkedés megőrzése</strong> — élő, szerkeszthető, képlet-vezérelt marad-e az objektum a célszoftverben? (<strong>A NODU-n kívül egyetlen vizsgált eszköz sem éri ezt el az Archicad↔Revit párosításnál.</strong>)</li>
+      <li><strong>Tervezői szándék megőrzése</strong> — megmarad-e az eredeti modellező generatív logikája (pl. „ennek a falnak a magasságát a tető hajlásszöge vezérli”)? (Következetesen a legsúlyosabb, leggyakrabban idézett veszteség minden forrásban — az IFC „nem megfelelően őrzi meg az analitikai kapcsolatokat” még saját, alapvető strukturális felhasználási esetében is; lektorált, dátumozott 2021-es forrás, konzisztens a későbbi jelentésekkel.)</li>
+      <li><strong>Szinkronizáció</strong> — propagálódik-e egy későbbi változtatás teljes manuális újracsere nélkül? (<strong>Egyetlen versenytárs sem oldja meg ezt az Archicad↔Revit esetében</strong> — a megerősített 6-os szintű piaci rés, 26. szakasz.)</li>
+    </ul>
+
+    <p>Egy technológia, amely az öt közül egyet megold, nem oldja meg automatikusan a többit is — ez a legfontosabb, legnagyobb súlyú megkülönböztetés a tanulmány technikai elemzésében, és ez az oka annak, hogy a NODU 5-ös szintű képessége valódi, jelenleg üres versenypozíciót jelent, nem csupán fokozatos javulást.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 15 IFC -->
+  <section class="section">
+    <div class="section-label">15 IFC</div>
+    <h2 id="sema-szintu-plafon-nem-implementacios-hianyossag">Séma-szintű plafon, nem implementációs hiányosság</h2>
+
+    <p>Az IFC geometriamodellje általában megbízható alapvető formáknál; a komplex boundary representation-öknek dokumentált instabilitása van IFC2x3-ban (az IFC4 javít rajta, de nem szünteti meg) [buildingSMART; MDPI 2021, dátumozott forrás]. Az objektumszemantika/osztályozás jól működik helyes exportbeli leképezés esetén, de ez gyakran elmarad — a Revit alapértelmezett IFC-exportja kizárja a típusspecifikus és egyedi paramétereket manuális Pset-leképezési beavatkozás nélkül <span class="ev ev-fact">FACT</span> [Evolve Consultancy útmutató].</p>
+
+    <div class="callout-amber">
+      <strong>Az IFC legvilágosabban dokumentált korlátja — a natív híd kategorikus indoklása</strong>
+      Az IFC tulajdonság-<em>értékeket</em> tárol, nem generatív <em>szabályokat</em>. Az IFC4 Reference View saját dokumentált hatóköre kimondja: „a paraméteres viselkedés a létrehozónál marad” <span class="ev ev-fact">FACT</span> [buildingSMART]. Ez séma-szintű plafon, nem implementációs hiányosság — sem egy jövőbeli IFC-verzió, sem jobb eszközök nem tudják megszüntetni az IFC alapvető, semleges-csere tervezésének megőrzése mellett.
+    </div>
+
+    <p><strong>Ahol önmagában elegendő az IFC:</strong> minden olyan felhasználási esetben, ahol csak geometria + strukturált tulajdonság-/osztályozási adat kell referenciára, méréshez vagy koordinációhoz — nem folytatólagos natív szerzői munkához. Figyelemre méltó, hogy <strong>maga a Graphisoft hivatalos Archicad-Revit eszköze is egy bővített-IFC munkafolyamat</strong> — még az Archicad gyártója sem szállított nem-IFC-alapú közvetlen fordítót.</p>
+
+    <p><strong>Ahol egy natív híd gazdaságilag indokolt:</strong> mindenütt, ahol a fogadó csapatnak folytatnia kell a modell <em>szerkesztését</em>, nem csak referenciaként használnia. Nincs publikált, számszerűsített átdolgozási költség-tanulmány erre a konkrét résre — jelölve <span class="ev ev-unknown">UNKNOWN</span>, nem kitalálva —, annak ellenére, hogy a kvalitatív mechanizmus rendkívül jól dokumentált.</p>
+
+    <p><strong>Besorolás:</strong> 3-as szint tipikusan, 4-es szint legjobb esetben elért plafon — semmilyen implementáció mellett nem léphető túl a 4. szinten.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 16 AUTODESK DATA EXCHANGE -->
+  <section class="section">
+    <div class="section-label">16 Autodesk Data Exchange</div>
+    <h2 id="amit-kommodizal-es-ami-kereskedelmileg-ertekes-marad">Amit kommodizál, és ami kereskedelmileg értékes marad</h2>
+
+    <p>Architekturálisan felhő-alapú adatréteg termék (nem fájl), GraphQL-lel lekérdezhető, „az eredeti adatforráshoz kapcsolt adatkonténereket” tárol <span class="ev ev-fact">FACT</span> [APS fejlesztői áttekintés]. A konnektor-bővítés gyors volt: Revit-konnektor GA 2025. május 13.; Inventor/Tekla/Rhino GA 2025. szeptember 4.; az IFC-konnektor beta→GA lépett; a Dynamo-konnektor Early Access maradt <span class="ev ev-fact">FACT</span> [több APS blogbejegyzés, 2025].</p>
+
+    <div class="callout-green">
+      <strong>Egyetlen vizsgált forrásban sem található Archicad-konnektor</strong>
+      Ez lényeges, közvetlen megállapítás a NODU versenypozíciójára nézve: lefedettségi rés, nem csak hűségi rés.
+    </div>
+
+    <p>A fogadott adatok csoportosított, nem szerkeszthető referenciageometriaként érkeznek — sehol nem található bizonyíték arra, hogy egy Revit Family élő, szerkeszthető Family-ként maradna fenn egy Data Exchange-átvitel után. Az Autodesk saját szóhasználatában a „kétirányú” azt jelenti, hogy bármelyik alkalmazás lehet a csere <em>forrása</em>, nem azt, hogy egyetlen objektum egyszerre élően szerkeszthető mindkét oldalról, konfliktusfeloldással — ezt a 6-os szintű képességet egyetlen forrás sem dokumentálja.</p>
+
+    <p><strong>Amit a Data Exchange már kommodizál (ne itt versenyezzünk):</strong> alkalmazások közötti, szelektív megosztás geometriára + strukturált tulajdonságokra egy bővülő Autodesk-plusz-partner konnektor-ökoszisztémán belül, egyre inkább ingyenes/bundle-elt formában.</p>
+
+    <p><strong>Ami kereskedelmileg értékes marad (ahol a NODU számlázhat):</strong> (1) egyáltalán nem létezik Archicad-konnektor; (2) nincs natív, élően szerkeszthető Family/Type paraméteres hűség a fogadó oldalon, még az Autodesk saját ökoszisztémáján belül sem; (3) nincs folyamatos, konfliktusfeloldó, egyidejű kétirányú szinkronizáció.</p>
+
+    <p><strong>Besorolás:</strong> 4-es szint (szemantikus objektumcsere) — magabiztosan eléri a strukturált/lekérdezhető/delta-frissülő adatokat, de nem éri el az élő natív objektum-rekonstrukciót vagy a valódi kétirányú szinkronizációt.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 17 VERSENYTÁRSAK -->
+  <section class="section">
+    <div class="section-label">17 Versenytársak</div>
+    <h2 id="a-valos-elsodleges-versenytars-nem-szoftver">A valós elsődleges versenytárs nem szoftver</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-level">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>Versenytárs</th><th>Szint</th><th>Fenyegetés a NODU-ra</th></tr></thead>
+        <tbody>
+          <tr><td>Autodesk Data Exchange</td><td>4</td><td><strong>Közepes</strong> — ma nincs Archicad-konnektor, de az Autodesk konnektor-bővítési üteme (4 hónap alatt 3 új konnektor) valószínűvé teszi a jövőbeli belépést, és az ingyenes/bundle-elt lenne</td></tr>
+          <tr><td>IFC (általánosan)</td><td>3–4</td><td><strong>Magas mint alapvonal, amit felül kell múlni; alacsony mint kiszorítási fenyegetés</strong> — nem tűnik el, a NODU-nak együtt kell élnie/kiegészítenie, nem leváltania</td></tr>
+          <tr><td>Speckle</td><td>3–4</td><td><strong>Közepes–Magas</strong> — a leghitelesebb meglévő kereskedelmi versenytárs; saját elismert Archicad-oldali gyengesége pontosan a NODU beachhead-je</td></tr>
+          <tr><td>Rhino.Inside.Revit</td><td>5</td><td><strong>Alacsony</strong> — más probléma, más vevő, alapkörön kívüli</td></tr>
+          <tr><td class="td-strong">Manuális újramodellezés / házon belüli megoldás</td><td>5 / 0</td><td><strong>Legmagasabb</strong> — a valós elsődleges versenytárs nem szoftvertermék, hanem az alapértelmezett manuális megoldás; a NODU valós értékesítési ellenvetése „ezt már kézzel megoldjuk”, nem „már fizetünk egy versenytársért”</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Átfogó következtetés:</strong> egyetlen másik vizsgált eszköz sem — kereskedelmi vagy ingyenes — épít újra natív, élő, szerkeszthető Revit-objektumokat; mindegyik a 4. szinten tetőzik, referenciageometriát adva helyette. A NODU Archicad→Revit konnektora azt csinálja, amit egyikük sem: valódi natív objektumokat hoz létre, saját elemgenerátorokkal és egy gráf-alapú adatmodellel, nem a DirectShape-stílusú referenciageometriával. Ez valós, jelenleg üres rés, és a mögöttes architekturális különbség azt jelenti, hogy ezt egy versenytárs nem zárja be egyik napról a másikra.</p>
+
+    <div class="callout-amber">
+      <strong>Érdemes tudni</strong>
+      A NODU saját pipeline-ja korábban a Speckle infrastruktúrájától függött, egészen egy 2026 júniusában lezárult, teljes migrációig saját infrastruktúrára — vagyis a csapatnak közvetlen, kézzelfogható tapasztalata van pontosan azokról a gyengeségekről, amelyeket a Speckle saját dokumentációja is elismer az Archicad-oldalon. Ez valószínűleg része annak, hogy a NODU miért natív generátorokat épített egy újabb referenciageometria-réteg helyett.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 18 MÁTRIX -->
+  <section class="section">
+    <div class="section-label">18 NODU interoperabilitási mátrix</div>
+    <h2 id="8-tablazat-terjeszkedesi-matrix">8. táblázat — Terjeszkedési mátrix</h2>
+
+    <p class="source-note">A prioritás szempontjából releváns sorokra rövidítve; a teljes 14-soros mátrix a 2. fázis checkpointban.</p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-4">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th>Forrás</th><th>Cél</th><th>Érettség</th><th>NODU prioritás</th></tr></thead>
+        <tbody>
+          <tr><td>Archicad</td><td>Revit</td><td>3, plafon 4</td><td class="td-strong">CORE</td></tr>
+          <tr><td>Revit</td><td>Archicad</td><td>3, plafon 4 (piaci szinten, IFC/Speckle-en keresztül)</td><td class="td-strong">CORE prioritás, de MÉG NEM ÉPÜLT MEG<div class="td-muted">Operátor által megerősített (2026-08-26) ütemterv-elem; terméksor-bővítés lesz, nem önállóan méretezett</div></td></tr>
+          <tr><td>Revit 2025</td><td>Revit 2024</td><td>0–1</td><td>EXPANSION <div class="td-muted">Kifejezetten a family-szintű al-piac</div></td></tr>
+          <tr><td>Revit 2027</td><td>Revit 2024</td><td>0–1</td><td>EXPANSION <div class="td-muted">Az általános verzióhidalási al-piac legsúlyosabb esete</div></td></tr>
+          <tr><td>Tekla</td><td>Revit</td><td>2–3</td><td>EXPANSION <div class="td-muted">Élen álló valódi terjeszkedési jelölt, új csatornát igényel</div></td></tr>
+          <tr><td>Vectorworks</td><td>Revit</td><td>3</td><td>EXPANSION <div class="td-muted">Harmadik helyezett, az Archicad legközelebbi technikai analógja</div></td></tr>
+          <tr><td>Allplan</td><td>Revit</td><td>3</td><td>FUTURE <div class="td-muted">Valós útvonal, ma túl evidencia-hiányos a priorizáláshoz</div></td></tr>
+          <tr><td>Rhino/Grasshopper</td><td>Revit</td><td>5</td><td>DEPRIORITIZE <div class="td-muted">Beágyazott, ingyenes elsődleges gyártói szereplő, más probléma</div></td></tr>
+          <tr><td>SketchUp</td><td>Revit</td><td>1–2</td><td>DEPRIORITIZE <div class="td-muted">Kategória-eltérés, már kereskedelmileg kiszolgálva</div></td></tr>
+          <tr><td>Strukturális elemzés (ETABS/SAP2000/RISA/Robot)</td><td>Revit</td><td>3–4</td><td>DEPRIORITIZE <div class="td-muted">Más technikai probléma, már jól kiszolgálva</div></td></tr>
+          <tr><td>Civil/Infrastruktúra</td><td>Revit</td><td>1–2</td><td>DEPRIORITIZE <div class="td-muted">A referencia-linkelés, nem a konverzió, a bevett gyakorlat</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 19 TAM -->
+  <section class="section">
+    <div class="section-label">19 TAM</div>
+    <h2 id="10-tablazat-teljes-megszolithato-piac">10. táblázat — Teljes megszólítható piac</h2>
+
+    <p class="source-note">Módszertan a 6. szakasz szerint; teljes levezetés a 3. fázis checkpoint §3-ban.</p>
+
+    <h3 id="19-1-archicad-revit-tam-jelenlegi">19.1 Archicad↔Revit TAM (jelenlegi)</h3>
+    <p>Populáció: 17 500–32 250 szervezet (alap 24 000, Revit-nyomás-szűrt) × 10 000–20 000 € ACV (alap 15 000 €) →</p>
+    <div class="funnel-grid">
+      <div class="funnel-card tam"><div class="funnel-tier">Alacsony</div><div class="funnel-value">175 M€</div><div class="funnel-desc">17 500 szervezet × 10 000 € ACV</div></div>
+      <div class="funnel-card sam"><div class="funnel-tier">Alap</div><div class="funnel-value">360 M€</div><div class="funnel-desc">24 000 szervezet × 15 000 € ACV</div></div>
+      <div class="funnel-card som"><div class="funnel-tier">Magas</div><div class="funnel-value">645 M€</div><div class="funnel-desc">32 250 szervezet × 20 000 € ACV</div></div>
+    </div>
+    <p class="source-note">Feloldási megjegyzés: ez az ALAP szám ugyanabba a nagyságrendbe esik, mint az elutasított Revit-kaszkád módszertan saját 484 M€-os TAM-száma, ha összehasonlítható ACV-t alkalmazunk összehasonlíthatóan definiált populációra — az eredeti 5–30x eltérés a SAM-definíciókban koncentrálódott, nem a TAM-plafonban.</p>
+
+    <h3 id="19-2-revit-verziohidalas-tam-jelenlegi-kulon">19.2 Revit verzióhidalás TAM (jelenlegi, külön)</h3>
+    <p>Csak a family-konverziós al-piac; a teljes-projekt al-piac <span class="ev ev-unknown">UNKNOWN</span>, nem árazott.</p>
+    <div class="callout-amber">
+      <strong>Alacsony 46 M€ · Alap 138 M€ · Magas 770 M€ — ALACSONY MEGBÍZHATÓSÁG</strong>
+      Nem validált INFERENCE-inputokra épül (10. szakasz), elsődleges kutatást igényel befektetői megbízhatóság előtt.
+    </div>
+
+    <h3 id="19-3-jelenlegi-osszesen">19.3 Jelenlegi összesen</h3>
+    <p>Csak a fenti kettő összege, az irányadó módszertan szerint.</p>
+    <div class="table-wrap">
+      <table class="t-fixed t-som">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th></th><th>Alacsony</th><th>Alap</th><th>Magas</th></tr></thead>
+        <tbody>
+          <tr><td class="td-strong">Jelenlegi összes TAM</td><td class="td-strong">221 M€</td><td class="td-strong">498 M€</td><td class="td-strong">1 415 M€</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note">A Verzióhidalás komponens dominálja a bizonytalansági tartományt — a pontbecslést ne kezeljük precizitásként; a 498 M€ irányjelző középérték, nem előrejelzés.</p>
+
+    <h3 id="19-4-terjeszkedesi-piac-jovobeli-nem-adodik-hozza-a-jelenlegi-osszeshez">19.4 Terjeszkedési piac (jövőbeli — NEM adódik hozzá a jelenlegi összeshez)</h3>
+    <div class="table-wrap">
+      <table class="t-fixed t-3">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>Ökoszisztéma</th><th>TAM (MODEL)</th><th>Megbízhatóság</th></tr></thead>
+        <tbody>
+          <tr><td>Tekla → Revit</td><td class="td-strong">285 M€–930 M€, alap ≈560 M€</td><td>ALACSONY–KÖZEPES</td></tr>
+          <tr><td>Vectorworks → Revit</td><td><span class="ev ev-unknown">UNKNOWN</span> — a populáció nem méretezhető megbízhatóan</td><td>ALACSONY</td></tr>
+          <tr><td>Bentley OpenBuildings → Revit</td><td><span class="ev ev-unknown">UNKNOWN</span></td><td>ALACSONY</td></tr>
+          <tr><td>Allplan → Revit</td><td><span class="ev ev-unknown">UNKNOWN</span></td><td>ALACSONY</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-green">
+      <strong>Hosszú távú kategória-lehetőség</strong>
+      Jelenlegi összesen (221 M€–1 415 M€) + az egyetlen számszerűsíthető terjeszkedési irány (Tekla, 285 M€–930 M€) ≈ <strong>500 M€–2,3 Md€ nagyságrend</strong> — kifejezetten nem rövid távú terv; a terjeszkedési ökoszisztémák öt közül három továbbra is valóban nem méretezhető, nem kitöltve kitalált számokkal.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 20 SAM -->
+  <section class="section">
+    <div class="section-label">20 SAM</div>
+    <h2 id="11-tablazat-kiszolgalhato-megszolithato-piac">11. táblázat — Kiszolgálható megszólítható piac</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-som">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th></th><th>Alacsony</th><th>Alap</th><th>Magas</th></tr></thead>
+        <tbody>
+          <tr><td>Jelenlegi Archicad↔Revit SAM</td><td>51 M€</td><td class="td-strong">57 M€</td><td>65 M€</td></tr>
+          <tr><td>Jelenlegi Revit Verzióhidalás SAM</td><td colspan="3" class="td-muted">Nem szűrhető felelősségteljesen a TAM-szám alá — ugyanaz a tartomány, mint a 19.2 szakaszban, tovább nem diszkontálva</td></tr>
+          <tr><td class="td-strong">Jelenlegi kombinált SAM</td><td class="td-strong">~51 M€</td><td class="td-strong">~57 M€+<div class="td-muted">Verzióhidalás additív, nem számszerűsített</div></td><td class="td-strong">~65 M€+</td></tr>
+          <tr><td>Jövőbeli terjeszkedési SAM <div class="td-muted">Csak Tekla, számszerűsíthető irány</div></td><td>46 M€</td><td class="td-strong">90 M€</td><td>149 M€</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="source-note">A SAM már tartalmazza a DACH/észak-európai súlyozású földrajzi szűrőt és az SME-méret jelzést a mögöttes Archicad-populációból — nincs további földrajzi/kapacitási diszkont alkalmazva; az értékesítési elérési korlátokat a 21. szakasz (SOM) kezeli, amely kapacitás-, nem piac-korlátozott.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 21 SOM -->
+  <section class="section">
+    <div class="section-label">21 SOM</div>
+    <h2 id="12-tablazat-elerheto-piac-3-5-7-ev">12. táblázat — Elérhető piac, 3./5./7. év</h2>
+
+    <p class="source-note">Kifejezett, alulról-felfelé építkező modell; minden feltételezés a 3. fázis checkpoint §6-ban rögzítve — általános B2B SaaS benchmarkok, mivel sehol e kutatásban nem található AEC-specifikus értékesítési-termelékenységi benchmark.</p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-som">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th></th><th>3. év</th><th>5. év</th><th>7. év</th></tr></thead>
+        <tbody>
+          <tr><td>Közvetlen értékesítési létszám (AE-k)</td><td>2–3</td><td>6–8</td><td>12–16</td></tr>
+          <tr><td>Kumulált ügyfelek (churn-nel korrigálva)</td><td>120–220 (alap ~170)</td><td>500–800 (alap ~650)</td><td>1 300–1 900 (alap ~1 600)</td></tr>
+          <tr><td>Súlyozott ACV</td><td>10 500 €</td><td>13 000 €</td><td>15 500 €</td></tr>
+          <tr><td class="td-strong">ARR</td><td class="td-strong">1,3–2,3 M€ (alap ≈1,8 M€)</td><td class="td-strong">6,5–10,4 M€ (alap ≈8,5 M€)</td><td class="td-strong">20–29 M€ (alap ≈25 M€)</td></tr>
+          <tr><td>Vélelmezett SAM-behatolás</td><td>~3%</td><td>~15%</td><td>~44%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-amber">
+      <strong>Kifejezett óvatosságra intés (a 4. fázis red-team ellenőrzéséből)</strong>
+      A 7. éves alapeset ~44%-os SAM-behatolása meghaladja az érett, niche B2B szoftverkategóriák tipikus 10–30%-os végleges behatolási benchmarkját. Egy konzervatívabb, ugyanolyan védhető olvasat ezt felére csökkenti: <strong>≈12–13 M€ ARR / ~22% behatolás</strong> egy tisztán core-piaci, terjeszkedés nélküli végrehajtás esetén — a tanulmány ezt a számot ajánlja kiindulópontnak (30. szakasz), nem az önmagában vett, optimistább alapesetet.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 22 ÁRAZÁS -->
+  <section class="section">
+    <div class="section-label">22 Árazási architektúra</div>
+    <h2 id="9-tablazat-arazasi-matrix">9. táblázat — Árazási mátrix</h2>
+
+    <p class="source-note">A teljes evidencia-bázisban egyetlen forrás sem közölt valós ACV-t/árat egyetlen automatizált Archicad↔Revit eszközre sem — minden árpont vagy a mögöttes szerzői szoftver ára, vagy egy manuális szolgáltatás ára, vagy egy általános SaaS-benchmark. Az alábbi árszintek mind MODEL. A NODU tényleges, hatályos licencszerkezetét lásd a <a href="nodu-bridge-license-calculator.html">Licencmodell</a> dokumentumban.</p>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-4">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th>Szegmens</th><th>Árazási modell</th><th>Árpont</th><th>Jelölés</th></tr></thead>
+        <tbody>
+          <tr><td>Archicad↔Revit, KKV-iroda</td><td>Szervezetenkénti éves előfizetés, licenc-agnosztikus/enyhén sávos</td><td class="td-strong">4 000–12 000 €/év</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Archicad↔Revit, Generalplaner/több telephelyes iroda</td><td>Szervezeti szintű előfizetés, licencszám szerint sávos, volumen-kedvezménnyel</td><td class="td-strong">12 000–35 000 €/év</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Nagyvállalati/nagy generálkivitelező vagy multinacionális iroda</td><td>Vállalati licenc + platform/szolgáltatások</td><td class="td-strong">40 000–150 000 €+/év</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Verzióhidalás — family/könyvtár-konverzió</td><td>Konverziónkénti díj (epizodikus, nem előfizetés)</td><td>Az 50–1 500 $+/family manuális szolgáltatási árpadló alatt (10. szakasz)</td><td><span class="ev ev-model">MODEL</span></td></tr>
+          <tr><td>Verzióhidalás — teljes projekt konverzió</td><td>Projektenkénti díj, prémium</td><td>Nem található védhető árpont</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+          <tr><td>Terjeszkedési ökoszisztémák (Tekla, Vectorworks)</td><td>Ugyanaz a szervezeti előfizetési struktúra, mint a core-nál</td><td>Ár még nincs meghatározva</td><td><span class="ev ev-unknown">UNKNOWN</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Termékarchitektúra (FORRÁS × CÉL × VERZIÓ × HŰSÉG × SZINKRONIZÁCIÓ):</strong> a FORRÁS/CÉL határozza meg, mely telepített bázisba és csatornába értékesít a NODU; a VERZIÓ csak a visszafelé-hidalási irányban hordoz kereskedelmi jelentést (az előre irányuló automatikus frissítés ingyenes és az Autodesk által megoldott); a HŰSÉG (a 0–6-os skála, 13. szakasz) a teljes kereskedelmi tézis; a SZINKRONIZÁCIÓ határozza meg a helyes árazási modellt iránykénként (egyszeri/visszatérő konverzió vs. előfizetés vs. meg nem épített 6-os szintű prémium sáv). Ez az oka annak, hogy az Archicad↔Revit és a Verzióhidalás alapvetően eltérő logika szerint árazott (előfizetés vs. eseményalapú), annak ellenére, hogy mindkettő „interoperabilitási” termék.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 23 FÖLDRAJZ -->
+  <section class="section">
+    <div class="section-label">23 Földrajzi priorizálás</div>
+    <h2 id="negy-kulon-rangsor-nem-feltetelezve-hogy-azonosak">Négy külön rangsor, nem feltételezve, hogy azonosak</h2>
+
+    <ul class="plain-list">
+      <li><strong>Revit telepített bázis szerint:</strong> USA, Kína, UK, India, Németország, Kanada, Franciaország, Japán, Brazília, Ausztrália.</li>
+      <li><strong>Archicad telepített bázis szerint (auditálthoz kötve):</strong> Németország, Svájc, USA, Ausztrália, Franciaország, Japán, Lengyelország, Norvégia, Ausztria, Hollandia.</li>
+      <li><strong>Interoperabilitási intenzitás szerint</strong> (Archicad-Revit átfedés × strukturális DACH-Generalplaner hajtóerő × BIM-mandátum erőssége): Németország, Svájc, Ausztria, Hollandia, Lengyelország, Észak-Európa, UK, USA, Ausztrália, Franciaország.</li>
+      <li><strong>NODU-specifikus prioritás szerint</strong> (szűrve meglévő forgalmazói lefedettségre, fizetési hajlandósági jelzésre, értékesítési költségre): <strong>Németország, Svájc, Hollandia, Lengyelország, Észak-Európa, Ausztria, Ausztrália, UK, USA, Franciaország.</strong></li>
+    </ul>
+
+    <p><strong>Következtetés: a DACH (Németország, Svájc, Ausztria) az egyértelmű első beachhead minden olyan rangsorban, amely interoperabilitási vagy NODU-specifikus szűrőt tartalmaz</strong> — ez megerősíti, nem felülírja a belső Archicad-kutatás eredeti DACH-ajánlását. Az UK és az USA magasan rangsorol a nyers Revit-populáció mérete szerint, de viszonylag alacsonyan a NODU-specifikus prioritásban, mert a NODU valós ügyfélkapcsolata az Archicad-oldalon indul, ahol mindkét piac telepített bázisa vékony, és mert a meglévő forgalmazói lefedettség (Lengyelország, Hollandia, Észak-Európa) jobban csökkenti a piacra lépési költséget, mint amennyivel a nyers piacméret növeli a lehetőséget.</p>
+
+    <div class="callout-green">
+      <strong>Már most valós elérés a mag-piacon túl</strong>
+      A DACH/Észak-Európa alapkörön túl a NODU-nak már most aktív viszonteladói kapcsolatai vannak <strong>Olaszországban, Spanyolországban, Szerbiában és Indiában</strong> (a Nordic BIM Group mellett). Olaszországnak és Spanyolországnak már van érdemi Archicad-jelenléte. Szerbia és India egyáltalán nem szerepel az Archicad-piaci adatainkban — India különösen egy hatalmas Revit-piac, gyakorlatilag dokumentálatlan Archicad-bázissal, így az ottani kapcsolat egy valódi korai megvetett láb, amit a fenti SAM-számok nem vesznek figyelembe. Ez nem változtatja meg a DACH-elsőbbségi rangsort.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 24 CSATORNA -->
+  <section class="section">
+    <div class="section-label">24 Csatornastratégia</div>
+    <h2 id="meglevo-forgalmazok-app-store-tanacsadok">Meglévő forgalmazók, App Store, tanácsadók</h2>
+
+    <p>Négy meglévő, valós, elnevezett Archicad-forgalmazó — <strong>IDC AG (Svájc), Nordic BIM Group, KUBUS (Hollandia), WSC (Lengyelország)</strong> — már bizalmi kereskedelmi kapcsolatokkal rendelkezik a globális Archicad-bázis ~19%-ával, a NODU legmagasabb prioritású földrajzi területein koncentrálódva (23. szakasz).</p>
+
+    <p><strong>A NODU-nak már most aktív kapcsolata van a Nordic BIM Grouppal és az olasz, spanyol, szerb és indiai Graphisoft-viszonteladókkal</strong>, közös webináriumok tervezésével. Az IDC AG (Svájc), a KUBUS (Hollandia) és a WSC (Lengyelország) még nincs benne — érdemes felvenni velük a kapcsolatot, tekintve, hogy milyen jól lefedik a DACH/Lengyelország/Hollandia prioritási piacokat. A Graphisoft saját viszonteladói jutalékai 10–40% között mozognak üzlettípustól függően — ésszerű kiindulási referencia a NODU saját, még nem rögzített partner-feltételeinek kialakításához.</p>
+
+    <p><strong>Autodesk App Store:</strong> létezik egy Publisher Agreement-alapú bevételmegosztás fizetős alkalmazásokra, de <strong>a pontos jutalékszázalék nem nyilvános</strong> [Autodesk App Store Publisher Agreement, 2024. aug.]. Javasolt az App Store-t felfedezési/hitelességi csatornaként kezelni, nem elsődleges számlázási csatornaként.</p>
+
+    <p><strong>BIM-tanácsadók/rendszerintegrátorok:</strong> az általános BIM-tanácsadási szolgáltatási piac jelentős méretű (7,2 Mrd$ 2024 → 18,5 Mrd$ 2033-ra, harmadik féltől származó becslés), de az e kutatásban felszínre került konkrét, nevesített cégek listája alacsony minőségű/sablonos SEO-tartalomnak tűnt, és kifejezetten <strong>nem használtuk bizonyítékként</strong>. Az egyetlen valós, függetlenül igazolt, csatornához közeli entitás a <strong>liNear GmbH</strong> (német gépészeti/TGA platform Revitre építve, Archicad-adatot fogyasztó hídként pozicionálva) — reális technológiai/co-marketing partner, nem viszonteladó.</p>
+
+    <p><strong>Gyártói konszolidációs/felvásárlási kockázat:</strong> nem található bizonyíték arra, hogy az Autodesk, a Nemetschek vagy egy harmadik fél megkísérelt volna felvásárolni egy hasonló interoperabilitási eszközt — jelölve mint <strong>bizonyíték hiánya</strong>, nem mint bizonyítottan nem létező kockázat.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 25 ÜTEMTERV -->
+  <section class="section">
+    <div class="section-label">25 Termék-terjeszkedési ütemterv</div>
+    <h2 id="sorrend-es-indoklas">Sorrend és indoklás</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-4">
+        <colgroup><col style="width:10%"><col style="width:30%"><col style="width:20%"><col style="width:40%"></colgroup>
+        <thead><tr><th>Fázis</th><th>Piac</th><th>Méret</th><th>Sorrendezési indoklás</th></tr></thead>
+        <tbody>
+          <tr><td class="td-strong">1</td><td>Archicad↔Revit <div class="td-muted">Az Archicad→Revit irány szállítva/béta; a Revit→Archicad operátor által megerősítve (2026-08-26), hogy csak ütemterv</div></td><td class="td-strong">SAM alap 57 M€</td><td>Legmagasabb megbízhatóságú piac, auditálthoz kötve, meglévő termék az előremenő irányban, függetlenül alátámasztott DACH keresleti hajtóerő; a fordított irány befejezése közeljövőbeli 1. fázisos fejlesztési tétel</td></tr>
+          <tr><td class="td-strong">2</td><td>Revit Verzióhidalás</td><td>TAM alap ≈138 M€ <div class="td-muted">Csak family-konverzió, alacsony megbízhatóság</div></td><td>Ugyanaz az ügyfélbázis (cross-sell, nincs szükség új GTM-mozdulatra); a legjobban alátámasztott <em>fájdalom</em>, de kereskedelmileg nem bizonyított — elsődleges kutatást igényel</td></tr>
+          <tr><td class="td-muted">kihagyva</td><td><em>Rhino/Grasshopper</em></td><td>—</td><td><strong>A tanulmány kifejezetten javasolja e ütemterv-lépés kihagyását</strong>, egy sablon-alapértelmezéssel szemben — a Rhino.Inside.Revit már ingyenesen elfoglalja az 5-ös szintet, kategorikusan más problémát oldva meg</td></tr>
+          <tr><td class="td-strong">3</td><td>Tekla</td><td class="td-strong">TAM alap ≈560 M€</td><td>A legjobban alátámasztott terjeszkedési irány, az egyetlen számszerűsíthető TAM-mal; új vevőprofilt/csatornát igényel</td></tr>
+          <tr><td class="td-strong">4</td><td>Vectorworks</td><td><span class="ev ev-unknown">UNKNOWN</span> populáció</td><td>Az Archicad legközelebbi technikai analógja; a Tekla után sorolva, mert a populáció még nem méretezhető megbízhatóan</td></tr>
+          <tr><td class="td-strong">5</td><td>Bentley OpenBuildings / Allplan</td><td><span class="ev ev-unknown">UNKNOWN</span></td><td>Valós útvonalak, ma túl evidencia-hiányosak az erőforrás-allokáció priorizálásához — utolsóra sorolva, mert ismeretlen, nem mert ismerten kicsi</td></tr>
+          <tr><td class="td-strong">6</td><td>Kétirányú szinkronizáció (6-os szint)</td><td>Hosszú távú moat-jelölt, nem önálló piac</td><td>Megerősítetten megoldatlan minden versenytárs által — képességrétegként követve minden korábbi fázison keresztül, az 1–2. fázis által generált implementációs volumen táplálja</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 26 MOAT -->
+  <section class="section">
+    <div class="section-label">26 NODU moat</div>
+    <h2 id="mi-vedheto-ma-es-mi-meg-nem">Mi védhető ma, és mi még nem</h2>
+
+    <div class="table-wrap">
+      <table class="t-fixed t-3">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>Elem</th><th>Kategória</th><th>Verdikt</th></tr></thead>
+        <tbody>
+          <tr><td>Szemantikus leképező motor</td><td>Védhető, ha működik, ma igazolatlan</td><td>Valós technikai nehézség (kategorikus séma-eltérés), de a nehézség önmagában nem bizonyítja a védhetőséget</td></tr>
+          <tr><td class="td-strong">Paraméteres rekonstrukció (5-ös szint)</td><td class="td-strong">Valós, igazoltan működik</td><td>A konkrét képesség, amit egyetlen versenytárs sem szállított. A NODU megépítette — natív elemgenerálás, nem referenciageometria —, ezt mérnöki naplók, egy élő demó és egy technikai képernyőkép is megerősíti. Egy külső fél írásos megerősítése még mindig érdemes a fundraising előtt, tisztán befektetői hitelesség miatt.</td></tr>
+          <tr><td>Verzió-absztrakció</td><td>Legfeljebb ideiglenes előny</td><td>Ma egyetlen versenytárs sem kínálja, de a mögöttes probléma mérnöki erőfeszítés, amelyet egy jól finanszírozott versenytárs (beleértve az Autodeskot is) replikálhatna</td></tr>
+          <tr><td class="td-strong">Transzformációs gráf / tudásbázis</td><td class="td-strong">Valós, és minden ügyféllel erősödik</td><td>Strukturálisan a legerősebb jelölt — volumennel összeadódik, és nehéz replikálni nélküle. A NODU „Building Information Graph” architektúrája (elemek mint csomópontok, kapcsolatok mint élek) pontosan ez, és már hozott egy mérhető eredményt: a SEW-Graben projekt 15%-os megtakarítást hozva.</td></tr>
+          <tr><td>Felhalmozott edge-case könyvtár</td><td>Potenciális hosszú távú moat, igazolatlan</td><td>Valós gazdasági érték, ha létezik (a manuális konverziós szolgáltatás árazása mutatja, hogy a komplex esetek 3–10x-esen drágábbak az egyszerűeknél) — a létezés nem megerősített</td></tr>
+          <tr><td class="td-strong">Kétirányú szinkronizáció (6-os szint)</td><td class="td-strong">Strukturálisan a legerősebb hosszú távú moat-jelölt, teljesen felépítetlen</td><td>Megerősítetten megoldatlan minden versenytárs által — valódi elsőmozgó-plusz-váltási-költség potenciál, ha felépül, jelenleg aspirációs</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-green">
+      <strong>Verdikt</strong>
+      Az első két moat-jelölt — a natív paraméteres rekonstrukció és a mögötte álló gráf-architektúra — ma valósak és működnek, nem csak ütemterv-ötletek. Az egyetlen még hiányzó darab a kétirányú élő szinkronizáció (6-os szint): ezt még senki nem építette meg, a NODU sem, és ez a legmagasabb értékű dolog, amit legközelebb érdemes megépíteni — aki elsőként csinálja meg, valódi váltási költséget teremt, amint egy ügyfél modelljei élőben össze vannak kötve.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 27 KOCKÁZATOK -->
+  <section class="section">
+    <div class="section-label">27 Kockázatok</div>
+    <h2 id="nyolc-kockazat-suly-szerint">Nyolc kockázat, súly szerint</h2>
+
+    <ul class="oq-list">
+      <li><span class="oq-num">01</span><span class="oq-text"><strong>Még nincs külső írásos megerősítés.</strong> A technológia működik — ez megerősített tény (13.1 szakasz) —, de egyetlen, a NODU-hoz nem kötődő külső fél sem tette még ezt írásba. Ez nem termékkockázat, hanem hitelességi/dokumentációs rés a forrásbevonáshoz, és olcsón zárható: egy semleges BIM-tanácsadó, egy teszt, egy aláírt megjegyzés.</span></li>
+      <li><span class="oq-num">02</span><span class="oq-text"><strong>A Verzióhidalás kereskedelmi esete nem bizonyított.</strong> A tanulmány legjobban alátámasztott fájdalompontjának nincs számszerűsített fizetési-hajlandósági bizonyítéka — a 138 M€ alap TAM-szám (19.2 szakasz) kifejezetten alacsony megbízhatóságú, INFERENCE-on-INFERENCE.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text"><strong>Autodesk platform-gravitációs kockázat.</strong> A Data Exchange négy hónap alatt három konnektort adott hozzá; egy esetleges Archicad-konnektor ingyenes/bundle-elt lenne, és közvetlenül aláásná a NODU árazását 4-es szinten és alatta.</span></li>
+      <li><span class="oq-num">04</span><span class="oq-text"><strong>Speckle versenytársi átfedés.</strong> A leghitelesebb meglévő kereskedelmi versenytárs saját elismert gyengesége (Archicad-fogadó eszközök) pontosan a NODU beachhead-je — valós, alátámasztott, közvetlen átfedés, nem hipotetikus fenyegetés.</span></li>
+      <li><span class="oq-num">05</span><span class="oq-text"><strong>Általánosítási kockázat.</strong> Nincs bizonyíték arra, hogy a NODU mögöttes motorja forrás-ökoszisztéma-általánosságra (Tekla, Vectorworks) épült-e, nem csak Archicad-specifikusra — kritikus technikai átvilágítási tétel, nyilvános bizonyítékokból nem megválaszolható.</span></li>
+      <li><span class="oq-num">06</span><span class="oq-text"><strong>Nincsenek AEC-specifikus GTM-benchmarkok.</strong> A teljes SOM/ARR-modell általános B2B SaaS-benchmarkokra épül, nem ágazat-specifikus adatokra — lényeges, kimondott bizonytalanság.</span></li>
+      <li><span class="oq-num">07</span><span class="oq-text"><strong>A csatorna-kapcsolatok részben megerősítettek, részben nyitottak.</strong> A NODU-nak megerősítetten aktív kapcsolata van a Nordic BIM Grouppal és az olasz, spanyol, szerb és indiai Graphisoft-viszonteladókkal (24. szakasz) — de az IDC AG (Svájc), a KUBUS (Hollandia) és a WSC (Lengyelország) továbbra is megerősítetlen, akárcsak bármilyen kapcsolat az Autodesk App Store partnerprogramjával, és a megerősített kapcsolatok kereskedelmi feltételei/érettsége is ismeretlen.</span></li>
+      <li><span class="oq-num">08</span><span class="oq-text"><strong>Névütközési kockázat.</strong> Egy nem kapcsolódó fintech startup („Nodu”, stablecoin/fizetési infrastruktúra, ~1,25 M€ pre-seed, 2025. december) ugyanazon a néven fut — bármely „Nodu”-ra vonatkozó finanszírozási/hír-hivatkozást ellenőrizni kell ezzel az ütközéssel szemben.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 28 ISMERETLENEK -->
+  <section class="section">
+    <div class="section-label">28 Ismeretlenek</div>
+    <h2 id="valoban-hianyzo-bizonyitek-nem-becsult">Valóban hiányzó bizonyíték, nem becsült</h2>
+
+    <p>Mind a négy kutatási fázisból összeállítva:</p>
+
+    <ul class="plain-list">
+      <li>A Revit szervezetek nagyvállalati-vs-KKV megoszlása (bármely forrás, bármely piac).</li>
+      <li>Revit-verzióhidalás: éves hidalási esemény gyakorisága, projekt-szintű kereslet-arány, sablon/szabvány-szintű kereslet, fizetési hajlandóság, árazási modell (10. szakasz).</li>
+      <li>Teljes projekt-verziókonverzió árazása (9. táblázat).</li>
+      <li>A Vectorworks, Bentley OpenBuildings és Allplan terjeszkedési piacok populációmérete (19.4 szakasz).</li>
+      <li>Az IFC paraméteres-hűségi korlátainak átdolgozási költsége (óra/€), bármely konkrét eszközpárosításra (15. szakasz).</li>
+      <li>Egy aláírt, írásos megerősítés egy külső féltől (nem a NODU-tól), hogy a konnektor a leírtak szerint működik — jó, ha ez megvan a fundraising-beszélgetések előtt.</li>
+      <li>Hogy a NODU motorja általánosít-e az Archicadon túl más forrás-ökoszisztémákra (26./29. szakasz).</li>
+      <li>Autodesk App Store jutalékszázaléka (24. szakasz).</li>
+      <li>A NODU kapcsolatának státusza kifejezetten az IDC AG-vel (Svájc), a KUBUS-szal (Hollandia) és a WSC-vel (Lengyelország), valamint a megerősített viszonteladói kapcsolatok kereskedelmi feltételei (24. szakasz).</li>
+      <li>Hogy bármely gyártó megkísérelt-e felvásárolni egy hasonló interoperabilitási eszközt (27. szakasz).</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 29 BEFEKTETŐI TESZT -->
+  <section class="section">
+    <div class="section-label">29 Befektetői teszt</div>
+    <h2 id="tizenegy-kerdes-amit-egy-befekteto-feltesz">Tizenegy kérdés, amit egy befektető feltesz</h2>
+
+    <ul class="qa-list">
+      <li><span class="qa-q">1. Az Archicad↔Revit önmagában értelmes üzlet?</span><span class="qa-a"><strong>Igen</strong> — valós, finanszírozható, 57 M€ alap SAM-mal rendelkező beachhead, reálisan 5–10 M€ ARR 5–7 éven belül; önmagában nem egy nagyvállalat.</span></li>
+      <li><span class="qa-q">2. A Revit-verzióhidalás valódi kereskedelmi terjeszkedés?</span><span class="qa-a">A fájdalom valós és jól alátámasztott; a <strong>kereskedelmi eset nem bizonyított</strong> — a tanulmány legmagasabb értékű elsődleges-kutatási rése.</span></li>
+      <li><span class="qa-q">3. A Revit→Archicad kereskedelmileg jelentős?</span><span class="qa-a">Piaci szinten valós, de kisebb, mint az előremenő irány; legjobban a meglévő ügyfeleken belüli terjeszkedésként értelmezhető. <strong>Konkrétan a NODU-ra nézve ez jelenleg tárgytalan: az operátor megerősítette (2026-08-26), hogy ez az irány még nem épült meg.</strong></span></li>
+      <li><span class="qa-q">4. Ugyanaz a technológia több forrás-ökoszisztémát is kiszolgálhat?</span><span class="qa-a">Plauzibilis a Tekla/Vectorworks esetében strukturális hasonlóság alapján, de nyilvános bizonyítékokból megválaszolhatatlan — technikai átvilágítási kérdés, nem piaci kérdés.</span></li>
+      <li><span class="qa-q">5. A NODU átléphet konnektorból platformmá?</span><span class="qa-a">A platform-<em>tézis</em> koherens; a platform-<em>bizonyíték</em> még nem létezik.</span></li>
+      <li><span class="qa-q">6. Mekkora a reális jelenlegi SAM?</span><span class="qa-a"><strong>57 M€ alap</strong> (tartomány 51–65 M€) — az a szám, amelyre a befektetőnek ma horgonyoznia kell.</span></li>
+      <li><span class="qa-q">7. Mekkora a hosszú távú kategória-lehetőség?</span><span class="qa-a"><strong>500 M€–2,3 Md€ nagyságrend</strong>, feltéve, hogy az 5-ös szintű állítás igazolódik és legalább egy terjeszkedési irány beérik — nem rövid távú terv.</span></li>
+      <li><span class="qa-q">8. Mi a legerősebb Autodesk-fenyegetés?</span><span class="qa-a">Nem a jelenlegi verseny (nincs Archicad-konnektor), hanem a <strong>platform-gravitáció idővel</strong> — a fenyegetés az, hogy az Autodesk dönt a versenyzés mellett, nem az, hogy jelenleg nyerne.</span></li>
+      <li><span class="qa-q">9. Mi a legerősebb Speckle/openBIM-fenyegetés?</span><span class="qa-a">A Speckle saját elismert Archicad-oldali gyengesége egyszerre a legvilágosabb bizonyítéka egy nyitott résnek és jelzés arra, hogy a rés elég nehéz ahhoz, hogy egy ésszerűen finanszírozott open-source projekt még nem zárta be.</span></li>
+      <li><span class="qa-q">10. Mi a legerősebb érv a NODU ellen?</span><span class="qa-a"><strong>Nem a technológia — az működik.</strong> A rés a dokumentáció: külső fél még nem tette írásba a NODU saját megerősítését. Ez gyorsan javítható, nem valódi gyengeség.</span></li>
+      <li><span class="qa-q">11. Melyik egyetlen hiányzó adatpont javítaná legjobban a befektetői bizalmat?</span><span class="qa-a">Egy <strong>aláírt megjegyzés egy semleges külső BIM-tanácsadótól</strong>, aki közvetlenül tesztelte a konnektort. Minden mást, amit egy befektető ellenőrizni akarna — működő termék, megnevezett referencia-ügyfelek, élő demó — már most is kérésre elérhető.</span></li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 30 AJÁNLÁS -->
+  <section class="section">
+    <div class="section-label">30 Végső stratégiai ajánlás</div>
+    <h2 id="ket-lepcso-nem-egy">Két lépcső, nem egy</h2>
+
+    <p><strong>A központi stratégiai kérdés közvetlen megválaszolása:</strong> a NODU ma egy <strong>niche Archicad↔Revit konverziós lehetőség, koherens, bizonyíték-konzisztens — de még nem bizonyítékkal igazolt — úttal egy szélesebb interoperabilitási kategória felé.</strong> A niche lehetőség önmagában (57 M€ SAM, reálisan 5–10 M€ ARR, a 21. szakasz konzervatív olvasata) valós és finanszírozható. A szélesebb-kategória tézis (500 M€–2,3 Md€) két olyan dologtól függ, amelyet a tanulmány nyilvános forrásokból nem tudott igazolni: <strong>(a)</strong> hogy a NODU 5-ös szintű paraméteres rekonstrukciós állítása valós-e, és <strong>(b)</strong> hogy legalább egy terjeszkedési ökoszisztéma (legjobban alátámasztottként a Tekla) valós bevétellé alakul-e.</p>
+
+    <div class="roi-highlight">
+      <h3 id="ajanlas">Ajánlás</h3>
+      <p><strong>1. lépcső</strong> — Archicad↔Revit, DACH-first, mostantól aktív csatorna-eléréssel Olaszországban, Spanyolországban, Szerbiában és Indiában is — jelen formájában finanszírozható; a technológia működik, egy aláírt külső megerősítés (13.1 szakasz) lezárja az egyetlen fennmaradó dokumentációs rést.</p>
+      <p><strong>2. lépcső</strong> — a nagyobb kategória-történet — még nem bizonyított: kell hozzá a Verzióhidalás keresleti felmérése és egy valódi Tekla-pilot, mielőtt bárki alátámasztaná vele a számokat.</p>
+      <div class="roi-number">Finanszírozzuk az 1. lépcsőt ma, a valós méretén (57 M€ SAM)</div>
+      <div class="roi-sub">A 2. lépcsőt kezeljük felfelé mutató lehetőségként, és hagyjuk, hogy egy Tekla-pilot eredménye döntse el, terv lesz-e belőle.</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 31 FORRÁSOK -->
+  <section class="section">
+    <div class="section-label">31 Források</div>
+    <h2 id="forrascsoportok">Forráscsoportok</h2>
+
+    <h3 id="elsodleges-hivatalos">Elsődleges/hivatalos</h3>
+    <p>Autodesk 10-K FY2025 (SEC EDGAR); Autodesk FY2025/FY2026 eredményközlő hívások átiratai; Autodesk Support/Help Center és App Store Publisher Agreement (2024. aug.); Autodesk Platform Services fejlesztői blog (Data Exchange GA bejelentések, 2025); Autodesk Blogs (Revit 2027 megjelenés, 2026. ápr.); Graphisoft SE auditált éves jelentések FY2023/2024/2025, könyvvizsgálói jelentés, részvényesi határozat; Graphisoft Community fórum és Help Center; Graphisoft letöltési/add-on oldalak; Nemetschek Group befektetői közlemények és negyedéves eredmények (2025–2026); buildingSMART IFC4/IFC4-CV dokumentáció és „Global openBIM Mandates 2025 Edition”; Trimble/Tekla, CSI (ETABS/SAP2000), RISA, Bentley, Vectorworks hivatalos dokumentáció és sajtóközlemények; Speckle Systems dokumentáció és DeepWiki.</p>
+
+    <h3 id="masodlagos-technografiai">Másodlagos/technográfiai</h3>
+    <p>Enlyft, 6sense, Datanyze technográfiai felfedezési adatok (2025–2026); imarcgroup.com és globalgrowthinsights.com BIM piacméret-jelentések (ellentmondásosak, csak makro-kontextusként használva); Evolve Consultancy IFC útmutató; MDPI <em>Applied Sciences</em> 11(23):11430 (2021, dátumozott); marketsandmarkets.com BIM-tanácsadási piaci jelentés.</p>
+
+    <h3 id="kozossegi-szakmai">Közösségi/szakmai</h3>
+    <p>AUGI, RevitForum, RevitCity, Autodesk Community, Graphisoft Community, McNeel Discourse fórumbejegyzések (2024–2026); BIM Heroes, cadinterop.com, robotechcad.com szakmai blogok; agn.de (ifc2room nyílt forráskódú eszköz); linear.eu / integrale-planung.de.</p>
+
+    <h3 id="belso-evidencia-bazis">Belső evidencia-bázis</h3>
+    <p>12 markdown kutatási dokumentum (Archicad/Graphisoft felhasználói kutatás ×5, Archicad telepítettbázis v2 tanulmány EN/HU, Revit/NODU Bridge piackutatás ×3 AI-modell átfutás EN/HU párokkal) — teljes leltár a <code>01_evidence_base.md</code> §1-ben.</p>
+
+    <h3 id="emellett-felhasznalt-anyagok">Emellett felhasznált anyagok</h3>
+    <p>A NODU saját belső mérnöki release note-jai (45–54. ciklus, 2026. március 31. – augusztus 4.); a NODU csapata által átadott közvetlen megerősítés és termékképernyőképek; a NODU által publikált „We are solving the Archicad–Revit problem” cikk, szerző Nyerges Viktória; az Autodesk AEC Tech Drop blogbejegyzése, „Introducing the Revit Public MCP Server” (2026. jún. 17.) és a Revit 2027 dokumentációja.</p>
+
+    <p class="source-note">A teljes hivatkozásjegyzék a 4–29. szakaszokban és a négy fázis-checkpointban megőrizve; ez a szakasz forráscsoportokat összesít, nem ismétli meg minden egyes URL-t.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 32 EGYOLDALAS ÖSSZEFOGLALÓ -->
+  <section class="section">
+    <div class="section-label">32 Egyoldalas befektetői összefoglaló</div>
+    <h2 id="egy-lapon">Egy lapon</h2>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Jelenlegi piac (Archicad↔Revit)</div>
+        <div class="metric-value">~24 000 → 3 400–4 300</div>
+        <div class="metric-sub">Plafon-populáció (Revit-nyomás-szűrt) → kiszolgálható szervezetek.</div>
+      </div>
+      <div class="metric-card accent">
+        <div class="metric-label">Jelenlegi SAM (alacsony/alap/magas)</div>
+        <div class="metric-value">51 / 57 / 65 M€</div>
+        <div class="metric-sub">Az a szám, amelyre a befektetőnek ma horgonyoznia kell.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Revit verzióhidalás</div>
+        <div class="metric-value">46 / 138 / 770 M€</div>
+        <div class="metric-sub"><strong>Alacsony megbízhatóság</strong>, csak family-konverziós al-piac, elsődleges kutatást igényel.</div>
+      </div>
+    </div>
+
+    <p><strong>Terjeszkedési piac (élen álló ökoszisztémák, 2. fázis pontszáma szerint):</strong> Tekla (61, EXPANSION, egyetlen számszerűsíthető irány: 285–930 M€ TAM) · Bentley OpenBuildings (60, FUTURE, nem méretezett) · Vectorworks (59, EXPANSION, nem méretezett) · Gyártási/kivitelezési klaszter (56, csak irányjelző) · Rhino/Grasshopper (51, DEPRIORITIZE — beágyazott ingyenes gyártói szereplő).</p>
+
+    <p><strong>Alapeset ARR:</strong> 3. év ≈1,8 M€ · 5. év ≈8,5 M€ · 7. év ≈25 M€ (agresszív eset) / <strong>≈12–13 M€ (konzervatív, ajánlott horgony)</strong>.</p>
+
+    <p><strong>Fő versenytársi fenyegetések (top öt):</strong> (1) Manuális újramodellezés/házon belüli megoldás — a valós alapértelmezett szereplő; (2) Speckle — hiteles kereskedelmi versenytárs közvetlenül átfedő, elismert gyengeséggel; (3) Autodesk Data Exchange — ma nincs fenyegetés, platform-gravitációs kockázat idővel; (4) IFC — állandó alapvonal, amellyel együtt kell élni, nem leváltani; (5) a Graphisoft saját ingyenes hivatalos add-inja — meghatározza azt a zéró-költségű padlót, amelyet a NODU-nak hűségben, nem csak létezésben kell felülmúlnia.</p>
+
+    <div class="callout-green">
+      <strong>Legerősebb NODU-differenciátor (egy mondatban)</strong>
+      A NODU az egyetlen eszköz ezen a piacon, amely valódi, szerkeszthető natív objektumokat hoz létre Revitben statikus referenciageometria helyett — megerősítve, nem hipotézisként —, ez a rés, amit minden versenytárs az Autodesktől az open-source alternatívákig nem tudott bezárni.
+    </div>
+
+    <div class="callout-amber">
+      <strong>Legerősebb befektetői ellenvetés (egy mondatban)</strong>
+      Még nincs írásos külső megerősítés — könnyen zárható rés, de érdemes lezárni, mielőtt egy pitchen felmerül.
+    </div>
+
+    <h3 id="legfontosabb-hianyzo-bizonyitek-top-harom">Legfontosabb hiányzó bizonyíték (top három)</h3>
+    <ul class="oq-list">
+      <li><span class="oq-num">01</span><span class="oq-text">Egy aláírt külső megerősítés egy semleges BIM-tanácsadótól.</span></li>
+      <li><span class="oq-num">02</span><span class="oq-text">Egy valódi ügyfélfelmérés, amely méretezi a Revit-verzióhidalás keresletét.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text">Egy első Tekla-pilot, amely teszteli, hogy a technológia általánosítható-e az Archicadon túl.</span></li>
+    </ul>
+
+    <div class="verdict">
+      <div class="verdict-label">Végső verdikt</div>
+      <div class="verdict-value">Vonzó niche</div>
+      <p>Az 57 M€-os piac és a hozzá tartozó ~12–13 M€-os ARR-plafon valós, auditált és finanszírozható — a technológia működik, a DACH-kereslet valós (liNear, agn), és nincs közvetlen versenytárs. Még nem „kialakulóban lévő kategória” vagy „nagy strukturális kategória” — ehhez egy aláírt külső technikai megerősítés és egy valódi Tekla-üzlet kell, egyik sincs még meg. Mindkettő reálisan elérhető idén, és bármelyik megjelenése ok a verdikt felülvizsgálatára.</p>
+    </div>
+
+    <p class="source-note">A jelentés vége. A dokumentum négy fázis-checkpointot szintetizál (<code>01_evidence_base.md</code>, <code>02_interoperability_and_expansion.md</code>, <code>03_market_sizing_and_gtm.md</code>, <code>04_selfcheck_and_investor_test.md</code>), plusz egy ugyanaznapi revíziós checkpointot (<code>05_revision_2026-08-26_technical_and_channel_update.md</code>), amelyek teljes egészében megőrizve a <code>Strategic_Report_Output\checkpoints\</code> mappában, audit céljából.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <nav class="footer-nav">
+      <a href="nodu-bridge-vezetoi-osszefoglalo.html">Áttekintés</a>
+      <a href="nodu-bridge-piac-elemzes.html">Piaci elemzés</a>
+      <a href="nodu-bridge-speckle-tanulsagok.html">Pozicionálás</a>
+      <a href="nodu-bridge-strategiai-tanulmany.html">Stratégiai tanulmány</a>
+      <a href="nodu-bridge-license-calculator.html">Licencmodell</a>
+      <a href="nodu-bridge-esettanulmanyok.html">Esettanulmányok</a>
+      <a href="nodu-bridge-piackutatas.html">Piackutatás</a>
+      <a href="nodu-bridge-roadmap.html">Roadmap</a>
+      <a href="nodu-bridge-lead-gen.html">Lead Gen</a>
+    </nav>
+    <div class="footer-meta">
+      NODU Bridge · Stratégiai piackutatás · 2026-08-26<br />
+      <a href="mailto:poczai@nodu.build">poczai@nodu.build</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/nodu-tokens.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/search-highlight.js"></script>
+<script src="../assets/js/search-overlay.js"></script>
+</body>
+</html>
