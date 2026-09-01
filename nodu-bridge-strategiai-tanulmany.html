@@ -54,17 +54,42 @@
     .ev-internal { background: #FFF3F0; border-color: var(--accent); color: #9A2C0F; }
 
     .ev-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-      margin-top: 0.9rem;
-      padding-top: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px 20px;
+      margin-top: 1.1rem;
+      padding-top: 1.1rem;
       border-top: 1px solid var(--border);
-      font-size: 0.82rem;
-      color: var(--muted);
       text-align: left;
     }
-    .ev-legend span.item { display: flex; align-items: center; gap: 6px; }
+    .ev-legend .item { display: flex; align-items: flex-start; gap: 10px; }
+    .ev-legend .ev-icon {
+      flex: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ev-legend .ev-icon svg { width: 16px; height: 16px; }
+    .ev-legend .ev-copy { display: flex; flex-direction: column; gap: 2px; padding-top: 0.1rem; }
+    .ev-legend .ev-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    .ev-legend .ev-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+    .ev-icon-fact      { background: #F0FDF4; color: #16A34A; }
+    .ev-icon-estimate  { background: #FFFBEB; color: #D97706; }
+    .ev-icon-model     { background: #EFF6FF; color: #2563EB; }
+    .ev-icon-inference { background: #F5F3FF; color: #7C3AED; }
+    .ev-icon-signal    { background: #F4F4F5; color: #71717A; }
+    .ev-icon-unknown   { background: #FEF2F2; color: #DC2626; }
+    .ev-icon-internal  { background: #FFF3F0; color: var(--accent); }
+    .ev-label.t-fact      { color: #14532D; }
+    .ev-label.t-estimate  { color: #92400E; }
+    .ev-label.t-model     { color: #1E3A5F; }
+    .ev-label.t-inference { color: #4C1D95; }
+    .ev-label.t-signal    { color: #3F3F46; }
+    .ev-label.t-unknown   { color: #7F1D1D; }
+    .ev-label.t-internal  { color: #9A2C0F; }
 
     /* Táblázat-elrendezések */
     .t-fixed { table-layout: fixed; }
@@ -282,13 +307,34 @@
     <strong>Evidencia-jelölés és módszertan</strong>
     Ez a fejezet a teljes stratégiai piackutatást tartalmazza. Minden állítás mellett szerepel a bizonyíték szintje, és ahol nincs megbízható bizonyíték, a tanulmány ezt nyíltan jelzi, ahelyett hogy számot találna ki. A teljes hivatkozásjegyzék a 31. szakaszban.
     <div class="ev-legend">
-      <span class="item"><span class="ev ev-fact">FACT</span> igazolt, elsődleges/hivatalos forrás</span>
-      <span class="item"><span class="ev ev-estimate">ESTIMATE</span> harmadik féltől származó becslés</span>
-      <span class="item"><span class="ev ev-model">MODEL</span> triangulációval levezetett tartomány</span>
-      <span class="item"><span class="ev ev-inference">INFERENCE</span> szomszédos tényekből levont következtetés</span>
-      <span class="item"><span class="ev ev-signal">USER SIGNAL</span> közösségi/fórum-bizonyíték, nem méret</span>
-      <span class="item"><span class="ev ev-unknown">UNKNOWN</span> nincs megbízható bizonyíték</span>
-      <span class="item"><span class="ev ev-internal">INTERNAL ENG.</span> NODU belső, dátumozott mérnöki dokumentáció</span>
+      <div class="item">
+        <span class="ev-icon ev-icon-fact"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7.25"/><path d="M5.8 9.3l2 2 4.4-4.6"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-fact">Fact</span><span class="ev-desc">igazolt, elsődleges/hivatalos forrás</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-estimate"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 14.5v-4M9 14.5v-7M14.5 14.5V4"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-estimate">Estimate</span><span class="ev-desc">harmadik féltől származó becslés</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-model"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h12l-4.5 5.4v4.6l-3 1.3V9.4z"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-model">Model</span><span class="ev-desc">triangulációval levezetett tartomány</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-inference"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="5" r="1.5"/><circle cx="4" cy="13" r="1.5"/><circle cx="14" cy="9" r="1.5"/><path d="M5.4 5.9l7 2.4M5.4 12.1l7-2.4"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-inference">Inference</span><span class="ev-desc">szomszédos tényekből levont következtetés</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-signal"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h12v7.5H8l-3 2.5v-2.5H3z"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-signal">User signal</span><span class="ev-desc">közösségi/fórum-bizonyíték, nem méret</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-unknown"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7.25"/><path d="M6.8 7.1a2.2 2.2 0 1 1 3.3 1.9c-.8.5-1.1.9-1.1 1.8"/><circle cx="9" cy="12.9" r="0.65" fill="currentColor" stroke="none"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-unknown">Unknown</span><span class="ev-desc">nincs megbízható bizonyíték</span></div>
+      </div>
+      <div class="item">
+        <span class="ev-icon ev-icon-internal"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.8 6.2a3 3 0 0 1-3.9 3.9L4 14l-1-1 3.9-3.9a3 3 0 0 1 3.9-3.9l-2 2 1 1 2-2z"/></svg></span>
+        <div class="ev-copy"><span class="ev-label t-internal">Internal eng.</span><span class="ev-desc">NODU belső, dátumozott mérnöki dokumentáció</span></div>
+      </div>
     </div>
   </div>
 
