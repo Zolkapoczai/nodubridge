@@ -158,6 +158,41 @@
       .metric-grid { grid-template-columns: 1fr; }
     }
 
+    /* Egy lapon — grafikus blokkok (terjeszkedési ökoszisztémák, ARR-mini-statok) */
+    .chip-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 1rem 0 1.4rem; }
+    .chip-card {
+      flex: 1 1 210px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: var(--card);
+      text-align: left;
+    }
+    .chip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .chip-name { font-weight: var(--font-weight-bold); font-size: 1rem; color: var(--text); }
+    .chip-score { font-size: 0.78rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .chip-card .tag { margin-top: 0.55rem; }
+    .chip-note { margin-top: 0.55rem; font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    .tag { display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 4px; border: 1px solid transparent; }
+    .tag-expansion    { background: #F0FDF4; border-color: #22C55E; color: #14532D; }
+    .tag-future       { background: #F4F4F5; border-color: #A1A1AA; color: #3F3F46; }
+    .tag-deprioritize { background: #FEF2F2; border-color: #EF4444; color: #7F1D1D; }
+
+    .mini-stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 1rem 0 1.4rem; }
+    .mini-stat {
+      flex: 1 1 150px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      background: var(--card);
+      text-align: left;
+    }
+    .mini-stat.accent { border-color: var(--accent); background: #FFF3F0; }
+    .mini-stat-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .mini-stat-value { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+    .mini-stat.accent .mini-stat-value { color: var(--accent); }
+
     /* Témakörönkénti lenyíló szakaszok (accordion) */
     .acc-item {
       border: 1px solid var(--border);
@@ -1470,11 +1505,63 @@
       </div>
     </div>
 
-    <p><strong>Terjeszkedési piac (élen álló ökoszisztémák, 2. fázis pontszáma szerint):</strong> Tekla (61, EXPANSION, egyetlen számszerűsíthető irány: 285–930 M€ TAM) · Bentley OpenBuildings (60, FUTURE, nem méretezett) · Vectorworks (59, EXPANSION, nem méretezett) · Gyártási/kivitelezési klaszter (56, csak irányjelző) · Rhino/Grasshopper (51, DEPRIORITIZE — beágyazott ingyenes gyártói szereplő).</p>
+    <h3 id="terjeszkedesi-piac-egy-lapon">Terjeszkedési piac <span class="td-muted" style="font-weight:400;">— élen álló ökoszisztémák, 2. fázis pontszáma szerint</span></h3>
+    <div class="chip-list">
+      <div class="chip-card">
+        <div class="chip-head"><span class="chip-name">Tekla</span><span class="chip-score">61 pont</span></div>
+        <span class="tag tag-expansion">EXPANSION</span>
+        <div class="chip-note">Egyetlen számszerűsíthető irány: 285–930 M€ TAM</div>
+      </div>
+      <div class="chip-card">
+        <div class="chip-head"><span class="chip-name">Bentley OpenBuildings</span><span class="chip-score">60 pont</span></div>
+        <span class="tag tag-future">FUTURE</span>
+        <div class="chip-note">Nem méretezett</div>
+      </div>
+      <div class="chip-card">
+        <div class="chip-head"><span class="chip-name">Vectorworks</span><span class="chip-score">59 pont</span></div>
+        <span class="tag tag-expansion">EXPANSION</span>
+        <div class="chip-note">Nem méretezett</div>
+      </div>
+      <div class="chip-card">
+        <div class="chip-head"><span class="chip-name">Gyártási/kivitelezési klaszter</span><span class="chip-score">56 pont</span></div>
+        <span class="tag tag-future">FUTURE</span>
+        <div class="chip-note">Csak irányjelző</div>
+      </div>
+      <div class="chip-card">
+        <div class="chip-head"><span class="chip-name">Rhino/Grasshopper</span><span class="chip-score">51 pont</span></div>
+        <span class="tag tag-deprioritize">DEPRIORITIZE</span>
+        <div class="chip-note">Beágyazott, ingyenes gyártói szereplő</div>
+      </div>
+    </div>
 
-    <p><strong>Alapeset ARR:</strong> 3. év ≈1,8 M€ · 5. év ≈8,5 M€ · 7. év ≈25 M€ (agresszív eset) / <strong>≈12–13 M€ (konzervatív, ajánlott horgony)</strong>.</p>
+    <h3 id="alapeset-arr-egy-lapon">Alapeset ARR-pálya</h3>
+    <div class="mini-stat-row">
+      <div class="mini-stat">
+        <div class="mini-stat-label">3. év</div>
+        <div class="mini-stat-value">≈1,8 M€</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">5. év</div>
+        <div class="mini-stat-value">≈8,5 M€</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">7. év · agresszív eset</div>
+        <div class="mini-stat-value">≈25 M€</div>
+      </div>
+      <div class="mini-stat accent">
+        <div class="mini-stat-label">7. év · konzervatív, ajánlott horgony</div>
+        <div class="mini-stat-value">≈12–13 M€</div>
+      </div>
+    </div>
 
-    <p><strong>Fő versenytársi fenyegetések (top öt):</strong> (1) Manuális újramodellezés/házon belüli megoldás — a valós alapértelmezett szereplő; (2) Speckle — hiteles kereskedelmi versenytárs közvetlenül átfedő, elismert gyengeséggel; (3) Autodesk Data Exchange — ma nincs fenyegetés, platform-gravitációs kockázat idővel; (4) IFC — állandó alapvonal, amellyel együtt kell élni, nem leváltani; (5) a Graphisoft saját ingyenes hivatalos add-inja — meghatározza azt a zéró-költségű padlót, amelyet a NODU-nak hűségben, nem csak létezésben kell felülmúlnia.</p>
+    <h3 id="fo-versenytarsi-fenyegetesek-top-ot">Fő versenytársi fenyegetések (top öt)</h3>
+    <ul class="oq-list">
+      <li><span class="oq-num">01</span><span class="oq-text"><strong>Manuális újramodellezés / házon belüli megoldás</strong> — a valós alapértelmezett szereplő.</span></li>
+      <li><span class="oq-num">02</span><span class="oq-text"><strong>Speckle</strong> — hiteles kereskedelmi versenytárs, közvetlenül átfedő, elismert gyengeséggel.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text"><strong>Autodesk Data Exchange</strong> — ma nincs fenyegetés, platform-gravitációs kockázat idővel.</span></li>
+      <li><span class="oq-num">04</span><span class="oq-text"><strong>IFC</strong> — állandó alapvonal, amellyel együtt kell élni, nem leváltani.</span></li>
+      <li><span class="oq-num">05</span><span class="oq-text"><strong>Graphisoft saját ingyenes hivatalos add-inja</strong> — meghatározza azt a zéró-költségű padlót, amelyet a NODU-nak hűségben, nem csak létezésben kell felülmúlnia.</span></li>
+    </ul>
 
     <div class="callout-green">
       <strong>Legerősebb NODU-differenciátor (egy mondatban)</strong>
