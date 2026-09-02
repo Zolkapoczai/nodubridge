@@ -308,6 +308,11 @@
     .chain-step-sub { font-size: 0.74rem; color: var(--muted); margin-top: 0.25rem; line-height: 1.4; }
     .chain-arrow { flex: 0 0 auto; display: flex; align-items: center; font-size: 1.1rem; color: var(--muted); padding: 0 0.1rem; }
     @media (max-width: 640px) { .chain-arrow { transform: rotate(90deg); } }
+
+    /* Harom kartyas elrendezes (pl. ARR-celok), ugyanaz a .dual-card stilus,
+       harom oszlopos racs. */
+    .triple-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0 1.4rem; }
+    @media (max-width: 860px) { .triple-card-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -556,16 +561,29 @@
       <div class="chart-viz-caption">A 21. szakasz alulról építkező SOM-modellje, <strong>tisztán Bridge-alapon</strong> – a platform-előfizetés nincs benne (arra ma nincs árlista; külön forgatókönyvként a 21. szakasz mutatja, +9–19%). A tanulmány a 7. évre a konzervatív ≈12,4 M€-t ajánlja horgonyként, nem a ≈24,8 M€-os alapesetet. Nem szerepel az ábrán a 2. évi finanszírozott pálya (1000 ügyfél cél, ≈10,5 M€ ARR) – ez egy külön, feltételes, a bootstrap-görbétől eltérő forgatókönyv, ld. 21. szakasz.</div>
     </div>
 
-    <div class="table-wrap">
-      <table class="t-fixed">
-        <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
-        <thead><tr><th>ARR cél</th><th>Mi kell hozzá</th></tr></thead>
-        <tbody>
-          <tr><td class="td-strong">10 M€</td><td>~18% a mai 57 M€-os piacból – a bootstrap-pálya az 5–6. év körül éri el (5. év ≈8,45 M€) önmagában az Archicad↔Revit irányból; a finanszírozott pálya már a 2. évben elérné (≈10,5 M€, 21. szakasz)</td></tr>
-          <tr><td class="td-strong">25 M€</td><td>~44% a mai 57 M€-os piacból – épp a bootstrap-pálya 7. évi alapesete (≈24,8 M€), de ez már a 10–30%-os behatolási benchmark fölött van; védhetően ehhez a Tekla (vagy hasonló) valós bevétele kell</td></tr>
-          <tr><td class="td-strong">50 M€</td><td>A mai 57 M€-os piacból nem érhető el (~88% lenne) – kell, hogy a Verzióhidalás árazott, szállított termék legyen, plusz egy második terjeszkedési ökoszisztéma</td></tr>
-        </tbody>
-      </table>
+    <div class="triple-card-grid">
+      <div class="dual-card">
+        <div class="dual-card-title">10 M€</div>
+        <dl>
+          <dt>Piachányad</dt><dd>~18% a mai 57 M€-os piacból</dd>
+          <dt>Mikor</dt><dd>A bootstrap-pálya az 5–6. év körül éri el (5. év ≈8,45 M€); a finanszírozott pálya már a 2. évben elérné (≈10,5 M€, 21. szakasz)</dd>
+        </dl>
+      </div>
+      <div class="dual-card">
+        <div class="dual-card-title">25 M€</div>
+        <dl>
+          <dt>Piachányad</dt><dd>~44% a mai 57 M€-os piacból</dd>
+          <dt>Mikor</dt><dd>Épp a bootstrap-pálya 7. évi alapesete (≈24,8 M€), de ez már a 10–30%-os behatolási benchmark fölött van</dd>
+          <dt>Feltétel</dt><dd>Védhetően a Tekla (vagy hasonló) valós bevétele kell</dd>
+        </dl>
+      </div>
+      <div class="dual-card">
+        <div class="dual-card-title">50 M€</div>
+        <dl>
+          <dt>Piachányad</dt><dd>A mai piacból nem érhető el (~88% lenne)</dd>
+          <dt>Feltétel</dt><dd>Kell, hogy a Verzióhidalás árazott, szállított termék legyen, plusz egy második terjeszkedési ökoszisztéma</dd>
+        </dl>
+      </div>
     </div>
 
     <p><strong>Piacra vitel, már mozgásban:</strong> a DACH (Németország/Svájc/Ausztria) az egyértelmű #1 célpont. Aktív viszonteladói kapcsolatok már léteznek Észak-Európában, Olaszországban, Spanyolországban, Szerbiában és Indiában, közös webináriumok tervezésével – valós disztribúció a mag-piacon túl, a tervezettnél gyorsabban.</p>
