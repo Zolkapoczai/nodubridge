@@ -274,6 +274,20 @@
     details[open] > summary .acc-chevron::before { transform: rotate(-135deg); }
     .acc-body { padding: 0 1.4rem 1.5rem; border-top: 1px solid var(--border); }
     .acc-body > *:first-child { margin-top: 1.3rem; }
+
+    /* Lenyithato revizios naplo (nem hivatalos szakasz, nincs sorszamozva) */
+    .rev-log { border: 1px solid var(--border); border-radius: 12px; margin: 1.1rem 0; overflow: hidden; background: var(--card); }
+    .rev-log > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.2rem; font-weight: 700; font-size: 0.92rem; color: var(--muted); }
+    .rev-log > summary::-webkit-details-marker { display: none; }
+    .rev-log > summary::marker { content: ""; }
+    .rev-log > summary:hover { background: var(--table-header-bg); }
+    .rev-log-chevron { flex: none; width: 18px; height: 18px; position: relative; }
+    .rev-log-chevron::before { content: ""; position: absolute; inset: 0; margin: auto; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform 0.2s ease; }
+    .rev-log[open] > summary .rev-log-chevron::before { transform: rotate(-135deg); }
+    .rev-log-body { padding: 0.2rem 1.2rem 1.2rem; border-top: 1px solid var(--border); }
+    .rev-log-body h4 { margin: 1.1rem 0 0.5rem; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+    .rev-log-body h4:first-child { margin-top: 1rem; }
+    .rev-log-body .mini-stat-row { margin: 0.4rem 0 1rem; }
   </style>
 </head>
 <body>
@@ -358,15 +372,35 @@
     </div>
   </div>
 
-  <div class="callout-amber">
-    <strong>Revíziós megjegyzés (2026-09-01)</strong>
-    Két érdemi változás. <strong>(1) Az ARR-pálya megváltozott, a TAM/SAM nem.</strong> A SOM-modell (21. szakasz) fő ARR-pályája <strong>tisztán Bridge-alapú</strong> (blendelt ACV 10 500 → 13 000 → 15 500 €): 1. év ≈1,05 M€, 3. év ≈1,78 M€, 5. év ≈8,45 M€, 7. év ≈24,8 M€, konzervatív horgony ≈12,4 M€. A szélesebb NODU-platform előfizetése <em>nincs</em> az alapesetben, mert arra ma nincs árlista; a 2 500 €/hó-s alapdíjjal és 10%-os évi konverzióval számolt változat <strong>külön, <span class="ev ev-internal">FOUNDER TARGET</span> jelölésű sorként</strong> szerepel a 21. szakaszban (+9–19%, 7. év ≈27,1 M€). Emellett bekerült az 1. év (bootstrap, ~100 ügyfél) és egy külön, kifejezetten agresszívnek jelölt 2. évi finanszírozott pálya (1000 ügyfél cél, ~10,5 M€ ARR). A piac méretezése (TAM/SAM, 6–9. és 19–20. szakasz) <strong>változatlan</strong> — ezt a revíziót az ACV-feltevés és az időtáv bővítése okozza, nem új piaci evidencia. <strong>(2) Szerkezet és olvashatóság:</strong> a 32 fejezet témakörönkénti lenyíló szakaszokba rendezve, a táblázat-sorszámozás hibája javítva (korábban nem volt sorrendben 1–11-ig), az evidencia-jelölés legendája ikon-alapú kártyákra cserélve, az egyoldalas összefoglaló (32. szakasz) grafikus elemekkel (chip-kártyák, mini-stat sor) kiegészítve.
-  </div>
-
-  <div class="callout-amber">
-    <strong>Korábbi revíziós megjegyzés (2026-08-26)</strong>
-    A jelentés beépíti a NODU belső mérnöki nyilvántartását (45–54. ciklus, 2026. március–augusztus), a megerősített aktív viszonteladói kapcsolatokat öt piacon a DACH-on túl (24. szakasz), és a közvetlen megerősítést, hogy az Archicad→Revit konnektor valódi, szerkeszthető natív Revit-objektumokat hoz létre (13.1 szakasz). Ez nem változtatta meg a piacméretezési számokat — csökkentette a technológiai kockázatot, és a terjeszkedési-piaci kérdést (30. szakasz) hagyta fő nyitott tételként.
-  </div>
+  <details class="rev-log">
+    <summary>
+      <span>Verziótörténet — 2 revízió (2026-09-01, 2026-08-26)</span>
+      <span class="rev-log-chevron" aria-hidden="true"></span>
+    </summary>
+    <div class="rev-log-body">
+      <h4>2026-09-01 — ARR-modell + szerkezet</h4>
+      <div class="mini-stat-row">
+        <div class="mini-stat"><div class="mini-stat-label">1. év</div><div class="mini-stat-value">≈1,05 M€</div></div>
+        <div class="mini-stat"><div class="mini-stat-label">3. év</div><div class="mini-stat-value">≈1,78 M€</div></div>
+        <div class="mini-stat"><div class="mini-stat-label">5. év</div><div class="mini-stat-value">≈8,45 M€</div></div>
+        <div class="mini-stat"><div class="mini-stat-label">7. év · alapeset</div><div class="mini-stat-value">≈24,8 M€</div></div>
+        <div class="mini-stat accent"><div class="mini-stat-label">7. év · konzervatív</div><div class="mini-stat-value">≈12,4 M€</div></div>
+      </div>
+      <ul class="plain-list">
+        <li><strong>ARR-pálya tisztán Bridge-alapú</strong> (blendelt ACV 10 500 → 13 000 → 15 500 €). A platform-előfizetés <em>nincs</em> az alapesetben — külön, <span class="ev ev-internal">FOUNDER TARGET</span> jelölésű sorként szerepel (+9–19%, 7. év ≈27,1 M€, 21. szakasz), mert arra ma nincs árlista.</li>
+        <li><strong>Új időtávok:</strong> 1. év (bootstrap, ~100 ügyfél) és egy külön, agresszívnek jelölt 2. évi finanszírozott pálya (1000 ügyfél cél, ~10,5 M€ ARR).</li>
+        <li><strong>TAM/SAM változatlan</strong> (6–9. és 19–20. szakasz) — a revíziót az ACV-feltevés és az időtáv bővítése okozza, nem új piaci evidencia.</li>
+        <li><strong>Szerkezet:</strong> 32 fejezet → témakörönkénti lenyíló szakaszok; táblázat-sorszámozás javítva; evidencia-legenda ikon-kártyákra cserélve; egyoldalas összefoglaló (32. szakasz) grafikus elemekkel bővítve.</li>
+      </ul>
+      <h4>2026-08-26 — Technikai megerősítés + csatorna</h4>
+      <ul class="plain-list">
+        <li>Beépítve a NODU belső mérnöki nyilvántartása (45–54. ciklus, 2026. március–augusztus).</li>
+        <li>Megerősített, aktív viszonteladói kapcsolatok öt piacon a DACH-on túl (24. szakasz).</li>
+        <li>Közvetlen megerősítés: az Archicad→Revit konnektor valódi, szerkeszthető natív Revit-objektumokat hoz létre (13.1 szakasz).</li>
+        <li>Nem változtatta a piacméretezést — csökkentette a technológiai kockázatot; a terjeszkedési-piaci kérdés (30. szakasz) maradt a fő nyitott tétel.</li>
+      </ul>
+    </div>
+  </details>
 
   <!-- 01 VEZETŐI ÖSSZEFOGLALÓ -->
   <section class="section acc-item">
