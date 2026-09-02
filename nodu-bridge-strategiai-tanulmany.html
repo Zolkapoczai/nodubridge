@@ -92,6 +92,13 @@
     .ev-label.t-internal  { color: #9A2C0F; }
 
     /* Táblázat-elrendezések */
+    /* A megosztott design system a body-n justify-t ír elő (hosszú prózára szánva).
+       Szűk konténerben ez nagy szóköz-réseket okoz — táblázatcellákban akár 173px-t,
+       normál 3,4px helyett —, ezért ott balra igazítunk. A széles bekezdések és
+       listák justify-oltak maradnak, ahogy a design system szánta. */
+    table th, table td { text-align: left; }
+    .td-muted, .source-note, .chart-viz-caption, .chip-note, .metric-sub { text-align: left; }
+
     .t-fixed { table-layout: fixed; }
     /* Hosszú, tördelhetetlen tokenek (pl. "ETABS/SAP2000/RISA/Robot") ne lógjanak ki a cellából */
     .t-fixed td, .t-fixed th { overflow-wrap: break-word; }
