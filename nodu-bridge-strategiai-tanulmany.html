@@ -300,6 +300,14 @@
     .dual-card dt:first-child { margin-top: 0; }
     .dual-card dd { margin: 0.2rem 0 0; line-height: 1.55; }
     @media (max-width: 640px) { .dual-card-grid { grid-template-columns: 1fr; } }
+
+    /* Vizualis lepes-lanc (pl. Archicad -> Revit -> Forma -> egyeb eszkozok) */
+    .chain-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.5rem; margin: 1rem 0 1.2rem; }
+    .chain-step { flex: 1 1 140px; border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 0.9rem; background: var(--card); text-align: center; }
+    .chain-step-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+    .chain-step-sub { font-size: 0.74rem; color: var(--muted); margin-top: 0.25rem; line-height: 1.4; }
+    .chain-arrow { flex: 0 0 auto; display: flex; align-items: center; font-size: 1.1rem; color: var(--muted); padding: 0 0.1rem; }
+    @media (max-width: 640px) { .chain-arrow { transform: rotate(90deg); } }
   </style>
 </head>
 <body>
@@ -1124,7 +1132,12 @@
 
     <div class="callout-amber">
       <strong>Pontosítás (2026-09-02): a lefedettségi rés hűségi réssé szűkült</strong>
-      Archicad 29.2 óta létezik hivatalos, Graphisoft-fejlesztésű <strong>Forma Connection</strong> – Data Exchange-alapú modellfeltöltést és dokumentáció-publikálást tesz lehetővé Forma Data Managementbe (Archicad Collaborate-előfizetést és aktív Autodesk Forma-licencet igényel, csak Windows-on, az Autodesk SDK korlátja miatt). Az „egyetlen forrásban sem található Archicad-konnektor" állítás ezért <strong>elavult</strong>: a lefedettségi rés bezárult. A hűségi rés viszont megmarad – a Forma Connection a Data Exchange 4-es szintjén tetőzik (szelektív, szemantikus objektumcsere), nem éri el az 5-ös szintű natív, paraméteresen szerkeszthető objektum-rekonstrukciót, amit a NODU szállít (13. szakasz). <span class="ev ev-fact">FACT</span> – <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02, 31. szakasz</em>.
+      <ul class="plain-list">
+        <li>Archicad 29.2 óta létezik hivatalos, Graphisoft-fejlesztésű <strong>Forma Connection</strong> – Data Exchange-alapú modellfeltöltés és dokumentáció-publikálás Forma Data Managementbe (Archicad Collaborate + aktív Autodesk Forma-licenc kell, csak Windows-on).</li>
+        <li>Az „egyetlen forrásban sem található Archicad-konnektor" állítás ezért <strong>elavult</strong>: a lefedettségi rés bezárult.</li>
+        <li>A hűségi rés viszont megmarad – a Forma Connection a Data Exchange 4-es szintjén tetőzik (szelektív, szemantikus objektumcsere), nem éri el az 5-ös szintű natív, paraméteresen szerkeszthető objektum-rekonstrukciót, amit a NODU szállít (13. szakasz).</li>
+      </ul>
+      <p class="source-note"><span class="ev ev-fact">FACT</span> – <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02, 31. szakasz</em>.</p>
     </div>
 
     <p>A fogadott adatok csoportosított, nem szerkeszthető referenciageometriaként érkeznek – sehol nem található bizonyíték arra, hogy egy Revit Family élő, szerkeszthető Family-ként maradna fenn egy Data Exchange-átvitel után. Az Autodesk saját szóhasználatában a „kétirányú” azt jelenti, hogy bármelyik alkalmazás lehet a csere <em>forrása</em>, nem azt, hogy egyetlen objektum egyszerre élően szerkeszthető mindkét oldalról, konfliktusfeloldással – ezt a 6-os szintű képességet egyetlen forrás sem dokumentálja.</p>
@@ -1617,8 +1630,18 @@
 
     <div class="callout-amber">
       <strong>Új szempont (2026-09-02): a NODU beléptethet a Forma-ökoszisztémába, nem csak versenyez vele</strong>
-      Revit 2025 szeptembere óta az első „Forma Connected Client" – mély integráció az Autodesk felhős Data Exchange-rétegével, import/export nélkül. Ez egy háromlépcsős láncot nyit: <strong>(1) Archicad → Revit</strong> a NODU natív, paraméteres hídján; <strong>(2) Revit → Forma Data Management</strong> az Autodesk saját Revit Connectorán; <strong>(3) Forma → egyéb eszközök</strong> (Tekla, Rhino, Power BI) a Cloud connectorokon. A NODU így nemcsak Revit-mandátumú kézbesítést old meg olcsóbban, hanem <em>közvetve</em> beléptet a teljes Forma-alapú adatcserébe, Revitet köztes platformként használva – ez enyhíti, nem súlyosbítja a #06-os Autodesk platform-gravitációs kockázatot (27. szakasz): a NODU szövetségesként is pozicionálható, nem csak megkerülendő versenytársként. <span class="ev ev-inference">INFERENCE</span> – <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02</em>.
+      Revit 2025 szeptembere óta az első „Forma Connected Client" – mély integráció az Autodesk felhős Data Exchange-rétegével, import/export nélkül. Ez egy háromlépcsős láncot nyit:
     </div>
+    <div class="chain-row">
+      <div class="chain-step"><div class="chain-step-name">Archicad</div></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step"><div class="chain-step-name">Revit</div><div class="chain-step-sub">NODU natív, paraméteres híd</div></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step"><div class="chain-step-name">Forma Data Management</div><div class="chain-step-sub">Autodesk Revit Connector</div></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step"><div class="chain-step-name">Tekla / Rhino / Power BI</div><div class="chain-step-sub">Cloud connectorok</div></div>
+    </div>
+    <p class="source-note">A NODU így nemcsak Revit-mandátumú kézbesítést old meg olcsóbban, hanem <em>közvetve</em> beléptet a teljes Forma-alapú adatcserébe, Revitet köztes platformként használva – ez enyhíti, nem súlyosbítja a #06-os Autodesk platform-gravitációs kockázatot (27. szakasz): a NODU szövetségesként is pozicionálható, nem csak megkerülendő versenytársként. <span class="ev ev-inference">INFERENCE</span> – <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02</em>.</p>
 
     <div class="callout-green">
       <strong>Verdikt</strong>
