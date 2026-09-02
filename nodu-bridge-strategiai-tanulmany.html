@@ -93,6 +93,8 @@
 
     /* Táblázat-elrendezések */
     .t-fixed { table-layout: fixed; }
+    /* Hosszú, tördelhetetlen tokenek (pl. "ETABS/SAP2000/RISA/Robot") ne lógjanak ki a cellából */
+    .t-fixed td, .t-fixed th { overflow-wrap: break-word; }
     .t-recon { min-width: 1020px; }
     .t-recon col:nth-child(1) { width: 15%; }
     .t-recon col:nth-child(7) { width: 13%; }
@@ -104,6 +106,14 @@
     .t-range td:nth-child(2),
     .t-range td:nth-child(3),
     .t-range td:nth-child(4) { text-align: right; white-space: nowrap; }
+    .t-range td[colspan] { text-align: left; white-space: normal; }
+    .t-range td .td-muted { white-space: normal; }
+    /* 08. szakasz: az "Alap" oszlop hosszu, auditalt ertekeket hordoz */
+    .t-range-w col:nth-child(1) { width: 38%; }
+    .t-range-w col:nth-child(2) { width: 13%; }
+    .t-range-w col:nth-child(3) { width: 18%; }
+    .t-range-w col:nth-child(4) { width: 13%; }
+    .t-range-w col:nth-child(5) { width: 18%; }
     .t-3 col:nth-child(1) { width: 30%; }
     .t-3 col:nth-child(2) { width: 22%; }
     .t-3 col:nth-child(3) { width: 48%; }
@@ -115,10 +125,10 @@
     .t-level col:nth-child(2) { width: 10%; }
     .t-level col:nth-child(3) { width: 56%; }
     .t-level td:nth-child(2) { text-align: center; font-weight: 700; }
-    .t-cand col:nth-child(1) { width: 7%; }
+    .t-cand col:nth-child(1) { width: 8%; }
     .t-cand col:nth-child(2) { width: 24%; }
     .t-cand col:nth-child(3) { width: 9%; }
-    .t-cand col:nth-child(4) { width: 42%; }
+    .t-cand col:nth-child(4) { width: 41%; }
     .t-cand col:nth-child(5) { width: 18%; }
     .t-cand td:nth-child(1),
     .t-cand td:nth-child(3) { text-align: right; white-space: nowrap; }
@@ -724,16 +734,16 @@
         <p>A tanulmány egyetlen méretezési táblázata, amely elsődleges auditált pénzügyi kimutatásokhoz kötött.</p>
 
     <div class="table-wrap">
-      <table class="t-fixed t-range">
+      <table class="t-fixed t-range t-range-w">
         <colgroup><col><col><col><col><col></colgroup>
         <thead><tr><th>Metrika</th><th>Alacsony</th><th>Alap</th><th>Magas</th><th>Jelölés</th></tr></thead>
         <tbody>
           <tr><td>Fizetős licencek (globálisan)</td><td>75 000</td><td class="td-strong">100 000</td><td>130 000</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">KÖZEPES–MAGAS megbízhatóság</div></td></tr>
           <tr><td>Aktív professzionális felhasználók</td><td>125 000</td><td class="td-strong">175 000</td><td>240 000</td><td><span class="ev ev-model">MODEL</span></td></tr>
           <tr><td>Szervezetek (≥1 fizetős licenccel)</td><td>25 000</td><td class="td-strong">33 000</td><td>43 000</td><td><span class="ev ev-model">MODEL</span></td></tr>
-          <tr><td>Graphisoft SE auditált nettó árbevétele (FY2025)</td><td>—</td><td class="td-strong">HUF 58 752 710 e ≈ 147,7 M€</td><td>—</td><td><span class="ev ev-fact">FACT</span></td></tr>
-          <tr><td>— ebből Archicadhez köthető</td><td>—</td><td class="td-strong">≈127,0 M€ (86,0%)</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Auditálthoz kötve</div></td></tr>
-          <tr><td>Listaár (globálisan súlyozva)</td><td>—</td><td class="td-strong">≈2 300 €/licenc/év</td><td>—</td><td><span class="ev ev-fact">FACT</span> (lista) / <span class="ev ev-model">MODEL</span> (súlyozás)</td></tr>
+          <tr><td>Graphisoft SE auditált nettó árbevétele (FY2025)</td><td>—</td><td class="td-strong">≈147,7 M€<div class="td-muted">HUF 58 752 710 e</div></td><td>—</td><td><span class="ev ev-fact">FACT</span></td></tr>
+          <tr><td>— ebből Archicadhez köthető</td><td>—</td><td class="td-strong">≈127,0 M€<div class="td-muted">86,0%</div></td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Auditálthoz kötve</div></td></tr>
+          <tr><td>Listaár (globálisan súlyozva)</td><td>—</td><td class="td-strong">≈2 300 €<div class="td-muted">licenc/év</div></td><td>—</td><td><span class="ev ev-fact">FACT</span> (lista) / <span class="ev ev-model">MODEL</span> (súlyozás)</td></tr>
           <tr><td>Realizált ár (kedvezmény/csatorna után)</td><td>1 450 €</td><td class="td-strong">1 650 €</td><td>1 900 €</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">A magyarországi auditált 0,75–0,88-as realizációs aránnyal keresztvalidálva</div></td></tr>
           <tr><td>DACH részesedés a globális licencekből</td><td>—</td><td class="td-strong">27,6%</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">Németország 17,5E, Svájc 6,5E, Ausztria 3,6E · MAGAS</div></td></tr>
           <tr><td>Észak-európai részesedés</td><td>—</td><td class="td-strong">10,4%</td><td>—</td><td><span class="ev ev-model">MODEL</span><div class="td-muted">MAGAS megbízhatóság</div></td></tr>
