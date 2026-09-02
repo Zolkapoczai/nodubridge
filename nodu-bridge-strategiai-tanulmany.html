@@ -967,9 +967,9 @@
           <tr><td>IFC (legjobb eset)</td><td>4</td><td>Még tökéletesen kivitelezve sincs módja élő képletek tárolására — ez a formátum korlátja, nem hiba.</td></tr>
           <tr><td>Rhino.Inside.Revit</td><td>5*</td><td>Valóban élő, de csak egy közös folyamaton belül, és számítógépes tervezést old meg, nem BIM-átadást (más probléma).</td></tr>
           <tr><td>Speckle</td><td>3–4</td><td>Ugyanaz a referenciageometria-plafon; saját csapatuk mondja, hogy az Archicad-oldal gyengébb, mint a Revit-oldal.</td></tr>
-          <tr><td>Közvetlen fájlfordítók (a Graphisoft sajátját is beleértve)</td><td>3–4</td><td>Egyetlen gyártó, a Graphisoftot is beleértve, nem szállított nem-IFC-alapú közvetlen fordítót.</td></tr>
+          <tr><td>Közvetlen fájlfordítók (a Graphisoft sajátját is beleértve)</td><td>3–4</td><td>A Graphisoft Forma Connectionje (Archicad 29.2 óta) nem-IFC, Data Exchange-alapú kapcsolatot kínál — de ez is a 4-es szinten tetőzik, ezért a besorolás nem változik.</td></tr>
           <tr><td>Kézi újramodellezés</td><td>5 / 0</td><td>Kézzel elérhető a teljes hűség elemenként — de nulla automatizálással, és teljes költséggel minden változtatásnál.</td></tr>
-          <tr><td class="td-strong">NODU — Archicad → Revit</td><td class="td-strong">5</td><td><strong>Megerősítve.</strong> Az elemek valódi, natív, szerkeszthető Revit-objektumként landolnak — egy konvertált tető valódi „Basic Roof”, működő Rafter Cut, Fascia Depth és Slope paraméterekkel, nem statikus blokk. A folyamatos élő szinkronizáció (6-os szint) még nincs kész.</td></tr>
+          <tr><td class="td-strong">NODU — Archicad → Revit</td><td class="td-strong">5</td><td><strong>Megerősítve.</strong> Az elemek valódi, natív, szerkeszthető Revit-objektumként landolnak — egy konvertált tető valódi „Basic Roof”, működő Rafter Cut, Fascia Depth és Slope paraméterekkel, nem statikus blokk. A cél ≥80% elem automatikus mappelése, a maradékot vizuális diff nézetben jelöli review-ra; az első teljes passz után a további szinkronok csak a megváltozott elemeket viszik át <span class="ev ev-internal">FOUNDER TARGET</span> — ez ismételt, gyors, de egyirányú frissítés, nem a 6-os szintű élő, kétirányú, automatikus szinkronizáció, ami még nincs kész.</td></tr>
           <tr><td class="td-strong">NODU — Revit → Archicad</td><td>0</td><td>Még nincs kész. Ütemterv-elem.</td></tr>
         </tbody>
       </table>
@@ -1068,16 +1068,16 @@
       <div class="acc-body">
         <p>Architekturálisan felhő-alapú adatréteg termék (nem fájl), GraphQL-lel lekérdezhető, „az eredeti adatforráshoz kapcsolt adatkonténereket” tárol <span class="ev ev-fact">FACT</span> [APS fejlesztői áttekintés]. A konnektor-bővítés gyors volt: Revit-konnektor GA 2025. május 13.; Inventor/Tekla/Rhino GA 2025. szeptember 4.; az IFC-konnektor beta→GA lépett; a Dynamo-konnektor Early Access maradt <span class="ev ev-fact">FACT</span> [több APS blogbejegyzés, 2025].</p>
 
-    <div class="callout-green">
-      <strong>Egyetlen vizsgált forrásban sem található Archicad-konnektor</strong>
-      Ez lényeges, közvetlen megállapítás a NODU versenypozíciójára nézve: lefedettségi rés, nem csak hűségi rés.
+    <div class="callout-amber">
+      <strong>Pontosítás (2026-09-02): a lefedettségi rés hűségi réssé szűkült</strong>
+      Archicad 29.2 óta létezik hivatalos, Graphisoft-fejlesztésű <strong>Forma Connection</strong> — Data Exchange-alapú modellfeltöltést és dokumentáció-publikálást tesz lehetővé Forma Data Managementbe (Archicad Collaborate-előfizetést és aktív Autodesk Forma-licencet igényel, csak Windows-on, az Autodesk SDK korlátja miatt). Az „egyetlen forrásban sem található Archicad-konnektor" állítás ezért <strong>elavult</strong>: a lefedettségi rés bezárult. A hűségi rés viszont megmarad — a Forma Connection a Data Exchange 4-es szintjén tetőzik (szelektív, szemantikus objektumcsere), nem éri el az 5-ös szintű natív, paraméteresen szerkeszthető objektum-rekonstrukciót, amit a NODU szállít (13. szakasz). <span class="ev ev-fact">FACT</span> — <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02, 31. szakasz</em>.
     </div>
 
     <p>A fogadott adatok csoportosított, nem szerkeszthető referenciageometriaként érkeznek — sehol nem található bizonyíték arra, hogy egy Revit Family élő, szerkeszthető Family-ként maradna fenn egy Data Exchange-átvitel után. Az Autodesk saját szóhasználatában a „kétirányú” azt jelenti, hogy bármelyik alkalmazás lehet a csere <em>forrása</em>, nem azt, hogy egyetlen objektum egyszerre élően szerkeszthető mindkét oldalról, konfliktusfeloldással — ezt a 6-os szintű képességet egyetlen forrás sem dokumentálja.</p>
 
     <p><strong>Amit a Data Exchange már kommodizál (ne itt versenyezzünk):</strong> alkalmazások közötti, szelektív megosztás geometriára + strukturált tulajdonságokra egy bővülő Autodesk-plusz-partner konnektor-ökoszisztémán belül, egyre inkább ingyenes/bundle-elt formában.</p>
 
-    <p><strong>Ami kereskedelmileg értékes marad (ahol a NODU számlázhat):</strong> (1) egyáltalán nem létezik Archicad-konnektor; (2) nincs natív, élően szerkeszthető Family/Type paraméteres hűség a fogadó oldalon, még az Autodesk saját ökoszisztémáján belül sem; (3) nincs folyamatos, konfliktusfeloldó, egyidejű kétirányú szinkronizáció.</p>
+    <p><strong>Ami kereskedelmileg értékes marad (ahol a NODU számlázhat):</strong> (1) a meglévő Archicad-konnektor (Forma Connection) sem éri el a natív, élően szerkeszthető Family/Type paraméteres hűséget a fogadó oldalon — sem ő, sem bármely más vizsgált eszköz az Autodesk saját ökoszisztémáján belül; (2) nincs folyamatos, konfliktusfeloldó, egyidejű kétirányú szinkronizáció.</p>
 
     <p><strong>Besorolás:</strong> 4-es szint (szemantikus objektumcsere) — magabiztosan eléri a strukturált/lekérdezhető/delta-frissülő adatokat, de nem éri el az élő natív objektum-rekonstrukciót vagy a valódi kétirányú szinkronizációt.</p>
       </div>
@@ -1100,7 +1100,7 @@
         <colgroup><col><col><col></colgroup>
         <thead><tr><th>Versenytárs</th><th>Szint</th><th>Fenyegetés a NODU-ra</th></tr></thead>
         <tbody>
-          <tr><td>Autodesk Data Exchange</td><td>4</td><td><strong>Közepes</strong> — ma nincs Archicad-konnektor, de az Autodesk konnektor-bővítési üteme (4 hónap alatt 3 új konnektor) valószínűvé teszi a jövőbeli belépést, és az ingyenes/bundle-elt lenne</td></tr>
+          <tr><td>Autodesk Data Exchange / Forma Connection</td><td>4</td><td><strong>Közepes–Magas</strong> — Archicad 29.2 óta VAN hivatalos Archicad-Forma kapcsolat (Graphisoft saját fejlesztése, Windows-only, Collaborate+Forma-előfizetést igényel); ez a Data Exchange 4-es szintjén tetőzik, nem éri el az 5-ös szintű natív paraméteres rekonstrukciót — a fenyegetés tehát hűségi, nem lefedettségi, de már ma valós, nem csak jövőbeli</td></tr>
           <tr><td>IFC (általánosan)</td><td>3–4</td><td><strong>Magas mint alapvonal, amit felül kell múlni; alacsony mint kiszorítási fenyegetés</strong> — nem tűnik el, a NODU-nak együtt kell élnie/kiegészítenie, nem leváltania</td></tr>
           <tr><td>Speckle</td><td>3–4</td><td><strong>Közepes–Magas</strong> — a leghitelesebb meglévő kereskedelmi versenytárs; saját elismert Archicad-oldali gyengesége pontosan a NODU beachhead-je</td></tr>
           <tr><td>Rhino.Inside.Revit</td><td>5</td><td><strong>Alacsony</strong> — más probléma, más vevő, alapkörön kívüli</td></tr>
@@ -1108,6 +1108,8 @@
         </tbody>
       </table>
     </div>
+
+    <p><strong>Platform-differenciálás:</strong> a Forma Connection Windows-only (Autodesk SDK korlát) — a macOS-es Archicad-irodák natívan nem érik el. A NODU Bridge ezzel szemben macOS-es Archicadről is működik <span class="ev ev-internal">FOUNDER TARGET</span>, tehát elér egy szegmenst, amit a Graphisoft saját megoldása nem.</p>
 
     <p><strong>Átfogó következtetés:</strong> egyetlen másik vizsgált eszköz sem — kereskedelmi vagy ingyenes — épít újra natív, élő, szerkeszthető Revit-objektumokat; mindegyik a 4. szinten tetőzik, referenciageometriát adva helyette. A NODU Archicad→Revit konnektora azt csinálja, amit egyikük sem: valódi natív objektumokat hoz létre, saját elemgenerátorokkal és egy gráf-alapú adatmodellel, nem a DirectShape-stílusú referenciageometriával. Ez valós, jelenleg üres rés, és a mögöttes architekturális különbség azt jelenti, hogy ezt egy versenytárs nem zárja be egyik napról a másikra.</p>
 
@@ -1365,6 +1367,13 @@
       Egy iroda a modellváltás kézi elvégzésére (mérnökóra-alapon) <strong>1 000–2 000 €/hó-t</strong> költ projektenként <span class="ev ev-internal">INTERNAL ENG.</span>. Ehhez képest a Professional-tarifa (200 €/hó) 5–10×, a Studio (500 €/hó) 2–4× olcsóbb — még a legalacsonyabb valós tarifa is erős érv, és a modellezett KKV-sáv (4 000–12 000 €/év = 333–1 000 €/hó) a kézi költség alatt vagy annak közelében marad. A fizetési hajlandóság kvalitatívan is megerősített: <em>„akárkivel beszéltünk, mindenki fizetne érte, de most még nem fizetnek"</em> <span class="ev ev-signal">USER SIGNAL</span> — validált szándék, nem realizált bevétel vagy számszerűsített konverzió.
     </div>
 
+    <div class="callout-green">
+      <strong>Egyszeri projekt-handover megtakarítás — a NODU saját one-pagere (2026-09-02, USD-ben)</strong>
+      Ez <strong>más metrika</strong>, mint a fenti havi 1 000–2 000 €/hó folyamatos szinkronköltség: egy <strong>teljes projekt egyszeri</strong> Archicad→Revit kézi átépítésének költsége handover-nél. Blended 60 USD/óra, LOD 300 szinten: 50 000 sq ft esetén kézi rebuild <strong>~875 óra, ~52 500 USD, 3–6 hét</strong>; nodu.bridge-dzsel <strong>~175 óra, ~10 500 USD, 3–5 nap</strong> — különbség <strong>~700 óra, ~42 000 USD</strong>. 1 000 sq ft kézi rebuild 15–20 óra; 1M+ sq ft projekt 15 000–20 000 órát nyelhet el kézi konverzióra; magas LOD-ú, MEP-koordinált rebuild 2–3×-os óraszámmal fut. <span class="ev ev-internal">INTERNAL ENG.</span> (NODU saját one-pagere, nem független audit) — <em>nodu.bridge-One-Pager.pdf</em>, hivatkozva: „Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02.
+      <br><br>
+      <strong>USD, nem EUR — szándékosan nem átváltva.</strong> A dokumentum többi ACV-je EUR-ban van; ezt az adatot USD-ben közlöm, mert kitalált árfolyammal átváltani hamis pontosságot sugallna. Az sem tisztázott, hogy ez az egyszeri handover-megtakarítás és a fenti havi 1 000–2 000 €/hó szinkronköltség ugyanannak a jelenségnek két nézete-e (pl. a havi költség projekt közbeni részlete, ami összeadva közelítene a teljes-projekt számhoz), vagy két különálló költség-tétel egy projekt életciklusában <span class="ev ev-unknown">UNKNOWN</span>.
+    </div>
+
     <p><strong>Termékarchitektúra (FORRÁS × CÉL × VERZIÓ × HŰSÉG × SZINKRONIZÁCIÓ):</strong> a FORRÁS/CÉL határozza meg, mely telepített bázisba és csatornába értékesít a NODU; a VERZIÓ csak a visszafelé-hidalási irányban hordoz kereskedelmi jelentést (az előre irányuló automatikus frissítés ingyenes és az Autodesk által megoldott); a HŰSÉG (a 0–6-os skála, 13. szakasz) a teljes kereskedelmi tézis; a SZINKRONIZÁCIÓ határozza meg a helyes árazási modellt iránykénként (egyszeri/visszatérő konverzió vs. előfizetés vs. meg nem épített 6-os szintű prémium sáv). Ez az oka annak, hogy az Archicad↔Revit és a Verzióhidalás alapvetően eltérő logika szerint árazott (előfizetés vs. eseményalapú), annak ellenére, hogy mindkettő „interoperabilitási” termék.</p>
       </div>
     </details>
@@ -1482,6 +1491,11 @@
           <tr><td class="td-strong">Kétirányú szinkronizáció (6-os szint)</td><td class="td-strong">Strukturálisan a legerősebb hosszú távú moat-jelölt, teljesen felépítetlen</td><td>Megerősítetten megoldatlan minden versenytárs által — valódi elsőmozgó-plusz-váltási-költség potenciál, ha felépül, jelenleg aspirációs</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="callout-amber">
+      <strong>Új szempont (2026-09-02): a NODU beléptethet a Forma-ökoszisztémába, nem csak versenyez vele</strong>
+      Revit 2025 szeptembere óta az első „Forma Connected Client" — mély integráció az Autodesk felhős Data Exchange-rétegével, import/export nélkül. Ez egy háromlépcsős láncot nyit: <strong>(1) Archicad → Revit</strong> a NODU natív, paraméteres hídján; <strong>(2) Revit → Forma Data Management</strong> az Autodesk saját Revit Connectorán; <strong>(3) Forma → egyéb eszközök</strong> (Tekla, Rhino, Power BI) a Cloud connectorokon. A NODU így nemcsak Revit-mandátumú kézbesítést old meg olcsóbban, hanem <em>közvetve</em> beléptet a teljes Forma-alapú adatcserébe, Revitet köztes platformként használva — ez enyhíti, nem súlyosbítja a #06-os Autodesk platform-gravitációs kockázatot (27. szakasz): a NODU szövetségesként is pozicionálható, nem csak megkerülendő versenytársként. <span class="ev ev-inference">INFERENCE</span> — <em>„Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe", 2026-09-02</em>.
     </div>
 
     <div class="callout-green">
@@ -1619,7 +1633,7 @@
       </summary>
       <div class="acc-body">
         <h3 id="elsodleges-hivatalos">Elsődleges/hivatalos</h3>
-    <p>Autodesk 10-K FY2025 (SEC EDGAR); Autodesk FY2025/FY2026 eredményközlő hívások átiratai; Autodesk Support/Help Center és App Store Publisher Agreement (2024. aug.); Autodesk Platform Services fejlesztői blog (Data Exchange GA bejelentések, 2025; „The next chapter of interoperability starts with connected data” — a BIMDeX-akvizíció bejelentése, 2026. aug. 27.); Autodesk Blogs (Revit 2027 megjelenés, 2026. ápr.); AEC Magazine, „Autodesk and SrinSoft partner for interoperability”; BIMDeX/SrinSoft hivatalos oldal (bimdex.com); Graphisoft SE auditált éves jelentések FY2023/2024/2025, könyvvizsgálói jelentés, részvényesi határozat; Graphisoft Community fórum és Help Center; Graphisoft letöltési/add-on oldalak; Nemetschek Group befektetői közlemények és negyedéves eredmények (2025–2026); buildingSMART IFC4/IFC4-CV dokumentáció és „Global openBIM Mandates 2025 Edition”; Trimble/Tekla, CSI (ETABS/SAP2000), RISA, Bentley, Vectorworks hivatalos dokumentáció és sajtóközlemények; Speckle Systems dokumentáció és DeepWiki.</p>
+    <p>Autodesk 10-K FY2025 (SEC EDGAR); Autodesk FY2025/FY2026 eredményközlő hívások átiratai; Autodesk Support/Help Center és App Store Publisher Agreement (2024. aug.); Autodesk Platform Services fejlesztői blog (Data Exchange GA bejelentések, 2025; „The next chapter of interoperability starts with connected data” — a BIMDeX-akvizíció bejelentése, 2026. aug. 27.); Autodesk Blogs (Revit 2027 megjelenés, 2026. ápr.; „Revit Becomes a Forma Connected Client”, 2025. szept.); Autodesk News, „How Forma and Revit will evolve together”; Graphisoft „Archicad to Autodesk Forma Connection” letöltési oldal és Autodesk Design and Make Marketplace bejegyzés; AEC Magazine, „Autodesk and SrinSoft partner for interoperability”; BIMDeX/SrinSoft hivatalos oldal (bimdex.com); Graphisoft SE auditált éves jelentések FY2023/2024/2025, könyvvizsgálói jelentés, részvényesi határozat; Graphisoft Community fórum és Help Center; Graphisoft letöltési/add-on oldalak; Nemetschek Group befektetői közlemények és negyedéves eredmények (2025–2026); buildingSMART IFC4/IFC4-CV dokumentáció és „Global openBIM Mandates 2025 Edition”; Trimble/Tekla, CSI (ETABS/SAP2000), RISA, Bentley, Vectorworks hivatalos dokumentáció és sajtóközlemények; Speckle Systems dokumentáció és DeepWiki.</p>
 
     <h3 id="masodlagos-technografiai">Másodlagos/technográfiai</h3>
     <p>Enlyft, 6sense, Datanyze technográfiai felfedezési adatok (2025–2026); imarcgroup.com és globalgrowthinsights.com BIM piacméret-jelentések (ellentmondásosak, csak makro-kontextusként használva); Evolve Consultancy IFC útmutató; MDPI <em>Applied Sciences</em> 11(23):11430 (2021, dátumozott); marketsandmarkets.com BIM-tanácsadási piaci jelentés.</p>
@@ -1631,7 +1645,7 @@
     <p>12 markdown kutatási dokumentum (Archicad/Graphisoft felhasználói kutatás ×5, Archicad telepítettbázis v2 tanulmány EN/HU, Revit/NODU Bridge piackutatás ×3 AI-modell átfutás EN/HU párokkal) — teljes leltár a <code>01_evidence_base.md</code> §1-ben.</p>
 
     <h3 id="emellett-felhasznalt-anyagok">Emellett felhasznált anyagok</h3>
-    <p>A NODU saját belső mérnöki release note-jai (45–54. ciklus, 2026. március 31. – augusztus 4.); a NODU csapata által átadott közvetlen megerősítés és termékképernyőképek; a NODU által publikált „We are solving the Archicad–Revit problem” cikk, szerző Nyerges Viktória; az Autodesk AEC Tech Drop blogbejegyzése, „Introducing the Revit Public MCP Server” (2026. jún. 17.) és a Revit 2027 dokumentációja.</p>
+    <p>A NODU saját belső mérnöki release note-jai (45–54. ciklus, 2026. március 31. – augusztus 4.); a NODU csapata által átadott közvetlen megerősítés és termékképernyőképek; a „nodu.bridge-One-Pager.pdf” (megtakarítási modell); az „Archicad–Autodesk Forma–Revit interoperabilitás és a nodu.bridge szerepe” összefoglaló tanulmány (2026-09-02); a NODU által publikált „We are solving the Archicad–Revit problem” cikk, szerző Nyerges Viktória; az Autodesk AEC Tech Drop blogbejegyzése, „Introducing the Revit Public MCP Server” (2026. jún. 17.) és a Revit 2027 dokumentációja.</p>
 
     <p class="source-note">A teljes hivatkozásjegyzék a 4–29. szakaszokban és a négy fázis-checkpointban megőrizve; ez a szakasz forráscsoportokat összesít, nem ismétli meg minden egyes URL-t.</p>
       </div>
@@ -1725,7 +1739,7 @@
     <ul class="oq-list">
       <li><span class="oq-num">01</span><span class="oq-text"><strong>Manuális újramodellezés / házon belüli megoldás</strong> — a valós alapértelmezett szereplő.</span></li>
       <li><span class="oq-num">02</span><span class="oq-text"><strong>Speckle</strong> — hiteles kereskedelmi versenytárs, közvetlenül átfedő, elismert gyengeséggel.</span></li>
-      <li><span class="oq-num">03</span><span class="oq-text"><strong>Autodesk Data Exchange</strong> — ma nincs fenyegetés, platform-gravitációs kockázat idővel.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text"><strong>Autodesk Data Exchange / Forma Connection</strong> — mára valós, de csak hűségi (4-es szintű) fenyegetés, nem lefedettségi.</span></li>
       <li><span class="oq-num">04</span><span class="oq-text"><strong>IFC</strong> — állandó alapvonal, amellyel együtt kell élni, nem leváltani.</span></li>
       <li><span class="oq-num">05</span><span class="oq-text"><strong>Graphisoft saját ingyenes hivatalos add-inja</strong> — meghatározza azt a zéró-költségű padlót, amelyet a NODU-nak hűségben, nem csak létezésben kell felülmúlnia.</span></li>
     </ul>
