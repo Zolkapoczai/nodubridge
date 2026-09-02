@@ -288,6 +288,18 @@
     .rev-log-body h4 { margin: 1.1rem 0 0.5rem; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
     .rev-log-body h4:first-child { margin-top: 1rem; }
     .rev-log-body .mini-stat-row { margin: 0.4rem 0 1rem; }
+
+    /* Ket kartyas osszehasonlitas (pl. 1. ev vs 2. ev) - robusztusabb, mint egy
+       egyedi oszlopszelessegu tablazat, es keskeny nezetben automatikusan egy
+       oszlopra valtja. */
+    .dual-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 1.4rem; }
+    .dual-card { border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.3rem; background: var(--card); }
+    .dual-card-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.7rem; }
+    .dual-card dl { margin: 0; }
+    .dual-card dt { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 0.75rem; }
+    .dual-card dt:first-child { margin-top: 0; }
+    .dual-card dd { margin: 0.2rem 0 0; line-height: 1.55; }
+    @media (max-width: 640px) { .dual-card-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -387,7 +399,7 @@
         <div class="mini-stat accent"><div class="mini-stat-label">7. év · konzervatív</div><div class="mini-stat-value">≈12,4 M€</div></div>
       </div>
       <ul class="plain-list">
-        <li><strong>ARR-pálya tisztán Bridge-alapú</strong> (blendelt ACV 10 500 → 13 000 → 15 500 €). A platform-előfizetés <em>nincs</em> az alapesetben – külön, <span class="ev ev-internal">FOUNDER TARGET</span> jelölésű sorként szerepel (+9–19%, 7. év ≈27,1 M€, 21. szakasz), mert arra ma nincs árlista.</li>
+        <li><strong>ARR-pálya tisztán Bridge-alapú</strong> (blendelt ACV 10 500 → 13 000 → 15 500 €). A platform-előfizetés <em>nincs</em> az alapesetben – külön sorként szerepel (+9–19%, 7. év ≈27,1 M€, 21. szakasz), mert arra ma nincs árlista.</li>
         <li><strong>Új időtávok:</strong> 1. év (bootstrap, ~100 ügyfél) és egy külön, agresszívnek jelölt 2. évi finanszírozott pálya (1000 ügyfél cél, ~10,5 M€ ARR).</li>
         <li><strong>TAM/SAM változatlan</strong> (6–9. és 19–20. szakasz) – a revíziót az ACV-feltevés és az időtáv bővítése okozza, nem új piaci evidencia.</li>
         <li><strong>Szerkezet:</strong> 32 fejezet → témakörönkénti lenyíló szakaszok; táblázat-sorszámozás javítva; evidencia-legenda ikon-kártyákra cserélve; egyoldalas összefoglaló (32. szakasz) grafikus elemekkel bővítve.</li>
@@ -1003,7 +1015,7 @@
           <tr><td>Speckle</td><td>3–4</td><td>Ugyanaz a referenciageometria-plafon; saját csapatuk mondja, hogy az Archicad-oldal gyengébb, mint a Revit-oldal.</td></tr>
           <tr><td>Közvetlen fájlfordítók (a Graphisoft sajátját is beleértve)</td><td>3–4</td><td>A Graphisoft Forma Connectionje (Archicad 29.2 óta) nem-IFC, Data Exchange-alapú kapcsolatot kínál – de ez is a 4-es szinten tetőzik, ezért a besorolás nem változik.</td></tr>
           <tr><td>Kézi újramodellezés</td><td>5 / 0</td><td>Kézzel elérhető a teljes hűség elemenként – de nulla automatizálással, és teljes költséggel minden változtatásnál.</td></tr>
-          <tr><td class="td-strong">NODU – Archicad → Revit</td><td class="td-strong">5</td><td><strong>Megerősítve.</strong> Az elemek valódi, natív, szerkeszthető Revit-objektumként landolnak – egy konvertált tető valódi „Basic Roof”, működő Rafter Cut, Fascia Depth és Slope paraméterekkel, nem statikus blokk. A cél ≥80% elem automatikus mappelése, a maradékot vizuális diff nézetben jelöli review-ra; az első teljes passz után a további szinkronok csak a megváltozott elemeket viszik át <span class="ev ev-internal">FOUNDER TARGET</span> – ez ismételt, gyors, de egyirányú frissítés, nem a 6-os szintű élő, kétirányú, automatikus szinkronizáció, ami még nincs kész.</td></tr>
+          <tr><td class="td-strong">NODU – Archicad → Revit</td><td class="td-strong">5</td><td><strong>Megerősítve.</strong> Az elemek valódi, natív, szerkeszthető Revit-objektumként landolnak – egy konvertált tető valódi „Basic Roof”, működő Rafter Cut, Fascia Depth és Slope paraméterekkel, nem statikus blokk. A cél ≥80% elem automatikus mappelése, a maradékot vizuális diff nézetben jelöli review-ra; az első teljes passz után a további szinkronok csak a megváltozott elemeket viszik át – ez ismételt, gyors, de egyirányú frissítés, nem a 6-os szintű élő, kétirányú, automatikus szinkronizáció, ami még nincs kész.</td></tr>
           <tr><td class="td-strong">NODU – Revit → Archicad</td><td>0</td><td>Még nincs kész. Ütemterv-elem.</td></tr>
         </tbody>
       </table>
@@ -1030,7 +1042,7 @@
     <h3 id="ket-masik-dolog-amit-erdemes-tudni">Két másik dolog, amit érdemes tudni</h3>
     <ul class="plain-list">
       <li><strong>Architektúra:</strong> a NODU gráfként ábrázolja a modellt – az elemek csomópontok, a kapcsolatok élek –, amit a NODU „Building Information Graph”-nak nevez, saját állítása szerint összhangban egy publikált akadémiai munkával (Wang és Sacks, 2025) <span class="ev ev-signal">USER SIGNAL</span> [NODU saját publikációja – „We are solving the Archicad–Revit problem”, Nyerges Viktória; a konkrét 2025-ös cikket a tanulmány függetlenül nem találta meg/olvasta el, bár Rafael Sacks valós, elismert BIM/construction-informatics kutató, ami plauzibilissé teszi a hivatkozást]. Ez teszi lehetővé egyáltalán a natív, kapcsolat-megőrző újraépítést.</li>
-      <li><strong>Valós eredmény:</strong> a SEW-Graben homlokzati projekt a NODU élő konnektorát használta, hogy a tervváltozásokat közvetlenül a költség- és beszerzési adatokba vigye – <strong>15%-os projekt-megtakarítás</strong>, és az első eset egy valódi ügyféllel és egy mért számmal a háttérben. Alapítói minősítés szerint ez egy <strong>„FDB"-típusú, platform-szintű üzleti eset</strong> – projekt-alapú, nem havi előfizetés –, tehát az első valós adatpont a platform-tézishez (21./22./29. szakasz), bár nem azonos egy előfizetéses platform-ügyféllel.</li>
+      <li><strong>Valós eredmény:</strong> a SEW-Graben homlokzati projekt a NODU élő konnektorát használta, hogy a tervváltozásokat közvetlenül a költség- és beszerzési adatokba vigye – <strong>15%-os projekt-megtakarítás</strong>, és az első eset egy valódi ügyféllel és egy mért számmal a háttérben. Sales-vezetői minősítés szerint ez egy <strong>„FDB"-típusú, platform-szintű üzleti eset</strong> – projekt-alapú, nem havi előfizetés –, tehát az első valós adatpont a platform-tézishez (21./22./29. szakasz), bár nem azonos egy előfizetéses platform-ügyféllel.</li>
     </ul>
 
     <p class="source-note">Külön érdemes megjegyezni: az Autodesk 2026 júniusában saját MCP-szervert adott a Revit 2027-hez – valós, megerősített funkció, de más dolog (AI-ágens hozzáférés a Revit-adatokhoz), nem versengő interoperabilitási megoldás.</p>
@@ -1143,7 +1155,7 @@
       </table>
     </div>
 
-    <p><strong>Platform-differenciálás:</strong> a Forma Connection Windows-only (Autodesk SDK korlát) – a macOS-es Archicad-irodák natívan nem érik el. A NODU Bridge ezzel szemben macOS-es Archicadről is működik <span class="ev ev-internal">FOUNDER TARGET</span>, tehát elér egy szegmenst, amit a Graphisoft saját megoldása nem.</p>
+    <p><strong>Platform-differenciálás:</strong> a Forma Connection Windows-only (Autodesk SDK korlát) – a macOS-es Archicad-irodák natívan nem érik el. A NODU Bridge ezzel szemben macOS-es Archicadről is működik – sales-vezetői megerősítés, nem független forrás –, tehát elér egy szegmenst, amit a Graphisoft saját megoldása nem.</p>
 
     <p><strong>Átfogó következtetés:</strong> egyetlen másik vizsgált eszköz sem – kereskedelmi vagy ingyenes – épít újra natív, élő, szerkeszthető Revit-objektumokat; mindegyik a 4. szinten tetőzik, referenciageometriát adva helyette. A NODU Archicad→Revit konnektora azt csinálja, amit egyikük sem: valódi natív objektumokat hoz létre, saját elemgenerátorokkal és egy gráf-alapú adatmodellel, nem a DirectShape-stílusú referenciageometriával. Ez valós, jelenleg üres rés, és a mögöttes architekturális különbség azt jelenti, hogy ezt egy versenytárs nem zárja be egyik napról a másikra.</p>
 
@@ -1309,7 +1321,7 @@
       <ul class="plain-list">
         <li><strong>Platform-ár:</strong> VAN – 2 500 €/hó, a NODU tényleges Enterprise/Platform tarifája (22. szakasz), tehát ez a sor valós, nem becsült tarifával számol.</li>
         <li><strong>Előfizetéses platform-ügyfél:</strong> MÉG NINCS – a 13. szakasz SEW-Graben-esete projekt-alapú üzleti eset, nem havi előfizetés (29. szakasz Q5). Ha lesz, ez a sor átemelhető az alapesetbe.</li>
-        <li><strong>Feltevés:</strong> az új ügyfelek 10%-a évente platformot is előfizet <span class="ev ev-internal">FOUNDER TARGET</span> – a teljes ARR-t +9–19%-kal emeli (1./3. év +19%, 5. év +13%, 7. év +9%).</li>
+        <li><strong>Feltevés (sales-vezetői cél, nem piackutatási eredmény):</strong> az új ügyfelek 10%-a évente platformot is előfizet – a teljes ARR-t +9–19%-kal emeli (1./3. év +19%, 5. év +13%, 7. év +9%).</li>
       </ul>
     </div>
 
@@ -1318,29 +1330,38 @@
         <colgroup><col><col><col><col><col></colgroup>
         <thead><tr><th></th><th>1. év</th><th>3. év</th><th>5. év</th><th>7. év</th></tr></thead>
         <tbody>
-          <tr><td>Közvetlen értékesítési létszám (AE-k)</td><td>0 <div class="td-muted">alapítói + Graphisoft-csatorna</div></td><td>2–3</td><td>6–8</td><td>12–16</td></tr>
+          <tr><td>Közvetlen értékesítési létszám (AE-k)</td><td>0 <div class="td-muted">sales-vezetői + Graphisoft-csatorna</div></td><td>2–3</td><td>6–8</td><td>12–16</td></tr>
           <tr><td>Kumulált ügyfelek (churn-nel korrigálva)</td><td>~100</td><td>~170 <div class="td-muted">120–220</div></td><td>~650 <div class="td-muted">500–800</div></td><td>~1 600 <div class="td-muted">1 300–1 900</div></td></tr>
           <tr><td>Blendelt ACV <div class="td-muted">tisztán Bridge</div></td><td>10 500 €</td><td>10 500 €</td><td>13 000 €</td><td>15 500 €</td></tr>
           <tr><td class="td-strong">ARR – alapeset</td><td class="td-strong">≈1,05 M€</td><td class="td-strong">≈1,78 M€ <div class="td-muted">1,26–2,31 M€</div></td><td class="td-strong">≈8,45 M€ <div class="td-muted">6,50–10,4 M€</div></td><td class="td-strong">≈24,8 M€ <div class="td-muted">20,2–29,5 M€</div></td></tr>
           <tr><td>Vélelmezett SAM-behatolás <div class="td-muted">ARR ÷ 57 M€ alap SAM</div></td><td>~1,8%</td><td>~3%</td><td>~15%</td><td>~44%</td></tr>
-          <tr><td>ARR – 10% platform-mixszel <div class="td-muted">2 500 €/hó platform-alapdíj · <span class="ev ev-internal">FOUNDER TARGET</span></div></td><td>≈1,25 M€ <div class="td-muted">ACV 12 450 €</div></td><td>≈2,12 M€ <div class="td-muted">ACV 12 450 €</div></td><td>≈9,56 M€ <div class="td-muted">ACV 14 700 €</div></td><td>≈27,1 M€ <div class="td-muted">ACV 16 950 € · ~48%</div></td></tr>
+          <tr><td>ARR – 10% platform-mixszel <div class="td-muted">2 500 €/hó platform-alapdíj, sales-vezetői cél</div></td><td>≈1,25 M€ <div class="td-muted">ACV 12 450 €</div></td><td>≈2,12 M€ <div class="td-muted">ACV 12 450 €</div></td><td>≈9,56 M€ <div class="td-muted">ACV 14 700 €</div></td><td>≈27,1 M€ <div class="td-muted">ACV 16 950 € · ~48%</div></td></tr>
         </tbody>
       </table>
     </div>
 
-    <h3 id="1-es-2-ev-osszehasonlitva">1. és 2. év – két külön pálya, összehasonlítva <span class="ev ev-internal" style="margin-left:0.35rem;">FOUNDER TARGET</span></h3>
-    <div class="table-wrap">
-      <table class="t-fixed t-4">
-        <colgroup><col style="width:22%"><col style="width:39%"><col style="width:39%"></colgroup>
-        <thead><tr><th></th><th>1. év – bootstrap</th><th>2. év – finanszírozott</th></tr></thead>
-        <tbody>
-          <tr><td class="td-strong">Csapat</td><td>0 AE – alapítói + Graphisoft-csatorna, 20–30% jutalék új ügyfélre</td><td>5–6 AE + 1 DACH account manager; új AE ~3 hó alatt teljes termelékenységű</td></tr>
-          <tr><td class="td-strong">Cél</td><td>~100 ügyfél</td><td>1 000 ügyfél-szervezet – meghaladja a bootstrap 3. évi szintjét (~170 ügyfél)</td></tr>
-          <tr><td class="td-strong">Mit tartalmaz</td><td>4 megnevezett béta-teszter (Paulinyi and Partners, Finta Stúdió, Seiber Design, Mood Group) + SEW-Graben várt konverziója</td><td>Külön, gyorsabb pálya – nem a bootstrap-görbe folytatása</td></tr>
-          <tr><td class="td-strong">ARR</td><td class="td-strong">≈1,05 M€ (Bridge-ACV, azonos a 3. évivel – nincs önálló 1. évi bemenet)</td><td class="td-strong">≈10,5 M€ (Bridge) / ≈12,45 M€ (platform-mixszel)</td></tr>
-          <tr><td class="td-strong">Nyitott kérdés</td><td>Zárási attribúció ~70% alapítói / ~50% csatorna – átfedő becslés, nem 100%-ra összegző; a csatorna-jutalék nettósítási hatása nincs leválasztva</td><td><strong>A modell eddigi legagresszívabb száma:</strong> ~18%-os behatolás 2 év alatt, szemben a bootstrap 7. évi ~44%-ával – a bootstrap-görbe 7 éves behatolásának felét éri el 2 év alatt</td></tr>
-        </tbody>
-      </table>
+    <h3 id="1-es-2-ev-osszehasonlitva">1. és 2. év – két külön pálya, összehasonlítva</h3>
+    <div class="dual-card-grid">
+      <div class="dual-card">
+        <div class="dual-card-title">1. év – bootstrap</div>
+        <dl>
+          <dt>Csapat</dt><dd>0 AE – sales-vezetői + Graphisoft-csatorna, 20–30% jutalék új ügyfélre</dd>
+          <dt>Cél</dt><dd>~100 ügyfél</dd>
+          <dt>Mit tartalmaz</dt><dd>4 megnevezett béta-teszter (Paulinyi and Partners, Finta Stúdió, Seiber Design, Mood Group) + SEW-Graben várt konverziója</dd>
+          <dt>ARR</dt><dd><strong>≈1,05 M€</strong> (Bridge-ACV, azonos a 3. évivel – nincs önálló 1. évi bemenet)</dd>
+          <dt>Nyitott kérdés</dt><dd>Zárási attribúció ~70% sales-vezetői / ~50% csatorna – átfedő becslés, nem 100%-ra összegző; a csatorna-jutalék nettósítási hatása nincs leválasztva</dd>
+        </dl>
+      </div>
+      <div class="dual-card">
+        <div class="dual-card-title">2. év – finanszírozott</div>
+        <dl>
+          <dt>Csapat</dt><dd>5–6 AE + 1 DACH account manager; új AE ~3 hó alatt teljes termelékenységű</dd>
+          <dt>Cél</dt><dd>1 000 ügyfél-szervezet – meghaladja a bootstrap 3. évi szintjét (~170 ügyfél)</dd>
+          <dt>Mit tartalmaz</dt><dd>Külön, gyorsabb pálya – nem a bootstrap-görbe folytatása</dd>
+          <dt>ARR</dt><dd><strong>≈10,5 M€</strong> (Bridge) / <strong>≈12,45 M€</strong> (platform-mixszel)</dd>
+          <dt>Nyitott kérdés</dt><dd><strong>A modell eddigi legagresszívabb száma:</strong> ~18%-os behatolás 2 év alatt, szemben a bootstrap 7. évi ~44%-ával – a bootstrap-görbe 7 éves behatolásának felét éri el 2 év alatt</dd>
+        </dl>
+      </div>
     </div>
 
     <div class="callout-amber">
@@ -1348,8 +1369,8 @@
       A 7. éves alapeset ~44%-os SAM-behatolása (24,8 M€ ÷ 57 M€) meghaladja az érett, niche B2B szoftverkategóriák tipikus 10–30%-os végleges behatolási benchmarkját. Egy konzervatívabb, ugyanolyan védhető olvasat ezt felére csökkenti: <strong>≈12,4 M€ ARR / ~22% behatolás</strong> egy tisztán core-piaci, terjeszkedés nélküli végrehajtás esetén – a tanulmány ezt a számot ajánlja kiindulópontnak (30. szakasz), nem az önmagában vett, optimistább alapesetet.
     </div>
 
-    <h3 id="unit-economics">Unit economics – alapítói célok <span class="ev ev-internal" style="margin-left:0.35rem;">FOUNDER TARGET</span></h3>
-    <p>A tanulmány korábban egyetlen unit economics mutatót sem tartalmazott. Az alábbiak alapítói célkitűzések, nem mért, realizált értékek – a cég pre-revenue, tehát „tényleges" CAC/churn/marzs ma nem létezik.</p>
+    <h3 id="unit-economics">Unit economics – sales-vezetői célok</h3>
+    <p>A tanulmány korábban egyetlen unit economics mutatót sem tartalmazott. Az alábbiak sales-vezetői célkitűzések, nem mért, realizált értékek – a cég pre-revenue, tehát „tényleges" CAC/churn/marzs ma nem létezik.</p>
     <ul class="plain-list">
       <li><strong>CAC:</strong> 3 000 €/ügyfél.</li>
       <li><strong>Churn-cél:</strong> 10% alatt, éves szinten.</li>
@@ -1368,7 +1389,7 @@
 
     <div class="callout-amber">
       <strong>Amit nem lehet kiszámítani, és nem szabad kitalálni</strong>
-      Az alapító saját megfogalmazása szerint a valódi kérdés nem az éves churn, hanem <em>„egy évben egy ügyfél hány hónapot fizet elő"</em> – ami arra utal, hogy az előfizetés szezonális vagy projekt-függő lehet, nem klasszikus always-on SaaS. Ha egy ügyfél nem mind a 12 hónapot fizeti, a modell (havidíj × 12 = éves ACV) <strong>felülbecsülheti</strong> a tényleges annualizált bevételt, és az LTV sem számítható addig, amíg ez nincs mérve. Ez ma <span class="ev ev-unknown">UNKNOWN</span>, és nagyobb hatással lehet az ARR-pálya realitására, mint bármelyik fenti szám.
+      A sales-vezető saját megfogalmazása szerint a valódi kérdés nem az éves churn, hanem <em>„egy évben egy ügyfél hány hónapot fizet elő"</em> – ami arra utal, hogy az előfizetés szezonális vagy projekt-függő lehet, nem klasszikus always-on SaaS. Ha egy ügyfél nem mind a 12 hónapot fizeti, a modell (havidíj × 12 = éves ACV) <strong>felülbecsülheti</strong> a tényleges annualizált bevételt, és az LTV sem számítható addig, amíg ez nincs mérve. Ez ma <span class="ev ev-unknown">UNKNOWN</span>, és nagyobb hatással lehet az ARR-pálya realitására, mint bármelyik fenti szám.
     </div>
       </div>
     </details>
@@ -1567,8 +1588,8 @@
         <ul class="oq-list">
       <li><span class="oq-num">01</span><span class="oq-text"><strong>Még nincs külső írásos megerősítés.</strong> A technológia működik – ez megerősített tény (13.1 szakasz) –, de egyetlen, a NODU-hoz nem kötődő külső fél sem tette még ezt írásba. Ez nem termékkockázat, hanem hitelességi/dokumentációs rés a forrásbevonáshoz, és olcsón zárható: egy semleges BIM-tanácsadó, egy teszt, egy aláírt megjegyzés.</span></li>
       <li><span class="oq-num">02</span><span class="oq-text"><strong>A Verzióhidalás kereskedelmi esete nem bizonyított.</strong> A tanulmány legjobban alátámasztott fájdalompontjának nincs számszerűsített fizetési-hajlandósági bizonyítéka – a 138 M€ alap TAM-szám (19.2 szakasz) kifejezetten alacsony megbízhatóságú, INFERENCE-on-INFERENCE.</span></li>
-      <li><span class="oq-num">03</span><span class="oq-text"><strong>A platform-bevételre nincs árlista, ezért nincs az alapesetben.</strong> A modell fő ARR-pályája tisztán Bridge-alapú; a szélesebb NODU-platform előfizetése <em>külön, felfelé mutató forgatókönyvként</em> szerepel (21. szakasz), abban a feltevésben, hogy az új ügyfelek 10%-a évente a platformot is előfizeti a 2 500 €/hó-s alapdíjon. Ez alapítói célkitűzés, nem piackutatási eredmény (<span class="ev ev-internal">FOUNDER TARGET</span>), és a 7. évi ARR-t ≈24,8 M€-ról ≈27,1 M€-ra emelné (+9%; az 1./3. évben +19%). A kockázat itt nem az, hogy az alapeset túlárazott – hanem hogy ez az upside a pitchben alapesetként kezdjen viselkedni, mielőtt a platformnak árlistája és első valós ügyfele van.</span></li>
-      <li><span class="oq-num">04</span><span class="oq-text"><strong>A fő értékesítési csatorna tulajdonosa egyben versenytárs is.</strong> Az 1. év teljes ügyfélszerzése (~100 szervezet, ≈1,05 M€ ARR) az alapítói közvetlen értékesítésre és a <strong>Graphisoft-viszonteladói csatornára</strong> épül (21. szakasz). Ugyanez a Graphisoft (a) saját <em>ingyenes</em> hivatalos Archicad–Revit add-int szállít, amely a 32. szakasz szerint „meghatározza a zéró-költségű padlót", (b) a Nemetschek-csoport tagja, tehát az Autodesk közvetlen versenytársa, (c) miközben a NODU terméke az ügyfelek munkáját éppen az Autodesk ökoszisztémája felé viszi át. A csatorna kereskedelmi feltételei ismertek (20–30% partnerjutalék új ügyfélre), az <strong>érdekazonosság viszont nem bizonyított</strong>. Plauzibilis, hogy a viszonteladóknak érdekük az Archicad-bázis megtartása a Revit-nyomás alatt – de erre a tanulmányban nincs sem gyártói nyilatkozat, sem viszonteladói megerősítés <span class="ev ev-inference">INFERENCE</span>. Ha a Graphisoft a csatornát szűkíti vagy a saját add-int erősíti, az az 1. év 100%-át és a 2. évi finanszírozott pálya kiindulópontját érinti.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text"><strong>A platform-bevételre nincs árlista, ezért nincs az alapesetben.</strong> A modell fő ARR-pályája tisztán Bridge-alapú; a szélesebb NODU-platform előfizetése <em>külön, felfelé mutató forgatókönyvként</em> szerepel (21. szakasz), abban a feltevésben, hogy az új ügyfelek 10%-a évente a platformot is előfizeti a 2 500 €/hó-s alapdíjon. Ez sales-vezetői célkitűzés, nem piackutatási eredmény, és a 7. évi ARR-t ≈24,8 M€-ról ≈27,1 M€-ra emelné (+9%; az 1./3. évben +19%). A kockázat itt nem az, hogy az alapeset túlárazott – hanem hogy ez az upside a pitchben alapesetként kezdjen viselkedni, mielőtt a platformnak árlistája és első valós ügyfele van.</span></li>
+      <li><span class="oq-num">04</span><span class="oq-text"><strong>A fő értékesítési csatorna tulajdonosa egyben versenytárs is.</strong> Az 1. év teljes ügyfélszerzése (~100 szervezet, ≈1,05 M€ ARR) a sales-vezetői közvetlen értékesítésre és a <strong>Graphisoft-viszonteladói csatornára</strong> épül (21. szakasz). Ugyanez a Graphisoft (a) saját <em>ingyenes</em> hivatalos Archicad–Revit add-int szállít, amely a 32. szakasz szerint „meghatározza a zéró-költségű padlót", (b) a Nemetschek-csoport tagja, tehát az Autodesk közvetlen versenytársa, (c) miközben a NODU terméke az ügyfelek munkáját éppen az Autodesk ökoszisztémája felé viszi át. A csatorna kereskedelmi feltételei ismertek (20–30% partnerjutalék új ügyfélre), az <strong>érdekazonosság viszont nem bizonyított</strong>. Plauzibilis, hogy a viszonteladóknak érdekük az Archicad-bázis megtartása a Revit-nyomás alatt – de erre a tanulmányban nincs sem gyártói nyilatkozat, sem viszonteladói megerősítés <span class="ev ev-inference">INFERENCE</span>. Ha a Graphisoft a csatornát szűkíti vagy a saját add-int erősíti, az az 1. év 100%-át és a 2. évi finanszírozott pálya kiindulópontját érinti.</span></li>
       <li><span class="oq-num">05</span><span class="oq-text"><strong>A termék egy versenytárs API-jára épül, és az IP-pozíció nincs dokumentálva.</strong> A NODU differenciátora, hogy <em>natív, szerkeszthető</em> Revit-objektumokat generál saját elemgenerátorokkal (13.1 szakasz) – ez definíció szerint az Autodesk Revit API-jára és annak licencfeltételeire épül, ugyanarra a platformra, amelyet a #06-os kockázat stratégiai fenyegetésként azonosít. A tanulmány nem tartalmaz elemzést arról, mit tehet az Autodesk API-feltétel-változtatással, App Store-szabállyal vagy technikai zárral, és nem tartalmaz információt a NODU szellemi tulajdoni pozíciójáról (szabadalmi bejelentés, védjegy, a konnektor-motor védettsége) sem <span class="ev ev-unknown">UNKNOWN</span>. Ez nem azt jelenti, hogy a kitettség súlyos – azt jelenti, hogy <strong>nincs felmérve</strong>, miközben a teljes moat-állítás ezen a függőségen áll (26. szakasz).</span></li>
       <li><span class="oq-num">06</span><span class="oq-text"><strong>Autodesk platform-gravitációs kockázat – most már felvásárlással is alátámasztva.</strong> A Data Exchange négy hónap alatt három konnektort adott hozzá; egy esetleges Archicad-konnektor ingyenes/bundle-elt lenne, és közvetlenül aláásná a NODU árazását 4-es szinten és alatta. <strong>2026-08-27:</strong> az Autodesk bejelentette, hogy megállapodást kötött a BIMDeX (a SrinSoft Inc. egysége) kiválasztott technológiai eszközeinek és szellemi tulajdonának megvásárlásáról, valamint a fejlesztőcsapat egy részének felvételéről <span class="ev ev-fact">FACT</span> [Autodesk Platform Services blog, „The next chapter of interoperability starts with connected data”, 2026-08-27]. A BIMDeX saját BXF fájlformátumára épülő interoperabilitási platform, amely a Revit, Plant 3D, Civil 3D, AutoCAD MEP, Inventor, Solidworks, PTC Creo és Tekla Structures között cserél adatot, Data Exchange- és ACC-integrációval <span class="ev ev-fact">FACT</span> [AEC Magazine, „Autodesk and SrinSoft partner for interoperability”]. <strong>Archicad vagy Graphisoft egyik forrásban sem szerepel</strong> – sem az Autodesk közleményben, sem az AEC Magazine cikkben, sem a BIMDeX saját oldalán; a NODU beachhead-jét ez az ügylet közvetlenül nem érinti. A hűségi szintre (élő szerkeszthető objektum vs. referenciageometria, 13. szakasz skálája) egyik forrás sem tesz állítást – az Autodesk közlemény kifejezetten minőségi, konnektorlista és architekturális részlet nélkül. A releváns olvasat: ez nem a jelenlegi verseny változása, hanem egy újabb, immár akvizícióval megerősített adatpont ugyanahhoz a mintához, amit ez a kockázati tétel már korábban is azonosított – az Autodesk szervesen (16. szakasz) és most felvásárlással is bővíti az interoperabilitási portfólióját. Nincs bizonyíték arra, hogy a célzás Archicad-irányú lenne; ez a megfigyelt konszolidációs trend folytatása, nem egy konkrét jövőbeli lépés bizonyítéka.</span></li>
       <li><span class="oq-num">07</span><span class="oq-text"><strong>Speckle versenytársi átfedés.</strong> A leghitelesebb meglévő kereskedelmi versenytárs saját elismert gyengesége (Archicad-fogadó eszközök) pontosan a NODU beachhead-je – valós, alátámasztott, közvetlen átfedés, nem hipotetikus fenyegetés.</span></li>
@@ -1610,7 +1631,7 @@
       <li>A Graphisoft-viszonteladói csatorna érdekazonossága: van-e gyártói nyilatkozat vagy viszonteladói megerősítés arra, hogy a csatorna a NODU-t saját ingyenes add-inja ellenére is aktívan viszi (24. szakasz).</li>
       <li>A béta-ügyfelek pontos, számszerűsített fizetési hajlandósága – kvalitatív jelzés van (22. szakasz, USER SIGNAL: „mindenki fizetne, de még nem fizet"), mért konverziós arány vagy aláírt ajánlat nincs.</li>
       <li>Hány hónapot fizet elő egy ügyfél egy éven belül – ha nem mind a 12-t, a modell (havidíj × 12) felülbecsülheti az annualizált ACV-t, és az LTV emiatt nem számítható (21. szakasz).</li>
-      <li>A tényleges (nem célzott) churn-ráta és bruttó marzs – a 21. szakaszban közölt CAC (3 000 €), churn-cél (10% alatt) és marzs-cél (50% felett) alapítói célkitűzés, nem mért érték.</li>
+      <li>A tényleges (nem célzott) churn-ráta és bruttó marzs – a 21. szakaszban közölt CAC (3 000 €), churn-cél (10% alatt) és marzs-cél (50% felett) sales-vezetői célkitűzés, nem mért érték.</li>
     </ul>
       </div>
     </details>
