@@ -198,6 +198,8 @@
     .metric-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .metric-grid .metric-card { hyphens: none; -webkit-hyphens: none; }
     .metric-grid .metric-value { white-space: normal; }
+    /* 32. szakasz (Egy lapon) – 4 kártya 2×2-ben, szélesebb kártyák, olvashatóbb metric-sub */
+    .metric-grid-2x2 { grid-template-columns: repeat(2, 1fr); }
 
     @media (max-width: 900px) {
       .metric-grid { grid-template-columns: 1fr; }
@@ -1964,7 +1966,7 @@
         <span class="acc-chevron" aria-hidden="true"></span>
       </summary>
       <div class="acc-body">
-        <div class="metric-grid">
+        <div class="metric-grid metric-grid-2x2">
       <div class="metric-card">
         <div class="metric-label">Jelenlegi piac (Archicad↔Revit)</div>
         <div class="metric-value">~24 000 → 3 400–4 300</div>
@@ -1979,6 +1981,11 @@
         <div class="metric-label">Revit verzióhidalás</div>
         <div class="metric-value">46 / 138 / 770 M€</div>
         <div class="metric-sub"><strong>Alacsony megbízhatóság</strong>, csak family-konverziós al-piac, elsődleges kutatást igényel.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Hosszú távú plafon</div>
+        <div class="metric-value">500 M€ – 2,3 Md€</div>
+        <div class="metric-sub">Ha a Tekla vagy a Vectorworks beérik második ökoszisztémaként, és a verzióhidalás is termékké válik. Felfelé mutató eset, nem az idei terv.</div>
       </div>
     </div>
 
