@@ -409,6 +409,14 @@
         <li>Törölve az "ARR – 10% platform-mixszel" sor és a hozzá tartozó +9–19%-os feltevés (21. szakasz, 10. táblázat); az alapeset ARR-számai (1,05 / 1,78 / 8,45 / 24,8 M€, konzervatív 12,4 M€) <strong>változatlanok</strong> – csak a hozzáadott platform-felár tűnt el, mert az dupla számolás volt.</li>
         <li>A blendelt ACV (10 500 → 13 000 → 15 500 €) mostantól explicit módon mindhárom tarifasáv (Professional/Studio/Enterprise-Platform) keverékeként van leírva, nem "Bridge plusz opcionális platform"-ként (21–22. és 29. szakasz).</li>
       </ul>
+      <h4>2026-09-03 – Bootstrap-modell teljes átstrukturálása (3 éves, naptári-éves horizont)</h4>
+      <ul class="plain-list">
+        <li><strong>Az 1./3./5./7. checkpoint-éves modellt egy 2026–2028-as, naptári-éves modell váltja</strong>, a NODU sales-vezetőjének közvetlen bemenete alapján – a korábbi táblázat 7 éves horizontja és ~1 600 ügyfeles 7. évi célja nem tükrözte a normál üzletmenetet.</li>
+        <li>Új ügyfélszám-célok: 100 (2026, idén dec. 31-ig) → 400 (2027, 1→2 AE) → 800 (2028, 2→3 AE).</li>
+        <li>Új blendelt ACV-módszertan: 60/40 Professional/Studio keverék a nem-platform ügyfeleknél; Enterprise/Platform-arány 0%→10%→20%; 2027-től a nem-platform ügyfelek 30%-a 30%-kal magasabb díjat fizet (új szoftverirányok: Revit↔Revit verzióhidalás, Revit→Archicad).</li>
+        <li><strong>ARR: ≈0,38 M€ (2026) → ≈2,71 M€ (2027) → ≈7,48 M€ (2028)</strong> – jóval a korábbi 7. évi ≈24,8 M€ alapeset / ≈12,4 M€ konzervatív horgony alatt. SAM-behatolás 2028-ban ~13,1%, ami már a 10–30%-os érett-piaci benchmarkon belül van, ezért a korábbi red-team konzervatív diszkont már nem szükséges – de a horizont is rövidebb: nincs modellezett bootstrap-adat 2028 utánra.</li>
+        <li>Frissítve minden ehhez kapcsolódó hivatkozás a vezetői összefoglalóban (SOM-diagram, mérföldkő-kártyák), a 21/22/29/30/32. szakaszban.</li>
+      </ul>
       <h4>2026-09-01 – ARR-modell + szerkezet</h4>
       <div class="mini-stat-row">
         <div class="mini-stat"><div class="mini-stat-label">1. év</div><div class="mini-stat-value">≈1,05 M€</div></div>
@@ -541,30 +549,24 @@
 
     <div class="chart-viz">
       <div class="chart-viz-title">ARR-pálya és a hozzá szükséges feltételek</div>
-      <svg viewBox="0 -22 820 222" role="img" aria-label="NODU ARR pálya">
+      <svg viewBox="0 -22 780 222" role="img" aria-label="NODU ARR pálya">
         <g font-family="Inter, sans-serif" font-size="12" fill="#71717A">
-          <text x="0" y="196">1. év</text>
-          <text x="165" y="196">3. év</text>
-          <text x="330" y="196">5. év</text>
-          <text x="495" y="196">7. év (konzervatív)</text>
-          <text x="660" y="196">7. év (alapeset)</text>
+          <text x="0" y="196">2026</text>
+          <text x="290" y="196">2027</text>
+          <text x="580" y="196">2028</text>
         </g>
         <g>
-          <rect x="0"   y="172" width="130" height="8"   rx="3" fill="#FDE68A"/>
-          <rect x="165" y="167" width="130" height="13"  rx="3" fill="#FBBF24"/>
-          <rect x="330" y="119" width="130" height="61"  rx="3" fill="#F59E0B"/>
-          <rect x="495" y="90"  width="130" height="90"  rx="3" fill="#F04E23"/>
-          <rect x="660" y="0"   width="130" height="180" rx="3" fill="#FEE8E2"/>
+          <rect x="0"   y="171" width="200" height="9"   rx="3" fill="#FDE68A"/>
+          <rect x="290" y="115" width="200" height="65"  rx="3" fill="#F59E0B"/>
+          <rect x="580" y="0"   width="200" height="180" rx="3" fill="#F04E23"/>
         </g>
         <g font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#18181B">
-          <text x="0" y="163">≈1,05 M€</text>
-          <text x="165" y="158">≈1,78 M€</text>
-          <text x="330" y="110">≈8,45 M€</text>
-          <text x="495" y="81">≈12,4 M€</text>
-          <text x="660" y="-6">≈24,8 M€</text>
+          <text x="0" y="162">≈0,38 M€</text>
+          <text x="290" y="106">≈2,71 M€</text>
+          <text x="580" y="-9">≈7,48 M€</text>
         </g>
       </svg>
-      <div class="chart-viz-caption">A 21. szakasz alulról építkező SOM-modellje, a <strong>blendelt ACV-vel</strong> (mindhárom tarifasávon, Enterprise/Platform-tiert is beleértve) – nincs külön platform-felár hozzáadva. A tanulmány a 7. évre a konzervatív ≈12,4 M€-t ajánlja horgonyként, nem a ≈24,8 M€-os alapesetet. Nem szerepel az ábrán a 2. évi finanszírozott pálya (1000 ügyfél cél, ≈10,5 M€ ARR) – ez egy külön, feltételes, a bootstrap-görbétől eltérő forgatókönyv, ld. 21. szakasz.</div>
+      <div class="chart-viz-caption">A 21. szakasz alulról építkező, 3 éves (2026–2028) bootstrap-modellje, a <strong>blendelt ACV-vel</strong> (mindhárom tarifasávon, Enterprise/Platform-tiert is beleértve, felárral a többirányú előfizetőknél) – nincs külön platform-felár hozzáadva a tetejére. A tanulmány nem tartalmaz bootstrap-előrejelzést 2028 utánra. Nem szerepel az ábrán a finanszírozott alternatív pálya (1000 ügyfél cél a 2. évben, ≈10,5 M€ ARR) – ez egy külön, feltételes, a bootstrap-görbétől eltérő forgatókönyv, ld. 21. szakasz.</div>
     </div>
 
     <div class="triple-card-grid">
@@ -572,14 +574,14 @@
         <div class="dual-card-title">10 M€</div>
         <dl>
           <dt>Piachányad</dt><dd>~18% a mai 57 M€-os piacból</dd>
-          <dt>Mikor</dt><dd>A bootstrap-pálya az 5–6. év körül éri el (5. év ≈8,45 M€); a finanszírozott pálya már a 2. évben elérné (≈10,5 M€, 21. szakasz)</dd>
+          <dt>Mikor</dt><dd>A bootstrap-pálya a modellezett 2026–2028 horizonton nem éri el (2028: ≈7,48 M€ a plafon); a finanszírozott pálya már a 2. évben elérné (≈10,5 M€, 21. szakasz)</dd>
         </dl>
       </div>
       <div class="dual-card">
         <div class="dual-card-title">25 M€</div>
         <dl>
           <dt>Piachányad</dt><dd>~44% a mai 57 M€-os piacból</dd>
-          <dt>Mikor</dt><dd>Épp a bootstrap-pálya 7. évi alapesete (≈24,8 M€), de ez már a 10–30%-os behatolási benchmark fölött van</dd>
+          <dt>Mikor</dt><dd>A bootstrap-pálya modellezett horizontján (2026–2028, plafon ≈7,48 M€) nem érhető el; a tanulmány nem tartalmaz bootstrap-előrejelzést 2028 utánra</dd>
           <dt>Feltétel</dt><dd>Védhetően a Tekla (vagy hasonló) valós bevétele kell</dd>
         </dl>
       </div>
@@ -596,7 +598,7 @@
 
     <div class="callout-green">
       <strong>Lényeg</strong>
-      A jelenlegi ék valós, árazott és finanszírozható 57 M€-os SAM mellett; a hozzá tartozó, blendelt ACV-alapú ARR-pálya a 7. évre ≈12,4 M€ konzervatív horgony, ≈24,8 M€ alapeset (21. szakasz). Az 500 M€+ nagyobb történet abban a pillanatban válik ténnyé pitch helyett, amint egy külső tanácsadó megerősíti a technológiát és egy Tekla-üzlet lezárul. Mindkettő elérhető közelségben van idén.
+      A jelenlegi ék valós, árazott és finanszírozható 57 M€-os SAM mellett; a hozzá tartozó, blendelt ACV-alapú bootstrap-pálya 2028-ra (a modellezett 3 éves horizont végére) ≈7,48 M€ ARR-t ér el (21. szakasz). Az 500 M€+ nagyobb történet abban a pillanatban válik ténnyé pitch helyett, amint egy külső tanácsadó megerősíti a technológiát és egy Tekla-üzlet lezárul. Mindkettő elérhető közelségben van idén.
     </div>
       </div>
     </details>
@@ -635,7 +637,7 @@
       A NODU alapvetően egy niche Archicad↔Revit konverziós problémát old meg, vagy szélesebb, nagy hűségű BIM interoperabilitási kategóriává válhat, amely a Revit-ökoszisztéma köré épül?
     </div>
 
-    <p><strong>Válasz, bizonyíték-vezérelt:</strong> Ma a NODU egy niche problémát old meg – valós, ha igazolt akkor védhető, és ARR-ben kifejezve a 7. évre ≈12,4 M€-t érő konzervatív horgonnyal, ≈24,8 M€-s alapesettel (blendelt ACV-modell, 21. szakasz). Van egy koherens, bizonyítékokkal konzisztens <em>útja</em> a szélesebb kategóriává váláshoz (25. szakasz ütemterve, 19. szakasz hosszú távú TAM-ja), de ez az út legalább egy nem igazolt technikai állításon és legalább két kereskedelmileg nem bizonyított terjeszkedési piacon vezet keresztül.</p>
+    <p><strong>Válasz, bizonyíték-vezérelt:</strong> Ma a NODU egy niche problémát old meg – valós, ha igazolt akkor védhető, és ARR-ben kifejezve a 2028-as évre (a modellezett 3 éves bootstrap-horizont végére) ≈7,48 M€-t ér el (blendelt ACV-modell, 21. szakasz). Van egy koherens, bizonyítékokkal konzisztens <em>útja</em> a szélesebb kategóriává váláshoz (25. szakasz ütemterve, 19. szakasz hosszú távú TAM-ja), de ez az út legalább egy nem igazolt technikai állításon és legalább két kereskedelmileg nem bizonyított terjeszkedési piacon vezet keresztül.</p>
 
     <p><strong>A jelenleg helyes válasz az, hogy „niche probléma hiteles, bizonyíték-konzisztens terjeszkedési tézissel” – még nem „szélesebb kategória.”</strong> A formális verdiktet lásd a 32. szakaszban.</p>
       </div>
@@ -1347,7 +1349,7 @@
     </div>
     <p class="source-note">A 15 000 €-s ACV a 19.1 szakasz alapesete (sáv 10 000–20 000 €) <span class="ev ev-model">MODEL</span>; a szervezet-populáció a 3. táblázat tölcsérének 4. lépésével (~5 000–8 900 szervezet) nagyságrendben egyezik, de nem abból van levezetve (ld. a 09. szakasz módszertani figyelmeztetését). <strong>A SAM tehát egyetlen bemenetre, az ACV-re a legérzékenyebb:</strong> 10 000 €-s ACV mellett 34–43 M€, 20 000 € mellett 68–87 M€ – az ACV alátámasztása ezért a modell legfontosabb nyitott tétele (22. szakasz).</p>
 
-    <p class="source-note">A SAM már tartalmazza a DACH/észak-európai súlyozású földrajzi szűrőt és az SME-méret jelzést a mögöttes Archicad-populációból – nincs további földrajzi/kapacitási diszkont alkalmazva; az értékesítési elérési korlátokat a 21. szakasz (SOM) kezeli, amely az 5. évig kapacitás-korlátozott; a 7. évi ~44%-os behatolás viszont már piac-korlátozott tartomány.</p>
+    <p class="source-note">A SAM már tartalmazza a DACH/észak-európai súlyozású földrajzi szűrőt és az SME-méret jelzést a mögöttes Archicad-populációból – nincs további földrajzi/kapacitási diszkont alkalmazva; az értékesítési elérési korlátokat a 21. szakasz (SOM) kezeli, amely a modellezett 2026–2028 horizonton kapacitás-korlátozott; a 2028-as ~13%-os behatolás még nem piac-korlátozott tartomány.</p>
       </div>
     </details>
   </section>
@@ -1358,7 +1360,7 @@
       <summary class="acc-summary">
         <div class="acc-summary-head">
           <div class="section-label">21 SOM</div>
-    <h2 id="12-tablazat-elerheto-piac-3-5-7-ev">10. táblázat – Elérhető piac, 1./3./5./7. év</h2>
+    <h2 id="12-tablazat-elerheto-piac-3-5-7-ev">10. táblázat – Elérhető piac, 2026–2028</h2>
         </div>
         <span class="acc-chevron" aria-hidden="true"></span>
       </summary>
@@ -1366,56 +1368,59 @@
         <p class="source-note">Kifejezett, alulról-felfelé építkező modell; minden feltételezés a 3. fázis checkpoint §6-ban rögzítve – általános B2B SaaS benchmarkok, mivel sehol e kutatásban nem található AEC-specifikus értékesítési-termelékenységi benchmark.</p>
 
     <div class="callout-amber">
-      <strong>Az ACV egyetlen tarifasávon sem ér véget – blendelt, mindhárom sávot tartalmazza</strong>
-      A táblázat blendelt ACV-je (10 500 → 13 000 → 15 500 €) <strong>nem "Bridge plusz külön platform-előfizetés"</strong> – a NODU Enterprise/Platform tarifasávja (22. szakasz) maga a platform, a Bridge-fel együtt, nem mellette. A blendelt ACV tehát a Professional/Studio/Enterprise-Platform tarifasávok ügyfélkeverékét fejezi ki, nem egy alap Bridge-díjat plusz opcionális platform-felárat.
+      <strong>Bootstrap-modell, operátori bemenettel újraépítve (2026-09-03) – naptári évekre, nem checkpoint-évekre</strong>
+      A táblázat a NODU sales-vezetőjének közvetlen bemenete alapján, naptári évekre épül (2026: idénig, dec. 31-ig; 2027; 2028), nem az eredeti 1./3./5./7. checkpoint-évekre. A blendelt ACV három tényezőből áll össze:
       <ul class="plain-list">
-        <li><strong>Enterprise/Platform tarifa:</strong> VAN – 2 500 €/hó (22. szakasz), tehát a blendelt ACV valós, nem becsült tarifákból épül fel.</li>
-        <li><strong>Validált Enterprise/Platform-tier előfizető:</strong> MÉG NINCS – a 13. szakasz SEW-Graben-esete projekt-alapú üzleti eset, nem havi előfizetés (29. szakasz Q5).</li>
-        <li><strong>Nyitott kérdés:</strong> a blendelt ACV-hez szükséges tarifasáv-keverék (22. szakasz becslése szerint ~19–29% Enterprise/Platform-arány) évenkénti alakulása nincs dokumentálva.</li>
+        <li><strong>Tarifasáv-keverék:</strong> a nem-platform ügyfelek 60%-a Professional (200 €/hó), 40%-a Studio (500 €/hó) – ez a keverék az egész horizonton változatlan.</li>
+        <li><strong>Enterprise/Platform-arány:</strong> 0% 2026-ban (a platform még nincs kész, a SEW-Graben-eset projekt-alapú, nem előfizetés – 29. szakasz Q5); 10% 2027-ben; 20% 2028-ban.</li>
+        <li><strong>Többirányú felár:</strong> az új szoftverirányok (Revit↔Revit verzióhidalás, Revit→Archicad) miatt 2027-től a nem-platform ügyfelek 30%-a 30%-kal magasabb díjat fizet.</li>
       </ul>
+      Mindhárom feltevés <span class="ev ev-internal">INTERNAL – sales-vezetői becslés</span>, nem mért, piackutatással alátámasztott érték.
     </div>
 
     <div class="table-wrap">
       <table class="t-fixed t-som">
-        <colgroup><col><col><col><col><col></colgroup>
-        <thead><tr><th></th><th>1. év</th><th>3. év</th><th>5. év</th><th>7. év</th></tr></thead>
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th></th><th>2026</th><th>2027</th><th>2028</th></tr></thead>
         <tbody>
-          <tr><td>Közvetlen értékesítési létszám (AE-k)</td><td>0 <div class="td-muted">sales-vezetői + Graphisoft-csatorna</div></td><td>2–3</td><td>6–8</td><td>12–16</td></tr>
-          <tr><td>Kumulált ügyfelek (churn-nel korrigálva)</td><td>~100</td><td>~170 <div class="td-muted">120–220</div></td><td>~650 <div class="td-muted">500–800</div></td><td>~1 600 <div class="td-muted">1 300–1 900</div></td></tr>
-          <tr><td>Blendelt ACV <div class="td-muted">mindhárom tarifasávon</div></td><td>10 500 €</td><td>10 500 €</td><td>13 000 €</td><td>15 500 €</td></tr>
-          <tr><td class="td-strong">ARR</td><td class="td-strong">≈1,05 M€</td><td class="td-strong">≈1,78 M€ <div class="td-muted">1,26–2,31 M€</div></td><td class="td-strong">≈8,45 M€ <div class="td-muted">6,50–10,4 M€</div></td><td class="td-strong">≈24,8 M€ <div class="td-muted">20,2–29,5 M€</div></td></tr>
-          <tr><td>Vélelmezett SAM-behatolás <div class="td-muted">ARR ÷ 57 M€ alap SAM</div></td><td>~1,8%</td><td>~3%</td><td>~15%</td><td>~44%</td></tr>
+          <tr><td>Közvetlen értékesítési létszám (AE-k)</td><td>0 <div class="td-muted">sales-vezetői + Graphisoft-csatorna</div></td><td>1 → 2</td><td>2 → 3</td></tr>
+          <tr><td>Kumulált ügyfelek</td><td>100</td><td>400</td><td>800</td></tr>
+          <tr><td>Enterprise/Platform-arány</td><td>0%</td><td>10%</td><td>20%</td></tr>
+          <tr><td>Felár-arány <div class="td-muted">nem-platform ügyfelek 30%-a +30%</div></td><td>0%</td><td>30%</td><td>30%</td></tr>
+          <tr><td>Blendelt ACV <div class="td-muted">mindhárom tarifasávon</div></td><td>3 840 €</td><td>6 767 €</td><td>9 348 €</td></tr>
+          <tr><td class="td-strong">ARR</td><td class="td-strong">≈0,38 M€</td><td class="td-strong">≈2,71 M€</td><td class="td-strong">≈7,48 M€</td></tr>
+          <tr><td>Vélelmezett SAM-behatolás <div class="td-muted">ARR ÷ 57 M€ alap SAM</div></td><td>~0,7%</td><td>~4,8%</td><td>~13,1%</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h3 id="1-es-2-ev-osszehasonlitva">1. és 2. év – két külön pálya, összehasonlítva</h3>
+    <h3 id="1-es-2-ev-osszehasonlitva">Bootstrap vs. finanszírozott alternatíva</h3>
     <div class="dual-card-grid">
       <div class="dual-card">
-        <div class="dual-card-title">1. év – bootstrap</div>
+        <div class="dual-card-title">2026 – bootstrap</div>
         <dl>
           <dt>Csapat</dt><dd>0 AE – sales-vezetői + Graphisoft-csatorna, 20–30% jutalék új ügyfélre</dd>
-          <dt>Cél</dt><dd>~100 ügyfél</dd>
+          <dt>Cél</dt><dd>100 ügyfél, idén dec. 31-ig</dd>
           <dt>Mit tartalmaz</dt><dd>4 megnevezett béta-teszter (Paulinyi and Partners, Finta Stúdió, Seiber Design, Mood Group) + SEW-Graben várt konverziója</dd>
-          <dt>ARR</dt><dd><strong>≈1,05 M€</strong> (blendelt ACV, azonos a 3. évivel – nincs önálló 1. évi bemenet)</dd>
+          <dt>ARR</dt><dd><strong>≈0,38 M€</strong> (0% platform, 60/40 Professional/Studio keverék)</dd>
           <dt>Nyitott kérdés</dt><dd>Zárási attribúció ~70% sales-vezetői / ~50% csatorna – átfedő becslés, nem 100%-ra összegző; a csatorna-jutalék nettósítási hatása nincs leválasztva</dd>
         </dl>
       </div>
       <div class="dual-card">
-        <div class="dual-card-title">2. év – finanszírozott</div>
+        <div class="dual-card-title">Finanszírozott alternatíva (2. év)</div>
         <dl>
           <dt>Csapat</dt><dd>5–6 AE + 1 DACH account manager; új AE ~3 hó alatt teljes termelékenységű</dd>
-          <dt>Cél</dt><dd>1 000 ügyfél-szervezet – meghaladja a bootstrap 3. évi szintjét (~170 ügyfél)</dd>
-          <dt>Mit tartalmaz</dt><dd>Külön, gyorsabb pálya – nem a bootstrap-görbe folytatása</dd>
+          <dt>Cél</dt><dd>1 000 ügyfél-szervezet – meghaladja a bootstrap 2027-es szintjét (400 ügyfél)</dd>
+          <dt>Mit tartalmaz</dt><dd>Külön, gyorsabb pálya – nem a bootstrap-görbe folytatása, külső tőkebevonást feltételez</dd>
           <dt>ARR</dt><dd><strong>≈10,5 M€</strong></dd>
-          <dt>Nyitott kérdés</dt><dd><strong>A modell eddigi legagresszívabb száma:</strong> ~18%-os behatolás 2 év alatt, szemben a bootstrap 7. évi ~44%-ával – a bootstrap-görbe 7 éves behatolásának felét éri el 2 év alatt</dd>
+          <dt>Nyitott kérdés</dt><dd><strong>A modell eddigi legagresszívabb száma:</strong> ~18%-os behatolás 2 év alatt, szemben a bootstrap 2028-as ~13%-ával – a bootstrap-pálya 3 éves plafonja (2028: ≈7,48 M€) alatt marad</dd>
         </dl>
       </div>
     </div>
 
     <div class="callout-amber">
-      <strong>Kifejezett óvatosságra intés (a 4. fázis red-team ellenőrzéséből)</strong>
-      A 7. éves alapeset ~44%-os SAM-behatolása (24,8 M€ ÷ 57 M€) meghaladja az érett, niche B2B szoftverkategóriák tipikus 10–30%-os végleges behatolási benchmarkját. Egy konzervatívabb, ugyanolyan védhető olvasat ezt felére csökkenti: <strong>≈12,4 M€ ARR / ~22% behatolás</strong> egy tisztán core-piaci, terjeszkedés nélküli végrehajtás esetén – a tanulmány ezt a számot ajánlja kiindulópontnak (30. szakasz), nem az önmagában vett, optimistább alapesetet.
+      <strong>Rövidebb horizont, alacsonyabb behatolás – nincs szükség red-team diszkontra</strong>
+      A korábbi (1/3/5/7 checkpoint-éves) modell 7. évi ~44%-os SAM-behatolása meghaladta az érett, niche B2B szoftverkategóriák 10–30%-os végleges behatolási benchmarkját, ezért a tanulmány egy felezett, ≈12,4 M€-os konzervatív horgonyt ajánlott. Az operátori bemenettel újraépített, 3 éves (2026–2028) modell 2028-as ~13,1%-os behatolása <strong>már a benchmarkon belül van</strong> – nincs szükség konzervatív diszkontra, de a horizont is rövidebb: a tanulmány nem tartalmaz bootstrap-előrejelzést 2028 utánra.
     </div>
 
     <h3 id="unit-economics">Unit economics – sales-vezetői célok</h3>
@@ -1432,7 +1437,7 @@
       <div class="mini-stat"><div class="mini-stat-label">Professional (200 €/hó)</div><div class="mini-stat-value">~30 hó</div></div>
       <div class="mini-stat"><div class="mini-stat-label">Studio (500 €/hó)</div><div class="mini-stat-value">~12 hó</div></div>
       <div class="mini-stat"><div class="mini-stat-label">Enterprise (2 500 €/hó)</div><div class="mini-stat-value">~2,4 hó</div></div>
-      <div class="mini-stat accent"><div class="mini-stat-label">Blendelt ACV (mindhárom tarifasáv)</div><div class="mini-stat-value">~4,6–6,9 hó</div></div>
+      <div class="mini-stat accent"><div class="mini-stat-label">Blendelt ACV (2026–2028)</div><div class="mini-stat-value">~7,7–18,8 hó</div></div>
     </div>
     <p class="source-note">A 10%-os churn-cél mellett (ha éves, logó-alapú churnről van szó, ez ≥10 éves átlagos ügyfél-élettartamot jelentene) mindegyik megtérülési idő védhető – a Professional-tarifás ügyfelek a leglassabbak, de még a churn-célon belül is megtérülnek.</p>
 
@@ -1484,11 +1489,11 @@
     <p class="source-note">Az Enterprise/Platform tarifa pontosan megegyezik a 21. szakasz blendelt ACV-modelljében feltételezett felső tarifasávval. Több szoftver-pár vagy irány (pl. kétirányú Archicad↔Revit) magasabb sávot indokolna – a Studio-tarifa ekkor 750 €/hó-ra nőne –, de ez fejlesztési erőforrástól függ, ezért a tanulmány nem tudja megbecsülni.</p>
 
     <div class="callout-amber">
-      <strong>A blendelt ACV tarifasáv-keveréke csak részben dokumentált</strong>
+      <strong>A blendelt ACV tarifasáv-keveréke mostantól explicit – de validálatlan</strong>
       <ul class="plain-list">
-        <li>A 21. szakasz blendelt ACV-je (10 500–15 500 €/év = 875–1 292 €/hó) <strong>egyik önmagában vett tarifánál sem</strong> ér véget – magasabb, mint a Professional (2 400 €/év) és a Studio (6 000 €/év) is.</li>
-        <li>Egyetlen tarifa nem magyarázza: a modellezett szinthez ~19–29%-os Enterprise/Platform-arányú ügyfélkeverék kellene – ezt a 21. szakasz explicit modellezési feltevésként kezeli, de az évenkénti tier-keverék pontos alakulása nincs dokumentálva.</li>
-        <li>Ez nem cáfolja az ACV-t – a fenti 11. táblázat modellezett tartománya (4 000–35 000 €/év) tartalmazza –, de azt jelenti, hogy a <strong>blendelt ACV már ma is egy KKV-nál magasabb, Enterprise/Platform-tier-t is tartalmazó keveréket feltételez</strong>, amelyre validált előfizetéses ügyfél még nincs (29. szakasz Q5).</li>
+        <li>A 21. szakasz blendelt ACV-je (2026–2028: 3 840 → 6 767 → 9 348 €/év) mostantól tételesen dokumentált: 60/40 Professional/Studio keverék a nem-platform ügyfeleknél, 0→10→20%-os Enterprise/Platform-arány, plusz 2027-től a nem-platform ügyfelek 30%-ára egy 30%-os felár (új szoftverirányok miatt).</li>
+        <li>Ez a keverék <strong>a fenti 11. táblázat modellezett tartományán (4 000–35 000 €/év) belül van</strong> minden évben.</li>
+        <li>Amire nincs validáció: a 60/40 arány, a platform-felfutás üteme és a 30%-os felár mind sales-vezetői célkitűzés, nem mért vagy piackutatással alátámasztott érték – Enterprise/Platform-tier előfizetéses ügyfél ma egy sincs (29. szakasz Q5).</li>
       </ul>
     </div>
 
@@ -1688,8 +1693,8 @@
         <ul class="oq-list">
       <li><span class="oq-num">01</span><span class="oq-text"><strong>Még nincs külső írásos megerősítés.</strong> A technológia működik – ez megerősített tény (13.1 szakasz) –, de egyetlen, a NODU-hoz nem kötődő külső fél sem tette még ezt írásba. Ez nem termékkockázat, hanem hitelességi/dokumentációs rés a forrásbevonáshoz, és olcsón zárható: egy semleges BIM-tanácsadó, egy teszt, egy aláírt megjegyzés.</span></li>
       <li><span class="oq-num">02</span><span class="oq-text"><strong>A Verzióhidalás kereskedelmi esete nem bizonyított.</strong> A tanulmány legjobban alátámasztott fájdalompontjának nincs számszerűsített fizetési-hajlandósági bizonyítéka – a 138 M€ alap TAM-szám (19.2 szakasz) kifejezetten alacsony megbízhatóságú, INFERENCE-on-INFERENCE.</span></li>
-      <li><span class="oq-num">03</span><span class="oq-text"><strong>A blendelt ACV-hez szükséges Enterprise/Platform-tier arány nincs validálva.</strong> A modell fő ARR-pályája egy blendelt ACV-vel számol (10 500–15 500 €/év, 21. szakasz), amely – mert egyik önmagában vett tarifánál sem ér véget – implicit módon ~19–29%-os Enterprise/Platform-tier ügyfélarányt feltételez (22. szakasz). Erre a tarifasávra (2 500 €/hó) ma egyetlen validált, előfizetéses ügyfél sincs – a SEW-Graben-eset projekt-alapú, nem havi előfizetés (29. szakasz Q5). A kockázat nem az, hogy az alapeset túlárazott, hanem hogy a benne implikált tier-keverék eddig sehol nincs kimondva vagy piackutatással alátámasztva.</span></li>
-      <li><span class="oq-num">04</span><span class="oq-text"><strong>A fő értékesítési csatorna tulajdonosa egyben versenytárs is.</strong> Az 1. év teljes ügyfélszerzése (~100 szervezet, ≈1,05 M€ ARR) a sales-vezetői közvetlen értékesítésre és a <strong>Graphisoft-viszonteladói csatornára</strong> épül (21. szakasz). Ugyanez a Graphisoft (a) saját <em>ingyenes</em> hivatalos Archicad–Revit add-int szállít, amely a 32. szakasz szerint „meghatározza a zéró-költségű padlót", (b) a Nemetschek-csoport tagja, tehát az Autodesk közvetlen versenytársa, (c) miközben a NODU terméke az ügyfelek munkáját éppen az Autodesk ökoszisztémája felé viszi át. A csatorna kereskedelmi feltételei ismertek (20–30% partnerjutalék új ügyfélre), az <strong>érdekazonosság viszont nem bizonyított</strong>. Plauzibilis, hogy a viszonteladóknak érdekük az Archicad-bázis megtartása a Revit-nyomás alatt – de erre a tanulmányban nincs sem gyártói nyilatkozat, sem viszonteladói megerősítés <span class="ev ev-inference">INFERENCE</span>. Ha a Graphisoft a csatornát szűkíti vagy a saját add-int erősíti, az az 1. év 100%-át és a 2. évi finanszírozott pálya kiindulópontját érinti.</span></li>
+      <li><span class="oq-num">03</span><span class="oq-text"><strong>A blendelt ACV tarifasáv-keveréke sales-vezetői becslés, nem validált piaci adat.</strong> A modell fő ARR-pályája (2026–2028: 3 840 → 6 767 → 9 348 €/év blendelt ACV, 21. szakasz) három feltevésre épül: 60/40 Professional/Studio keverék, 0→10→20%-os Enterprise/Platform-arány, és a nem-platform ügyfelek 30%-ára egy 30%-os felár 2027-től. Enterprise/Platform-tier tarifára (2 500 €/hó) ma egyetlen validált, előfizetéses ügyfél sincs – a SEW-Graben-eset projekt-alapú, nem havi előfizetés (29. szakasz Q5), és a felár-feltevést sem támasztja alá ügyfélfelmérés. A kockázat nem az, hogy az alapeset túlárazott, hanem hogy mindhárom tényező belső célkitűzés, nem mért érték.</span></li>
+      <li><span class="oq-num">04</span><span class="oq-text"><strong>A fő értékesítési csatorna tulajdonosa egyben versenytárs is.</strong> Az 1. év (2026) teljes ügyfélszerzése (100 szervezet, ≈0,38 M€ ARR) a sales-vezetői közvetlen értékesítésre és a <strong>Graphisoft-viszonteladói csatornára</strong> épül (21. szakasz). Ugyanez a Graphisoft (a) saját <em>ingyenes</em> hivatalos Archicad–Revit add-int szállít, amely a 32. szakasz szerint „meghatározza a zéró-költségű padlót", (b) a Nemetschek-csoport tagja, tehát az Autodesk közvetlen versenytársa, (c) miközben a NODU terméke az ügyfelek munkáját éppen az Autodesk ökoszisztémája felé viszi át. A csatorna kereskedelmi feltételei ismertek (20–30% partnerjutalék új ügyfélre), az <strong>érdekazonosság viszont nem bizonyított</strong>. Plauzibilis, hogy a viszonteladóknak érdekük az Archicad-bázis megtartása a Revit-nyomás alatt – de erre a tanulmányban nincs sem gyártói nyilatkozat, sem viszonteladói megerősítés <span class="ev ev-inference">INFERENCE</span>. Ha a Graphisoft a csatornát szűkíti vagy a saját add-int erősíti, az az 1. év 100%-át és a 2. évi finanszírozott pálya kiindulópontját érinti.</span></li>
       <li><span class="oq-num">05</span><span class="oq-text"><strong>A termék egy versenytárs API-jára épül, és az IP-pozíció nincs dokumentálva.</strong> A NODU differenciátora, hogy <em>natív, szerkeszthető</em> Revit-objektumokat generál saját elemgenerátorokkal (13.1 szakasz) – ez definíció szerint az Autodesk Revit API-jára és annak licencfeltételeire épül, ugyanarra a platformra, amelyet a #06-os kockázat stratégiai fenyegetésként azonosít. A tanulmány nem tartalmaz elemzést arról, mit tehet az Autodesk API-feltétel-változtatással, App Store-szabállyal vagy technikai zárral, és nem tartalmaz információt a NODU szellemi tulajdoni pozíciójáról (szabadalmi bejelentés, védjegy, a konnektor-motor védettsége) sem <span class="ev ev-unknown">UNKNOWN</span>. Ez nem azt jelenti, hogy a kitettség súlyos – azt jelenti, hogy <strong>nincs felmérve</strong>, miközben a teljes moat-állítás ezen a függőségen áll (26. szakasz).</span></li>
       <li><span class="oq-num">06</span><span class="oq-text"><strong>Autodesk platform-gravitációs kockázat – most már felvásárlással is alátámasztva.</strong> A Data Exchange négy hónap alatt három konnektort adott hozzá; egy esetleges Archicad-konnektor ingyenes/bundle-elt lenne, és közvetlenül aláásná a NODU árazását 4-es szinten és alatta. <strong>2026-08-27:</strong> az Autodesk bejelentette, hogy megállapodást kötött a BIMDeX (a SrinSoft Inc. egysége) kiválasztott technológiai eszközeinek és szellemi tulajdonának megvásárlásáról, valamint a fejlesztőcsapat egy részének felvételéről <span class="ev ev-fact">FACT</span> [Autodesk Platform Services blog, „The next chapter of interoperability starts with connected data”, 2026-08-27]. A BIMDeX saját BXF fájlformátumára épülő interoperabilitási platform, amely a Revit, Plant 3D, Civil 3D, AutoCAD MEP, Inventor, Solidworks, PTC Creo és Tekla Structures között cserél adatot, Data Exchange- és ACC-integrációval <span class="ev ev-fact">FACT</span> [AEC Magazine, „Autodesk and SrinSoft partner for interoperability”]. <strong>Archicad vagy Graphisoft egyik forrásban sem szerepel</strong> – sem az Autodesk közleményben, sem az AEC Magazine cikkben, sem a BIMDeX saját oldalán; a NODU beachhead-jét ez az ügylet közvetlenül nem érinti. A hűségi szintre (élő szerkeszthető objektum vs. referenciageometria, 13. szakasz skálája) egyik forrás sem tesz állítást – az Autodesk közlemény kifejezetten minőségi, konnektorlista és architekturális részlet nélkül. A releváns olvasat: ez nem a jelenlegi verseny változása, hanem egy újabb, immár akvizícióval megerősített adatpont ugyanahhoz a mintához, amit ez a kockázati tétel már korábban is azonosított – az Autodesk szervesen (16. szakasz) és most felvásárlással is bővíti az interoperabilitási portfólióját. Nincs bizonyíték arra, hogy a célzás Archicad-irányú lenne; ez a megfigyelt konszolidációs trend folytatása, nem egy konkrét jövőbeli lépés bizonyítéka.</span></li>
       <li><span class="oq-num">07</span><span class="oq-text"><strong>Speckle versenytársi átfedés.</strong> A leghitelesebb meglévő kereskedelmi versenytárs saját elismert gyengesége (Archicad-fogadó eszközök) pontosan a NODU beachhead-je – valós, alátámasztott, közvetlen átfedés, nem hipotetikus fenyegetés.</span></li>
@@ -1749,7 +1754,7 @@
       </summary>
       <div class="acc-body">
         <ul class="qa-list">
-      <li><span class="qa-q">1. Az Archicad↔Revit önmagában értelmes üzlet?</span><span class="qa-a"><strong>Igen</strong> – valós, finanszírozható, 57 M€ alap SAM-mal rendelkező beachhead, a 7. évre reálisan ≈12,4 M€ ARR konzervatív horgonyként, ≈24,8 M€ alapesetben (blendelt ACV-modell, 21. szakasz); önmagában nem egy nagyvállalat.</span></li>
+      <li><span class="qa-q">1. Az Archicad↔Revit önmagában értelmes üzlet?</span><span class="qa-a"><strong>Igen</strong> – valós, finanszírozható, 57 M€ alap SAM-mal rendelkező beachhead, a 2028-as évre (3 éves bootstrap-horizont) reálisan ≈7,48 M€ ARR-t érve (blendelt ACV-modell, 21. szakasz); önmagában nem egy nagyvállalat.</span></li>
       <li><span class="qa-q">2. A Revit-verzióhidalás valódi kereskedelmi terjeszkedés?</span><span class="qa-a">A fájdalom valós és jól alátámasztott; a <strong>kereskedelmi eset nem bizonyított</strong> – a tanulmány legmagasabb értékű elsődleges-kutatási rése.</span></li>
       <li><span class="qa-q">3. A Revit→Archicad kereskedelmileg jelentős?</span><span class="qa-a">Piaci szinten valós, de kisebb, mint az előremenő irány; legjobban a meglévő ügyfeleken belüli terjeszkedésként értelmezhető. <strong>Konkrétan a NODU-ra nézve ez jelenleg tárgytalan: az operátor megerősítette (2026-08-26), hogy ez az irány még nem épült meg.</strong></span></li>
       <li><span class="qa-q">4. Ugyanaz a technológia több forrás-ökoszisztémát is kiszolgálhat?</span><span class="qa-a">Plauzibilis a Tekla/Vectorworks esetében strukturális hasonlóság alapján, de nyilvános bizonyítékokból megválaszolhatatlan – technikai átvilágítási kérdés, nem piaci kérdés.</span></li>
@@ -1776,7 +1781,7 @@
         <span class="acc-chevron" aria-hidden="true"></span>
       </summary>
       <div class="acc-body">
-        <p><strong>A központi stratégiai kérdés közvetlen megválaszolása:</strong> a NODU ma egy <strong>niche Archicad↔Revit konverziós lehetőség, koherens, bizonyíték-konzisztens – de még nem bizonyítékkal igazolt – úttal egy szélesebb interoperabilitási kategória felé.</strong> A niche lehetőség önmagában (57 M€ SAM, reálisan ~12,4 M€ ARR, a 21. szakasz konzervatív, blendelt ACV-alapú olvasata) valós és finanszírozható. A szélesebb-kategória tézis (500 M€–2,3 Md€) két olyan dologtól függ, amelyet a tanulmány nyilvános forrásokból nem tudott igazolni: <strong>(a)</strong> hogy a NODU 5-ös szintű paraméteres rekonstrukciós állítása valós-e, és <strong>(b)</strong> hogy legalább egy terjeszkedési ökoszisztéma (legjobban alátámasztottként a Tekla) valós bevétellé alakul-e.</p>
+        <p><strong>A központi stratégiai kérdés közvetlen megválaszolása:</strong> a NODU ma egy <strong>niche Archicad↔Revit konverziós lehetőség, koherens, bizonyíték-konzisztens – de még nem bizonyítékkal igazolt – úttal egy szélesebb interoperabilitási kategória felé.</strong> A niche lehetőség önmagában (57 M€ SAM, reálisan ~7,48 M€ ARR 2028-ra, a 21. szakasz 3 éves, blendelt ACV-alapú bootstrap-modellje) valós és finanszírozható. A szélesebb-kategória tézis (500 M€–2,3 Md€) két olyan dologtól függ, amelyet a tanulmány nyilvános forrásokból nem tudott igazolni: <strong>(a)</strong> hogy a NODU 5-ös szintű paraméteres rekonstrukciós állítása valós-e, és <strong>(b)</strong> hogy legalább egy terjeszkedési ökoszisztéma (legjobban alátámasztottként a Tekla) valós bevétellé alakul-e.</p>
 
     <div class="roi-highlight">
       <h3 id="ajanlas">Ajánlás</h3>
@@ -1878,30 +1883,22 @@
       </div>
     </div>
 
-    <h3 id="alapeset-arr-egy-lapon">Alapeset ARR-pálya <span class="td-muted" style="font-weight:400;">– blendelt ACV-vel, 21. szakasz</span></h3>
+    <h3 id="alapeset-arr-egy-lapon">Bootstrap ARR-pálya <span class="td-muted" style="font-weight:400;">– blendelt ACV-vel, 2026–2028, 21. szakasz</span></h3>
     <div class="mini-stat-row">
       <div class="mini-stat">
-        <div class="mini-stat-label">1. év</div>
-        <div class="mini-stat-value">≈1,05 M€</div>
+        <div class="mini-stat-label">2026</div>
+        <div class="mini-stat-value">≈0,38 M€</div>
       </div>
       <div class="mini-stat">
-        <div class="mini-stat-label">3. év</div>
-        <div class="mini-stat-value">≈1,78 M€</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-label">5. év</div>
-        <div class="mini-stat-value">≈8,45 M€</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-label">7. év · alapeset</div>
-        <div class="mini-stat-value">≈24,8 M€</div>
+        <div class="mini-stat-label">2027</div>
+        <div class="mini-stat-value">≈2,71 M€</div>
       </div>
       <div class="mini-stat accent">
-        <div class="mini-stat-label">7. év · konzervatív, ajánlott horgony</div>
-        <div class="mini-stat-value">≈12,4 M€</div>
+        <div class="mini-stat-label">2028</div>
+        <div class="mini-stat-value">≈7,48 M€</div>
       </div>
     </div>
-    <p class="source-note">Blendelt ACV-alapú pálya – mindhárom tarifasávot tartalmazza, nincs külön platform-felár hozzáadva (21. szakasz). Nem szerepel fent a 2. évi finanszírozott pálya sem – külön, feltételes forgatókönyv (1000 ügyfél cél, ≈10,5 M€ ARR, ha a befektetés lezárul), a modell eddigi legagresszívabb feltevése; ld. 21. szakasz.</p>
+    <p class="source-note">Blendelt ACV-alapú pálya – mindhárom tarifasávot tartalmazza (60/40 Professional/Studio, felfutó Enterprise/Platform-arány, 2027-től felár egy ügyfélrészre), nincs külön platform-felár hozzáadva a tetejére (21. szakasz). A tanulmány nem tartalmaz bootstrap-előrejelzést 2028 utánra. Nem szerepel fent a finanszírozott alternatív pálya sem – külön, feltételes forgatókönyv (1000 ügyfél cél a 2. évben, ≈10,5 M€ ARR, ha a befektetés lezárul), a modell eddigi legagresszívabb feltevése; ld. 21. szakasz.</p>
 
     <h3 id="fo-versenytarsi-fenyegetesek-top-ot">Fő versenytársi fenyegetések (top öt)</h3>
     <ul class="oq-list">
@@ -1932,7 +1929,7 @@
     <div class="verdict">
       <div class="verdict-label">Végső verdikt</div>
       <div class="verdict-value">Vonzó niche</div>
-      <p>Az 57 M€-os piac és a hozzá tartozó ~12,4 M€-os ARR-plafon (blendelt ACV-alapon) valós és finanszírozható – a technológia működik, a DACH-kereslet valós (liNear), és nincs közvetlen versenytárs. Még nem „kialakulóban lévő kategória” vagy „nagy strukturális kategória” – ehhez egy aláírt külső technikai megerősítés és egy valódi Tekla-üzlet kell, egyik sincs még meg. Mindkettő reálisan elérhető idén, és bármelyik megjelenése ok a verdikt felülvizsgálatára.</p>
+      <p>Az 57 M€-os piac és a hozzá tartozó ~7,48 M€-os ARR-plafon (blendelt ACV-alapon, 2028-as bootstrap-horizont) valós és finanszírozható – a technológia működik, a DACH-kereslet valós (liNear), és nincs közvetlen versenytárs. Még nem „kialakulóban lévő kategória” vagy „nagy strukturális kategória” – ehhez egy aláírt külső technikai megerősítés és egy valódi Tekla-üzlet kell, egyik sincs még meg. Mindkettő reálisan elérhető idén, és bármelyik megjelenése ok a verdikt felülvizsgálatára.</p>
     </div>
 
     <p class="source-note">A jelentés vége. A dokumentum négy fázis-checkpointot szintetizál (<code>01_evidence_base.md</code>, <code>02_interoperability_and_expansion.md</code>, <code>03_market_sizing_and_gtm.md</code>, <code>04_selfcheck_and_investor_test.md</code>), plusz egy ugyanaznapi revíziós checkpointot (<code>05_revision_2026-08-26_technical_and_channel_update.md</code>), amelyek teljes egészében megőrizve a <code>Strategic_Report_Output\checkpoints\</code> mappában, audit céljából.</p>
